@@ -8,13 +8,13 @@ class php::pecl::http::package {
 			y
 			n'",
 			require => [
-				Package["libcurl3-dev"],
+				Package["libcurl4-openssl-dev"],
 				Package["libmagick++-dev"]
 			]
 	}
 
 	package {
-		"libcurl3-dev":
+		"libcurl4-openssl-dev":
 			ensure => installed;
 		"libmagick++-dev":
 			ensure => installed;
