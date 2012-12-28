@@ -8,6 +8,9 @@ class php::pecl::gearman::package {
 					true => Service['apache2'],
 					default => [ ]
 				}
+			],
+			require => [
+				Apt::Source['dotdeb']
 			];
 	}
 

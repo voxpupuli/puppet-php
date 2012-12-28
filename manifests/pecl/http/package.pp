@@ -11,7 +11,7 @@ class php::pecl::http::package {
 				Package["libcurl4-openssl-dev"],
 				Package["libmagick++-dev"],
 				Package['php5-dev']
-			]
+			];
 	}
 
 	package {

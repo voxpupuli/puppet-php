@@ -8,6 +8,9 @@ class php::pecl::mcrypt::package {
 					true => Service['apache2'],
 					default => [ ]
 				}
+			],
+			require => [
+				Apt::Source['dotdeb']
 			];
 	}
 

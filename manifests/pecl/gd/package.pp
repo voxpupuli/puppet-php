@@ -8,6 +8,9 @@ class php::pecl::gd::package {
 					true => Service['apache2'],
 					default => [ ]
 				}
+			],
+			require => [
+				Apt::Source['dotdeb']
 			];
 	}
 

@@ -8,6 +8,9 @@ class php::pecl::curl::package {
 					true => Service['apache2'],
 					default => [ ]
 				}
+			],
+			require => [
+				Apt::Source['dotdeb']
 			];
 	}
 

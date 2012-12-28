@@ -8,6 +8,9 @@ class php::pecl::imagick::package {
 					true => Service['apache2'],
 					default => [ ]
 				}
+			],
+			require => [
+				Apt::Source['dotdeb']
 			];
 	}
 
