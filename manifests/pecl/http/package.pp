@@ -21,4 +21,8 @@ class php::pecl::http::package {
 		-> Package['php5-dev']
 		-> Package['pecl_http']
 
+	if defined(Service['apache2']) {
+		Package["pecl_http"] ~> Service["apache2"]
+	}
+
 }

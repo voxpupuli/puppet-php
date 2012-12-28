@@ -11,28 +11,50 @@ class php::pecl::redis::package {
 	}
 
 	exec {
-		"redis_fetch_source":
+		"redis_fetch":
 			command => "wget https://github.com/nicolasff/phpredis/archive/2.2.2.tar.gz",
 			creates	=> "/opt/php/phpredis/2.2.2.tar.gz",
 			cwd		=> "/opt/php/phpredis";
 
-		"redis_extract_source":
+		"redis_extract":
 			command => "tar zxf 2.2.2.tar.gz",
 			creates	=> "/opt/php/phpredis/phpredis-2.2.2",
 			cwd		=> "/opt/php/phpredis";
 
-		"redis_build_source":
-			command => "phpize && ./configure --enable-redis-igbinary && make install",
+		"redis_phpize":
+			command => "phpize",
+			creates => "/opt/php/phpredis/phpredis-2.2.2/configure",
+			cwd		=> "/opt/php/phpredis/phpredis-2.2.2";
+
+		"redis_configure":
+			command => "bash -c -- ./configure",
+			creates => "/opt/php/phpredis/phpredis-2.2.2/config.status",
+			cwd		=> "/opt/php/phpredis/phpredis-2.2.2";
+
+		"redis_make":
+			command => "make",
+			creates => "/opt/php/phpredis/phpredis-2.2.2/modules/redis.so",
+			cwd		=> "/opt/php/phpredis/phpredis-2.2.2";
+
+		"redis_install":
+			command => "make install",
 			creates => "/usr/lib/php5/20100525/redis.so",
 			cwd		=> "/opt/php/phpredis/phpredis-2.2.2";
 	}
 
-	File["/opt/php"]
+	Package["php5-dev"]
+		-> File["/opt/php"]
 		-> File["/opt/php/phpredis"]
-		-> Exec["redis_fetch_source"]
-		-> Exec["redis_extract_source"]
-		-> Exec["redis_build_source"]
+		-> Exec["redis_fetch"]
+		-> Exec["redis_extract"]
+		-> Exec["redis_phpize"]
+		-> Exec["redis_configure"]
+		-> Exec["redis_make"]
+		-> Exec["redis_install"]
 
-	Apt::Source["dotdeb"] -> Exec["apt_update"] -> Exec["redis_build_source"]
+	if defined(Service['apache2']) {
+		Exec["redis_install"] ~> Service["apache2"]
+	}
+
 
 }

@@ -6,14 +6,13 @@ class php::pecl::uploadprogress::config {
 			group => root,
 			mode => 755,
 			ensure => file,
-			content => 'extension=uploadprogress.so',
-			require => Package["uploadprogress"],
-			notify => [
-				defined(Service['apache2']) ? {
-					true    => Service['apache2'],
-					default => []
-				}
-		];
+			content => 'extension=uploadprogress.so';
+	}
+
+	Package["uploadprogress"] -> File["/etc/php5/conf.d/uploadprogress.ini"]
+
+	if defined(Service['apache2']) {
+		File["/etc/php5/conf.d/uploadprogress.ini"] ~> Service["apache2"]
 	}
 
 }

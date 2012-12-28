@@ -5,6 +5,8 @@ class php::dev::package {
 			ensure => $php_version;
 	}
 
-	Apt::Source["dotdeb"] -> Exec["apt_update"] -> Package["php5-dev"]
+	Apt::Source["dotdeb"]
+		-> Exec["apt_update"]
+		-> Package["php5-dev"]
 
 }

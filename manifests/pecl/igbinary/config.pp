@@ -10,7 +10,7 @@ class php::pecl::igbinary::config {
 	}
 
 
-	File["/etc/php5/conf.d/igbinary.ini"] -> Package["igbinary"]
+	Package["igbinary"] -> File["/etc/php5/conf.d/igbinary.ini"]
 
 	if defined(Service["apache2"]) {
 		File["/etc/php5/conf.d/igbinary.ini"] ~> Service["apache2"]

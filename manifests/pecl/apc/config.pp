@@ -21,9 +21,10 @@ class php::pecl::apc::config {
 			]
 	}
 
-	Augeas["php-apc"] -> Package['php5-apc']
+	Package['php5-apc'] -> Augeas["php-apc"]
 
 	if defined(Service['apache2']) {
 		Augeas["php-apc"] ~> Service['apache2']
 	}
+
 }

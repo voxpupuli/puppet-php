@@ -9,8 +9,7 @@ class php::pecl::redis::config {
             ensure  => 'file';
     }
 
-
-    File["/etc/php5/conf.d/redis.ini"] -> Exec["redis_build_source"]
+    Exec["redis_install"] -> File["/etc/php5/conf.d/redis.ini"]
 
     if defined(Service["apache2"]) {
         File["/etc/php5/conf.d/redis.ini"] ~> Service["apache2"]
