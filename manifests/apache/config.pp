@@ -18,9 +18,10 @@ class php::apache::config {
 				"set 'PHP/output_buffering' '4096'",
 				"set 'PHP/output_handler' 'Off'",
 	            "set 'Date/date.timezone' 'UTC'",
-	        ],
-	        require => Package["libapache2-mod-php5"],
-	        notify => Service["apache2"],
+	        ];
 	    }
+
+	   Augeas["Tweak apache2 php.ini settings"] -> Service["apache2"] -> Package["libapache2-mod-php5"]
+	   Augeas["Tweak apache2 php.ini settings"] ~> Service["apache2"]
 
 }
