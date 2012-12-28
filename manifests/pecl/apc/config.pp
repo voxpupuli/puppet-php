@@ -18,16 +18,12 @@ class php::pecl::apc::config {
 				"set .anon/apc.user_entries_hint 40960",
 				"set .anon/apc.file_update_protection 1",
 				"set .anon/apc.enable_cli 0"
-			],
-			require => [
-				Package['php5-apc']
-			],
-			notify => [
-				defined(Service['apache2']) ? {
-					true => Service['apache2'],
-					default => []
-				}
 			]
-		}
+	}
 
+	Augeas["php-apc"] -> Package['php5-apc']
+
+	if defined(Service['apache2']) {
+		Augeas["php-apc"] ~> Service['apache2']
+	}
 }

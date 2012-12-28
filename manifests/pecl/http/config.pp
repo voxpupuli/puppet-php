@@ -16,4 +16,10 @@ class php::pecl::http::config {
 		];
 	}
 
+	Package["pecl_http"] -> File["/etc/php5/conf.d/http.ini"]
+
+	if defined(Service["apache2"]) {
+		File["/etc/php5/conf.d/http.ini"] ~> Service["apache2"]
+	}
+
 }

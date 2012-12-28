@@ -21,7 +21,7 @@ class php::apache::config {
 	        ];
 	    }
 
-	   Augeas["Tweak apache2 php.ini settings"] -> Service["apache2"] -> Package["libapache2-mod-php5"]
+	   Augeas["Tweak apache2 php.ini settings"] -> Package["libapache2-mod-php5"]
 	   Augeas["Tweak apache2 php.ini settings"] ~> Service["apache2"]
 
 }

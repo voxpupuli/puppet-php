@@ -6,14 +6,14 @@ class php::pecl::igbinary::config {
 			group => root,
 			mode => 755,
 			ensure => file,
-			content => 'extension=igbinary.so',
-			require => Package["igbinary"],
-			notify => [
-				defined(Service['apache2']) ? {
-					true    => Service['apache2'],
-					default => []
-				}
-		];
+			content => 'extension=igbinary.so';
+	}
+
+
+	File["/etc/php5/conf.d/igbinary.ini"] -> Package["igbinary"]
+
+	if defined(Service["apache2"]) {
+		File["/etc/php5/conf.d/igbinary.ini"] ~> Service["apache2"]
 	}
 
 }
