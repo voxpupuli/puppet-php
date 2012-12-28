@@ -5,9 +5,10 @@ class php::apache::package {
         	ensure  => $php_version,
         	alias   => 'mod_php5',
         	require => [
-        		Package['apache2'],
-				Apt::Source['dotdeb']
+        		Package['apache2']
         	];
     }
+
+	Apt::Source["dotdeb"] -> Exec["apt_update"] -> Package["libapache2-mod-php5"]
 
 }

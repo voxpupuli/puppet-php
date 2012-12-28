@@ -28,10 +28,13 @@ class php::pecl::redis::package {
 			command => "phpize && ./configure --enable-redis-igbinary && make install",
 			require => [
 				Exec["redis_extract_source"],
-				Package['php5-dev']
+				Package['php5-dev'],
+				Class['php']
 			],
 			creates => "/usr/lib/php5/20100525/redis.so",
 			cwd		=> "/opt/php/phpredis/phpredis-2.2.2",
-		}
+	}
+
+	Apt::Source["dotdeb"] -> Exec["apt_update"] -> Exec["redis_build_source"]
 
 }

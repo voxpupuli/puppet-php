@@ -8,10 +8,9 @@ class php::pecl::mcrypt::package {
 					true => Service['apache2'],
 					default => [ ]
 				}
-			],
-			require => [
-				Apt::Source['dotdeb']
 			];
 	}
+
+	Apt::Source["dotdeb"] -> Exec["apt_update"] -> Package["php5-mcrypt"]
 
 }

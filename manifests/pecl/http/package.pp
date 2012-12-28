@@ -10,7 +10,7 @@ class php::pecl::http::package {
 			require => [
 				Package["libcurl4-openssl-dev"],
 				Package["libmagick++-dev"],
-				Package['php5-dev']
+				Package['php5-dev'],
 			];
 	}
 
@@ -20,5 +20,7 @@ class php::pecl::http::package {
 		"libmagick++-dev":
 			ensure => installed;
 	}
+
+	Apt::Source["dotdeb"] -> Exec["apt_update"] -> Package["pecl_http"]
 
 }

@@ -8,10 +8,9 @@ class php::pecl::ssh2::package {
 					true => Service['apache2'],
 					default => [ ]
 				}
-			],
-			require => [
-				Apt::Source['dotdeb']
 			];
 	}
+
+	Apt::Source["dotdeb"] -> Exec["apt_update"] -> Package["php5-ssh2"]
 
 }
