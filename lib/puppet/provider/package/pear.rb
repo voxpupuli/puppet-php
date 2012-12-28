@@ -65,7 +65,7 @@ Puppet::Type.type(:package).provide :pear, :parent => Puppet::Provider::Package 
         :ensure => version
       }
     else
-      Puppet.warning "Could not match %s" % desc
+      Puppet.warning "Could not match %s (You may not have any packages installed, so this is okay)" % desc
       nil
     end
   end
