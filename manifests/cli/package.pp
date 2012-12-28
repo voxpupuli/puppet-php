@@ -6,6 +6,11 @@ class php::cli::package {
 			require => [
 				Apt::Source['dotdeb']
 			];
+		'php5':
+			ensure  => $php_version,
+			require => [
+				Apt::Source['dotdeb']
+			];
     }
 
 }

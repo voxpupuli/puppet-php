@@ -5,13 +5,16 @@ class php::pecl::redis::config {
             owner   => 'root',
             group   => 'root',
             mode    => 644,
+            ensure  => 'file',
+            require => [
+              Package['php5']
+            ],
             notify => [
                defined(Service['apache2']) ? {
                     true    => Service['apache2'],
                     default => []
                }
-       ],
-        ensure  => 'file';
+       ];
     }
 
 }
