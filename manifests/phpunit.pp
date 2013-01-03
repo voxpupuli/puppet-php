@@ -8,8 +8,7 @@ class php::phpunit {
 
 	exec {
 		"pear auto_discover":
-			command => "pear config-set auto_discover 1 system",
-			refreshonly => true;
+			command => "pear config-set auto_discover 1 system";
 	}
 
 	Package["php-pear"]
