@@ -6,7 +6,8 @@ class php::pecl::xdebug::config {
 			group => root,
 			mode => 755,
 			ensure => file,
-			content => 'zend_extension="/usr/lib/php5/20100525/xdebug.so"';
+			content => 'zend_extension="/usr/lib/php5/20100525/xdebug.so"
+			xdebug.max_nesting_level=1000';
 	}
 
 	Package["xdebug"] -> File["/etc/php5/conf.d/xdebug.ini"]
