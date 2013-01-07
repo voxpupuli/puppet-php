@@ -56,5 +56,4 @@ class php::pecl::redis::package {
 		Exec["redis_install"] ~> Service["apache2"]
 	}
 
-
 }
