@@ -2,7 +2,7 @@ class php::phpunit {
 
 	package {
 		"pear.phpunit.de/PHPUnit":
-			ensure 		=> "3.7.11",
+			ensure 		=> "3.7.12",
 			provider	=> "pear";
 	}
 
