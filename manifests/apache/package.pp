@@ -7,7 +7,7 @@ class php::apache::package {
     }
 
 	Apt::Source["dotdeb"]
-		-> Exec["apt_update"]
+		~> Exec["apt_update"]
 		-> Package["apache2"]
 		-> Package["libapache2-mod-php5"]
 

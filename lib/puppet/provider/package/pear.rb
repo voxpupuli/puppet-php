@@ -16,13 +16,18 @@ Puppet::Type.type(:package).provide :pear, :parent => Puppet::Provider::Package 
   end
 
   def self.pearlist(hash)
-    command = [command(:pearcmd), "list"]
+    command = [command(:pearcmd), "list", "-a"]
 
     begin
+      channel = "pear"
       list = execute(command).collect do |set|
+        if match = /INSTALLED PACKAGES, CHANNEL (.*):/.match(set)
+          channel = match[1].downcase
+        end
+
         if hash[:justme]
           if  set =~ /^hash[:justme]/
-            if pearhash = pearsplit(set)
+            if pearhash = pearsplit(set, channel)
               pearhash[:provider] = :pear
               pearhash
             else
@@ -32,15 +37,16 @@ Puppet::Type.type(:package).provide :pear, :parent => Puppet::Provider::Package 
             nil
           end
         else
-          if pearhash = pearsplit(set)
+          if pearhash = pearsplit(set, channel)
             pearhash[:provider] = :pear
             pearhash
           else
             nil
           end
         end
+      end
 
-      end.reject { |p| p.nil? }
+      list = list.reject { |p| p.nil? }
     rescue Puppet::ExecutionFailure => detail
       raise Puppet::Error, "Could not list pears: %s" % detail
     end
@@ -52,20 +58,26 @@ Puppet::Type.type(:package).provide :pear, :parent => Puppet::Provider::Package 
     end
   end
 
-  def self.pearsplit(desc)
+  def self.pearsplit(desc, channel)
+    desc = desc.strip!
+    if desc == "(no packages installed)"
+      return nil
+    end
+
     case desc
-    when /^INSTALLED/: return nil
-    when /^=/: return nil
-    when /^PACKAGE/: return nil
-    when /^(\S+)\s+([.\d]+)\s+\S+\n/
-      name = $1
-      version = $2
-      return {
-        :name => name,
-        :ensure => version
+      when /^$/: return nil
+      when /^INSTALLED/: return nil
+      when /^=/: return nil
+      when /^PACKAGE/: return nil
+      when /^(\S+)\s+([.\d]+)\s+\S+/:
+        name = $1
+        version = $2
+        return {
+          :name => "#{channel}/#{name}",
+          :ensure => version
       }
     else
-      Puppet.warning "Could not match %s (You may not have any packages installed, so this is okay)" % desc
+      Puppet.warning "Could not match '%s'" % desc
       nil
     end
   end
@@ -83,7 +95,6 @@ Puppet::Type.type(:package).provide :pear, :parent => Puppet::Provider::Package 
       command << source
     else
       if (! @resource.should(:ensure).is_a? Symbol) and useversion
-#        command << "-f"
         command << "#{@resource[:name]}-#{@resource.should(:ensure)}"
       else
         command << @resource[:name]

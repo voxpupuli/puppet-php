@@ -5,7 +5,9 @@ class php::pecl::gd::package {
 			ensure  => $php_version;
 	}
 
-	Apt::Source["dotdeb"] -> Exec["apt_update"] -> Package["php5-gd"]
+	Apt::Source["dotdeb"]
+		~> Exec["apt_update"]
+		-> Package["php5-gd"]
 
 	if defined(Service['apache2']) {
 		Package["php5-gd"] ~> Service["apache2"]

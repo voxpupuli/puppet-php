@@ -5,6 +5,8 @@ class php::pear::package {
 			ensure => $php_version;
 	}
 
-	Apt::Source["dotdeb"] -> Exec["apt_update"] -> Package["php-pear"]
+	Apt::Source["dotdeb"]
+		~> Exec["apt_update"]
+		-> Package["php-pear"]
 
 }

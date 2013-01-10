@@ -7,7 +7,7 @@ class php::pecl::xdebug::package {
 	}
 
 	Apt::Source["dotdeb"]
-		-> Exec["apt_update"]
+		~> Exec["apt_update"]
 		-> Package["php5-dev"]
 		-> Package["xdebug"]
 

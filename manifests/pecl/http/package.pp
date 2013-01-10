@@ -15,7 +15,7 @@ class php::pecl::http::package {
 	}
 
 	Apt::Source["dotdeb"]
-		-> Exec["apt_update"]
+		~> Exec["apt_update"]
 		-> Package['libcurl4-openssl-dev']
 		-> Package['libmagick++-dev']
 		-> Package['php5-dev']
