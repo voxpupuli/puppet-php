@@ -31,9 +31,9 @@ class php::pecl::http::package {
   package { 'pecl_http':
     ensure   => installed,
     provider => pecl,
-    pipe     => 'echo 'y
+    pipe     => 'echo "y
     y
-    n'';
+    n"';
   }
 
   package { ['libcurl4-openssl-dev', 'libmagick++-dev']:
