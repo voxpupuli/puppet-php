@@ -17,11 +17,11 @@ or simply clone the repository in your `module_path` (the folder must be named *
 
 ### Providers
 
-The module provides a `pear` and `pecl` provider 
+The module provides a `pear` and `pecl` provider
 
 I've not coded them from scratch, but modified them heavily to make them more optimized and feature rich
 
-Pear example: 
+Pear example:
 
 ```
 package { "pear.phpunit.de/PHPUnit":
@@ -51,15 +51,15 @@ The following modules are supported by default:
 * curl
 * gd
 * gearman
-* http
-* igbinary
+* http (with optinal configuration)
+* igbinary (with optinal configuration)
 * imagick
 * mcrypt
 * mysql
-* redis
+* redis (with optinal configuration)
 * ssh2
-* uploadprogress
-* xdebug
+* uploadprogress (with optinal configuration)
+* xdebug (with optinal configuration)
 
 each of them are located in the `php::pecl` namespace
 
@@ -67,5 +67,5 @@ each of them are located in the `php::pecl` namespace
 
 The following PHP related packages come build in too
 
-* Composer
-* phpunit
+* Composer (php::composer)
+* phpunit (php::phpunit)
