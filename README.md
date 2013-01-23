@@ -7,6 +7,14 @@ Right now only supports dotdeb on debian squeeze, should be fairly easy to modif
 
 Puppet forge URL: http://forge.puppetlabs.com/nodes/php
 
+### Installation
+
+```
+puppet module install nodes/php
+```
+
+or simply clone the repository in your `module_path` (the folder must be named **php**)
+
 ### Providers
 
 The module provides a `pear` and `pecl` provider 
