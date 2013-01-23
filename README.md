@@ -47,19 +47,19 @@ By default the module comes with support for mod_php (`libapache2-mod-php5`) and
 
 The following modules are supported by default:
 
-* apc (with optinal configuration)
+* apc (with optional configuration)
 * curl
 * gd
 * gearman
-* http (with optinal configuration)
-* igbinary (with optinal configuration)
+* http (with optional configuration)
+* igbinary (with optional configuration)
 * imagick
 * mcrypt
 * mysql
-* redis (with optinal configuration)
+* redis (with optional configuration)
 * ssh2
-* uploadprogress (with optinal configuration)
-* xdebug (with optinal configuration)
+* uploadprogress (with optional configuration)
+* xdebug (with optional configuration)
 
 each of them are located in the `php::pecl` namespace
 
