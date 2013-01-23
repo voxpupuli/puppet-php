@@ -1,30 +1,50 @@
-class php::apache::config {
+# == Class: php::apache::config
+#
+# PHP apache SAPI configuration
+#
+# Wrapper for php::config which will change augeas settings in the right
+# SAPI php.ini
+#
+# The *$name* of the php::apache::config call is used as key inside the
+# augeas call. For list of valid values run augtool /files/etc/php5/apache2/php.ini
+#
+# === Parameters
+#
+# [*value*]
+#   The php.ini setting value
+#
+# === Variables
+#
+# No variables
+#
+# === Examples
+#
+#  php::apache::config { "PHP/short_open_tag": value => 'Off' }
+#
+# === Authors
+#
+# Christian Winther <cw@nodes.dk>
+#
+# === Copyright
+#
+# Copyright 2012-2013 Nodes, unless otherwise noted.
+#
+define php::apache::config($value) {
 
-	augeas {
-		"Tweak apache2 php.ini settings":
-	        context => "/files/etc/php5/apache2/php.ini",
-	        changes => [
-	            "set 'PHP/short_open_tag' 'Off",
-	            "set 'PHP/asp_tags' 'Off",
-	            "set 'PHP/expose_php' 'Off",
-	            "set 'PHP/memory_limit' '256M",
-	            "set 'PHP/display_errors' 'Off",
-	            "set 'PHP/log_errors' 'On",
-	            "set 'PHP/post_max_size' '500M",
-	            "set 'PHP/max_execution_time' '600'",
-	            "set 'PHP/upload_max_filesize' '500M'",
-	            "set 'PHP/allow_url_include' 'Off'",
-	            "set 'PHP/error_log' 'syslog'",
-				"set 'PHP/output_buffering' '4096'",
-				"set 'PHP/output_handler' 'Off'",
-	            "set 'Date/date.timezone' 'UTC'",
-	        ];
-	    }
+	$notify = [
+		Service['apache2']
+	]
 
-		Package["libapache2-mod-php5"] -> Augeas["Tweak apache2 php.ini settings"]
+	$require = [
+		Package['libapache2-mod-php5']
+	]
 
-		if defined(Service['apache2']) {
-			Augeas["Tweak apache2 php.ini settings"] ~> Service["apache2"]
-		}
+	php::config { "apache/$name":
+		sapi 	=> 'apache2',
+		notify 	=> $notify,
+		require => $require,
+		key		=> $name,
+		value 	=> $value;
+	}
 
 }

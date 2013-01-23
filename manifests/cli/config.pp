@@ -1,24 +1,50 @@
-class php::cli::config {
+# == Class: php::cli::config
+#
+# PHP cli SAPI configuration
+#
+# Wrapper for php::config which will change augeas settings in the right
+# SAPI php.ini
+#
+# The *$name* of the php::cli::config call is used as key inside the
+# augeas call. For list of valid values run augtool /files/etc/php5/cli/php.ini
+#
+# === Parameters
+#
+# [*value*]
+#   The php.ini setting value
+#
+# === Variables
+#
+# No variables
+#
+# === Examples
+#
+#  php::cli::config { "PHP/short_open_tag": value => 'Off' }
+#
+# === Authors
+#
+# Christian Winther <cw@nodes.dk>
+#
+# === Copyright
+#
+# Copyright 2012-2013 Nodes, unless otherwise noted.
+#
+define php::cli::config($value) {
 
-    augeas {
-        "Tweak cli php.ini settings":
-            context => "/files/etc/php5/cli/php.ini",
-            changes => [
-                "set 'PHP/short_open_tag' 'Off",
-                "set 'PHP/asp_tags' 'Off",
-                "set 'PHP/expose_php' 'Off",
-                "set 'PHP/memory_limit' '1G",
-                "set 'PHP/display_errors' 'On",
-                "set 'PHP/log_errors' 'On",
-                "set 'PHP/post_max_size' '100M",
-                "set 'PHP/max_execution_time' '600'",
-                "set 'PHP/upload_max_filesize' '100M'",
-                "set 'PHP/allow_url_include' 'Off'",
-                "set 'PHP/error_log' 'syslog'",
-                "set 'Date/date.timezone' 'UTC'",
-            ];
+    $notify = [
+
+    ]
+
+    $require = [
+        Package['php5-cli']
+    ]
+
+    php::config { "cli/$name":
+        sapi    => 'cli',
+        notify  => $notify,
+        require => $require,
+        key     => $name,
+        value   => $value;
     }
-
-    Package["php5-cli"] -> Augeas["Tweak cli php.ini settings"]
 
 }
