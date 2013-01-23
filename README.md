@@ -5,6 +5,8 @@ Puppet module to manage PHP on debian using dotdeb apt repository
 
 Right now only supports dotdeb on debian squeeze, should be fairly easy to modify if needed though
 
+Puppet forge URL: http://forge.puppetlabs.com/nodes/php
+
 ### Providers
 
 The module provides a `pear` and `pecl` provider 
