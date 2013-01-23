@@ -17,8 +17,8 @@ Pear example:
 
 ```
 package { "pear.phpunit.de/PHPUnit":
-  	ensure 		=> "3.7.12",
-		provider	=> pear;
+  	ensure 	 => "3.7.12",
+	provider => pear;
 }
 ```
 
@@ -26,8 +26,8 @@ Pecl example:
 
 ```
 package { "igbinary":
-		ensure   => installed,
-		provider => pecl;
+	ensure   => installed,
+	provider => pecl;
 }
 ```
 
