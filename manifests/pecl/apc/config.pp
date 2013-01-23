@@ -25,7 +25,8 @@
 class php::pecl::apc::config {
 
   augeas { 'php-apc':
-    context => '/files/etc/php5/conf.d/20-apc.ini',
+    incl  => '/etc/php5/conf.d/20-apc.ini',
+    lens  => 'php.lns',
     changes => [
       'set .anon/apc.enabled 1',
       'set .anon/apc.cache_by_default 1',

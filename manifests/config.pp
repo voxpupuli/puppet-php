@@ -32,7 +32,8 @@
 define php::config($key, $value, $sapi) {
 
   augeas { "php/${sapi}/${key}":
-    context => "/files/etc/php5/${sapi}/php.ini",
+    lens  => 'php.lns',
+    incl  => "/etc/php5/${sapi}/php.ini",
     changes => [
       "set '${key}' '${value}'"
     ];
