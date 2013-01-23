@@ -24,6 +24,6 @@
 #
 class php::composer {
 
-	include php::composer::package
+  include php::composer::package
 
 }

@@ -24,6 +24,6 @@
 #
 class php::pear {
 
-	include php::pear::package
+  include php::pear::package
 
 }

@@ -25,6 +25,6 @@
 #
 class php::pecl::gearman {
 
-	include php::pecl::gearman::package
+  include php::pecl::gearman::package
 
 }

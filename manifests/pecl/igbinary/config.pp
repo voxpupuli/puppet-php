@@ -24,18 +24,18 @@
 #
 class php::pecl::igbinary::config {
 
-	file { '/etc/php5/conf.d/igbinary.ini':
-		owner => root,
-		group => root,
-		mode => 755,
-		ensure => file,
-		content => 'extension=igbinary.so';
-	}
+  file { '/etc/php5/conf.d/igbinary.ini':
+    ensure  => file,
+    owner   => root,
+    group   => root,
+    mode    => '0755',
+    content => 'extension=igbinary.so';
+  }
 
-	Package["igbinary"] -> File["/etc/php5/conf.d/igbinary.ini"]
+  Package['igbinary'] -> File['/etc/php5/conf.d/igbinary.ini']
 
-	if defined(Service["apache2"]) {
-		File["/etc/php5/conf.d/igbinary.ini"] ~> Service["apache2"]
-	}
+  if defined(Service['apache2']) {
+    File['/etc/php5/conf.d/igbinary.ini'] ~> Service['apache2']
+  }
 
 }

@@ -31,20 +31,20 @@
 #
 define php::cli::config($value) {
 
-    $notify = [
+  $notify = [
 
-    ]
+  ]
 
-    $require = [
-        Package['php5-cli']
-    ]
+  $require = [
+    Package['php5-cli']
+  ]
 
-    php::config { "cli/$name":
-        sapi    => 'cli',
-        notify  => $notify,
-        require => $require,
-        key     => $name,
-        value   => $value;
-    }
+  php::config { "cli/${name}":
+    sapi    => 'cli',
+    notify  => $notify,
+    require => $require,
+    key     => $name,
+    value   => $value;
+  }
 
 }

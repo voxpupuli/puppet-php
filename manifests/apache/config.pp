@@ -6,7 +6,9 @@
 # SAPI php.ini
 #
 # The *$name* of the php::apache::config call is used as key inside the
-# augeas call. For list of valid values run augtool /files/etc/php5/apache2/php.ini
+# augeas call.
+#
+# For list of valid values run augtool /files/etc/php5/apache2/php.ini
 #
 # === Parameters
 #
@@ -31,20 +33,20 @@
 #
 define php::apache::config($value) {
 
-	$notify = [
-		Service['apache2']
-	]
+  $notify = [
+    Service['apache2']
+  ]
 
-	$require = [
-		Package['libapache2-mod-php5']
-	]
+  $require = [
+    Package['libapache2-mod-php5']
+  ]
 
-	php::config { "apache/$name":
-		sapi 	=> 'apache2',
-		notify 	=> $notify,
-		require => $require,
-		key		=> $name,
-		value 	=> $value;
-	}
+  php::config { "apache/${name}":
+    sapi    => 'apache2',
+    notify  => $notify,
+    require => $require,
+    key     => $name,
+    value   => $value;
+  }
 
 }

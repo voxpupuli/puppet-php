@@ -26,6 +26,6 @@
 #
 class php {
 
-	include php::apt
+  include php::apt
 
 }

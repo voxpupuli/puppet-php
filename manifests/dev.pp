@@ -27,6 +27,6 @@
 #
 class php::dev {
 
-	include php::dev::package
+  include php::dev::package
 
 }

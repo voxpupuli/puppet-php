@@ -24,18 +24,18 @@
 #
 class php::pecl::redis::config {
 
-    file { '/etc/php5/conf.d/redis.ini':
-        content => 'extension=redis.so',
-        owner   => 'root',
-        group   => 'root',
-        mode    => 644,
-        ensure  => 'file';
-    }
+  file { '/etc/php5/conf.d/redis.ini':
+    ensure  => file,
+    mode    => '0644',
+    content => 'extension=redis.so',
+    owner   => root,
+    group   => root;
+  }
 
-    Exec["redis_install"] -> File["/etc/php5/conf.d/redis.ini"]
+  Exec['redis_install'] -> File['/etc/php5/conf.d/redis.ini']
 
-    if defined(Service["apache2"]) {
-        File["/etc/php5/conf.d/redis.ini"] ~> Service["apache2"]
-    }
+  if defined(Service['apache2']) {
+    File['/etc/php5/conf.d/redis.ini'] ~> Service['apache2']
+  }
 
 }
