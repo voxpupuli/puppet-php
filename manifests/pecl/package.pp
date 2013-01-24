@@ -23,34 +23,32 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-define php::pecl::package {
-  include php::params
+define php::pecl::package(
+  $version,
+  $package,
+  $provider,
+  $pipe = undef
+) {
 
-  $mod = $name
-  $extensions = $php::params::extensions
-  $extension = $extensions[$mod]
-
-  $package_name = $extension['package']
-  $provider_name = $extension['provider']
-
-  if $provider_name == 'pecl' {
-    package { $package_name:
-      ensure   => $php::params::php_version,
-      provider => $provider_name,
-      pipe     => $extension['pipe'];
+  if $provider == 'pecl' {
+    package { $package:
+      ensure   => $version,
+      provider => $provider,
+      pipe     => $pipe;
     }
   } else {
-    package { $package_name:
-      ensure   => $php::params::php_version,
-      provider => $provider_name;
+    package { $package:
+      ensure   => $version,
+      provider => $provider;
     }
   }
 
-  if $extension['require'] {
-    $extension['require'] -> Package[$package_name]
+  if $require {
+    $require -> Package[$package]
   }
 
-  if $extension['notify'] {
-    Package[$package_name] ~> $extension['notify']
+  if $notify {
+    Package[$package] ~> $notify
   }
+
 }

@@ -23,9 +23,14 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::pecl::apc {
+class php::pecl::apc(
+	$version = $php::params::version
+) inherits php::params {
 
-  include php::pecl::apc::package
-  include php::pecl::apc::config
+  class { 'php::pecl::apc::package':
+  	version => $version
+  }
+
+  class { 'php::pecl::apc::config': }
 
 }
