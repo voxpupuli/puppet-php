@@ -23,8 +23,14 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::pecl::curl {
+class php::pecl::curl(
+	$version = $php::params::version
+) inherits php::params {
 
-  include php::pecl::curl::package
+  class { 'php::pecl::curl::package':
+  	version => $version
+  }
+
+  class { 'php::pecl::curl::config': }
 
 }
