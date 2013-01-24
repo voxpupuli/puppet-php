@@ -1,3 +1,48 @@
+# == Class: php::pecl::apc::params
+#
+# Defaults file for APC extension
+#
+# === Parameters
+#
+# No parameters
+#
+# === Variables
+#
+# [*version*]
+#   The version of APC to install
+#   Could be "latest", "installed" or a pinned verison
+#
+# [*package*]
+#   The package name for apc
+#   For debian it's php5-apc
+#
+# [*provider*]
+#   The provider used to install php5-apc
+#   Could be "pecl", "apt" or any other OS package provider
+#
+# [*config_file*]
+#   The path to the ini php5-apc ini file
+#
+# [*config_changes*]
+#   Hash with 'set' nested hash of key => value
+#   set changes to agues when applied to *config_file*
+#
+# === Examples
+#
+#  include 'php::pecl::apc::package'
+#
+#  class {'php::pecl::apc::package':
+#   version => latest
+#  }
+#
+# === Authors
+#
+# Christian Winther <cw@nodes.dk>
+#
+# === Copyright
+#
+# Copyright 2012-2013 Nodes, unless otherwise noted.
+#
 class php::pecl::apc::params {
 
   $version        = $php::params::version

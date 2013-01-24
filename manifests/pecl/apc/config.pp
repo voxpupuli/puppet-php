@@ -4,7 +4,12 @@
 #
 # === Parameters
 #
-# No parameters
+# [*config_file*]
+#   The path to the ini php5-apc ini file
+#
+# [*config_changes*]
+#	Hash with 'set' nested hash of key => value
+#	set changes to agues when applied to *config_file*
 #
 # === Variables
 #
