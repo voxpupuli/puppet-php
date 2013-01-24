@@ -1,6 +1,6 @@
 # == Class: php::pecl::mysql
 #
-# Install the mysql PHP extension
+# Install and configure the mysql PHP extension
 #
 # === Parameters
 #
@@ -23,8 +23,14 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::pecl::mysql {
+class php::pecl::mysql(
+	$version = $php::params::version
+) inherits php::params {
 
-  include php::pecl::mysql::package
+  class { 'php::pecl::mysql::package':
+  	version => $version
+  }
+
+  class { 'php::pecl::mysql::config': }
 
 }

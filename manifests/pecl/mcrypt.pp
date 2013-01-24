@@ -1,6 +1,6 @@
 # == Class: php::pecl::mcrypt
 #
-# Install the mcrypt PHP extension
+# Install and configure the mcrypt PHP extension
 #
 # === Parameters
 #
@@ -23,8 +23,14 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::pecl::mcrypt {
+class php::pecl::mcrypt(
+	$version = $php::params::version
+) inherits php::params {
 
-  include php::pecl::mcrypt::package
+  class { 'php::pecl::mcrypt::package':
+  	version => $version
+  }
+
+  class { 'php::pecl::mcrypt::config': }
 
 }
