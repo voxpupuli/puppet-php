@@ -4,7 +4,12 @@
 #
 # === Parameters
 #
-# No parameters
+# [*config_file*]
+#   The path to the ini php5-igbinary ini file
+#
+# [*config_changes*]
+# Hash with 'set' nested hash of key => value
+# set changes to agues when applied to *config_file*
 #
 # === Variables
 #
@@ -22,20 +27,15 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::pecl::igbinary::config {
+class php::pecl::igbinary::config(
+  $config_file    = $php::pecl::igbinary::params::config_file,
+  $config_changes = $php::pecl::igbinary::params::config_changes
+) inherits php::pecl::igbinary::params {
 
-  file { '/etc/php5/conf.d/igbinary.ini':
-    ensure  => file,
-    owner   => root,
-    group   => root,
-    mode    => '0755',
-    content => 'extension=igbinary.so';
-  }
-
-  Package['igbinary'] -> File['/etc/php5/conf.d/igbinary.ini']
-
-  if defined(Service['apache2']) {
-    File['/etc/php5/conf.d/igbinary.ini'] ~> Service['apache2']
+  php::pecl::config { 'igbinary':
+    extension       => 'igbinary',
+    config_file     => $config_file,
+    config_changes  => $config_changes
   }
 
 }

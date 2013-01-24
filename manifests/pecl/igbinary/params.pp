@@ -1,8 +1,12 @@
-# == Class: php::pecl::igbinary::package
+# == Class: php::pecl::igbinary::params
 #
-# Install the PHP igbinary extension
+# Defaults file for igbinary extension
 #
 # === Parameters
+#
+# No parameters
+#
+# === Variables
 #
 # [*version*]
 #   The version of igbinary to install
@@ -16,9 +20,12 @@
 #   The provider used to install php5-igbinary
 #   Could be "pecl", "apt" or any other OS package provider
 #
-# === Variables
+# [*config_file*]
+#   The path to the ini php5-igbinary ini file
 #
-# No variables
+# [*config_changes*]
+#   Hash with 'set' nested hash of key => value
+#   set changes to agues when applied to *config_file*
 #
 # === Examples
 #
@@ -36,16 +43,16 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::pecl::igbinary::package(
-  $version  = $php::pecl::igbinary::params::version,
-  $package  = $php::pecl::igbinary::params::package,
-  $provider = $php::pecl::igbinary::params::provider
-) inherits php::pecl::igbinary::params {
+class php::pecl::igbinary::params {
 
-  php::pecl::package { 'igbinary':
-    version  => $version,
-    package  => $package,
-    provider => $provider
+  $version        = $php::params::version
+  $package        = 'igbinary'
+  $provider       = 'pecl'
+  $config_file    = '/etc/php5/conf.d/igbinary.ini'
+  $config_changes = {
+    set => {
+      '.anon/extension' => 'igbinary.so'
+    }
   }
 
 }

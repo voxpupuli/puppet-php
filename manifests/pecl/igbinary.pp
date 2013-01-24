@@ -23,9 +23,14 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::pecl::igbinary {
+class php::pecl::igbinary(
+	$version = $php::params::version
+) inherits php::params {
 
-  include php::pecl::igbinary::package
-  include php::pecl::igbinary::config
+  class { 'php::pecl::igbinary::package':
+  	version => $version
+  }
+
+  class { 'php::pecl::igbinary::config': }
 
 }
