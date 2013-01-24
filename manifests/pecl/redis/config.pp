@@ -4,7 +4,12 @@
 #
 # === Parameters
 #
-# No parameters
+# [*config_file*]
+#   The path to the ini php5-redis ini file
+#
+# [*config_changes*]
+# Hash with 'set' nested hash of key => value
+# set changes to agues when applied to *config_file*
 #
 # === Variables
 #
@@ -22,20 +27,15 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::pecl::redis::config {
+class php::pecl::redis::config(
+  $config_file    = $php::pecl::redis::params::config_file,
+  $config_changes = $php::pecl::redis::params::config_changes
+) inherits php::pecl::redis::params {
 
-  file { '/etc/php5/conf.d/redis.ini':
-    ensure  => file,
-    mode    => '0644',
-    content => 'extension=redis.so',
-    owner   => root,
-    group   => root;
-  }
-
-  Exec['redis_install'] -> File['/etc/php5/conf.d/redis.ini']
-
-  if defined(Service['apache2']) {
-    File['/etc/php5/conf.d/redis.ini'] ~> Service['apache2']
+  php::pecl::config { 'redis':
+    extension       => 'redis',
+    config_file     => $config_file,
+    config_changes  => $config_changes
   }
 
 }

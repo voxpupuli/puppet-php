@@ -23,9 +23,14 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::pecl::redis {
+class php::pecl::redis(
+	$version = $php::pecl::redis::params::version
+) inherits php::params {
 
-  include php::pecl::redis::package
-  include php::pecl::redis::config
+  class { 'php::pecl::redis::package':
+  	version => $version
+  }
+
+  class { 'php::pecl::redis::config': }
 
 }
