@@ -32,9 +32,7 @@ class php::pecl::apc::package(
   php::pecl::package { 'apc':
     version  => $version,
     package  => $package,
-    provider => $provider,
-    require  => $require,
-    notify   => $notify
+    provider => $provider
   }
 
 }
