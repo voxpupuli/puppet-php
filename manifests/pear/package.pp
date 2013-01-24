@@ -28,11 +28,11 @@
 class php::pear::package {
 
   package { 'php-pear':
-    ensure => $::php_version;
+    ensure => 'installed';
   }
 
   Apt::Source['dotdeb']
     ~> Exec['apt_update']
-    -> Package['php-pear']
+    -> Class['php::pear']
 
 }
