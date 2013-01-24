@@ -25,6 +25,6 @@
 #
 class php::pecl::apc::package {
 
-  php::pecl::package { "apc": }
+  php::pecl::package { 'apc': }
 
 }

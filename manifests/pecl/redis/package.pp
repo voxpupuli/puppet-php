@@ -25,6 +25,8 @@
 #
 class php::pecl::redis::package {
 
+  include php::params
+
   file {
     '/opt/php':
       ensure   => 'directory',
@@ -67,7 +69,7 @@ class php::pecl::redis::package {
       cwd     => '/opt/php/phpredis/phpredis-2.2.2';
   }
 
-  Package['php5-dev']
+  Class['php::dev']
     -> File['/opt/php']
     -> File['/opt/php/phpredis']
     -> Exec['redis_fetch']
@@ -77,8 +79,6 @@ class php::pecl::redis::package {
     -> Exec['redis_make']
     -> Exec['redis_install']
 
-  if defined(Service['apache2']) {
-    Exec['redis_install'] ~> Service['apache2']
-  }
+  Exec['redis_install'] ~> $php::params::extension_notify
 
 }

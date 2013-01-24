@@ -32,7 +32,7 @@ class php::pecl::http::config {
     content => 'extension=http.so';
   }
 
-  Package['pecl_http'] -> File['/etc/php5/conf.d/http.ini']
+  Class['php::pecl::http::package'] -> File['/etc/php5/conf.d/http.ini']
 
   if defined(Service['apache2']) {
     File['/etc/php5/conf.d/http.ini'] ~> Service['apache2']
