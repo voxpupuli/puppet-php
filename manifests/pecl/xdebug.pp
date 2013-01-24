@@ -23,9 +23,14 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::pecl::xdebug {
+class php::pecl::xdebug(
+	$version = $php::params::version
+) inherits php::params {
 
-  include php::pecl::xdebug::package
-  include php::pecl::xdebug::config
+  class { 'php::pecl::xdebug::package':
+  	version => $version
+  }
+
+  class { 'php::pecl::xdebug::config': }
 
 }
