@@ -1,8 +1,12 @@
-# == Class: php::pecl::gearman::package
+# == Class: php::pecl::gearman::params
 #
-# Install the PHP gearman extension
+# Defaults file for gearman extension
 #
 # === Parameters
+#
+# No parameters
+#
+# === Variables
 #
 # [*version*]
 #   The version of gearman to install
@@ -16,9 +20,12 @@
 #   The provider used to install php5-gearman
 #   Could be "pecl", "apt" or any other OS package provider
 #
-# === Variables
+# [*config_file*]
+#   The path to the ini php5-gearman ini file
 #
-# No variables
+# [*config_changes*]
+#   Hash with 'set' nested hash of key => value
+#   set changes to agues when applied to *config_file*
 #
 # === Examples
 #
@@ -36,16 +43,16 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::pecl::gearman::package(
-  $version  = $php::pecl::gearman::params::version,
-  $package  = $php::pecl::gearman::params::package,
-  $provider = $php::pecl::gearman::params::provider
-) inherits php::pecl::gearman::params {
+class php::pecl::gearman::params {
 
-  php::pecl::package { 'gearman':
-    version  => $version,
-    package  => $package,
-    provider => $provider
+  $version        = $php::params::version
+  $package        = 'php5-gearman'
+  $provider       = undef
+  $config_file    = '/etc/php5/conf.d/20-gearman.ini'
+  $config_changes = {
+    set => {
+
+    }
   }
 
 }

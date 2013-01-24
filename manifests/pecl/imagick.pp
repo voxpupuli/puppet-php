@@ -1,6 +1,6 @@
 # == Class: php::pecl::imagick
 #
-# Install the imagick PHP extension
+# Install and configure the imagick PHP extension
 #
 # === Parameters
 #
@@ -23,8 +23,14 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::pecl::imagick {
+class php::pecl::imagick(
+	$version = $php::params::version
+) inherits php::params {
 
-  include php::pecl::imagick::package
+  class { 'php::pecl::imagick::package':
+  	version => $version
+  }
+
+  class { 'php::pecl::imagick::config': }
 
 }

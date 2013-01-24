@@ -9,7 +9,7 @@
 # === Variables
 #
 # [*php_version*]
-#   The version of xdebug to install
+#   The version of gearman to install
 #
 # === Examples
 #
@@ -23,8 +23,14 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::pecl::gearman {
+class php::pecl::gearman(
+	$version = $php::params::version
+) inherits php::params {
 
-  include php::pecl::gearman::package
+  class { 'php::pecl::gearman::package':
+  	version => $version
+  }
+
+  class { 'php::pecl::gearman::config': }
 
 }
