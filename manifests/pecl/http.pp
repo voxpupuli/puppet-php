@@ -1,6 +1,6 @@
 # == Class: php::pecl::http
 #
-# Install and configure the http PHP extension
+# Install the http PHP extension
 #
 # === Parameters
 #
@@ -23,9 +23,14 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::pecl::http {
+class php::pecl::http(
+	$version = $php::params::version
+) inherits php::params {
 
-  include php::pecl::http::package
-  include php::pecl::http::config
+  class { 'php::pecl::http::package':
+  	version => $version
+  }
+
+  class { 'php::pecl::http::config': }
 
 }
