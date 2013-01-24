@@ -3,8 +3,6 @@ class php::pecl::apc::params {
   $version        = $php::params::version
   $package        = 'php5-apc'
   $provider       = undef
-  $require        = $php::params::extension_require
-  $notify         = $php::params::extension_notify
   $config_file    = '/etc/php5/conf.d/20-apc.ini'
   $config_changes = {
     set => {
