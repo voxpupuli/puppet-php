@@ -25,16 +25,16 @@
 #
 class php::pecl::apc::package {
 
+  include php::params
+
   package { 'php5-apc':
-    ensure => $::php_version;
+    ensure => $php::params::php_version;
   }
 
-  Apt::Source['dotdeb']
-    ~> Exec['apt_update']
-    -> Package['php5-apc']
+  Apt::Source['dotdeb'] ~> Exec['apt_update'] -> Package['php5-apc']
 
-  if defined(Service['apache2']) {
-    Package['php5-apc'] ~> Service['apache2']
+  if defined(Class[$php::params::web_service]) {
+    Package['php5-apc'] ~> Class[$php::params::web_service]
   }
 
 }
