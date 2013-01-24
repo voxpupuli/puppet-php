@@ -1,8 +1,12 @@
-# == Class: php::pecl::ssh2::package
+# == Class: php::pecl::ssh2::params
 #
-# Install the PHP ssh2 extension
+# Defaults file for ssh2 extension
 #
 # === Parameters
+#
+# No parameters
+#
+# === Variables
 #
 # [*version*]
 #   The version of ssh2 to install
@@ -16,9 +20,12 @@
 #   The provider used to install php5-ssh2
 #   Could be "pecl", "apt" or any other OS package provider
 #
-# === Variables
+# [*config_file*]
+#   The path to the ini php5-ssh2 ini file
 #
-# No variables
+# [*config_changes*]
+#   Hash with 'set' nested hash of key => value
+#   set changes to agues when applied to *config_file*
 #
 # === Examples
 #
@@ -36,16 +43,16 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::pecl::ssh2::package(
-  $version  = $php::pecl::ssh2::params::version,
-  $package  = $php::pecl::ssh2::params::package,
-  $provider = $php::pecl::ssh2::params::provider
-) inherits php::pecl::ssh2::params {
+class php::pecl::ssh2::params {
 
-  php::pecl::package { 'ssh2':
-    version  => $version,
-    package  => $package,
-    provider => $provider
+  $version        = $php::params::version
+  $package        = 'php5-ssh2'
+  $provider       = undef
+  $config_file    = '/etc/php5/conf.d/20-ssh2.ini'
+  $config_changes = {
+    set => {
+
+	}
   }
 
 }

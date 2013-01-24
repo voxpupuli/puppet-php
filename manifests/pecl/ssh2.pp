@@ -1,6 +1,6 @@
 # == Class: php::pecl::ssh2
 #
-# Install the ssh2 PHP extension
+# Install and configure the ssh2 PHP extension
 #
 # === Parameters
 #
@@ -23,8 +23,14 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::pecl::ssh2 {
+class php::pecl::ssh2(
+	$version = $php::params::version
+) inherits php::params {
 
-  include php::pecl::ssh2::package
+  class { 'php::pecl::ssh2::package':
+  	version => $version
+  }
+
+  class { 'php::pecl::ssh2::config': }
 
 }
