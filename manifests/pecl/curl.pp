@@ -9,7 +9,7 @@
 # === Variables
 #
 # [*php_version*]
-#   The version of xdebug to install
+#   The version of curl to install
 #
 # === Examples
 #

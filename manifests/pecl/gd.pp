@@ -9,7 +9,7 @@
 # === Variables
 #
 # [*php_version*]
-#   The version of xdebug to install
+#   The version of gd to install
 #
 # === Examples
 #
@@ -23,8 +23,14 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::pecl::gd {
+class php::pecl::gd(
+	$version = $php::params::version
+) inherits php::params {
 
-  include php::pecl::gd::package
+  class { 'php::pecl::gd::package':
+  	version => $version
+  }
+
+  class { 'php::pecl::gd::config': }
 
 }
