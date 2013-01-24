@@ -29,8 +29,6 @@ class php::pecl::apc::package(
   $provider       = $php::pecl::apc::params::provider,
   $require        = $php::pecl::apc::params::provider,
   $notify         = $php::pecl::apc::params::notify,
-  $config_file    = $php::pecl::apc::params::config_file,
-  $config_changes = $php::pecl::apc::params::config_changes
 ) inherits php::pecl::apc::params {
 
   php::pecl::package { 'apc':
