@@ -1,8 +1,12 @@
-# == Class: php::pecl::mysql::package
+# == Class: php::pecl::mysql::params
 #
-# Install the PHP mysql extension
+# Defaults file for mysql extension
 #
 # === Parameters
+#
+# No parameters
+#
+# === Variables
 #
 # [*version*]
 #   The version of mysql to install
@@ -16,9 +20,12 @@
 #   The provider used to install php5-mysql
 #   Could be "pecl", "apt" or any other OS package provider
 #
-# === Variables
+# [*config_file*]
+#   The path to the ini php5-mysql ini file
 #
-# No variables
+# [*config_changes*]
+#   Hash with 'set' nested hash of key => value
+#   set changes to agues when applied to *config_file*
 #
 # === Examples
 #
@@ -36,16 +43,16 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::pecl::mysql::package(
-  $version  = $php::pecl::mysql::params::version,
-  $package  = $php::pecl::mysql::params::package,
-  $provider = $php::pecl::mysql::params::provider
-) inherits php::pecl::mysql::params {
+class php::pecl::mysql::params {
 
-  php::pecl::package { 'mysql':
-    version  => $version,
-    package  => $package,
-    provider => $provider
+  $version        = $php::params::version
+  $package        = 'php5-mysql'
+  $provider       = undef
+  $config_file    = '/etc/php5/conf.d/20-mysql.ini'
+  $config_changes = {
+    set => {
+
+    }
   }
 
 }
