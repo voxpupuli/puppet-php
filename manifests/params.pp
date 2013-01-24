@@ -31,4 +31,18 @@ class php::params {
 
 	$web_service = "apache2"
 
+	$extensions = {
+		apc => {
+			package  => "php5-apc",
+			provider => undef,
+			require	 => [
+				Apt::Source['dotdeb'],
+				Exec['apt_update']
+			],
+			notify 	 => [
+				Service[$web_service]
+			]
+		}
+	}
+
 }
