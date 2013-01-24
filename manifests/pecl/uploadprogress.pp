@@ -1,4 +1,4 @@
-# == Class: php::pecl::redis
+# == Class: php::pecl::uploadprogress
 #
 # Install and configure the uploadprogress PHP extension
 #
@@ -23,9 +23,14 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::pecl::uploadprogress {
+class php::pecl::uploadprogress(
+	$version = $php::params::version
+) inherits php::params {
 
-  include php::pecl::uploadprogress::package
-  include php::pecl::uploadprogress::config
+  class { 'php::pecl::uploadprogress::package':
+  	version => $version
+  }
+
+  class { 'php::pecl::uploadprogress::config': }
 
 }

@@ -1,8 +1,12 @@
-# == Class: php::pecl::uploadprogress::package
+# == Class: php::pecl::uploadprogress::params
 #
-# Install the PHP uploadprogress extension
+# Defaults file for uploadprogress extension
 #
 # === Parameters
+#
+# No parameters
+#
+# === Variables
 #
 # [*version*]
 #   The version of uploadprogress to install
@@ -16,9 +20,12 @@
 #   The provider used to install php5-uploadprogress
 #   Could be "pecl", "apt" or any other OS package provider
 #
-# === Variables
+# [*config_file*]
+#   The path to the ini php5-uploadprogress ini file
 #
-# No variables
+# [*config_changes*]
+#   Hash with 'set' nested hash of key => value
+#   set changes to agues when applied to *config_file*
 #
 # === Examples
 #
@@ -36,16 +43,16 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::pecl::uploadprogress::package(
-  $version  = $php::pecl::uploadprogress::params::version,
-  $package  = $php::pecl::uploadprogress::params::package,
-  $provider = $php::pecl::uploadprogress::params::provider
-) inherits php::pecl::uploadprogress::params {
+class php::pecl::uploadprogress::params {
 
-  php::pecl::package { 'uploadprogress':
-    version  => $version,
-    package  => $package,
-    provider => $provider
+  $version        = $php::params::version
+  $package        = 'uploadprogress'
+  $provider       = 'pecl'
+  $config_file    = '/etc/php5/conf.d/uploadprogress.ini'
+  $config_changes = {
+    set => {
+      '.anon/extension' => 'uploadprogress.so'
+    }
   }
 
 }

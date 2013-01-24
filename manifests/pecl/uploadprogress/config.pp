@@ -4,7 +4,12 @@
 #
 # === Parameters
 #
-# No parameters
+# [*config_file*]
+#   The path to the ini php5-uploadprogress ini file
+#
+# [*config_changes*]
+# Hash with 'set' nested hash of key => value
+# set changes to agues when applied to *config_file*
 #
 # === Variables
 #
@@ -22,20 +27,15 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::pecl::uploadprogress::config {
+class php::pecl::uploadprogress::config(
+  $config_file    = $php::pecl::uploadprogress::params::config_file,
+  $config_changes = $php::pecl::uploadprogress::params::config_changes
+) inherits php::pecl::uploadprogress::params {
 
-  file { '/etc/php5/conf.d/uploadprogress.ini':
-    ensure  => file,
-    mode    => '0755',
-    owner   => root,
-    group   => root,
-    content => 'extension=uploadprogress.so';
-  }
-
-  Package['uploadprogress'] -> File['/etc/php5/conf.d/uploadprogress.ini']
-
-  if defined(Service['apache2']) {
-    File['/etc/php5/conf.d/uploadprogress.ini'] ~> Service['apache2']
+  php::pecl::config { 'uploadprogress':
+    extension       => 'uploadprogress',
+    config_file     => $config_file,
+    config_changes  => $config_changes
   }
 
 }
