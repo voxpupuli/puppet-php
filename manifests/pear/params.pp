@@ -20,12 +20,12 @@
 #   The provider used to install php5-pear
 #   Could be "pecl", "apt" or any other OS package provider
 #
-# [*config_file*]
+# [*inifile*]
 #   The path to the ini php5-pear ini file
 #
-# [*config_changes*]
+# [*settings*]
 #   Hash with 'set' nested hash of key => value
-#   set changes to agues when applied to *config_file*
+#   set changes to agues when applied to *inifile*
 #
 # === Examples
 #

@@ -122,8 +122,8 @@ Simply use `php::config` to modify your ini files
 
 ```
 php::config { '$unique-name':
- 	config_file    => '$full_path_to_ini_file'
-	config_changes => {
+ 	inifile  => '$full_path_to_ini_file'
+	settings => {
 		set => {
 			'.anon/apc.enabled' => 1
 		}
@@ -140,9 +140,9 @@ augeas { "php-${uniqie-name}-config":
 }
 ```
 
-`config_changes` is a key / value `augeas` hash
+`settings` is a key / value `augeas` hash
 
-Currently `config_changes` only support the type `set` in augeas
+Currently `settings` only support the type `set` in augeas
 
 The advantage of using `php::config` over `augeas` is the anchor of dependency mentioned in **Setup**
 

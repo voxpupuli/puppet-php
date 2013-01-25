@@ -16,12 +16,12 @@
 #   The provider used to install php5-apache
 #   Could be "pecl", "apt" or any other OS package provider
 #
-# [*config_file*]
+# [*inifile*]
 #   The path to the ini php5-apache ini file
 #
-# [*config_changes*]
+# [*settings*]
 #   Hash with 'set' nested hash of key => value
-#   set changes to agues when applied to *config_file*
+#   set changes to agues when applied to *inifile*
 #
 # === Variables
 #
@@ -40,15 +40,15 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::apache(
-  $ensure         = $php::apache::params::ensure,
-  $package        = $php::apache::params::package,
-  $provider       = $php::apache::params::provider,
-  $config_file    = $php::apache::params::config_file,
-  $config_changes = $php::apache::params::config_changes
+  $ensure   = $php::apache::params::ensure,
+  $package  = $php::apache::params::package,
+  $provider = $php::apache::params::provider,
+  $inifile  = $php::apache::params::inifile,
+  $settings = $php::apache::params::settings
 ) inherits php::apache::params {
 
   php::contrib::base_package { 'apache':
-    ensure  => $ensure,
+    ensure   => $ensure,
     provider => $provider;
   }
 
@@ -58,8 +58,8 @@ class php::apache(
   }
 
   php::config { 'php-apache':
-    config_file     => $config_file,
-    config_changes  => $config_changes
+    inifile  => $inifile,
+    settings => $settings
   }
 
 }

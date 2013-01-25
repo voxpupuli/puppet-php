@@ -15,12 +15,12 @@
 # [*provider*]
 #   The provider used to install the package
 #
-# [*config_file*]
+# [*inifile*]
 #   The path to the extension ini file
 #
-# [*config_changes*]
+# [*settings*]
 #   Hash with 'set' nested hash of key => value
-#   set changes to agues when applied to *config_file*
+#   set changes to agues when applied to *inifile*
 #
 # === Variables
 #
@@ -39,22 +39,22 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::ssh2(
-  $ensure  			  = $php::extension::ssh2::params::ensure,
-  $package  			= $php::extension::ssh2::params::package,
-  $provider 			= $php::extension::ssh2::params::provider,
-  $config_file    = $php::extension::ssh2::params::config_file,
-  $config_changes = $php::extension::ssh2::params::config_changes
+  $ensure  	= $php::extension::ssh2::params::ensure,
+  $package  = $php::extension::ssh2::params::package,
+  $provider = $php::extension::ssh2::params::provider,
+  $inifile  = $php::extension::ssh2::params::inifile,
+  $settings = $php::extension::ssh2::params::settings
 ) inherits php::extension::ssh2::params {
 
   php::extension { 'ssh2':
-    ensure  => $ensure,
+    ensure   => $ensure,
     package  => $package,
     provider => $provider
   }
 
   php::config { 'php-extension-ssh2':
-    config_file     => $config_file,
-    config_changes  => $config_changes
+    inifile  => $inifile,
+    settings => $settings
   }
 
 }

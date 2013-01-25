@@ -19,12 +19,12 @@
 # [*provider*]
 #   The provider used to install package
 #
-# [*config_file*]
+# [*inifile*]
 #   The path to the ini php5 apache ini file
 #
-# [*config_changes*]
+# [*settings*]
 #   Hash with 'set' nested hash of key => value
-#   set changes to agues when applied to *config_file*
+#   set changes to agues when applied to *inifile*
 #
 # === Examples
 #
@@ -40,11 +40,11 @@
 #
 class php::apache::params {
 
-  $ensure         = $php::params::ensure
-  $package        = 'libapache2-mod-php5'
-  $provider       = undef
-  $config_file    = '/etc/php5/apache2/php.ini'
-  $config_changes = {
+  $ensure   = $php::params::ensure
+  $package  = 'libapache2-mod-php5'
+  $provider = undef
+  $inifile  = '/etc/php5/apache2/php.ini'
+  $settings = {
     set => {
       'PHP/short_open_tag'       => 'Off',
       'PHP/asp_tags'             => 'Off',

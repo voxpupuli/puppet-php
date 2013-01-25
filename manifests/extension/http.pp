@@ -15,12 +15,12 @@
 # [*provider*]
 #   The provider used to install the package
 #
-# [*config_file*]
+# [*inifile*]
 #   The path to the extension ini file
 #
-# [*config_changes*]
+# [*settings*]
 #   Hash with 'set' nested hash of key => value
-#   set changes to agues when applied to *config_file*
+#   set changes to agues when applied to *inifile*
 #
 # === Variables
 #
@@ -39,11 +39,11 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::http(
-	$ensure  			  = $php::extension::http::params::ensure,
-  $package  			= $php::extension::http::params::package,
-  $provider 			= $php::extension::http::params::provider,
-  $config_file  	= $php::extension::http::params::config_file,
-  $config_changes = $php::extension::http::params::config_changes
+	$ensure  	= $php::extension::http::params::ensure,
+  $package  = $php::extension::http::params::package,
+  $provider = $php::extension::http::params::provider,
+  $inifile  = $php::extension::http::params::inifile,
+  $settings = $php::extension::http::params::settings
 ) inherits php::extension::http::params {
 
   php::extension { 'http':
@@ -53,8 +53,8 @@ class php::extension::http(
   }
 
  php::config { 'php-extension-http':
-    config_file     => $config_file,
-    config_changes  => $config_changes;
+    inifile  => $inifile,
+    settings => $settings;
   }
 
 }

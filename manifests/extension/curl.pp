@@ -15,12 +15,12 @@
 # [*provider*]
 #   The provider used to install the package
 #
-# [*config_file*]
+# [*inifile*]
 #   The path to the extension ini file
 #
-# [*config_changes*]
+# [*settings*]
 #   Hash with 'set' nested hash of key => value
-#   set changes to agues when applied to *config_file*
+#   set changes to agues when applied to *inifile*
 #
 # === Variables
 #
@@ -39,22 +39,22 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::curl(
-  $ensure         = $php::extension::curl::params::ensure,
-  $package        = $php::extension::curl::params::package,
-  $provider       = $php::extension::curl::params::provider,
-  $config_file    = $php::extension::curl::params::config_file,
-  $config_changes = $php::extension::curl::params::config_changes
+  $ensure   = $php::extension::curl::params::ensure,
+  $package  = $php::extension::curl::params::package,
+  $provider = $php::extension::curl::params::provider,
+  $inifile  = $php::extension::curl::params::inifile,
+  $settings = $php::extension::curl::params::settings
 ) inherits php::extension::curl::params {
 
   php::extension { 'curl':
-    ensure  => $ensure,
+    ensure   => $ensure,
     package  => $package,
     provider => $provider
   }
 
   php::config { 'php-extension-curl':
-    config_file     => $config_file,
-    config_changes  => $config_changes
+    inifile  => $inifile,
+    settings => $settings
   }
 
 }

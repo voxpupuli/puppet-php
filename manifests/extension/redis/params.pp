@@ -19,12 +19,12 @@
 # [*provider*]
 #   The provider used to install the package
 #
-# [*config_file*]
+# [*inifile*]
 #   The path to the extension ini file
 #
-# [*config_changes*]
+# [*settings*]
 #   Hash with 'set' nested hash of key => value
-#   set changes to agues when applied to *config_file*
+#   set changes to agues when applied to *inifile*
 #
 # === Examples
 #
@@ -40,11 +40,11 @@
 #
 class php::extension::redis::params {
 
-  $ensure         = 'master'
-  $tmp_dir		  	= '/opt/phpredis'
-  $install_dir	  = '/usr/lib/php5/20100525'
-  $config_file    = '/etc/php5/conf.d/redis.ini'
-  $config_changes = {
+  $ensure      = 'master'
+  $tmp_dir		 = '/opt/phpredis'
+  $install_dir = '/usr/lib/php5/20100525'
+  $inifile     = '/etc/php5/conf.d/redis.ini'
+  $settings = {
     set => {
       '.anon/extension' => 'redis.so'
     }

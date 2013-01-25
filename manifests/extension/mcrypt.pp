@@ -15,12 +15,12 @@
 # [*provider*]
 #   The provider used to install the package
 #
-# [*config_file*]
+# [*inifile*]
 #   The path to the extension ini file
 #
-# [*config_changes*]
+# [*settings*]
 #   Hash with 'set' nested hash of key => value
-#   set changes to agues when applied to *config_file*
+#   set changes to agues when applied to *inifile*
 #
 # === Variables
 #
@@ -39,11 +39,11 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::mcrypt(
-  $ensure  			  = $php::extension::mcrypt::params::ensure,
-  $package 			 	= $php::extension::mcrypt::params::package,
-  $provider 			= $php::extension::mcrypt::params::provider,
-  $config_file    = $php::extension::mcrypt::params::config_file,
-  $config_changes = $php::extension::mcrypt::params::config_changes
+  $ensure  	= $php::extension::mcrypt::params::ensure,
+  $package 	= $php::extension::mcrypt::params::package,
+  $provider = $php::extension::mcrypt::params::provider,
+  $inifile  = $php::extension::mcrypt::params::inifile,
+  $settings = $php::extension::mcrypt::params::settings
 ) inherits php::extension::mcrypt::params {
 
   php::extension { 'mcrypt':
@@ -53,8 +53,8 @@ class php::extension::mcrypt(
   }
 
   php::config { 'php-extension-mcrypt':
-    config_file     => $config_file,
-    config_changes  => $config_changes
+    inifile     => $inifile,
+    settings  => $settings
   }
 
 }

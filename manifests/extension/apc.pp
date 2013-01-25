@@ -15,12 +15,12 @@
 # [*provider*]
 #   The provider used to install the package
 #
-# [*config_file*]
+# [*inifile*]
 #   The path to the extension ini file
 #
-# [*config_changes*]
+# [*settings*]
 #   Hash with 'set' nested hash of key => value
-#   set changes to agues when applied to *config_file*
+#   set changes to agues when applied to *inifile*
 #
 # === Variables
 #
@@ -39,22 +39,22 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::apc(
-  $ensure         = $php::extension::apc::params::ensure,
-  $package        = $php::extension::apc::params::package,
-  $provider       = $php::extension::apc::params::provider,
-  $config_file    = $php::extension::apc::params::config_file,
-  $config_changes = $php::extension::apc::params::config_changes
+  $ensure   = $php::extension::apc::params::ensure,
+  $package  = $php::extension::apc::params::package,
+  $provider = $php::extension::apc::params::provider,
+  $inifile  = $php::extension::apc::params::inifile,
+  $settings = $php::extension::apc::params::settings
 ) inherits php::extension::apc::params {
 
   php::extension { 'apc':
-    ensure  => $ensure,
+    ensure   => $ensure,
     package  => $package,
     provider => $provider
   }
 
   php::config { 'php-extension-apc':
-    config_file    => $config_file,
-    config_changes => $config_changes
+    inifile  => $inifile,
+    settings => $settings
   }
 
 }

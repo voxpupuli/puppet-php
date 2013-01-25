@@ -15,12 +15,12 @@
 # [*provider*]
 #   The provider used to install the package
 #
-# [*config_file*]
+# [*inifile*]
 #   The path to the extension ini file
 #
-# [*config_changes*]
+# [*settings*]
 #   Hash with 'set' nested hash of key => value
-#   set changes to agues when applied to *config_file*
+#   set changes to agues when applied to *inifile*
 #
 # === Variables
 #
@@ -39,11 +39,11 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::xdebug(
-  $ensure  			  = $php::extension::xdebug::params::ensure,
-  $package  			= $php::extension::xdebug::params::package,
-  $provider 			= $php::extension::xdebug::params::provider,
-  $config_file    = $php::extension::xdebug::params::config_file,
-  $config_changes = $php::extension::xdebug::params::config_changes
+  $ensure  	= $php::extension::xdebug::params::ensure,
+  $package  = $php::extension::xdebug::params::package,
+  $provider = $php::extension::xdebug::params::provider,
+  $inifile  = $php::extension::xdebug::params::inifile,
+  $settings = $php::extension::xdebug::params::settings
 ) inherits php::extension::xdebug::params {
 
   php::extension { 'xdebug':
@@ -53,8 +53,8 @@ class php::extension::xdebug(
   }
 
   php::config { 'php-extension-xdebug':
-    config_file     => $config_file,
-    config_changes  => $config_changes
+    inifile     => $inifile,
+    settings  => $settings
   }
 
 }

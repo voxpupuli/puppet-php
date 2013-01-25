@@ -30,12 +30,12 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 define php::config(
-  $config_file,
-  $config_changes
+  $inifile,
+  $settings
 ) {
 
   augeas { "php-${name}-config":
-    context => "/files${config_file}",
+    context => "/files${inifile}",
     changes => template('php/augeas_commands.erb')
   }
 

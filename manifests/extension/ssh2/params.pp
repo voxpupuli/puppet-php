@@ -19,12 +19,12 @@
 # [*provider*]
 #   The provider used to install the package
 #
-# [*config_file*]
+# [*inifile*]
 #   The path to the extension ini file
 #
-# [*config_changes*]
+# [*settings*]
 #   Hash with 'set' nested hash of key => value
-#   set changes to agues when applied to *config_file*
+#   set changes to agues when applied to *inifile*
 #
 # === Examples
 #
@@ -40,14 +40,14 @@
 #
 class php::extension::ssh2::params {
 
-  $ensure         = $php::params::ensure
-  $package        = 'php5-ssh2'
-  $provider       = undef
-  $config_file    = '/etc/php5/conf.d/20-ssh2.ini'
-  $config_changes = {
-    set => {
+  $ensure   = $php::params::ensure
+  $package  = 'php5-ssh2'
+  $provider = undef
+  $inifile  = '/etc/php5/conf.d/20-ssh2.ini'
+  $settings = {
+		set => {
 
+		}
 	}
-  }
 
 }

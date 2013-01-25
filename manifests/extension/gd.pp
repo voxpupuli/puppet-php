@@ -15,12 +15,12 @@
 # [*provider*]
 #   The provider used to install the package
 #
-# [*config_file*]
+# [*inifile*]
 #   The path to the extension ini file
 #
-# [*config_changes*]
+# [*settings*]
 #   Hash with 'set' nested hash of key => value
-#   set changes to agues when applied to *config_file*
+#   set changes to agues when applied to *inifile*
 #
 # === Variables
 #
@@ -39,22 +39,22 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::gd(
-  $ensure         = $php::extension::gd::params::ensure,
-  $package        = $php::extension::gd::params::package,
-  $provider       = $php::extension::gd::params::provider,
-  $config_file    = $php::extension::gd::params::config_file,
-  $config_changes = $php::extension::gd::params::config_changes
+  $ensure   = $php::extension::gd::params::ensure,
+  $package  = $php::extension::gd::params::package,
+  $provider = $php::extension::gd::params::provider,
+  $inifile  = $php::extension::gd::params::inifile,
+  $settings = $php::extension::gd::params::settings
 ) inherits php::extension::gd::params {
 
   php::extension { 'gd':
-    ensure  => $ensure,
+    ensure   => $ensure,
     package  => $package,
     provider => $provider
   }
 
   php::config { 'php-extension-gd':
-    config_file    => $config_file,
-    config_changes => $config_changes
+    inifile  => $inifile,
+    settings => $settings
   }
 
 }

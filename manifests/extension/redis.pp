@@ -9,12 +9,12 @@
 #   Could be "latest", "installed" or a pinned version
 #   This matches "ensure" from Package
 #
-# [*config_file*]
+# [*inifile*]
 #   The path to the extension ini file
 #
-# [*config_changes*]
+# [*settings*]
 #   Hash with 'set' nested hash of key => value
-#   set changes to agues when applied to *config_file*
+#   set changes to agues when applied to *inifile*
 #
 # === Variables
 #
@@ -33,9 +33,9 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::redis(
-	$ensure 				= 'master',
-	$config_file    = $php::extension::redis::params::config_file,
-  $config_changes = $php::extension::redis::params::config_changes
+	$ensure 	= 'master',
+	$inifile  = $php::extension::redis::params::inifile,
+  $settings = $php::extension::redis::params::settings
 ) inherits php::extension::redis::params {
 
   class { 'php::extension::redis::package':
@@ -43,8 +43,8 @@ class php::extension::redis(
   }
 
   php::config { 'php-extension-redis':
-    config_file     => $config_file,
-    config_changes  => $config_changes
+    inifile  => $inifile,
+    settings => $settings
   }
 
 }

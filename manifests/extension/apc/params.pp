@@ -19,12 +19,12 @@
 # [*provider*]
 #   The provider used to install the package
 #
-# [*config_file*]
+# [*inifile*]
 #   The path to the extension ini file
 #
-# [*config_changes*]
+# [*settings*]
 #   Hash with 'set' nested hash of key => value
-#   set changes to agues when applied to *config_file*
+#   set changes to agues when applied to *inifile*
 #
 # === Examples
 #
@@ -40,11 +40,11 @@
 #
 class php::extension::apc::params {
 
-  $ensure         = $php::params::ensure
-  $package        = 'php5-apc'
-  $provider       = undef
-  $config_file    = '/etc/php5/conf.d/20-apc.ini'
-  $config_changes = {
+  $ensure   = $php::params::ensure
+  $package  = 'php5-apc'
+  $provider = undef
+  $inifile  = '/etc/php5/conf.d/20-apc.ini'
+  $settings = {
     set => {
       '.anon/apc.enabled'           => 1,
       '.anon/apc.cache_by_default'  => 1,

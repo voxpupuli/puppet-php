@@ -19,12 +19,12 @@
 # [*provider*]
 #   The provider used to install the package
 #
-# [*config_file*]
+# [*inifile*]
 #   The path to the extension ini file
 #
-# [*config_changes*]
+# [*settings*]
 #   Hash with 'set' nested hash of key => value
-#   set changes to agues when applied to *config_file*
+#   set changes to agues when applied to *inifile*
 #
 # === Examples
 #
@@ -40,11 +40,11 @@
 #
 class php::extension::gd::params {
 
-  $ensure         = $php::params::ensure
-  $package        = 'php5-gd'
-  $provider       = undef
-  $config_file    = '/etc/php5/conf.d/20-gd.ini'
-  $config_changes = {
+  $ensure   = $php::params::ensure
+  $package  = 'php5-gd'
+  $provider = undef
+  $inifile  = '/etc/php5/conf.d/20-gd.ini'
+  $settings = {
     set => {
 
     }

@@ -15,12 +15,12 @@
 # [*provider*]
 #   The provider used to install the package
 #
-# [*config_file*]
+# [*inifile*]
 #   The path to the extension ini file
 #
-# [*config_changes*]
+# [*settings*]
 #   Hash with 'set' nested hash of key => value
-#   set changes to agues when applied to *config_file*
+#   set changes to agues when applied to *inifile*
 #
 # === Variables
 #
@@ -43,22 +43,22 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::uploadprogress(
-  $ensure  			  = $php::extension::uploadprogress::params::ensure,
-  $package  			= $php::extension::uploadprogress::params,
-  $provider 			= $php::extension::uploadprogress::params::provider,
-  $config_file    = $php::extension::uploadprogress::params::config_file,
-  $config_changes = $php::extension::uploadprogress::params::config_changes
+  $ensure  	= $php::extension::uploadprogress::params::ensure,
+  $package  = $php::extension::uploadprogress::params,
+  $provider = $php::extension::uploadprogress::params::provider,
+  $inifile  = $php::extension::uploadprogress::params::inifile,
+  $settings = $php::extension::uploadprogress::params::settings
 ) inherits php::extension::uploadprogress::params {
 
   php::extension { 'uploadprogress':
-    ensure  => $ensure,
+    ensure   => $ensure,
     package  => $package,
     provider => $provider
   }
 
   php::config { 'php-extension-uploadprogress':
-    config_file     => $config_file,
-    config_changes  => $config_changes
+    inifile   => $inifile,
+    settings  => $settings
   }
 
 }

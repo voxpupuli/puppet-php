@@ -15,12 +15,12 @@
 # [*provider*]
 #   The provider used to install the package
 #
-# [*config_file*]
+# [*inifile*]
 #   The path to the extension ini file
 #
-# [*config_changes*]
+# [*settings*]
 #   Hash with 'set' nested hash of key => value
-#   set changes to agues when applied to *config_file*
+#   set changes to agues when applied to *inifile*
 #
 # === Variables
 #
@@ -39,22 +39,22 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::mysql(
-  $ensure  		  	= $php::extension::mysql::params::ensure,
-  $package  			= $php::extension::mysql::params::package,
-  $provider 			= $php::extension::mysql::params::provider,
-  $config_file    = $php::extension::mysql::params::config_file,
-  $config_changes = $php::extension::mysql::params::config_changes,
+  $ensure  	= $php::extension::mysql::params::ensure,
+  $package 	= $php::extension::mysql::params::package,
+  $provider	= $php::extension::mysql::params::provider,
+  $inifile  = $php::extension::mysql::params::inifile,
+  $settings = $php::extension::mysql::params::settings,
 ) inherits php::extension::mysql::params {
 
   php::extension { 'mysql':
-    ensure  => $ensure,
+    ensure   => $ensure,
     package  => $package,
     provider => $provider
   }
 
   php::config { 'php-extension-mysql':
-    config_file     => $config_file,
-    config_changes  => $config_changes
+    inifile   => $inifile,
+    settings  => $settings
   }
 
 }

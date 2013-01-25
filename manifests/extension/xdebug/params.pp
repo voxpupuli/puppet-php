@@ -22,12 +22,12 @@
 # [*install_dir*]
 #   The path of the installed xdebug.so binary
 #
-# [*config_file*]
+# [*inifile*]
 #   The path to the extension ini file
 #
-# [*config_changes*]
+# [*settings*]
 #   Hash with 'set' nested hash of key => value
-#   set changes to agues when applied to *config_file*
+#   set changes to agues when applied to *inifile*
 #
 # === Examples
 #
@@ -43,12 +43,12 @@
 #
 class php::extension::xdebug::params {
 
-  $ensure         = $php::params::ensure
-  $package        = 'php5-xdebug'
-  $provider       = undef
-  $install_dir	  = '/usr/lib/php5/20100525'
-  $config_file    = '/etc/php5/conf.d/xdebug.ini'
-  $config_changes = {
+  $ensure      = $php::params::ensure
+  $package     = 'php5-xdebug'
+  $provider    = undef
+  $install_dir = '/usr/lib/php5/20100525'
+  $inifile     = '/etc/php5/conf.d/xdebug.ini'
+  $settings = {
     set => {
     	'.anon/zend_extension' => "${install_dir}/xdebug.so",
     	'.anon/xdebug.max_nesting_level' => '1000'

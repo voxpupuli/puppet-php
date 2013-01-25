@@ -15,12 +15,12 @@
 # [*provider*]
 #   The provider used to install the package
 #
-# [*config_file*]
+# [*inifile*]
 #   The path to the extension ini file
 #
-# [*config_changes*]
+# [*settings*]
 #   Hash with 'set' nested hash of key => value
-#   set changes to agues when applied to *config_file*
+#   set changes to agues when applied to *inifile*
 #
 # === Variables
 #
@@ -39,22 +39,22 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::imagick(
-  $ensure  			  = $php::extension::imagick::params::ensure,
-  $package  			= $php::extension::imagick::params::package,
-  $provider 			= $php::extension::imagick::params::provider,
-  $config_file    = $php::extension::imagick::params::config_file,
-  $config_changes = $php::extension::imagick::params::config_changes
+  $ensure  	= $php::extension::imagick::params::ensure,
+  $package  = $php::extension::imagick::params::package,
+  $provider = $php::extension::imagick::params::provider,
+  $inifile  = $php::extension::imagick::params::inifile,
+  $settings = $php::extension::imagick::params::settings
 ) inherits php::extension::imagick::params {
 
   php::extension { 'imagick':
-    ensure  => $ensure,
+    ensure   => $ensure,
     package  => $package,
     provider => $provider
   }
 
   php::config { 'php-extension-imagick':
-    config_file     => $config_file,
-    config_changes  => $config_changes
+    inifile  => $inifile,
+    settings => $settings
   }
 
 }
