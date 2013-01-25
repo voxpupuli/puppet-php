@@ -144,6 +144,8 @@ augeas { "php-${uniqie-name}-config":
 
 Currently `config_changes` only support the type `set` in augeas
 
+The advantage of using `php::config` over `augeas` is the anchor of dependency mentioned in **Setup**
+
 ### PHP SAPIs
 
 By default the module comes with support for mod_php (`php::apache`) and cli `php::cli`
