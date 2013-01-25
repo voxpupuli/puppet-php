@@ -4,7 +4,23 @@
 #
 # === Parameters
 #
-# No parameters
+# [*ensure*]
+#   The PHP ensure of PHP CLI to install
+#
+# [*package*]
+#   The package name for PHP CLI
+#   For debian it's php5-cli
+#
+# [*provider*]
+#   The provider used to install php5-cli
+#   Could be "pecl", "apt" or any other OS package provider
+#
+# [*inifile*]
+#   The path to the ini php5-cli ini file
+#
+# [*settings*]
+#   Hash with 'set' nested hash of key => value
+#   set changes to agues when applied to *inifile*
 #
 # === Variables
 #
@@ -22,25 +38,27 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::cli {
+class php::cli(
+  $ensure   = $php::cli::params::ensure,
+  $package  = $php::cli::params::package,
+  $provider = $php::cli::params::provider,
+  $inifile  = $php::cli::params::inifile,
+  $settings = $php::cli::params::settings
+) inherits php::cli::params {
 
-  include php::cli::package
+  php::contrib::base_package { 'cli':
+  	ensure   => $ensure,
+  	provider => $provider;
+  }
 
-  php::cli::config {
-    'PHP/short_open_tag':       value => 'Off';
-    'PHP/asp_tags':             value => 'Off';
-    'PHP/expose_php':           value => 'Off';
-    'PHP/memory_limit':         value => '1G';
-    'PHP/display_errors':       value => 'Off';
-    'PHP/log_errors':           value => 'On';
-    'PHP/post_max_size':        value => '500M';
-    'PHP/upload_max_filesize':  value => '500M';
-    'PHP/max_execution_time':   value => 600;
-    'PHP/allow_url_include':    value => 'Off';
-    'PHP/error_log':            value => 'syslog';
-    'PHP/output_buffering':     value => 4096;
-    'PHP/output_handler':       value => 'Off';
-    'Date/date.timezone':       value => 'UTC';
+  package { $package:
+    ensure	 => $ensure,
+    provider => $provider;
+  }
+
+  php::config { 'php-cli':
+    inifile  => $inifile,
+    settings => $settings
   }
 
 }

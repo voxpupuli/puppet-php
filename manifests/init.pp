@@ -2,8 +2,6 @@
 #
 # PHP base class
 #
-# Sets up dotdeb repo
-#
 # === Parameters
 #
 # No parameters
@@ -14,7 +12,7 @@
 #
 # === Examples
 #
-#  include php::dev
+#  include php:
 #
 # === Authors
 #
@@ -26,6 +24,11 @@
 #
 class php {
 
-  include php::apt
+	include php::params
+
+	exec { 'php::pear::auto_discover':
+  	command 		=> 'pear config-set auto_discover 1 system',
+  	refreshonly	=> true
+	}
 
 }

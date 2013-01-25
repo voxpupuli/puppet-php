@@ -10,8 +10,8 @@
 #
 # === Variables
 #
-# [*php_version*]
-#   The PHP version of PHP to install
+# [*ensure*]
+#   The PHP ensure of PHP to install
 #
 # === Examples
 #
@@ -27,8 +27,6 @@
 #
 class php::params {
 
-	$php_version = "installed"
-
-	$web_service = "apache2"
+  $ensure = "installed"
 
 }
