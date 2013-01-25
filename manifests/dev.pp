@@ -39,10 +39,14 @@ class php::dev(
   $provider = $php::dev::params::provider
 ) inherits php::dev::params {
 
+  php::contrib::base_package { 'dev':
+    version  => $version,
+    provider => $provider;
+  }
+
   package { $package:
     ensure	 => $version,
     provider => $provider;
   }
-
 
 }

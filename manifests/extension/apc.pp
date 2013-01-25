@@ -40,7 +40,7 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::apc(
-  $version        = $php::params::version,
+  $version        = $php::extension::apc::params::version,
   $package        = $php::extension::apc::params::package,
   $provider       = $php::extension::apc::params::provider,
   $config_file    = $php::extension::apc::params::config_file,

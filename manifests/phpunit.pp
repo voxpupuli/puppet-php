@@ -34,7 +34,7 @@ class php::phpunit {
     refreshonly => true;
   }
 
-  Class['php::pear::package']
+  Class['php::pear']
     ~> Exec['pear auto_discover']
     -> Package['pear.phpunit.de/PHPUnit']
 

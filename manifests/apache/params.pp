@@ -10,15 +10,13 @@
 #
 # [*version*]
 #   The version of the apache package to install
-#   Could be "latest", "installed" or a pinned verison
+#   Could be "latest", "installed" or a pinned version
 #
 # [*package*]
 #   The package name for apache package
-#   For debian it's php5-apache
 #
 # [*provider*]
-#   The provider used to install php5-apache
-#   Could be "pecl", "apt" or any other OS package provider
+#   The provider used to install package
 #
 # [*config_file*]
 #   The path to the ini php5-apache ini file
@@ -44,7 +42,6 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::apache::params {
-
   $version        = $php::params::version
   $package        = 'libapache2-mod-php5'
   $provider       = undef

@@ -65,6 +65,7 @@ class php::extension::redis::package(
   }
 
   File["${tmp_dir}"]
+    -> Class['php::dev']
     -> Exec["redis_fetch"]
     -> Exec["redis_extract"]
     -> Exec["redis_phpize"]

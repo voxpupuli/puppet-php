@@ -45,8 +45,8 @@
 #
 class php::dev::params {
 
-  $version        = $php::params::version
-  $package        = ['php5', 'php5-dev']
-  $provider       = undef
+  $version  = $php::params::version
+  $package  = 'php5-dev'
+  $provider	= undef
 
 }
