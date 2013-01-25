@@ -4,7 +4,24 @@
 #
 # === Parameters
 #
-# No parameters
+# [*version*]
+#   The version of the apache package to install
+#   Could be "latest", "installed" or a pinned verison
+#
+# [*package*]
+#   The package name for apache package
+#   For debian it's php5-apache
+#
+# [*provider*]
+#   The provider used to install php5-apache
+#   Could be "pecl", "apt" or any other OS package provider
+#
+# [*config_file*]
+#   The path to the ini php5-apache ini file
+#
+# [*config_changes*]
+#   Hash with 'set' nested hash of key => value
+#   set changes to agues when applied to *config_file*
 #
 # === Variables
 #
@@ -22,25 +39,27 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::apache {
+class php::apache(
+  $version        = $php::apache::params::version,
+  $package        = $php::apache::params::package,
+  $provider       = $php::apache::params::provider,
+  $config_file    = $php::apache::params::config_file,
+  $config_changes = $php::apache::params::config_changes
+) inherits php::apache::params {
 
-    include php::apache::package
+  php::contrib::base_package { 'apache':
+    version  => $version,
+    provider => $provider;
+  }
 
-    php::apache::config {
-        'PHP/short_open_tag':       value => 'Off';
-        'PHP/asp_tags':             value => 'Off';
-        'PHP/expose_php':           value => 'Off';
-        'PHP/memory_limit':         value => '256M';
-        'PHP/display_errors':       value => 'Off';
-        'PHP/log_errors':           value => 'On';
-        'PHP/post_max_size':        value => '500M';
-        'PHP/upload_max_filesize':  value => '500M';
-        'PHP/max_execution_time':   value => 600;
-        'PHP/allow_url_include':    value => 'Off';
-        'PHP/error_log':            value => 'syslog';
-        'PHP/output_buffering':     value => 4096;
-        'PHP/output_handler':       value => 'Off';
-        'Date/date.timezone':       value => 'UTC';
-    }
+  package { $package:
+    ensure   => $version,
+    provider => $provider;
+  }
+
+  php::config { 'php-apache':
+    config_file     => $config_file,
+    config_changes  => $config_changes
+  }
 
 }

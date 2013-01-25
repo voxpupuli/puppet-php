@@ -49,7 +49,7 @@ class php::apache::params {
   $package        = 'libapache2-mod-php5'
   $provider       = undef
   $config_file    = '/etc/php5/apache2/php.ini'
-    $config_changes = {
+  $config_changes = {
     set => {
       'PHP/short_open_tag'       => 'Off',
       'PHP/asp_tags'             => 'Off',
