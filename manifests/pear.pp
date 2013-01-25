@@ -4,8 +4,8 @@
 #
 # === Parameters
 #
-# [*version*]
-#   The PHP version of PHP pear to install
+# [*ensure*]
+#   The PHP ensure of PHP pear to install
 #
 # [*package*]
 #   The package name for PHP pear
@@ -32,13 +32,13 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::pear(
-  $version  = $php::pear::params::version,
+  $ensure  = $php::pear::params::ensure,
   $package  = $php::pear::params::package,
   $provider = $php::pear::params::provider
 ) inherits php::pear::params {
 
 	package { $package:
-    ensure	 => $version,
+    ensure	 => $ensure,
     provider => $provider;
   }
 

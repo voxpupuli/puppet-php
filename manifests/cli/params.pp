@@ -8,8 +8,8 @@
 #
 # === Variables
 #
-# [*version*]
-#   The version of the CLI package to install
+# [*ensure*]
+#   The ensure of the CLI package to install
 #   Could be "latest", "installed" or a pinned verison
 #
 # [*package*]
@@ -32,7 +32,7 @@
 #  include 'php::cli::package'
 #
 #  class {'php::cli::package
-#   version => latest
+#   ensure => latest
 #  }
 #
 # === Authors
@@ -45,7 +45,7 @@
 #
 class php::cli::params {
 
-  $version        = $php::params::version
+  $ensure        = $php::params::ensure
   $package        = 'php5-cli'
   $provider       = undef
   $config_file    = '/etc/php5/cli/php.ini'

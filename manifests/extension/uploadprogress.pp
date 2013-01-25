@@ -4,8 +4,8 @@
 #
 # === Parameters
 #
-# [*version*]
-#   The version of uploadprogress to install
+# [*ensure*]
+#   The ensure of uploadprogress to install
 #   Could be "latest", "installed" or a pinned verison
 #
 # [*package*]
@@ -32,7 +32,7 @@
 #  include 'php::extension::uploadprogress'
 #
 #  class {'php::extension::uploadprogress':
-#   version => latest
+#   ensure => latest
 #  }
 #
 # === Authors
@@ -44,7 +44,7 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::uploadprogress(
-  $version  			= $php::extension::uploadprogress::params::version,
+  $ensure  			= $php::extension::uploadprogress::params::ensure,
   $package  			= $php::extension::uploadprogress::params,
   $provider 			= $php::extension::uploadprogress::params::provider,
   $config_file    = $php::extension::uploadprogress::params::config_file,
@@ -52,7 +52,7 @@ class php::extension::uploadprogress(
 ) inherits php::extension::uploadprogress::params {
 
   php::extension { 'uploadprogress':
-    version  => $version,
+    ensure  => $ensure,
     package  => $package,
     provider => $provider
   }

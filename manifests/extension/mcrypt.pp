@@ -4,8 +4,8 @@
 #
 # === Parameters
 #
-# [*version*]
-#   The version of mcrypt to install
+# [*ensure*]
+#   The ensure of mcrypt to install
 #   Could be "latest", "installed" or a pinned verison
 #
 # [*package*]
@@ -25,8 +25,8 @@
 #
 # === Variables
 #
-# [*php_version*]
-#   The version of mcrypt to install
+# [*php_ensure*]
+#   The ensure of mcrypt to install
 #
 # === Examples
 #
@@ -41,7 +41,7 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::mcrypt(
-  $version  			= $php::extension::mcrypt::params::version,
+  $ensure  			= $php::extension::mcrypt::params::ensure,
   $package 			 	= $php::extension::mcrypt::params::package,
   $provider 			= $php::extension::mcrypt::params::provider,
   $config_file    = $php::extension::mcrypt::params::config_file,
@@ -49,7 +49,7 @@ class php::extension::mcrypt(
 ) inherits php::extension::mcrypt::params {
 
   php::extension { 'mcrypt':
-    version  => $version,
+    ensure  => $ensure,
     package  => $package,
     provider => $provider
   }

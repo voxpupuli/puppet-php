@@ -4,8 +4,8 @@
 #
 # === Parameters
 #
-# [*version*]
-#   The version of gd to install
+# [*ensure*]
+#   The ensure of gd to install
 #   Could be "latest", "installed" or a pinned verison
 #
 # [*package*]
@@ -40,7 +40,7 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::gd(
-  $version        = $php::extension::gd::params::version,
+  $ensure        = $php::extension::gd::params::ensure,
   $package        = $php::extension::gd::params::package,
   $provider       = $php::extension::gd::params::provider,
   $config_file    = $php::extension::gd::params::config_file,
@@ -48,7 +48,7 @@ class php::extension::gd(
 ) inherits php::extension::gd::params {
 
   php::extension { 'gd':
-    version  => $version,
+    ensure  => $ensure,
     package  => $package,
     provider => $provider
   }

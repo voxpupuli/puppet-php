@@ -8,8 +8,8 @@
 #
 # === Variables
 #
-# [*version*]
-#   The version of mcrypt to install
+# [*ensure*]
+#   The ensure of mcrypt to install
 #   Could be "latest", "installed" or a pinned verison
 #
 # [*package*]
@@ -32,7 +32,7 @@
 #  include 'php::extension::mcrypt::package'
 #
 #  class {'php::extension::mcrypt::package':
-#   version => latest
+#   ensure => latest
 #  }
 #
 # === Authors
@@ -45,7 +45,7 @@
 #
 class php::extension::mcrypt::params {
 
-  $version        = $php::params::version
+  $ensure        = $php::params::ensure
   $package        = 'php5-mcrypt'
   $provider       = undef
   $config_file    = '/etc/php5/conf.d/20-mcrypt.ini'

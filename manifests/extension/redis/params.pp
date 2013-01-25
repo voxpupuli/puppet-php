@@ -8,8 +8,8 @@
 #
 # === Variables
 #
-# [*version*]
-#   The version of redis to install
+# [*ensure*]
+#   The ensure of redis to install
 #   Must be a valid tag/branch name from the github repo
 #	Please see https://github.com/nicolasff/phpredis/
 #
@@ -32,7 +32,7 @@
 #  include 'php::extension::redis::package'
 #
 #  class {'php::extension::redis::package':
-#   version => latest
+#   ensure => latest
 #  }
 #
 # === Authors
@@ -45,7 +45,7 @@
 #
 class php::extension::redis::params {
 
-  $version        = 'master'
+  $ensure        = 'master'
   $tmp_dir		  	= '/opt/phpredis'
   $install_dir	  = '/usr/lib/php5/20100525'
   $config_file    = '/etc/php5/conf.d/redis.ini'

@@ -8,8 +8,8 @@
 #
 # === Variables
 #
-# [*version*]
-#   The version of APC to install
+# [*ensure*]
+#   The ensure of APC to install
 #   Could be "latest", "installed" or a pinned verison
 #
 # [*package*]
@@ -32,7 +32,7 @@
 #  include 'php::extension::apc::package'
 #
 #  class {'php::extension::apc::package':
-#   version => latest
+#   ensure => latest
 #  }
 #
 # === Authors
@@ -45,7 +45,7 @@
 #
 class php::extension::apc::params {
 
-  $version        = $php::params::version
+  $ensure        = $php::params::ensure
   $package        = 'php5-apc'
   $provider       = undef
   $config_file    = '/etc/php5/conf.d/20-apc.ini'

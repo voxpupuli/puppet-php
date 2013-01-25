@@ -4,8 +4,8 @@
 #
 # === Parameters
 #
-# [*version*]
-#   The PHP version of PHP CLI to install
+# [*ensure*]
+#   The PHP ensure of PHP CLI to install
 #
 # [*package*]
 #   The package name for PHP CLI
@@ -39,7 +39,7 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::cli(
-  $version        = $php::cli::params::version,
+  $ensure        = $php::cli::params::ensure,
   $package        = $php::cli::params::package,
   $provider       = $php::cli::params::provider,
   $config_file    = $php::cli::params::config_file,
@@ -47,12 +47,12 @@ class php::cli(
 ) inherits php::cli::params {
 
   php::contrib::base_package { 'cli':
-  	version  => $version,
+  	ensure  => $ensure,
   	provider => $provider;
   }
 
   package { $package:
-    ensure	 => $version,
+    ensure	 => $ensure,
     provider => $provider;
   }
 

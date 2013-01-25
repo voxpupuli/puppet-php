@@ -8,8 +8,8 @@
 #
 # === Variables
 #
-# [*version*]
-#   The version of APC to install
+# [*ensure*]
+#   The ensure of APC to install
 #   Could be "latest", "installed" or a pinned verison
 #
 # [*package*]
@@ -40,7 +40,7 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::apc(
-  $version        = $php::extension::apc::params::version,
+  $ensure        = $php::extension::apc::params::ensure,
   $package        = $php::extension::apc::params::package,
   $provider       = $php::extension::apc::params::provider,
   $config_file    = $php::extension::apc::params::config_file,
@@ -48,7 +48,7 @@ class php::extension::apc(
 ) inherits php::extension::apc::params {
 
   php::extension { 'apc':
-    version  => $version,
+    ensure  => $ensure,
     package  => $package,
     provider => $provider
   }

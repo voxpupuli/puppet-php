@@ -8,8 +8,8 @@
 #
 # === Variables
 #
-# [*version*]
-#   The version of xdebug to install
+# [*ensure*]
+#   The ensure of xdebug to install
 #   Could be "latest", "installed" or a pinned verison
 #
 # [*package*]
@@ -36,7 +36,7 @@
 #  include 'php::extension::xdebug::package'
 #
 #  class {'php::extension::xdebug::package':
-#   version => latest
+#   ensure => latest
 #  }
 #
 # === Authors
@@ -49,7 +49,7 @@
 #
 class php::extension::xdebug::params {
 
-  $version        = $php::params::version
+  $ensure        = $php::params::ensure
   $package        = 'php5-xdebug'
   $provider       = undef
   $install_dir	  = '/usr/lib/php5/20100525'

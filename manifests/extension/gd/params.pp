@@ -8,8 +8,8 @@
 #
 # === Variables
 #
-# [*version*]
-#   The version of gd to install
+# [*ensure*]
+#   The ensure of gd to install
 #   Could be "latest", "installed" or a pinned verison
 #
 # [*package*]
@@ -32,7 +32,7 @@
 #  include 'php::extension::gd::package'
 #
 #  class {'php::extension::gd::package':
-#   version => latest
+#   ensure => latest
 #  }
 #
 # === Authors
@@ -45,7 +45,7 @@
 #
 class php::extension::gd::params {
 
-  $version        = $php::params::version
+  $ensure        = $php::params::ensure
   $package        = 'php5-gd'
   $provider       = undef
   $config_file    = '/etc/php5/conf.d/20-gd.ini'

@@ -8,8 +8,8 @@
 #
 # === Variables
 #
-# [*version*]
-#   The version of http to install
+# [*ensure*]
+#   The ensure of http to install
 #   Could be "latest", "installed" or a pinned verison
 #
 # [*package*]
@@ -35,7 +35,7 @@
 #  include 'php::extension::http::package'
 #
 #  class {'php::extension::http::package':
-#   version => latest
+#   ensure => latest
 #  }
 #
 # === Authors
@@ -48,7 +48,7 @@
 #
 class php::extension::http::params {
 
-  $version        = $php::params::version
+  $ensure        = $php::params::ensure
   $package        = 'pecl_http'
   $provider       = 'pecl'
   $config_file    = '/etc/php5/conf.d/http.ini'

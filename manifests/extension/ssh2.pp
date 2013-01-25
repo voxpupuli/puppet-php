@@ -4,8 +4,8 @@
 #
 # === Parameters
 #
-# [*version*]
-#   The version of ssh2 to install
+# [*ensure*]
+#   The ensure of ssh2 to install
 #   Could be "latest", "installed" or a pinned verison
 #
 # [*package*]
@@ -25,8 +25,8 @@
 #
 # === Variables
 #
-# [*php_version*]
-#   The version of ssh2 to install
+# [*php_ensure*]
+#   The ensure of ssh2 to install
 #
 # === Examples
 #
@@ -41,7 +41,7 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::ssh2(
-  $version  			= $php::extension::ssh2::params::version,
+  $ensure  			= $php::extension::ssh2::params::ensure,
   $package  			= $php::extension::ssh2::params::package,
   $provider 			= $php::extension::ssh2::params::provider,
   $config_file    = $php::extension::ssh2::params::config_file,
@@ -49,7 +49,7 @@ class php::extension::ssh2(
 ) inherits php::extension::ssh2::params {
 
   php::extension { 'ssh2':
-    version  => $version,
+    ensure  => $ensure,
     package  => $package,
     provider => $provider
   }

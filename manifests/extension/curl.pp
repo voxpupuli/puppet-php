@@ -8,8 +8,8 @@
 #
 # === Variables
 #
-# [*version*]
-#   The version of curl to install
+# [*ensure*]
+#   The ensure of curl to install
 #   Could be "latest", "installed" or a pinned verison
 #
 # [*package*]
@@ -40,7 +40,7 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::curl(
-  $version        = $php::extension::curl::params::version,
+  $ensure        = $php::extension::curl::params::ensure,
   $package        = $php::extension::curl::params::package,
   $provider       = $php::extension::curl::params::provider,
   $config_file    = $php::extension::curl::params::config_file,
@@ -48,7 +48,7 @@ class php::extension::curl(
 ) inherits php::extension::curl::params {
 
   php::extension { 'curl':
-    version  => $version,
+    ensure  => $ensure,
     package  => $package,
     provider => $provider
   }

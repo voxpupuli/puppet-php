@@ -8,8 +8,8 @@
 #
 # === Variables
 #
-# [*version*]
-#   The version of ssh2 to install
+# [*ensure*]
+#   The ensure of ssh2 to install
 #   Could be "latest", "installed" or a pinned verison
 #
 # [*package*]
@@ -32,7 +32,7 @@
 #  include 'php::extension::ssh2::package'
 #
 #  class {'php::extension::ssh2::package':
-#   version => latest
+#   ensure => latest
 #  }
 #
 # === Authors
@@ -45,7 +45,7 @@
 #
 class php::extension::ssh2::params {
 
-  $version        = $php::params::version
+  $ensure        = $php::params::ensure
   $package        = 'php5-ssh2'
   $provider       = undef
   $config_file    = '/etc/php5/conf.d/20-ssh2.ini'

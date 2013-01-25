@@ -8,8 +8,8 @@
 #
 # === Variables
 #
-# [*version*]
-#   The version of mysql to install
+# [*ensure*]
+#   The ensure of mysql to install
 #   Could be "latest", "installed" or a pinned verison
 #
 # [*package*]
@@ -32,7 +32,7 @@
 #  include 'php::extension::mysql::package'
 #
 #  class {'php::extension::mysql::package':
-#   version => latest
+#   ensure => latest
 #  }
 #
 # === Authors
@@ -45,7 +45,7 @@
 #
 class php::extension::mysql::params {
 
-  $version        = $php::params::version
+  $ensure        = $php::params::ensure
   $package        = 'php5-mysql'
   $provider       = undef
   $config_file    = '/etc/php5/conf.d/20-mysql.ini'

@@ -8,8 +8,8 @@
 #
 # === Variables
 #
-# [*version*]
-#   The version of igbinary to install
+# [*ensure*]
+#   The ensure of igbinary to install
 #   Could be "latest", "installed" or a pinned verison
 #
 # [*package*]
@@ -40,7 +40,7 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::igbinary(
-	$version  			= $php::extension::igbinary::params::version,
+	$ensure  			= $php::extension::igbinary::params::ensure,
   $package  			= $php::extension::igbinary::params::package,
   $provider 			= $php::extension::igbinary::params::provider,
   $config_file    = $php::extension::igbinary::params::config_file,
@@ -48,7 +48,7 @@ class php::extension::igbinary(
 ) inherits php::extension::igbinary::params {
 
   php::extension { 'igbinary':
-    version  => $version,
+    ensure  => $ensure,
     package  => $package,
     provider => $provider
   }

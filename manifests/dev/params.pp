@@ -8,8 +8,8 @@
 #
 # === Variables
 #
-# [*version*]
-#   The version of the dev package to install
+# [*ensure*]
+#   The ensure of the dev package to install
 #   Could be "latest", "installed" or a pinned verison
 #
 # [*package*]
@@ -32,7 +32,7 @@
 #  include 'php::dev::package'
 #
 #  class {'php::dev::package
-#   version => latest
+#   ensure => latest
 #  }
 #
 # === Authors
@@ -45,7 +45,7 @@
 #
 class php::dev::params {
 
-  $version  = $php::params::version
+  $ensure  = $php::params::ensure
   $package  = 'php5-dev'
   $provider	= undef
 

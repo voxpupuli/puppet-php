@@ -8,8 +8,8 @@
 #
 # === Variables
 #
-# [*version*]
-#   The version of imagick to install
+# [*ensure*]
+#   The ensure of imagick to install
 #   Could be "latest", "installed" or a pinned verison
 #
 # [*package*]
@@ -32,7 +32,7 @@
 #  include 'php::extension::imagick::package'
 #
 #  class {'php::extension::imagick::package':
-#   version => latest
+#   ensure => latest
 #  }
 #
 # === Authors
@@ -45,7 +45,7 @@
 #
 class php::extension::imagick::params {
 
-  $version        = $php::params::version
+  $ensure        = $php::params::ensure
   $package        = 'php5-imagick'
   $provider       = undef
   $config_file    = '/etc/php5/conf.d/20-imagick.ini'

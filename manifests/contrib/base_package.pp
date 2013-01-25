@@ -1,11 +1,11 @@
 define php::contrib::base_package(
-  $version,
+  $ensure,
   $provider
 ) {
 
 	if !defined(Package['php5']) {
 		package { 'php5':
-			ensure 	 => $version,
+			ensure 	 => $ensure,
 			provider => $provider
 		}
 	}

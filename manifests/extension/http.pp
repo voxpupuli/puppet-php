@@ -4,8 +4,8 @@
 #
 # === Parameters
 #
-# [*version*]
-#   The version of http to install
+# [*ensure*]
+#   The ensure of http to install
 #   Could be "latest", "installed" or a pinned verison
 #
 # [*package*]
@@ -40,7 +40,7 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::http(
-	$version  			= $php::extension::http::params::version,
+	$ensure  			= $php::extension::http::params::ensure,
   $package  			= $php::extension::http::params::package,
   $provider 			= $php::extension::http::params::provider,
   $config_file  	= $php::extension::http::params::config_file,
@@ -52,7 +52,7 @@ class php::extension::http(
   }
 
   php::extension { 'http':
-    version  => $version,
+    ensure  => $ensure,
     package  => $package,
     provider => $provider,
     require	 => Package[$required_packages]

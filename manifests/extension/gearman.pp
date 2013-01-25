@@ -4,8 +4,8 @@
 #
 # === Parameters
 #
-# [*version*]
-#   The version of gearman to install
+# [*ensure*]
+#   The ensure of gearman to install
 #   Could be "latest", "installed" or a pinned verison
 #
 # [*package*]
@@ -40,7 +40,7 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::gearman(
-	$version        = $php::extension::gearman::params::version,
+	$ensure        = $php::extension::gearman::params::ensure,
   $package        = $php::extension::gearman::params::package,
   $provider       = $php::extension::gearman::params::provider,
   $config_file    = $php::extension::gearman::params::config_file,
@@ -48,7 +48,7 @@ class php::extension::gearman(
 ) inherits php::extension::gearman::params {
 
 	php::extension { 'gearman':
-    version  => $version,
+    ensure  => $ensure,
     package  => $package,
     provider => $provider
   }

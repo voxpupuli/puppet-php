@@ -4,8 +4,8 @@
 #
 # === Parameters
 #
-# [*version*]
-#   The version of xdebug to install
+# [*ensure*]
+#   The ensure of xdebug to install
 #   Could be "latest", "installed" or a pinned verison
 #
 # [*package*]
@@ -25,8 +25,8 @@
 #
 # === Variables
 #
-# [*php_version*]
-#   The version of xdebug to install
+# [*php_ensure*]
+#   The ensure of xdebug to install
 #
 # === Examples
 #
@@ -41,7 +41,7 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::xdebug(
-  $version  			= $php::extension::xdebug::params::version,
+  $ensure  			= $php::extension::xdebug::params::ensure,
   $package  			= $php::extension::xdebug::params::package,
   $provider 			= $php::extension::xdebug::params::provider,
   $config_file    = $php::extension::xdebug::params::config_file,
@@ -49,7 +49,7 @@ class php::extension::xdebug(
 ) inherits php::extension::xdebug::params {
 
   php::extension { 'xdebug':
-    version  => $version,
+    ensure  => $ensure,
     package  => $package,
     provider => $provider
   }

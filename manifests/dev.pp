@@ -10,8 +10,8 @@
 #
 # === Variables
 #
-# [*version*]
-#   The PHP version of PHP dev to install
+# [*ensure*]
+#   The PHP ensure of PHP dev to install
 #
 # [*package*]
 #   The package name for PHP dev
@@ -34,18 +34,18 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::dev(
-  $version  = $php::dev::params::version,
+  $ensure  = $php::dev::params::ensure,
   $package  = $php::dev::params::package,
   $provider = $php::dev::params::provider
 ) inherits php::dev::params {
 
   php::contrib::base_package { 'dev':
-    version  => $version,
+    ensure  => $ensure,
     provider => $provider;
   }
 
   package { $package:
-    ensure	 => $version,
+    ensure	 => $ensure,
     provider => $provider;
   }
 

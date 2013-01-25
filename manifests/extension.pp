@@ -8,8 +8,8 @@
 #
 # === Variables
 #
-# [*php_version*]
-#   The version of APC to install
+# [*php_ensure*]
+#   The ensure of APC to install
 #
 # === Examples
 #
@@ -24,7 +24,7 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 define php::extension(
-  $version,
+  $ensure,
   $package,
   $provider,
   $pipe = undef
@@ -32,13 +32,13 @@ define php::extension(
 
   if $provider == 'pecl' {
     package { $package:
-      ensure   => $version,
+      ensure   => $ensure,
       provider => $provider,
       pipe     => $pipe;
     }
   } else {
     package { $package:
-      ensure   => $version,
+      ensure   => $ensure,
       provider => $provider;
     }
   }

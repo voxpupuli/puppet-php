@@ -8,8 +8,8 @@
 #
 # === Variables
 #
-# [*version*]
-#   The version of curl to install
+# [*ensure*]
+#   The ensure of curl to install
 #   Could be "latest", "installed" or a pinned verison
 #
 # [*package*]
@@ -32,7 +32,7 @@
 #  include 'php::extension::curl::package'
 #
 #  class {'php::extension::curl::package':
-#   version => latest
+#   ensure => latest
 #  }
 #
 # === Authors
@@ -45,7 +45,7 @@
 #
 class php::extension::curl::params {
 
-  $version        = $php::params::version
+  $ensure        = $php::params::ensure
   $package        = 'php5-curl'
   $provider       = undef
   $config_file    = '/etc/php5/conf.d/20-curl.ini'

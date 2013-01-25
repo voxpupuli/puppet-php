@@ -8,8 +8,8 @@
 #
 # === Variables
 #
-# [*version*]
-#   The version of uploadprogress to install
+# [*ensure*]
+#   The ensure of uploadprogress to install
 #   Could be "latest", "installed" or a pinned verison
 #
 # [*package*]
@@ -32,7 +32,7 @@
 #  include 'php::extension::uploadprogress::package'
 #
 #  class {'php::extension::uploadprogress::package':
-#   version => latest
+#   ensure => latest
 #  }
 #
 # === Authors
@@ -45,7 +45,7 @@
 #
 class php::extension::uploadprogress::params {
 
-  $version        = $php::params::version
+  $ensure        = $php::params::ensure
   $package        = 'uploadprogress'
   $provider       = 'pecl'
   $config_file    = '/etc/php5/conf.d/uploadprogress.ini'

@@ -4,8 +4,8 @@
 #
 # === Parameters
 #
-# [*version*]
-#   The version of mysql to install
+# [*ensure*]
+#   The ensure of mysql to install
 #   Could be "latest", "installed" or a pinned verison
 #
 # [*package*]
@@ -25,8 +25,8 @@
 #
 # === Variables
 #
-# [*php_version*]
-#   The version of mysql to install
+# [*php_ensure*]
+#   The ensure of mysql to install
 #
 # === Examples
 #
@@ -41,7 +41,7 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::mysql(
-  $version  			= $php::extension::mysql::params::version,
+  $ensure  			= $php::extension::mysql::params::ensure,
   $package  			= $php::extension::mysql::params::package,
   $provider 			= $php::extension::mysql::params::provider,
   $config_file    = $php::extension::mysql::params::config_file,
@@ -49,7 +49,7 @@ class php::extension::mysql(
 ) inherits php::extension::mysql::params {
 
   php::extension { 'mysql':
-    version  => $version,
+    ensure  => $ensure,
     package  => $package,
     provider => $provider
   }

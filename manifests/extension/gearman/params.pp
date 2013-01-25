@@ -8,8 +8,8 @@
 #
 # === Variables
 #
-# [*version*]
-#   The version of gearman to install
+# [*ensure*]
+#   The ensure of gearman to install
 #   Could be "latest", "installed" or a pinned verison
 #
 # [*package*]
@@ -32,7 +32,7 @@
 #  include 'php::extension::gearman::package'
 #
 #  class {'php::extension::gearman::package':
-#   version => latest
+#   ensure => latest
 #  }
 #
 # === Authors
@@ -45,7 +45,7 @@
 #
 class php::extension::gearman::params {
 
-  $version        = $php::params::version
+  $ensure        = $php::params::ensure
   $package        = 'php5-gearman'
   $provider       = undef
   $config_file    = '/etc/php5/conf.d/20-gearman.ini'

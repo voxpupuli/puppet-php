@@ -8,8 +8,8 @@
 #
 # === Variables
 #
-# [*version*]
-#   The version of the pear package to install
+# [*ensure*]
+#   The ensure of the pear package to install
 #   Could be "latest", "installed" or a pinned verison
 #
 # [*package*]
@@ -32,7 +32,7 @@
 #  include 'php::pear::package'
 #
 #  class {'php::pear::package
-#   version => latest
+#   ensure => latest
 #  }
 #
 # === Authors
@@ -45,7 +45,7 @@
 #
 class php::pear::params {
 
-  $version        = $php::params::version
+  $ensure        = $php::params::ensure
   $package        = ['php-pear']
   $provider       = undef
 

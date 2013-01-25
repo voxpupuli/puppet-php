@@ -4,8 +4,8 @@
 #
 # === Parameters
 #
-# [*version*]
-#   The version of imagick to install
+# [*ensure*]
+#   The ensure of imagick to install
 #   Could be "latest", "installed" or a pinned verison
 #
 # [*package*]
@@ -25,8 +25,8 @@
 #
 # === Variables
 #
-# [*php_version*]
-#   The version of imagick to install
+# [*php_ensure*]
+#   The ensure of imagick to install
 #
 # === Examples
 #
@@ -41,7 +41,7 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::imagick(
-  $version  			= $php::extension::imagick::params::version,
+  $ensure  			= $php::extension::imagick::params::ensure,
   $package  			= $php::extension::imagick::params::package,
   $provider 			= $php::extension::imagick::params::provider,
   $config_file    = $php::extension::imagick::params::config_file,
@@ -49,7 +49,7 @@ class php::extension::imagick(
 ) inherits php::extension::imagick::params {
 
   php::extension { 'imagick':
-    version  => $version,
+    ensure  => $ensure,
     package  => $package,
     provider => $provider
   }

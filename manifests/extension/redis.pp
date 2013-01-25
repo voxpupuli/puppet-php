@@ -4,8 +4,8 @@
 #
 # === Parameters
 #
-# [*version*]
-#   The version of redis to install
+# [*ensure*]
+#   The ensure of redis to install
 #   Must be a valid tag/branch name from the github repo
 #		Please see https://github.com/nicolasff/phpredis/
 #
@@ -18,8 +18,8 @@
 #
 # === Variables
 #
-# [*php_version*]
-#   The version of redis to install
+# [*php_ensure*]
+#   The ensure of redis to install
 #
 # === Examples
 #
@@ -34,13 +34,13 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::redis(
-	$version 				= 'master',
+	$ensure 				= 'master',
 	$config_file    = $php::extension::redis::params::config_file,
   $config_changes = $php::extension::redis::params::config_changes
 ) inherits php::extension::redis::params {
 
   class { 'php::extension::redis::package':
-  	version => $version
+  	ensure => $ensure
   }
 
   php::config { 'php-extension-redis':

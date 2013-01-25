@@ -4,8 +4,8 @@
 #
 # === Parameters
 #
-# [*version*]
-#   The version of the apache package to install
+# [*ensure*]
+#   The ensure of the apache package to install
 #   Could be "latest", "installed" or a pinned verison
 #
 # [*package*]
@@ -40,7 +40,7 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::apache(
-  $version        = $php::apache::params::version,
+  $ensure        = $php::apache::params::ensure,
   $package        = $php::apache::params::package,
   $provider       = $php::apache::params::provider,
   $config_file    = $php::apache::params::config_file,
@@ -48,12 +48,12 @@ class php::apache(
 ) inherits php::apache::params {
 
   php::contrib::base_package { 'apache':
-    version  => $version,
+    ensure  => $ensure,
     provider => $provider;
   }
 
   package { $package:
-    ensure   => $version,
+    ensure   => $ensure,
     provider => $provider;
   }
 

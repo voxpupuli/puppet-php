@@ -8,8 +8,8 @@
 #
 # === Variables
 #
-# [*version*]
-#   The version of igbinary to install
+# [*ensure*]
+#   The ensure of igbinary to install
 #   Could be "latest", "installed" or a pinned verison
 #
 # [*package*]
@@ -32,7 +32,7 @@
 #  include 'php::extension::igbinary::package'
 #
 #  class {'php::extension::igbinary::package':
-#   version => latest
+#   ensure => latest
 #  }
 #
 # === Authors
@@ -45,7 +45,7 @@
 #
 class php::extension::igbinary::params {
 
-  $version        = $php::params::version
+  $ensure        = $php::params::ensure
   $package        = 'igbinary'
   $provider       = 'pecl'
   $config_file    = '/etc/php5/conf.d/igbinary.ini'
