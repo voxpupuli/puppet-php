@@ -26,9 +26,6 @@
 #   Hash with 'set' nested hash of key => value
 #   set changes to agues when applied to *config_file*
 #
-# [*required_packages*]
-#   Packages to install before the extension can be compiled
-#
 # === Examples
 #
 # No examples
@@ -44,18 +41,13 @@
 class php::extension::http::params {
 
   $ensure         = $php::params::ensure
-  $package        = 'pecl_http'
-  $provider       = 'pecl'
-  $config_file    = '/etc/php5/conf.d/http.ini'
+  $package        = 'php5-http'
+  $provider       = undef
+  $config_file    = '/etc/php5/conf.d/20-http.ini'
   $config_changes = {
     set => {
-     '.anon/extension' => 'http.so'
+
     }
   }
-
-  $required_packages = [
-    'libcurl4-openssl-dev',
-    'libmagick++-dev'
-  ]
 
 }

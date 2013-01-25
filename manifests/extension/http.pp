@@ -46,20 +46,15 @@ class php::extension::http(
   $config_changes = $php::extension::http::params::config_changes
 ) inherits php::extension::http::params {
 
-  package { $required_packages:
-  	ensure => installed;
-  }
-
   php::extension { 'http':
-    ensure  => $ensure,
+    ensure   => $ensure,
     package  => $package,
-    provider => $provider,
-    require	 => Package[$required_packages]
+    provider => $provider;
   }
 
  php::config { 'php-extension-http':
     config_file     => $config_file,
-    config_changes  => $config_changes
+    config_changes  => $config_changes;
   }
 
 }

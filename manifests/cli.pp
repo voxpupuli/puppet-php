@@ -39,7 +39,7 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::cli(
-  $ensure        = $php::cli::params::ensure,
+  $ensure         = $php::cli::params::ensure,
   $package        = $php::cli::params::package,
   $provider       = $php::cli::params::provider,
   $config_file    = $php::cli::params::config_file,

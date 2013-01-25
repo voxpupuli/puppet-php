@@ -34,7 +34,7 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::dev(
-  $ensure  = $php::dev::params::ensure,
+  $ensure   = $php::dev::params::ensure,
   $package  = $php::dev::params::package,
   $provider = $php::dev::params::provider
 ) inherits php::dev::params {

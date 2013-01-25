@@ -40,7 +40,7 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::apache(
-  $ensure        = $php::apache::params::ensure,
+  $ensure         = $php::apache::params::ensure,
   $package        = $php::apache::params::package,
   $provider       = $php::apache::params::provider,
   $config_file    = $php::apache::params::config_file,

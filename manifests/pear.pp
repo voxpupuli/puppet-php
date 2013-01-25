@@ -32,7 +32,7 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::pear(
-  $ensure  = $php::pear::params::ensure,
+  $ensure   = $php::pear::params::ensure,
   $package  = $php::pear::params::package,
   $provider = $php::pear::params::provider
 ) inherits php::pear::params {
