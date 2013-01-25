@@ -43,12 +43,4 @@ define php::extension(
     }
   }
 
-  if $require {
-    $require -> Package[$package]
-  }
-
-  if $notify {
-    Package[$package] ~> $notify
-  }
-
 }

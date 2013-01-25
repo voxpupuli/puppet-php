@@ -29,11 +29,6 @@ class php::phpunit {
     provider => pear;
   }
 
-  exec { 'pear auto_discover':
-    command     => 'pear config-set auto_discover 1 system',
-    refreshonly => true;
-  }
-
   Class['php::pear']
     ~> Exec['pear auto_discover']
     -> Package['pear.phpunit.de/PHPUnit']
