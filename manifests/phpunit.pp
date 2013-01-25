@@ -25,12 +25,9 @@
 class php::phpunit {
 
   package { 'pear.phpunit.de/PHPUnit':
-    ensure   => '3.7.12',
-    provider => pear;
+    ensure   	=> '3.7.12',
+    provider 	=> pear,
+    require		=> Exec['php::pear::auto_discover'];
   }
-
-  Class['php::pear']
-    ~> Exec['pear auto_discover']
-    -> Package['pear.phpunit.de/PHPUnit']
 
 }

@@ -45,8 +45,8 @@
 #
 class php::pear::params {
 
-  $ensure        = $php::params::ensure
-  $package        = ['php-pear']
-  $provider       = undef
+  $ensure   = $php::params::ensure
+  $package  = 'php-pear'
+  $provider = undef
 
 }

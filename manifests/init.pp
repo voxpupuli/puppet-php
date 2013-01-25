@@ -26,4 +26,9 @@ class php {
 
 	include php::params
 
+	exec { 'php::pear::auto_discover':
+  	command 		=> 'pear config-set auto_discover 1 system',
+  	refreshonly	=> true
+	}
+
 }

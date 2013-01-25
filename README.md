@@ -107,11 +107,12 @@ Packages from a custom `pear` channel is also supported nicely
 ```
 package { 'pear.phpunit.de/PHPUnit':
 	ensure   => '3.7.12', # Same as Package { ensure }
-	provider => pear;
+	provider => pear,
+	require  => Exec['php::pear::auto_discover'];
 }
 ```
 
-If you want to auto-discover channels, make sure to `require` `Exec['pear auto_discover']`
+If you want to auto-discover channels, make sure to `require` `Exec['php::pear::auto_discover']`
 
 ### Custom configure packages
 
