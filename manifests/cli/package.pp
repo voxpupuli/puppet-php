@@ -2,16 +2,22 @@
 #
 # PHP CLI package
 #
-# Will install PHP cli
-#
 # === Parameters
 #
 # No parameters
 #
 # === Variables
 #
-# [*php_version*]
-#   The PHP version of PHP cli to install
+# [*version*]
+#   The PHP version of PHP CLI to install
+#
+# [*package*]
+#   The package name for PHP CLI
+#   For debian it's php5-cli
+#
+# [*provider*]
+#   The provider used to install php5-cli
+#   Could be "pecl", "apt" or any other OS package provider
 #
 # === Examples
 #
@@ -25,16 +31,20 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::cli::package {
+class php::cli::package(
+  $version  = $php::cli::params::version,
+  $package  = $php::cli::params::package,
+  $provider = $php::cli::params::provider
+) inherits php::cli::params {
 
-  package {
-    'php5-cli':
-      ensure => $::php_version;
-    'php5':
-      ensure  => $::php_version;
+  php::contrib::base_package { 'cli':
+  	version  => $version,
+  	provider => $provider;
   }
 
-  Apt::Source['dotdeb'] ~> Exec['apt_update'] -> Package['php5-cli']
-  Apt::Source['dotdeb'] ~> Exec['apt_update'] -> Package['php5']
+  package { $package:
+    ensure	 => $version,
+    provider => $provider;
+  }
 
 }

@@ -2,16 +2,22 @@
 #
 # PHP dev package
 #
-# Install the development headers for PHP
-#
 # === Parameters
 #
 # No parameters
 #
 # === Variables
 #
-# [*php_version*]
-#   The PHP version of PHP cli to install
+# [*version*]
+#   The PHP version of PHP dev to install
+#
+# [*package*]
+#   The package name for PHP dev
+#   For debian it's php5-dev
+#
+# [*provider*]
+#   The provider used to install php5-dev
+#   Could be "pecl", "apt" or any other OS package provider
 #
 # === Examples
 #
@@ -25,14 +31,15 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::dev::package {
+class php::dev::package(
+  $version  = $php::dev::params::version,
+  $package  = $php::dev::params::package,
+  $provider = $php::dev::params::provider
+) inherits php::dev::params {
 
-#  package { 'php5-dev':
-#    ensure => $php::params::php_version
-#  }
-#
-#  Apt::Source['dotdeb']
-#    ~> Exec['apt_update']
-#    -> Package['php5-dev']
-#
+  package { $package:
+    ensure	 => $version,
+    provider => $provider;
+  }
+
 }

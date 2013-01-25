@@ -6,9 +6,7 @@
 # SAPI php.ini
 #
 # The *$name* of the php::apache::config call is used as key inside the
-# augeas call.
-#
-# For list of valid values run augtool /files/etc/php5/apache2/php.ini
+# augeas call. For list of valid values run augtool /files/etc/php5/apache/php.ini
 #
 # === Parameters
 #
@@ -31,22 +29,14 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-define php::apache::config($value) {
+class php::apache::config(
+  $config_file    = $php::apache::params::config_file,
+  $config_changes = $php::apache::params::config_changes
+) inherits php::apache::params {
 
-  $notify = [
-    Service['apache2']
-  ]
-
-  $require = [
-    Package['libapache2-mod-php5']
-  ]
-
-  php::config { "apache/${name}":
-    sapi    => 'apache2',
-    notify  => $notify,
-    require => $require,
-    key     => $name,
-    value   => $value;
+  php::config { 'apache':
+    config_file     => $config_file,
+    config_changes  => $config_changes
   }
 
 }

@@ -50,8 +50,8 @@
 class php::pecl::xdebug::params {
 
   $version        = $php::params::version
-  $package        = 'xdebug'
-  $provider       = 'pecl'
+  $package        = 'php5-xdebug'
+  $provider       = undef
   $install_dir	  = '/usr/lib/php5/20100525'
   $config_file    = '/etc/php5/conf.d/xdebug.ini'
   $config_changes = {

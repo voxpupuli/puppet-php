@@ -46,7 +46,7 @@
 class php::pecl::redis::params {
 
   $version        = 'master'
-  $tmp_dir		  = '/opt/php/phpredis'
+  $tmp_dir		  = '/opt/phpredis'
   $install_dir	  = '/usr/lib/php5/20100525'
   $config_file    = '/etc/php5/conf.d/redis.ini'
   $config_changes = {

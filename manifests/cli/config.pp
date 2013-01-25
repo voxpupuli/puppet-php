@@ -29,22 +29,14 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-define php::cli::config($value) {
+class php::cli::config(
+  $config_file    = $php::cli::params::config_file,
+  $config_changes = $php::cli::params::config_changes
+) inherits php::cli::params {
 
-  $notify = [
-
-  ]
-
-  $require = [
-    Package['php5-cli']
-  ]
-
-  php::config { "cli/${name}":
-    sapi    => 'cli',
-    notify  => $notify,
-    require => $require,
-    key     => $name,
-    value   => $value;
+  php::config { "cli-${name}":
+    config_file     => $config_file,
+    config_changes  => $config_changes
   }
 
 }

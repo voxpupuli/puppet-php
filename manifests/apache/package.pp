@@ -1,8 +1,6 @@
 # == Class: php::apache::package
 #
-# PHP mod_php package
-#
-# Will install mod_php for apache
+# PHP apache package
 #
 # === Parameters
 #
@@ -10,8 +8,16 @@
 #
 # === Variables
 #
-# [*php_version*]
-#   The PHP version of mod_php to install
+# [*version*]
+#   The PHP version of PHP apache to install
+#
+# [*package*]
+#   The package name for PHP apache
+#   For debian it's php5-apache
+#
+# [*provider*]
+#   The provider used to install php5-apache
+#   Could be "pecl", "apt" or any other OS package provider
 #
 # === Examples
 #
@@ -25,16 +31,20 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::apache::package {
+class php::apache::package(
+  $version  = $php::apache::params::version,
+  $package  = $php::apache::params::package,
+  $provider = $php::apache::params::provider
+) inherits php::apache::params {
 
-  package { 'libapache2-mod-php5':
-    ensure => $::php_version,
-    alias  => 'mod_php5';
+  php::contrib::base_package { 'apache':
+  	version  => $version,
+  	provider => $provider;
   }
 
-  Apt::Source['dotdeb']
-    ~> Exec['apt_update']
-    -> Package['apache2']
-    -> Package['libapache2-mod-php5']
+  package { $package:
+    ensure	 => $version,
+    provider => $provider;
+  }
 
 }

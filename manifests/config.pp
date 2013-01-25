@@ -29,14 +29,14 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-define php::config($key, $value, $sapi) {
+define php::config(
+  $config_file,
+  $config_changes
+) {
 
-  augeas { "php/${sapi}/${key}":
-    lens  => 'php.lns',
-    incl  => "/etc/php5/${sapi}/php.ini",
-    changes => [
-      "set '${key}' '${value}'"
-    ];
+  augeas { "php-${name}-config":
+    context => "/files${config_file}",
+    changes => template('php/augeas_commands.erb')
   }
 
 }

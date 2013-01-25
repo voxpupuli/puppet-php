@@ -36,8 +36,6 @@ class php::apt {
     creates => '/var/local/dotdeb.gpg.done';
   }
 
-  Exec['add_dotdeb_key']
-    -> Apt::Source['dotdeb']
-    ~> Exec['apt_update']
+  Exec['add_dotdeb_key'] -> Apt::Source['dotdeb'] ~> Exec['apt_update']
 
 }

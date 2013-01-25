@@ -24,7 +24,7 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::pecl::redis::package(
-  $version  = $php::pecl::redis::params::version
+  $version = $php::pecl::redis::params::version
 ) inherits php::pecl::redis::params {
 
   file {
