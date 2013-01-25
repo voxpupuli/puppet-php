@@ -32,10 +32,5 @@ class php::pecl::apc::config(
   $config_changes = $php::pecl::apc::params::config_changes
 ) inherits php::pecl::apc::params {
 
-  php::pecl::config { 'apc':
-    extension       => 'apc',
-    config_file     => $config_file,
-    config_changes  => $config_changes
-  }
 
 }
