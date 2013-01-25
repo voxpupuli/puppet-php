@@ -81,7 +81,7 @@ package { 'igbinary':
 }
 ```
 
-### Installing custom packages
+### Installing packages
 
 It's quite simple to install packages not included in the package, simply use `php::extension`
 
@@ -114,7 +114,7 @@ package { 'pear.phpunit.de/PHPUnit':
 
 If you want to auto-discover channels, make sure to `require` `Exec['php::pear::auto_discover']`
 
-### Custom configure packages
+### Configure packages
 
 Modifying php configuration is also baked right now
 
