@@ -5,23 +5,22 @@
 # === Parameters
 #
 # [*ensure*]
-#   The ensure of uploadprogress to install
-#   Could be "latest", "installed" or a pinned verison
+#   The version of the package to install
+#   Could be "latest", "installed" or a pinned version
+#   This matches "ensure" from Package
 #
 # [*package*]
-#   The package name for uploadprogress
-#   For debian it's php5-uploadprogress
+#   The package name in your provider
 #
 # [*provider*]
-#   The provider used to install php5-uploadprogress
-#   Could be "pecl", "apt" or any other OS package provider
+#   The provider used to install the package
 #
 # [*config_file*]
-#   The path to the ini php5-uploadprogress ini file
+#   The path to the extension ini file
 #
 # [*config_changes*]
-# 	Hash with 'set' nested hash of key => value
-# 	set changes to agues when applied to *config_file*
+#   Hash with 'set' nested hash of key => value
+#   set changes to agues when applied to *config_file*
 #
 # === Variables
 #
@@ -44,7 +43,7 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::uploadprogress(
-  $ensure  			= $php::extension::uploadprogress::params::ensure,
+  $ensure  			  = $php::extension::uploadprogress::params::ensure,
   $package  			= $php::extension::uploadprogress::params,
   $provider 			= $php::extension::uploadprogress::params::provider,
   $config_file    = $php::extension::uploadprogress::params::config_file,

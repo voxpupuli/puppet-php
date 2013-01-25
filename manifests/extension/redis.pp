@@ -5,21 +5,20 @@
 # === Parameters
 #
 # [*ensure*]
-#   The ensure of redis to install
-#   Must be a valid tag/branch name from the github repo
-#		Please see https://github.com/nicolasff/phpredis/
+#   The version of the package to install
+#   Could be "latest", "installed" or a pinned version
+#   This matches "ensure" from Package
 #
 # [*config_file*]
-#   The path to the ini php5-redis ini file
+#   The path to the extension ini file
 #
 # [*config_changes*]
-# 	Hash with 'set' nested hash of key => value
-# 	set changes to agues when applied to *config_file*
+#   Hash with 'set' nested hash of key => value
+#   set changes to agues when applied to *config_file*
 #
 # === Variables
 #
-# [*php_ensure*]
-#   The ensure of redis to install
+# No variables
 #
 # === Examples
 #

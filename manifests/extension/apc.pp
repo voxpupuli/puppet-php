@@ -4,28 +4,27 @@
 #
 # === Parameters
 #
-# No parameters
-#
-# === Variables
-#
 # [*ensure*]
-#   The ensure of APC to install
-#   Could be "latest", "installed" or a pinned verison
+#   The version of the package to install
+#   Could be "latest", "installed" or a pinned version
+#   This matches "ensure" from Package
 #
 # [*package*]
-#   The package name for apc
-#   For debian it's php5-apc
+#   The package name in your provider
 #
 # [*provider*]
-#   The provider used to install php5-apc
-#   Could be "pecl", "apt" or any other OS package provider
+#   The provider used to install the package
 #
 # [*config_file*]
-#   The path to the ini php5-apc ini file
+#   The path to the extension ini file
 #
 # [*config_changes*]
 #   Hash with 'set' nested hash of key => value
 #   set changes to agues when applied to *config_file*
+#
+# === Variables
+#
+# No variables
 #
 # === Examples
 #
@@ -40,7 +39,7 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::apc(
-  $ensure        = $php::extension::apc::params::ensure,
+  $ensure         = $php::extension::apc::params::ensure,
   $package        = $php::extension::apc::params::package,
   $provider       = $php::extension::apc::params::provider,
   $config_file    = $php::extension::apc::params::config_file,

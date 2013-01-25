@@ -1,6 +1,6 @@
 # == Class: php::extension::uploadprogress::params
 #
-# Defaults file for uploadprogress extension
+# Defaults file for the uploadprogress PHP extension
 #
 # === Parameters
 #
@@ -9,19 +9,18 @@
 # === Variables
 #
 # [*ensure*]
-#   The ensure of uploadprogress to install
-#   Could be "latest", "installed" or a pinned verison
+#   The version of the package to install
+#   Could be "latest", "installed" or a pinned version
+#   This matches "ensure" from Package
 #
 # [*package*]
-#   The package name for uploadprogress
-#   For debian it's php5-uploadprogress
+#   The package name in your provider
 #
 # [*provider*]
-#   The provider used to install php5-uploadprogress
-#   Could be "pecl", "apt" or any other OS package provider
+#   The provider used to install the package
 #
 # [*config_file*]
-#   The path to the ini php5-uploadprogress ini file
+#   The path to the extension ini file
 #
 # [*config_changes*]
 #   Hash with 'set' nested hash of key => value
@@ -29,11 +28,7 @@
 #
 # === Examples
 #
-#  include 'php::extension::uploadprogress::package'
-#
-#  class {'php::extension::uploadprogress::package':
-#   ensure => latest
-#  }
+# No examples
 #
 # === Authors
 #

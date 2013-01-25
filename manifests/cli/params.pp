@@ -9,19 +9,18 @@
 # === Variables
 #
 # [*ensure*]
-#   The ensure of the CLI package to install
-#   Could be "latest", "installed" or a pinned verison
+#   The version of the package to install
+#   Could be "latest", "installed" or a pinned version
+#   This matches "ensure" from Package
 #
 # [*package*]
-#   The package name for CLI package
-#   For debian it's php5-cli
+#   The package name for apache package
 #
 # [*provider*]
-#   The provider used to install php5-cli
-#   Could be "pecl", "apt" or any other OS package provider
+#   The provider used to install package
 #
 # [*config_file*]
-#   The path to the ini php5-cli ini file
+#   The path to the ini php5 apache ini file
 #
 # [*config_changes*]
 #   Hash with 'set' nested hash of key => value
@@ -29,11 +28,7 @@
 #
 # === Examples
 #
-#  include 'php::cli::package'
-#
-#  class {'php::cli::package
-#   ensure => latest
-#  }
+# No examples
 #
 # === Authors
 #
@@ -45,7 +40,7 @@
 #
 class php::cli::params {
 
-  $ensure        = $php::params::ensure
+  $ensure         = $php::params::ensure
   $package        = 'php5-cli'
   $provider       = undef
   $config_file    = '/etc/php5/cli/php.ini'

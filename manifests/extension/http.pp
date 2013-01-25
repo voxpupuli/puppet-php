@@ -5,23 +5,22 @@
 # === Parameters
 #
 # [*ensure*]
-#   The ensure of http to install
-#   Could be "latest", "installed" or a pinned verison
+#   The version of the package to install
+#   Could be "latest", "installed" or a pinned version
+#   This matches "ensure" from Package
 #
 # [*package*]
-#   The package name for http
-#   For debian it's pecl_http
+#   The package name in your provider
 #
 # [*provider*]
-#   The provider used to install php5-http
-#   Could be "pecl", "apt" or any other OS package provider
+#   The provider used to install the package
 #
 # [*config_file*]
-#   The path to the ini php5-http ini file
+#   The path to the extension ini file
 #
 # [*config_changes*]
-# Hash with 'set' nested hash of key => value
-# set changes to agues when applied to *config_file*
+#   Hash with 'set' nested hash of key => value
+#   set changes to agues when applied to *config_file*
 #
 # === Variables
 #
@@ -40,7 +39,7 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::http(
-	$ensure  			= $php::extension::http::params::ensure,
+	$ensure  			  = $php::extension::http::params::ensure,
   $package  			= $php::extension::http::params::package,
   $provider 			= $php::extension::http::params::provider,
   $config_file  	= $php::extension::http::params::config_file,

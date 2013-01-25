@@ -9,8 +9,9 @@
 # === Variables
 #
 # [*ensure*]
-#   The ensure of the apache package to install
-#   Could be "latest", "installed" or a pinned ensure
+#   The version of the package to install
+#   Could be "latest", "installed" or a pinned version
+#   This matches "ensure" from Package
 #
 # [*package*]
 #   The package name for apache package
@@ -19,7 +20,7 @@
 #   The provider used to install package
 #
 # [*config_file*]
-#   The path to the ini php5-apache ini file
+#   The path to the ini php5 apache ini file
 #
 # [*config_changes*]
 #   Hash with 'set' nested hash of key => value
@@ -27,11 +28,7 @@
 #
 # === Examples
 #
-#  include 'php::apache::package'
-#
-#  class {'php::apache::package
-#   ensure => latest
-#  }
+# No examples
 #
 # === Authors
 #
@@ -42,7 +39,8 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::apache::params {
-  $ensure        = $php::params::ensure
+
+  $ensure         = $php::params::ensure
   $package        = 'libapache2-mod-php5'
   $provider       = undef
   $config_file    = '/etc/php5/apache2/php.ini'

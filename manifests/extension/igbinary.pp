@@ -4,28 +4,27 @@
 #
 # === Parameters
 #
-# No parameters
+# [*ensure*]
+#   The version of the package to install
+#   Could be "latest", "installed" or a pinned version
+#   This matches "ensure" from Package
+#
+# [*package*]
+#   The package name in your provider
+#
+# [*provider*]
+#   The provider used to install the package
+#
+# [*config_file*]
+#   The path to the extension ini file
+#
+# [*config_changes*]
+#   Hash with 'set' nested hash of key => value
+#   set changes to agues when applied to *config_file*
 #
 # === Variables
 #
-# [*ensure*]
-#   The ensure of igbinary to install
-#   Could be "latest", "installed" or a pinned verison
-#
-# [*package*]
-#   The package name for igbinary
-#   For debian it's php5-igbinary
-#
-# [*provider*]
-#   The provider used to install php5-igbinary
-#   Could be "pecl", "apt" or any other OS package provider
-#
-# [*config_file*]
-#   The path to the ini php5-igbinary ini file
-#
-# [*config_changes*]
-# 	Hash with 'set' nested hash of key => value
-# 	set changes to agues when applied to *config_file*
+# No variables
 #
 # === Examples
 #
@@ -40,7 +39,7 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::igbinary(
-	$ensure  			= $php::extension::igbinary::params::ensure,
+	$ensure  			  = $php::extension::igbinary::params::ensure,
   $package  			= $php::extension::igbinary::params::package,
   $provider 			= $php::extension::igbinary::params::provider,
   $config_file    = $php::extension::igbinary::params::config_file,

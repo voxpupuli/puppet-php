@@ -1,6 +1,6 @@
 # == Class: php::extension::http::params
 #
-# Defaults file for http extension
+# Defaults file for the http PHP extension
 #
 # === Parameters
 #
@@ -9,19 +9,18 @@
 # === Variables
 #
 # [*ensure*]
-#   The ensure of http to install
-#   Could be "latest", "installed" or a pinned verison
+#   The version of the package to install
+#   Could be "latest", "installed" or a pinned version
+#   This matches "ensure" from Package
 #
 # [*package*]
-#   The package name for http
-#   For debian it's http
+#   The package name in your provider
 #
 # [*provider*]
-#   The provider used to install php5-http
-#   Could be "pecl", "apt" or any other OS package provider
+#   The provider used to install the package
 #
 # [*config_file*]
-#   The path to the ini php5-http ini file
+#   The path to the extension ini file
 #
 # [*config_changes*]
 #   Hash with 'set' nested hash of key => value
@@ -32,11 +31,7 @@
 #
 # === Examples
 #
-#  include 'php::extension::http::package'
-#
-#  class {'php::extension::http::package':
-#   ensure => latest
-#  }
+# No examples
 #
 # === Authors
 #
@@ -48,7 +43,7 @@
 #
 class php::extension::http::params {
 
-  $ensure        = $php::params::ensure
+  $ensure         = $php::params::ensure
   $package        = 'pecl_http'
   $provider       = 'pecl'
   $config_file    = '/etc/php5/conf.d/http.ini'

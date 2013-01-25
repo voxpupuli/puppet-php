@@ -1,6 +1,6 @@
 # == Class: php::extension::redis::params
 #
-# Defaults file for redis extension
+# Defaults file for the redis PHP extension
 #
 # === Parameters
 #
@@ -9,19 +9,18 @@
 # === Variables
 #
 # [*ensure*]
-#   The ensure of redis to install
-#   Must be a valid tag/branch name from the github repo
-#	Please see https://github.com/nicolasff/phpredis/
+#   The version of the package to install
+#   Could be "latest", "installed" or a pinned version
+#   This matches "ensure" from Package
 #
-# [*tmp_dir*]
-#   tmp folder to store and compile redis extension from
+# [*package*]
+#   The package name in your provider
 #
-# [*install_dir*]
-#   Path where `make install` in the php extension will
-#	put the redis.so file
+# [*provider*]
+#   The provider used to install the package
 #
 # [*config_file*]
-#   The path to the ini php5-redis ini file
+#   The path to the extension ini file
 #
 # [*config_changes*]
 #   Hash with 'set' nested hash of key => value
@@ -29,11 +28,7 @@
 #
 # === Examples
 #
-#  include 'php::extension::redis::package'
-#
-#  class {'php::extension::redis::package':
-#   ensure => latest
-#  }
+# No examples
 #
 # === Authors
 #
@@ -45,7 +40,7 @@
 #
 class php::extension::redis::params {
 
-  $ensure        = 'master'
+  $ensure         = 'master'
   $tmp_dir		  	= '/opt/phpredis'
   $install_dir	  = '/usr/lib/php5/20100525'
   $config_file    = '/etc/php5/conf.d/redis.ini'

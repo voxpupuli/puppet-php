@@ -1,6 +1,6 @@
 # == Class: php::extension::xdebug::params
 #
-# Defaults file for xdebug extension
+# Defaults file for the xdebug PHP extension
 #
 # === Parameters
 #
@@ -9,23 +9,21 @@
 # === Variables
 #
 # [*ensure*]
-#   The ensure of xdebug to install
-#   Could be "latest", "installed" or a pinned verison
+#   The version of the package to install
+#   Could be "latest", "installed" or a pinned version
+#   This matches "ensure" from Package
 #
 # [*package*]
-#   The package name for xdebug
-#   For debian it's php5-xdebug
+#   The package name in your provider
 #
 # [*provider*]
-#   The provider used to install php5-xdebug
-#   Could be "pecl", "apt" or any other OS package provider
+#   The provider used to install the package
 #
 # [*install_dir*]
-#   Path where `make install` in the php extension will
-#	put the redis.so file
+#   The path of the installed xdebug.so binary
 #
 # [*config_file*]
-#   The path to the ini php5-xdebug ini file
+#   The path to the extension ini file
 #
 # [*config_changes*]
 #   Hash with 'set' nested hash of key => value
@@ -33,11 +31,7 @@
 #
 # === Examples
 #
-#  include 'php::extension::xdebug::package'
-#
-#  class {'php::extension::xdebug::package':
-#   ensure => latest
-#  }
+# No examples
 #
 # === Authors
 #
@@ -49,7 +43,7 @@
 #
 class php::extension::xdebug::params {
 
-  $ensure        = $php::params::ensure
+  $ensure         = $php::params::ensure
   $package        = 'php5-xdebug'
   $provider       = undef
   $install_dir	  = '/usr/lib/php5/20100525'

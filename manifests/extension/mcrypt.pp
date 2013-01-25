@@ -5,28 +5,26 @@
 # === Parameters
 #
 # [*ensure*]
-#   The ensure of mcrypt to install
-#   Could be "latest", "installed" or a pinned verison
+#   The version of the package to install
+#   Could be "latest", "installed" or a pinned version
+#   This matches "ensure" from Package
 #
 # [*package*]
-#   The package name for mcrypt
-#   For debian it's php5-mcrypt
+#   The package name in your provider
 #
 # [*provider*]
-#   The provider used to install php5-mcrypt
-#   Could be "pecl", "apt" or any other OS package provider
+#   The provider used to install the package
 #
 # [*config_file*]
-#   The path to the ini php5-mcrypt ini file
+#   The path to the extension ini file
 #
 # [*config_changes*]
-#	Hash with 'set' nested hash of key => value
-#	set changes to agues when applied to *config_file*
+#   Hash with 'set' nested hash of key => value
+#   set changes to agues when applied to *config_file*
 #
 # === Variables
 #
-# [*php_ensure*]
-#   The ensure of mcrypt to install
+# No variables
 #
 # === Examples
 #
@@ -41,7 +39,7 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::mcrypt(
-  $ensure  			= $php::extension::mcrypt::params::ensure,
+  $ensure  			  = $php::extension::mcrypt::params::ensure,
   $package 			 	= $php::extension::mcrypt::params::package,
   $provider 			= $php::extension::mcrypt::params::provider,
   $config_file    = $php::extension::mcrypt::params::config_file,

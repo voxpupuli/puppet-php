@@ -4,28 +4,27 @@
 #
 # === Parameters
 #
-# No parameters
+# [*ensure*]
+#   The version of the package to install
+#   Could be "latest", "installed" or a pinned version
+#   This matches "ensure" from Package
+#
+# [*package*]
+#   The package name in your provider
+#
+# [*provider*]
+#   The provider used to install the package
+#
+# [*config_file*]
+#   The path to the extension ini file
+#
+# [*config_changes*]
+#   Hash with 'set' nested hash of key => value
+#   set changes to agues when applied to *config_file*
 #
 # === Variables
 #
-# [*ensure*]
-#   The ensure of curl to install
-#   Could be "latest", "installed" or a pinned verison
-#
-# [*package*]
-#   The package name for curl
-#   For debian it's php5-curl
-#
-# [*provider*]
-#   The provider used to install php5-curl
-#   Could be "pecl", "apt" or any other OS package provider
-#
-# [*config_file*]
-#   The path to the ini php5-curl ini file
-#
-# [*config_changes*]
-#	Hash with 'set' nested hash of key => value
-#	set changes to agues when applied to *config_file*
+# No variables
 #
 # === Examples
 #
@@ -40,7 +39,7 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::curl(
-  $ensure        = $php::extension::curl::params::ensure,
+  $ensure         = $php::extension::curl::params::ensure,
   $package        = $php::extension::curl::params::package,
   $provider       = $php::extension::curl::params::provider,
   $config_file    = $php::extension::curl::params::config_file,

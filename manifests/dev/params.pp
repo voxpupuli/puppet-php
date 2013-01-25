@@ -1,6 +1,6 @@
 # == Class: php::dev::params
 #
-# Defaults file for dev package
+# Defaults file for DEV package
 #
 # === Parameters
 #
@@ -9,31 +9,19 @@
 # === Variables
 #
 # [*ensure*]
-#   The ensure of the dev package to install
-#   Could be "latest", "installed" or a pinned verison
+#   The version of the package to install
+#   Could be "latest", "installed" or a pinned version
+#   This matches "ensure" from Package
 #
 # [*package*]
-#   The package name for dev package
-#   For debian it's php5-dev
+#   The package name for apache package
 #
 # [*provider*]
-#   The provider used to install php5-dev
-#   Could be "pecl", "apt" or any other OS package provider
-#
-# [*config_file*]
-#   The path to the ini php5-dev ini file
-#
-# [*config_changes*]
-#   Hash with 'set' nested hash of key => value
-#   set changes to agues when applied to *config_file*
+#   The provider used to install package
 #
 # === Examples
 #
-#  include 'php::dev::package'
-#
-#  class {'php::dev::package
-#   ensure => latest
-#  }
+# No examples
 #
 # === Authors
 #
@@ -45,7 +33,7 @@
 #
 class php::dev::params {
 
-  $ensure  = $php::params::ensure
+  $ensure   = $php::params::ensure
   $package  = 'php5-dev'
   $provider	= undef
 

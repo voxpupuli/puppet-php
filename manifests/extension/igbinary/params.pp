@@ -1,6 +1,6 @@
 # == Class: php::extension::igbinary::params
 #
-# Defaults file for igbinary extension
+# Defaults file for the igbinary PHP extension
 #
 # === Parameters
 #
@@ -9,19 +9,18 @@
 # === Variables
 #
 # [*ensure*]
-#   The ensure of igbinary to install
-#   Could be "latest", "installed" or a pinned verison
+#   The version of the package to install
+#   Could be "latest", "installed" or a pinned version
+#   This matches "ensure" from Package
 #
 # [*package*]
-#   The package name for igbinary
-#   For debian it's php5-igbinary
+#   The package name in your provider
 #
 # [*provider*]
-#   The provider used to install php5-igbinary
-#   Could be "pecl", "apt" or any other OS package provider
+#   The provider used to install the package
 #
 # [*config_file*]
-#   The path to the ini php5-igbinary ini file
+#   The path to the extension ini file
 #
 # [*config_changes*]
 #   Hash with 'set' nested hash of key => value
@@ -29,11 +28,7 @@
 #
 # === Examples
 #
-#  include 'php::extension::igbinary::package'
-#
-#  class {'php::extension::igbinary::package':
-#   ensure => latest
-#  }
+# No examples
 #
 # === Authors
 #
@@ -45,7 +40,7 @@
 #
 class php::extension::igbinary::params {
 
-  $ensure        = $php::params::ensure
+  $ensure         = $php::params::ensure
   $package        = 'igbinary'
   $provider       = 'pecl'
   $config_file    = '/etc/php5/conf.d/igbinary.ini'
