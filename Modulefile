@@ -1,10 +1,10 @@
-name    'nodes-php'
-version '0.1.3'
+name 'nodes-php'
+version '0.2.0'
 author 'nodesagency'
 license 'MIT'
-summary 'Puppet module to manage PHP on debian using dotdeb apt repository'
-description 'Puppet module to manage PHP on debian using dotdeb apt repository'
+summary 'Puppet module to manage PHP on debian (and others)'
+description 'Puppet module to manage PHP on debian (and others)'
 project_page 'https://github.com/nodesagency/puppet-php'
 
-## Add dependencies, if any:
-# dependency 'username/name', '>= 1.2.0'
+dependency 'puppetlabs/stdlib'
+dependency 'puppetlabs/apt'
