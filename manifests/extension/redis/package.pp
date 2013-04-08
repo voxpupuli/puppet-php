@@ -37,12 +37,14 @@ class php::extension::redis::package(
     'redis_fetch':
       command => "wget https://github.com/nicolasff/phpredis/archive/${ensure}.tar.gz",
       creates => "${tmp_dir}/${ensure}.tar.gz",
-      cwd     => php::extension::redis::params::tmp_dir;
+      cwd     => php::extension::redis::params::tmp_dir,
+      path    => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/" ];
 
     'redis_extract':
       command => "tar zxf ${ensure}.tar.gz",
       creates => "${tmp_dir}/phpredis-${ensure}",
-      cwd     => php::extension::redis::params::tmp_dir;
+      cwd     => php::extension::redis::params::tmp_dir,
+      path    => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/" ];
 
     'redis_phpize':
       command => 'phpize',
@@ -52,17 +54,20 @@ class php::extension::redis::package(
     'redis_configure':
       command => 'bash -c -- ./configure',
       creates => "${tmp_dir}/phpredis-${ensure}/config.status",
-      cwd     => "${tmp_dir}/phpredis-${ensure}";
+      cwd     => "${tmp_dir}/phpredis-${ensure}",
+      path    => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/" ];
 
     'redis_make':
       command => 'make',
       creates => "${tmp_dir}/phpredis-${ensure}/modules/redis.so",
-      cwd     => "${tmp_dir}/phpredis-${ensure}";
+      cwd     => "${tmp_dir}/phpredis-${ensure}",
+      path    => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/" ];
 
     'redis_install':
       command => 'make install',
       creates => "${php::extension::redis::params::install_dir}/redis.so",
-      cwd     => "${tmp_dir}/phpredis-${ensure}";
+      cwd     => "${tmp_dir}/phpredis-${ensure}",
+      path    => [ "/bin/", "/sbin/" , "/usr/bin/", "/usr/sbin/" ];
   }
 
   File[tmp_dir]
