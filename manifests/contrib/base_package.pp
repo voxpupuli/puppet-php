@@ -16,15 +16,15 @@
 #
 # === Examples
 #
-#  
+#
 #
 # === Authors
 #
-# 
+#
 #
 # === Copyright
 #
-# 
+#
 #
 define php::contrib::base_package(
   $ensure,
