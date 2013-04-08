@@ -31,6 +31,8 @@ class php {
     unless  => 'pear config-get auto_discover system | grep -q 1'
   }
 
-  Package['php-pear'] -> Exec['php::pear::auto_discover']
+  package { 'php-pear':
+    ensure => php::params::ensure
+  } -> Exec['php::pear::auto_discover']
 
 }
