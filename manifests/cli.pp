@@ -44,21 +44,22 @@ class php::cli(
   $provider = $php::cli::params::provider,
   $inifile  = $php::cli::params::inifile,
   $settings = $php::cli::params::settings
-) inherits php::cli::params {
+) {
+  include php::cli::params
 
   php::contrib::base_package { 'cli':
-  	ensure   => $ensure,
-  	provider => $provider;
+    ensure    => $ensure,
+    provider  => $provider;
   }
 
   package { $package:
-    ensure	 => $ensure,
-    provider => $provider;
+    ensure    => $ensure,
+    provider  => $provider;
   }
 
   php::config { 'php-cli':
-    inifile  => $inifile,
-    settings => $settings
+    inifile   => $inifile,
+    settings  => $settings
   }
 
 }

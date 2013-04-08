@@ -44,7 +44,8 @@ class php::extension::apc(
   $provider = $php::extension::apc::params::provider,
   $inifile  = $php::extension::apc::params::inifile,
   $settings = $php::extension::apc::params::settings
-) inherits php::extension::apc::params {
+) {
+  include php::extension::apc::params
 
   php::extension { 'apc':
     ensure   => $ensure,

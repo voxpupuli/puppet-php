@@ -1,6 +1,6 @@
 include php
 
-class { 
+class {
   'php::pear':
     ensure => installed;
 }

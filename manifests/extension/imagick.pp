@@ -39,12 +39,13 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::imagick(
-  $ensure  	= $php::extension::imagick::params::ensure,
+  $ensure   = $php::extension::imagick::params::ensure,
   $package  = $php::extension::imagick::params::package,
   $provider = $php::extension::imagick::params::provider,
   $inifile  = $php::extension::imagick::params::inifile,
   $settings = $php::extension::imagick::params::settings
-) inherits php::extension::imagick::params {
+) {
+  include php::extension::imagick::params
 
   php::extension { 'imagick':
     ensure   => $ensure,

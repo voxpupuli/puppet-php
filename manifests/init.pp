@@ -24,13 +24,13 @@
 #
 class php {
 
-	include php::params
+  include php::params
 
-	exec { 'php::pear::auto_discover':
-  	command => 'pear config-set auto_discover 1 system',
-  	unless	=> 'pear config-get auto_discover system | grep -q 1'
-	}
+  exec { 'php::pear::auto_discover':
+    command => 'pear config-set auto_discover 1 system',
+    unless  => 'pear config-get auto_discover system | grep -q 1'
+  }
 
-	Package['php-pear'] -> Exec['php::pear::auto_discover']
+  Package['php-pear'] -> Exec['php::pear::auto_discover']
 
 }

@@ -44,7 +44,8 @@ class php::extension::gd(
   $provider = $php::extension::gd::params::provider,
   $inifile  = $php::extension::gd::params::inifile,
   $settings = $php::extension::gd::params::settings
-) inherits php::extension::gd::params {
+) {
+  include php::extension::gd::params
 
   php::extension { 'gd':
     ensure   => $ensure,

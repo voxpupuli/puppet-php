@@ -45,21 +45,22 @@ class php::apache(
   $provider = $php::apache::params::provider,
   $inifile  = $php::apache::params::inifile,
   $settings = $php::apache::params::settings
-) inherits php::apache::params {
+) {
+  include php::apache::params
 
   php::contrib::base_package { 'apache':
-    ensure   => $ensure,
-    provider => $provider;
+    ensure    => $ensure,
+    provider  => $provider;
   }
 
   package { $package:
-    ensure   => $ensure,
-    provider => $provider;
+    ensure    => $ensure,
+    provider  => $provider;
   }
 
   php::config { 'php-apache':
-    inifile  => $inifile,
-    settings => $settings
+    inifile   => $inifile,
+    settings  => $settings
   }
 
 }

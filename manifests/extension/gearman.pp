@@ -39,14 +39,15 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::gearman(
-	$ensure   = $php::extension::gearman::params::ensure,
+  $ensure   = $php::extension::gearman::params::ensure,
   $package  = $php::extension::gearman::params::package,
   $provider = $php::extension::gearman::params::provider,
   $inifile  = $php::extension::gearman::params::inifile,
   $settings = $php::extension::gearman::params::settings
-) inherits php::extension::gearman::params {
+) {
+  include php::extension::gearman::params
 
-	php::extension { 'gearman':
+  php::extension { 'gearman':
     ensure   => $ensure,
     package  => $package,
     provider => $provider
