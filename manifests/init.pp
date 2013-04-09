@@ -33,7 +33,7 @@ class php {
   }
 
   package { 'php-pear':
-    ensure => php::params::ensure
+    ensure => $php::params::ensure
   } -> Exec['php::pear::auto_discover']
 
 }
