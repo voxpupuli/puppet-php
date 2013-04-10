@@ -77,7 +77,7 @@ Puppet::Type.type(:package).provide :pear, :parent => Puppet::Provider::Package 
           :ensure => version
       }
     else
-      Puppet.warning "Could not match '%s'" % desc
+      Puppet.debug "Could not match '%s'" % desc
       nil
     end
   end
