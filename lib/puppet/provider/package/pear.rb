@@ -21,7 +21,7 @@ Puppet::Type.type(:package).provide :pear, :parent => Puppet::Provider::Package 
     begin
       channel = "pear"
       list = execute(command).collect do |set|
-        if match = /INSTALLED PACKAGES, CHANNEL (.*):/.match(set)
+        if match = /INSTALLED PACKAGES, CHANNEL (.*):/i.match(set)
           channel = match[1].downcase
         end
 
