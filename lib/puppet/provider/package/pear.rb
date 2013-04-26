@@ -26,13 +26,10 @@ Puppet::Type.type(:package).provide :pear, :parent => Puppet::Provider::Package 
         end
 
         if hash[:justme]
-          if  set =~ /^hash[:justme]/
-            if pearhash = pearsplit(set, channel)
-              pearhash[:provider] = :pear
-              pearhash
-            else
-              nil
-            end
+          if set =~ /^hash[:justme]/
+            pearhash = pearsplit(set, channel)
+            pearhash[:provider] = :pear
+            pearhash
           else
             nil
           end
@@ -44,9 +41,8 @@ Puppet::Type.type(:package).provide :pear, :parent => Puppet::Provider::Package 
             nil
           end
         end
-      end
+      end.reject { |p| p.nil? }
 
-      list = list.reject { |p| p.nil? }
     rescue Puppet::ExecutionFailure => detail
       raise Puppet::Error, "Could not list pears: %s" % detail
     end
@@ -66,16 +62,17 @@ Puppet::Type.type(:package).provide :pear, :parent => Puppet::Provider::Package 
 
     case desc
       when /^$/: return nil
-      when /^INSTALLED/: return nil
+      when /^INSTALLED/i: return nil
       when /^=/: return nil
-      when /^PACKAGE/: return nil
-      when /^(\S+)\s+([.\d]+)\s+\S+/:
+      when /^PACKAGE/i: return nil
+      when /^(\S+)\s+([.\d]+)\s+(\S+)\s*$/:
         name = $1
         version = $2
+        state = $3
         return {
           :name => "#{channel}/#{name}",
-          :ensure => version
-      }
+          :ensure => state == 'stable' ? version : state
+        }
     else
       Puppet.debug "Could not match '%s'" % desc
       nil
@@ -131,4 +128,5 @@ Puppet::Type.type(:package).provide :pear, :parent => Puppet::Provider::Package 
   def update
     self.install(false)
   end
+
 end
