@@ -1,5 +1,5 @@
 name 'nodes-php'
-version '0.2.2'
+version '0.3.0'
 author 'nodesagency'
 license 'MIT'
 summary 'Puppet module to manage PHP on debian (and others)'
