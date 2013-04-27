@@ -59,9 +59,9 @@ Puppet::Type.type(:package).provide :pecl, :parent => Puppet::Provider::Package 
     end
 
     case desc
-    when /^INSTALLED/: return nil
-    when /^=/: return nil
-    when /^PACKAGE/: return nil
+    when /^INSTALLED/ then return nil
+    when /^=/ then return nil
+    when /^PACKAGE/ then return nil
     when /^(\S+)\s+([.\d]+)\s+\S+/
       name = $1
       version = $2
