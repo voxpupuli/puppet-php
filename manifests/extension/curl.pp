@@ -44,7 +44,8 @@ class php::extension::curl(
   $provider = $php::extension::curl::params::provider,
   $inifile  = $php::extension::curl::params::inifile,
   $settings = $php::extension::curl::params::settings
-) inherits php::extension::curl::params {
+) {
+  include php::extension::curl::params
 
   php::extension { 'curl':
     ensure   => $ensure,

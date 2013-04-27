@@ -26,7 +26,8 @@ class php::composer {
 
   exec { 'download composer':
     command => 'wget http://getcomposer.org/composer.phar -O /usr/local/bin/composer',
-    creates => '/usr/local/bin/composer'
+    creates => '/usr/local/bin/composer',
+    path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ];
   }
 
   file { '/usr/local/bin/composer':

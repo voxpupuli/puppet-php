@@ -39,12 +39,13 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::mysql(
-  $ensure  	= $php::extension::mysql::params::ensure,
-  $package 	= $php::extension::mysql::params::package,
-  $provider	= $php::extension::mysql::params::provider,
+  $ensure   = $php::extension::mysql::params::ensure,
+  $package  = $php::extension::mysql::params::package,
+  $provider = $php::extension::mysql::params::provider,
   $inifile  = $php::extension::mysql::params::inifile,
   $settings = $php::extension::mysql::params::settings,
-) inherits php::extension::mysql::params {
+) {
+  include php::extension::mysql::params
 
   php::extension { 'mysql':
     ensure   => $ensure,

@@ -39,21 +39,22 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::mcrypt(
-  $ensure  	= $php::extension::mcrypt::params::ensure,
-  $package 	= $php::extension::mcrypt::params::package,
+  $ensure   = $php::extension::mcrypt::params::ensure,
+  $package  = $php::extension::mcrypt::params::package,
   $provider = $php::extension::mcrypt::params::provider,
   $inifile  = $php::extension::mcrypt::params::inifile,
   $settings = $php::extension::mcrypt::params::settings
-) inherits php::extension::mcrypt::params {
+) {
+  include php::extension::mcrypt::params
 
   php::extension { 'mcrypt':
-    ensure  => $ensure,
-    package  => $package,
-    provider => $provider
+    ensure    => $ensure,
+    package   => $package,
+    provider  => $provider
   }
 
   php::config { 'php-extension-mcrypt':
-    inifile     => $inifile,
+    inifile   => $inifile,
     settings  => $settings
   }
 

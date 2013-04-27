@@ -27,6 +27,6 @@
 #
 class php::params {
 
-  $ensure = "installed"
+  $ensure = installed
 
 }
