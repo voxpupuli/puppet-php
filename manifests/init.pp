@@ -32,8 +32,4 @@ class php {
     path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ];
   }
 
-  package { 'php-pear':
-    ensure => $php::params::ensure
-  } -> Exec['php::pear::auto_discover']
-
 }
