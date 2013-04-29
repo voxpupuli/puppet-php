@@ -56,7 +56,7 @@ Puppet::Type.type(:package).provide :pecl, :parent => Puppet::Provider::Package 
   def self.pearsplit(desc)
     desc = desc.strip!
 
-    if desc.empty?
+    if desc.nil? or desc.empty?
       return nil
     end
 
