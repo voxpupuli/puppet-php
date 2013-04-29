@@ -18,11 +18,10 @@ Puppet::Type.type(:package).provide :pecl, :parent => Puppet::Provider::Package 
     command = [command(:pearcmd), "list"]
 
     begin
-      list = execute(command).split "\n"
-
-      list.collect do |set|
+      list = execute(command).split("\n")
+      list = list.collect do |set|
         if hash[:justme]
-          if  set =~ /^hash[:justme]/
+          if /^#{hash[:justme]}/i.match(set)
             if pearhash = pearsplit(set)
               pearhash[:provider] = :pearcmd
               pearhash
@@ -40,7 +39,6 @@ Puppet::Type.type(:package).provide :pecl, :parent => Puppet::Provider::Package 
             nil
           end
         end
-
       end.reject { |p| p.nil? }
     rescue Puppet::ExecutionFailure => detail
       raise Puppet::Error, "Could not list pears: %s" % detail
@@ -54,27 +52,17 @@ Puppet::Type.type(:package).provide :pecl, :parent => Puppet::Provider::Package 
   end
 
   def self.pearsplit(desc)
-    desc = desc.strip!
-
-    if desc.nil? or desc.empty?
-      return nil
-    end
-
-    if desc == "INSTALLED PACKAGES, CHANNEL PECL.PHP.NET"
-      return nil
-    end
-
-    if desc == "(no packages installed from channel pecl.php.net)"
-      return nil
-    end
+    desc.strip!
 
     case desc
     when /^INSTALLED/ then return nil
+    when /No packages installed from channel/i then return nil
     when /^=/ then return nil
     when /^PACKAGE/ then return nil
     when /^(\S+)\s+([.\d]+)\s+\S+/ then
       name = $1
       version = $2
+
       return {
         :name => name,
         :ensure => version
@@ -105,24 +93,24 @@ Puppet::Type.type(:package).provide :pecl, :parent => Puppet::Provider::Package 
     end
 
     if pipe = @resource[:pipe]
-        command << " < "
+        command << "<<<"
         command << @resource[:pipe]
     end
 
     pearcmd(*command)
   end
 
-  def latest
-    # This always gets the latest version available.
-    version = ''
-    command = [command(:pearcmd), "remote-info", "#{@resource[:name]}"]
-      list = execute(command).collect do |set|
-      if set =~ /^Latest/
-        version = set.split[1]
-      end
-    end
-    return version
-  end
+#  def latest
+# This always gets the latest version available.
+#    version = ''
+#    command = [command(:pearcmd), "remote-info", "#{@resource[:name]}"]
+#      list = execute(command).collect do |set|
+#      if set =~ /^Latest/
+#        version = set.split[1]
+#      end
+#    end
+#    return version
+#  end
 
   def query
     self.class.pearlist(:justme => @resource[:name])
