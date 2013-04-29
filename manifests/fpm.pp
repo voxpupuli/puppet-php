@@ -62,7 +62,7 @@ class php::fpm(
     enable    => true,
     restart   => 'service php5-fpm reload',
     hasstatus => true,
-    require   => $package
+    require   => Package[$package]
   }
 
 }
