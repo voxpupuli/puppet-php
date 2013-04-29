@@ -33,7 +33,7 @@ class php::fpm::daemon (
     service { 'php5-fpm':
       ensure    => running,
       enable    => true,
-      restart   => '/sbin/service php-fpm reload',
+      restart   => '/sbin/service php5-fpm reload',
       hasstatus => true,
       require   => Package['php5-fpm'],
     }
