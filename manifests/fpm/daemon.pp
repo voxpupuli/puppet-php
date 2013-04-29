@@ -35,7 +35,7 @@ class php::fpm::daemon (
       enable    => true,
       restart   => '/sbin/service php-fpm reload',
       hasstatus => true,
-      require   => Package['php-fpm'],
+      require   => Package['php5-fpm'],
     }
 
     # When running FastCGI, we don't always use the same user
