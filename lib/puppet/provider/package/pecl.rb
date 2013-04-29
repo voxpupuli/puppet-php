@@ -19,7 +19,7 @@ Puppet::Type.type(:package).provide :pecl, :parent => Puppet::Provider::Package 
 
     begin
       list = execute(command)
-      if list == "(no packages installed from channel pecl.php.net)"
+      if list == "(no packages installed from channel pecl.php.net)\n"
         return nil
       end
 
