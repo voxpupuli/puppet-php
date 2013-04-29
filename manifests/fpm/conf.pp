@@ -60,18 +60,18 @@ define php::fpm::conf (
 
   if ( $ensure == 'absent' ) {
 
-    file { "/etc/php-fpm.d/${pool}.conf":
-      notify => Service['php-fpm'],
+    file { "/etc/php5/fpm/pool.d/${pool}.conf":
+      notify => Service['php5-fpm'],
       ensure => absent,
     }
 
   } else {
 
-    file { "/etc/php-fpm.d/${pool}.conf":
-      notify  => Service['php-fpm'],
+    file { "/etc/php5/fpm/pool.d/${pool}.conf":
+      notify  => Service['php5-fpm'],
       content => template('php/fpm/pool.conf.erb'),
-      owner   => 'root',
-      group   => 'root',
+      owner   => root,
+      group   => root,
       mode    => '0644',
     }
 
