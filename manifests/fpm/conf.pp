@@ -24,7 +24,7 @@ define php::fpm::conf (
   $listen_owner = undef,
   $listen_group = undef,
   $listen_mode = undef,
-  $user = 'apache',
+  $user = 'www-data',
   $group = undef,
   $pm = 'dynamic',
   $pm_max_children = '50',
@@ -61,13 +61,14 @@ define php::fpm::conf (
   if ( $ensure == 'absent' ) {
 
     file { "/etc/php5/fpm/pool.d/${pool}.conf":
-      notify => Service['php5-fpm'],
       ensure => absent,
+      notify => Service['php5-fpm']
     }
 
   } else {
 
     file { "/etc/php5/fpm/pool.d/${pool}.conf":
+      ensure  => file,
       notify  => Service['php5-fpm'],
       content => template('php/fpm/pool.conf.erb'),
       owner   => root,
