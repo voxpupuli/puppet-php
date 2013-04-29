@@ -50,8 +50,8 @@ class php::extension::xdebug::params {
   $inifile     = '/etc/php5/conf.d/xdebug.ini'
   $settings = {
     set => {
-      '.anon/zend_extension'            => "${install_dir}/xdebug.so",
-      '.anon/xdebug.max_nesting_level'  => '1000'
+    	'.anon/zend_extension' => "${install_dir}/xdebug.so",
+    	'.anon/xdebug.max_nesting_level' => '1000'
     }
   }
 

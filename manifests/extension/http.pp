@@ -39,13 +39,12 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::http(
-  $ensure   = $php::extension::http::params::ensure,
+	$ensure  	= $php::extension::http::params::ensure,
   $package  = $php::extension::http::params::package,
   $provider = $php::extension::http::params::provider,
   $inifile  = $php::extension::http::params::inifile,
   $settings = $php::extension::http::params::settings
-) {
-  include php::extension::http::params
+) inherits php::extension::http::params {
 
   php::extension { 'http':
     ensure   => $ensure,
@@ -53,7 +52,7 @@ class php::extension::http(
     provider => $provider;
   }
 
-  php::config { 'php-extension-http':
+ php::config { 'php-extension-http':
     inifile  => $inifile,
     settings => $settings;
   }
