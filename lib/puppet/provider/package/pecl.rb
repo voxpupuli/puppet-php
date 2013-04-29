@@ -18,10 +18,7 @@ Puppet::Type.type(:package).provide :pecl, :parent => Puppet::Provider::Package 
     command = [command(:pearcmd), "list"]
 
     begin
-      list = execute(command)
-      if list == "(no packages installed from channel pecl.php.net)\n"
-        return nil
-      end
+      list = execute(command).split "\n"
 
       list.collect do |set|
         if hash[:justme]
