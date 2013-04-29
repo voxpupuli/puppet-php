@@ -6,14 +6,14 @@
 #  include php::fpm::daemon
 #
 class php::fpm::daemon (
-  $ensure = 'present',
-  $log_level = 'notice',
-  $emergency_restart_threshold = '0',
-  $emergency_restart_interval = '0',
-  $process_control_timeout = '0',
-  $log_owner = 'root',
-  $log_group = false,
-  $log_dir_mode = '0770'
+  $ensure                       = 'present',
+  $log_level                    = 'notice',
+  $emergency_restart_threshold  = '0',
+  $emergency_restart_interval   = '0',
+  $process_control_timeout      = '0',
+  $log_owner                    = 'root',
+  $log_group                    = false,
+  $log_dir_mode                 = '0770'
 ) {
 
   # Hack-ish to default to user for group too
@@ -24,22 +24,26 @@ class php::fpm::daemon (
 
   if ( $ensure == 'absent' ) {
 
-    package { 'php5-fpm': ensure => absent }
+    package { 'php5-fpm':
+      ensure => absent
+    }
 
   } else {
 
-    package { 'php5-fpm': ensure => installed }
+    package { 'php5-fpm':
+      ensure => installed
+    }
 
     service { 'php5-fpm':
       ensure    => running,
       enable    => true,
-      restart   => '/sbin/service php5-fpm reload',
+      restart   => 'service php5-fpm reload',
       hasstatus => true,
       require   => Package['php5-fpm'],
     }
 
     # When running FastCGI, we don't always use the same user
-    file { '/var/log/php-fpm':
+    file { '/var/log/php5-fpm.log':
       owner   => $log_owner,
       group   => $log_group_final,
       mode    => $log_dir_mode,
@@ -49,8 +53,8 @@ class php::fpm::daemon (
     file { '/etc/php5/fpm/php-fpm.conf':
       notify  => Service['php5-fpm'],
       content => template('php/fpm/php-fpm.conf.erb'),
-      owner   => 'root',
-      group   => 'root',
+      owner   => root,
+      group   => root,
       mode    => 0644,
     }
 
