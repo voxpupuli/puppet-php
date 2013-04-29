@@ -56,6 +56,14 @@ Puppet::Type.type(:package).provide :pecl, :parent => Puppet::Provider::Package 
   def self.pearsplit(desc)
     desc = desc.strip!
 
+    if desc.empty?
+      return nil
+    end
+
+    if desc == "INSTALLED PACKAGES, CHANNEL PECL.PHP.NET"
+      return nil
+    end
+
     if desc == "(no packages installed from channel pecl.php.net)"
       return nil
     end
@@ -64,7 +72,7 @@ Puppet::Type.type(:package).provide :pecl, :parent => Puppet::Provider::Package 
     when /^INSTALLED/ then return nil
     when /^=/ then return nil
     when /^PACKAGE/ then return nil
-    when /^(\S+)\s+([.\d]+)\s+\S+/
+    when /^(\S+)\s+([.\d]+)\s+\S+/ then
       name = $1
       version = $2
       return {
