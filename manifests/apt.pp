@@ -26,7 +26,7 @@ class php::apt {
 
   apt::source { 'dotdeb':
     location    => 'http://packages.dotdeb.org',
-    release     => "${lsbdistcodename}-php54",
+    release     => "${lsbdistcodename}",
     repos       => 'all',
     include_src => true,
   }
