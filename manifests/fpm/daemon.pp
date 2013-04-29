@@ -42,14 +42,6 @@ class php::fpm::daemon (
       require   => Package['php5-fpm'],
     }
 
-    # When running FastCGI, we don't always use the same user
-    file { '/var/log/php5-fpm.log':
-      owner   => $log_owner,
-      group   => $log_group_final,
-      mode    => $log_dir_mode,
-      require => Package['php5-fpm'],
-    }
-
     file { '/etc/php5/fpm/php-fpm.conf':
       notify  => Service['php5-fpm'],
       content => template('php/fpm/php-fpm.conf.erb'),
