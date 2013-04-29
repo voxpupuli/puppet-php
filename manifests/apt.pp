@@ -26,7 +26,7 @@ class php::apt {
 
   apt::source { 'dotdeb':
     location    => 'http://packages.dotdeb.org',
-    release     => 'squeeze-php54',
+    release     => "${lsbdistcodename}-php54",
     repos       => 'all',
     include_src => true,
   }
