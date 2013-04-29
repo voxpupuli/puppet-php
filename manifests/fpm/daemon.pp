@@ -46,7 +46,7 @@ class php::fpm::daemon (
       require => Package['php5-fpm'],
     }
 
-    file { '/etc/php-fpm.conf':
+    file { '/etc/php5/fpm/php-fpm.conf':
       notify  => Service['php5-fpm'],
       content => template('php/fpm/php-fpm.conf.erb'),
       owner   => 'root',
