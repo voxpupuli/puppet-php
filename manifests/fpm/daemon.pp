@@ -47,7 +47,7 @@ class php::fpm::daemon (
     }
 
     file { '/etc/php-fpm.conf':
-      notify  => Service['php-fpm'],
+      notify  => Service['php5-fpm'],
       content => template('php/fpm/php-fpm.conf.erb'),
       owner   => 'root',
       group   => 'root',
