@@ -39,22 +39,21 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::xdebug(
-  $ensure   = $php::extension::xdebug::params::ensure,
+  $ensure  	= $php::extension::xdebug::params::ensure,
   $package  = $php::extension::xdebug::params::package,
   $provider = $php::extension::xdebug::params::provider,
   $inifile  = $php::extension::xdebug::params::inifile,
   $settings = $php::extension::xdebug::params::settings
-) {
-  include php::extension::xdebug::params
+) inherits php::extension::xdebug::params {
 
   php::extension { 'xdebug':
-    ensure    => $ensure,
-    package   => $package,
-    provider  => $provider
+    ensure  => $ensure,
+    package  => $package,
+    provider => $provider
   }
 
   php::config { 'php-extension-xdebug':
-    inifile   => $inifile,
+    inifile     => $inifile,
     settings  => $settings
   }
 

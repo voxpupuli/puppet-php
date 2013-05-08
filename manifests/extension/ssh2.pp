@@ -39,13 +39,12 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::ssh2(
-  $ensure   = $php::extension::ssh2::params::ensure,
+  $ensure  	= $php::extension::ssh2::params::ensure,
   $package  = $php::extension::ssh2::params::package,
   $provider = $php::extension::ssh2::params::provider,
   $inifile  = $php::extension::ssh2::params::inifile,
   $settings = $php::extension::ssh2::params::settings
-) {
-  include php::extension::ssh2::params
+) inherits php::extension::ssh2::params {
 
   php::extension { 'ssh2':
     ensure   => $ensure,
