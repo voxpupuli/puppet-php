@@ -70,6 +70,7 @@ define php::fpm::conf (
     file { "/etc/php5/fpm/pool.d/${pool}.conf":
       ensure  => file,
       notify  => Service['php5-fpm'],
+      require => Package['php5-fpm'],
       content => template('php/fpm/pool.conf.erb'),
       owner   => root,
       group   => root,
