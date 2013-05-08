@@ -43,13 +43,12 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::uploadprogress(
-  $ensure   = $php::extension::uploadprogress::params::ensure,
+  $ensure  	= $php::extension::uploadprogress::params::ensure,
   $package  = $php::extension::uploadprogress::params,
   $provider = $php::extension::uploadprogress::params::provider,
   $inifile  = $php::extension::uploadprogress::params::inifile,
   $settings = $php::extension::uploadprogress::params::settings
-) {
-  include php::extension::uploadprogress::params
+) inherits php::extension::uploadprogress::params {
 
   php::extension { 'uploadprogress':
     ensure   => $ensure,

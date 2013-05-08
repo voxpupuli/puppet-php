@@ -45,9 +45,9 @@ class php::extension::ssh2::params {
   $provider = undef
   $inifile  = '/etc/php5/conf.d/20-ssh2.ini'
   $settings = {
-    set => {
+		set => {
 
-    }
-  }
+		}
+	}
 
 }

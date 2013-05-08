@@ -33,14 +33,13 @@
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::extension::redis(
-  $ensure   = 'master',
-  $inifile  = $php::extension::redis::params::inifile,
+	$ensure 	= 'master',
+	$inifile  = $php::extension::redis::params::inifile,
   $settings = $php::extension::redis::params::settings
-) {
-  include php::extension::redis::params
+) inherits php::extension::redis::params {
 
   class { 'php::extension::redis::package':
-    ensure => $ensure
+  	ensure => $ensure
   }
 
   php::config { 'php-extension-redis':

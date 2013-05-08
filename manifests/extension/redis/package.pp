@@ -24,11 +24,10 @@
 #
 class php::extension::redis::package(
   $ensure  = $php::extension::redis::params::ensure,
-  $tmp_dir  = $php::extension::redis::params::tmp_dir
-) {
-  include php::extension::redis::params
+  $tmp_dir = $php::extension::redis::params::tmp_dir
+) inherits php::extension::redis::params {
 
-  file { php::extension::redis::params::tmp_dir :
+  file { "${tmp_dir}":
       ensure   => directory,
       recurse  => true;
   }
@@ -37,14 +36,14 @@ class php::extension::redis::package(
     'redis_fetch':
       command => "wget https://github.com/nicolasff/phpredis/archive/${ensure}.tar.gz",
       creates => "${tmp_dir}/${ensure}.tar.gz",
-      cwd     => php::extension::redis::params::tmp_dir,
-      path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ];
+      path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
+      cwd     => "${tmp_dir}";
 
     'redis_extract':
       command => "tar zxf ${ensure}.tar.gz",
       creates => "${tmp_dir}/phpredis-${ensure}",
-      cwd     => php::extension::redis::params::tmp_dir,
-      path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ];
+      path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
+      cwd     => "${tmp_dir}";
 
     'redis_phpize':
       command => 'phpize',
@@ -71,7 +70,7 @@ class php::extension::redis::package(
       path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ];
   }
 
-  File[tmp_dir]
+  File["${tmp_dir}"]
     -> Class['php::dev']
     -> Exec['redis_fetch']
     -> Exec['redis_extract']

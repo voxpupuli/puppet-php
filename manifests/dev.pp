@@ -37,17 +37,16 @@ class php::dev(
   $ensure   = $php::dev::params::ensure,
   $package  = $php::dev::params::package,
   $provider = $php::dev::params::provider
-) {
-  include php::dev::params
+) inherits php::dev::params {
 
   php::contrib::base_package { 'dev':
-    ensure    => $ensure,
-    provider  => $provider;
+    ensure  => $ensure,
+    provider => $provider;
   }
 
   package { $package:
-    ensure    => $ensure,
-    provider  => $provider;
+    ensure	 => $ensure,
+    provider => $provider;
   }
 
 }
