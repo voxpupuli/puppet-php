@@ -31,7 +31,7 @@ class php::composer {
   }
 
   file { '/usr/local/bin/composer':
-    mode    => '0755',
+    mode    => '0555',
     owner   => root,
     group   => root,
     require => Exec['download composer']
