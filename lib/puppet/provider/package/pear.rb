@@ -20,7 +20,8 @@ Puppet::Type.type(:package).provide :pear, :parent => Puppet::Provider::Package 
 
     begin
       channel = "pear"
-      list = execute(command).collect do |set|
+      list = execute(command).split("\n")
+      list = list.collect do |set|
         if match = /INSTALLED PACKAGES, CHANNEL (.*):/i.match(set)
           channel = match[1].downcase
         end
@@ -55,14 +56,12 @@ Puppet::Type.type(:package).provide :pear, :parent => Puppet::Provider::Package 
   end
 
   def self.pearsplit(desc, channel)
-    desc = desc.strip!
-    if desc == "(no packages installed)"
-      return nil
-    end
+    desc.strip!
 
     case desc
       when /^$/ then return nil
       when /^INSTALLED/i then return nil
+      when /no packages installed/i then return nil
       when /^=/ then return nil
       when /^PACKAGE/i then return nil
       when /^(\S+)\s+([.\d]+)\s+(\S+)\s*$/ then
