@@ -55,7 +55,7 @@ class php::extension::apc::params {
       '.anon/apc.write_lock'        => 1,
       '.anon/apc.num_files_hint'    => 10000,
       '.anon/apc.user_entries_hint' => 40960,
-      '.anon/apc.enable_cli'        => 1,
+      '.anon/apc.enable_cli'        => 0,
       '.anon/apc.file_update_protection' => 1,
       '.anon/apc.include_once_override' => 1
     }
