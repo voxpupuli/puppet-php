@@ -100,17 +100,17 @@ Puppet::Type.type(:package).provide :pecl, :parent => Puppet::Provider::Package 
     pearcmd(*command)
   end
 
-#  def latest
-# This always gets the latest version available.
-#    version = ''
-#    command = [command(:pearcmd), "remote-info", "#{@resource[:name]}"]
-#      list = execute(command).collect do |set|
-#      if set =~ /^Latest/
-#        version = set.split[1]
-#      end
-#    end
-#    return version
-#  end
+  def latest
+    version = ''
+    command = [command(:pearcmd), "remote-info", "#{@resource[:name]}"]
+      list = execute(command).collect do |set|
+      if set =~ /^Latest/
+        version = set.split[1]
+      end
+    end
+
+    return version
+  end
 
   def query
     self.class.pearlist(:justme => @resource[:name])
