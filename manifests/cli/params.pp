@@ -50,7 +50,7 @@ class php::cli::params {
       'PHP/asp_tags'             => 'Off',
       'PHP/expose_php'           => 'Off',
       'PHP/memory_limit'         => '1G',
-      'PHP/display_errors'       => 'Off',
+      'PHP/display_errors'       => 'On',
       'PHP/log_errors'           => 'On',
       'PHP/post_max_size'        => '500M',
       'PHP/upload_max_filesize'  => '500M',

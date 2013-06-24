@@ -2,8 +2,7 @@ $require 'puppet/provider/package'
 
 # PHP PEAR support.
 Puppet::Type.type(:package).provide :pear, :parent => Puppet::Provider::Package do
-  desc "PHP PEAR support. By default uses the installed channels, but you
-        can specify the path to a pear package via ``source``."
+  desc "PHP PEAR support. By default uses the installed channels, but you can specify the path to a pear package via ``source``."
 
   has_feature :versionable
   has_feature :upgradeable
@@ -56,14 +55,12 @@ Puppet::Type.type(:package).provide :pear, :parent => Puppet::Provider::Package 
   end
 
   def self.pearsplit(desc, channel)
-    desc = desc.strip!
-    if desc == "(no packages installed)"
-      return nil
-    end
+    desc.strip!
 
     case desc
       when /^$/ then return nil
       when /^INSTALLED/i then return nil
+      when /no packages installed/i then return nil
       when /^=/ then return nil
       when /^PACKAGE/i then return nil
       when /^(\S+)\s+([.\d]+)\s+(\S+)\s*$/ then
@@ -106,7 +103,8 @@ Puppet::Type.type(:package).provide :pear, :parent => Puppet::Provider::Package 
     # This always gets the latest version available.
     version = ''
     command = [command(:pearcmd), "remote-info", @resource[:name]]
-      list = execute(command).collect do |set|
+      list = execute(command).split("\n")
+      list = list.collect do |set|
       if set =~ /^Latest/
         version = set.split[1]
       end
