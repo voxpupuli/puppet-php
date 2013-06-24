@@ -1,4 +1,4 @@
-$require 'puppet/provider/package'
+require 'puppet/provider/package'
 
 # PHP PEAR support.
 Puppet::Type.type(:package).provide :pear, :parent => Puppet::Provider::Package do
