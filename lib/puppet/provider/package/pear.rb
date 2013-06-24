@@ -1,4 +1,4 @@
-require 'puppet/provider/package'
+$require 'puppet/provider/package'
 
 # PHP PEAR support.
 Puppet::Type.type(:package).provide :pear, :parent => Puppet::Provider::Package do
@@ -17,10 +17,11 @@ Puppet::Type.type(:package).provide :pear, :parent => Puppet::Provider::Package 
 
   def self.pearlist(hash)
     command = [command(:pearcmd), "list", "-a"]
+    channel = "pear"
 
     begin
-      channel = "pear"
-      list = execute(command).collect do |set|
+      list = execute(command).split("\n")
+      list.collect do |set|
         if match = /INSTALLED PACKAGES, CHANNEL (.*):/i.match(set)
           channel = match[1].downcase
         end
