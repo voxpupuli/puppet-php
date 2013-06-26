@@ -22,21 +22,29 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::apt {
+class php::apt(
+    $location     = 'http://packages.dotdeb.org',
+    $release      = 'wheezy-php55',
+    $repos        = 'all',
+    $include_src  = false,
+    $dotdeb       = true
+  ) {
 
-  apt::source { 'dotdeb':
-    location    => 'http://packages.dotdeb.org',
-    release     => 'squeeze-php54',
-    repos       => 'all',
-    include_src => true,
+  apt::source { "source_php_$release":
+    location    => $location,
+    release     => $release,
+    repos       => $repos,
+    include_src => $include_src
   }
 
-  exec { 'add_dotdeb_key':
-    command => 'curl --silent "http://www.dotdeb.org/dotdeb.gpg" > /tmp/dotdeb.gpg && cat /tmp/dotdeb.gpg | sudo apt-key add - && touch /var/local/dotdeb.gpg.done',
-    creates => '/var/local/dotdeb.gpg.done',
-    path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ];
-  }
+  if ($dotdeb) {
+    exec { 'add_dotdeb_key':
+      command => 'curl --silent "http://www.dotdeb.org/dotdeb.gpg" > /tmp/dotdeb.gpg && cat /tmp/dotdeb.gpg | sudo apt-key add - && touch /var/local/dotdeb.gpg.done',
+      creates => '/var/local/dotdeb.gpg.done',
+      path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ];
+    }
 
-  Exec['add_dotdeb_key'] -> Apt::Source['dotdeb']
+    Exec['add_dotdeb_key'] -> Apt::Source["source_php_$release"]
+  }
 
 }
