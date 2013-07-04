@@ -40,8 +40,7 @@ class php::apt(
   if ($dotdeb) {
     exec { 'add_dotdeb_key':
       command => 'curl --silent "http://www.dotdeb.org/dotdeb.gpg" > /tmp/dotdeb.gpg && cat /tmp/dotdeb.gpg | apt-key add - && touch /var/local/dotdeb.gpg.done',
-      creates => '/var/local/dotdeb.gpg.done',
-      path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ];
+      creates => '/var/local/dotdeb.gpg.done'
     }
 
     Exec['add_dotdeb_key'] -> Apt::Source["source_php_$release"]
