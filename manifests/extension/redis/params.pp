@@ -40,13 +40,13 @@
 #
 class php::extension::redis::params {
 
-  $ensure      = 'master'
-  $tmp_dir		 = '/opt/phpredis'
-  $install_dir = '/usr/lib/php5/20100525'
-  $inifile     = '/etc/php5/conf.d/redis.ini'
+  $ensure   = $php::params::ensure
+  $package  = 'php5-redis'
+  $provider = undef
+  $inifile  = '/etc/php5/conf.d/20-redis.ini'
   $settings = {
     set => {
-      '.anon/extension' => 'redis.so'
+
     }
   }
 
