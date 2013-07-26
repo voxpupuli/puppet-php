@@ -43,7 +43,7 @@ class php::extension::newrelic(
   $package  = $php::extension::newrelic::params::package,
   $provider = $php::extension::newrelic::params::provider,
   $inifile  = $php::extension::newrelic::params::inifile,
-  $settings = $php::extension::newrelic::params::settings,
+  $settings = $php::extension::newrelic::params::settings
 ) inherits php::extension::newrelic::params {
 
   php::extension { 'newrelic':
