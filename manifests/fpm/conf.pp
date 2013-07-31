@@ -58,15 +58,12 @@ define php::fpm::conf (
   # Hack-ish to default to user for group too
   $group_final = $group ? { undef => $user, default => $group }
 
-  if ( $ensure == 'absent' ) {
-
+  if ($ensure == 'absent') {
     file { "/etc/php5/fpm/pool.d/${pool}.conf":
       ensure => absent,
       notify => Service['php5-fpm']
     }
-
   } else {
-
     file { "/etc/php5/fpm/pool.d/${pool}.conf":
       ensure  => file,
       notify  => Service['php5-fpm'],
@@ -74,9 +71,8 @@ define php::fpm::conf (
       content => template('php/fpm/pool.conf.erb'),
       owner   => root,
       group   => root,
-      mode    => '0644',
+      mode    => '0644'
     }
-
   }
 
 }
