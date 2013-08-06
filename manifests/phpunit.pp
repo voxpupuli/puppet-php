@@ -22,11 +22,11 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::phpunit ss php::pear(
+class php::phpunit (
   $ensure   = $php::phpunit::params::ensure,
   $package  = $php::phpunit::params::package,
   $provider = $php::phpunit::params::provider
-) inherits php::pear::params {
+) inherits php::phpunit::params {
 
   package { $package:
     ensure    => $ensure,
