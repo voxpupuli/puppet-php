@@ -148,7 +148,7 @@ The advantage of using `php::config` over `augeas` is the anchor of dependency m
 
 ### PHP SAPIs
 
-By default the module comes with support for mod_php (`php::apache`) and cli `php::cli`
+By default the module comes with support for mod_php (`php::apache`), cli `php::cli` and fpm `php::fpm`
 
 ### PHP modules
 
@@ -176,3 +176,7 @@ The following PHP related packages come build in too
 
 * Composer (php::composer)
 * phpunit (php::phpunit)
+
+# Dev links
+
+http://docs.puppetlabs.com/puppet/2.7/reference/modules_publishing.html

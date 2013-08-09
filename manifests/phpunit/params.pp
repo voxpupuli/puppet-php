@@ -1,4 +1,4 @@
-# == Class: php::pear::params
+# == Class: php::phpunit::params
 #
 # Defaults file for pear package
 #
@@ -14,18 +14,12 @@
 #
 # [*package*]
 #   The package name for pear package
-#   For debian it's php5-pear
+#   For debian it's pear.phpunit.de/PHPUnit
 #
 # [*provider*]
-#   The provider used to install php5-pear
+#   The provider used to install pear.phpunit.de/PHPUnit
 #   Could be "pecl", "apt" or any other OS package provider
 #
-# [*inifile*]
-#   The path to the ini php5-pear ini file
-#
-# [*settings*]
-#   Hash with 'set' nested hash of key => value
-#   set changes to agues when applied to *inifile*
 #
 # === Examples
 #
@@ -37,16 +31,16 @@
 #
 # === Authors
 #
-# Christian "Jippi" Winther <jippignu@gmail.com>
+# Tobias Nyholm <tobias@happyrecruiting.se>
 #
 # === Copyright
 #
-# Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
+# Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::pear::params {
+class php::phpunit::params {
 
   $ensure   = $php::params::ensure
-  $package  = 'php-pear'
-  $provider = undef
+  $package  = 'pear.phpunit.de/PHPUnit'
+  $provider = 'pear'
 
 }

@@ -23,20 +23,24 @@
 #
 # === Authors
 #
-# Christian Winther <cw@nodes.dk>
+# Christian "Jippi" Winther <jippignu@gmail.com>
 #
 # === Copyright
 #
-# Copyright 2012-2013 Nodes, unless otherwise noted.
+# Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
 #
 define php::config(
   $inifile,
   $settings
 ) {
 
+  include php::augeas
+
   augeas { "php-${name}-config":
-    context => "/files${inifile}",
-    changes => template('php/augeas_commands.erb')
+    context   => "/files${inifile}",
+    load_path => '/usr/share/augeas/lenses/contrib/',
+    changes   => template('php/augeas_commands.erb'),
+    require   => Class['php::augeas']
   }
 
 }

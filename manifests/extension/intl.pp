@@ -1,6 +1,6 @@
-# == Class: php::extension::ssh2
+# == Class: php::extension::curl
 #
-# Install and configure the ssh2 PHP extension
+# Install the curl PHP extension
 #
 # === Parameters
 #
@@ -28,31 +28,31 @@
 #
 # === Examples
 #
-#  include php::extension::ssh2
+#  include php::extension::curl
 #
 # === Authors
 #
-# Christian "Jippi" Winther <jippignu@gmail.com>
+# Christian Winther <cw@nodes.dk>
 #
 # === Copyright
 #
-# Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
+# Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::extension::ssh2(
-  $ensure  	= $php::extension::ssh2::params::ensure,
-  $package  = $php::extension::ssh2::params::package,
-  $provider = $php::extension::ssh2::params::provider,
-  $inifile  = $php::extension::ssh2::params::inifile,
-  $settings = $php::extension::ssh2::params::settings
-) inherits php::extension::ssh2::params {
+class php::extension::curl(
+  $ensure   = $php::extension::curl::params::ensure,
+  $package  = $php::extension::curl::params::package,
+  $provider = $php::extension::curl::params::provider,
+  $inifile  = $php::extension::curl::params::inifile,
+  $settings = $php::extension::curl::params::settings
+) inherits php::extension::curl::params {
 
-  php::extension { 'ssh2':
+  php::extension { 'curl':
     ensure   => $ensure,
     package  => $package,
     provider => $provider
   }
 
-  php::config { 'php-extension-ssh2':
+  php::config { 'php-extension-curl':
     inifile  => $inifile,
     settings => $settings
   }

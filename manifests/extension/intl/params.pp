@@ -1,6 +1,6 @@
-# == Class: php::extension::mysql::params
+# == Class: php::extension::curl::params
 #
-# Defaults file for the mysql PHP extension
+# Defaults file for the curl PHP extension
 #
 # === Parameters
 #
@@ -32,18 +32,18 @@
 #
 # === Authors
 #
-# Christian "Jippi" Winther <jippignu@gmail.com>
+# Christian Winther <cw@nodes.dk>
 #
 # === Copyright
 #
-# Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
+# Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::extension::mysql::params {
+class php::extension::curl::params {
 
   $ensure   = $php::params::ensure
-  $package  = 'php5-mysql'
+  $package  = 'php5-curl'
   $provider = undef
-  $inifile  = '/etc/php5/conf.d/20-mysql.ini'
+  $inifile  = '/etc/php5/conf.d/20-curl.ini'
   $settings = {
     set => {
 
