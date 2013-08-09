@@ -1,5 +1,5 @@
 name 'puppet-php'
-version '0.4.0'
+version '0.5.0'
 author 'jippi'
 license 'MIT'
 summary 'Puppet module to manage PHP on debian / ubuntu - easily expandable to support other platforms'
