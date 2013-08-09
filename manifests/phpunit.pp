@@ -17,6 +17,7 @@
 # === Authors
 #
 # Christian "Jippi" Winther <jippignu@gmail.com>
+# Tobias Nyholm <tobias@happyrecruiting.se>
 #
 # === Copyright
 #
