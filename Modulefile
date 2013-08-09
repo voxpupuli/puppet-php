@@ -1,10 +1,10 @@
-name 'nodes-php'
+name 'puppet-php'
 version '0.4.0'
-author 'nodesagency'
+author 'jippi'
 license 'MIT'
 summary 'Puppet module to manage PHP on debian / ubuntu - easily expandable to support other platforms'
 description 'Puppet module to manage PHP on debian / ubuntu - easily expandable to support other platforms'
-project_page 'https://github.com/nodesagency/puppet-php'
+project_page 'https://github.com/jippi/puppet-php'
 
 dependency 'puppetlabs/stdlib'
 dependency 'puppetlabs/apt'
