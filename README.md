@@ -176,3 +176,7 @@ The following PHP related packages come build in too
 
 * Composer (php::composer)
 * phpunit (php::phpunit)
+
+# Dev links
+
+http://docs.puppetlabs.com/puppet/2.7/reference/modules_publishing.html
