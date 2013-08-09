@@ -16,11 +16,11 @@
 #
 # === Authors
 #
-# Christian Winther <cw@nodes.dk>
+# Christian "Jippi" Winther <jippignu@gmail.com>
 #
 # === Copyright
 #
-# Copyright 2012-2013 Nodes, unless otherwise noted.
+# Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
 #
 class php::phpunit {
 
