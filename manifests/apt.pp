@@ -16,11 +16,11 @@
 #
 # === Authors
 #
-# Christian "Jippi" Winther <jippignu@gmail.com>
+# Christian Winther <cw@nodes.dk>
 #
 # === Copyright
 #
-# Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
+# Copyright 2012-2013 Nodes, unless otherwise noted.
 #
 class php::apt(
     $location     = 'http://packages.dotdeb.org',
@@ -40,7 +40,8 @@ class php::apt(
   if ($dotdeb) {
     exec { 'add_dotdeb_key':
       command => 'curl --silent "http://www.dotdeb.org/dotdeb.gpg" | apt-key add -',
-      unless => 'apt-key list | grep -q dotdeb'
+      unless => 'apt-key list | grep -q dotdeb',
+      path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ];
     }
 
     Exec['add_dotdeb_key'] -> Apt::Source["source_php_$release"]
