@@ -1,4 +1,4 @@
-# == Class: php::composer
+# == Class: php::composer::auto_update
 #
 # Install composer package manager
 #
@@ -12,7 +12,7 @@
 #
 # === Examples
 #
-#  include php::composer
+#  include php::composer::auto_update
 #
 # === Authors
 #
@@ -22,19 +22,13 @@
 #
 # Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
 #
-class php::composer {
+class php::composer::auto_update($max_age = 30) {
 
-  exec { 'download composer':
+  exec { 'update composer':
     command => 'wget http://getcomposer.org/composer.phar -O /usr/local/bin/composer',
-    creates => '/usr/local/bin/composer',
-    path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ];
-  }
-
-  file { '/usr/local/bin/composer':
-    mode    => '0555',
-    owner   => root,
-    group   => root,
-    require => Exec['download composer']
+    onlyif  => "find '/usr/local/bin/composer' -mtime +${max_age}",
+    path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
+    require => File['/usr/local/bin/composer'];
   }
 
 }
