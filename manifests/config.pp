@@ -4,14 +4,11 @@
 #
 # === Parameters
 #
-# [*key*]
-#   The php.ini settings key
+# [*inifile*]
+#   The path to ini file
 #
-# [*value*]
-#   The php.ini setting value
-#
-# [*sapi*]
-#   The PHP sapi (cli or apache2)
+# [*settings*]
+#   The hash having key => values pairs to change
 #
 # === Variables
 #
@@ -19,7 +16,14 @@
 #
 # === Examples
 #
-#  php::config { "sample": key => 'PHP/short_open_tag', value => 'Off', 'sapi' => 'cli'; }
+#  php::config { '$unique-name':
+#    inifile  => '$full_path_to_ini_file'
+#    settings => {
+#      set => {
+#        '.anon/apc.enabled' => 1
+#      }
+#    }
+#  }
 #
 # === Authors
 #
