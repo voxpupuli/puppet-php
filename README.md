@@ -81,6 +81,16 @@ package { 'igbinary':
 }
 ```
 
+#### deb package example
+
+```
+  package { "libgearman":
+    ensure    =>  "latest",
+    provider  =>  "dpkg",
+    source    =>  "/path/to/libgearman8_1.1.7-1_amd64.deb",
+  }
+```
+
 ### Installing packages
 
 It's quite simple to install packages not included in the package, simply use `php::extension`
@@ -89,14 +99,14 @@ It's quite simple to install packages not included in the package, simply use `p
 php::extension { 'platform-independent-name':
   ensure   => $ensure,		# Same as Package { ensure }
   package  => $package,		# Package name as defined in the package provider
-  provider => $provider;	# Provider used to install (pecl, pearl, (default)undef)
+  provider => $provider;	# Provider used to install (pecl, pear, (default)undef)
 }
 
 # same as
 
 package { $package:			# Package name as defined in the package provider
 	ensure   => $ensure,	# Same as Package { ensure }
-	provider => $provider;	# Provider used to install (pecl, pearl, (default)undef)
+	provider => $provider;	# Provider used to install (pecl, pear, (default)undef)
 }
 ```
 
@@ -140,7 +150,8 @@ augeas { "php-${uniqie-name}-config":
 }
 
 # or to modify php.ini
-# note that keys outside of the sections in php.ini file should be referenced by PHP and not .anon
+# note that keys outside of the sections in php.ini file
+# should be referenced by PHP and not .anon
 
 php::config { '$unique-name':
   inifile  => '$full_path_to_php.ini_file',
