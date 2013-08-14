@@ -3,8 +3,6 @@ puppet-php
 
 Puppet module to manage PHP on debian (optionally with dotdeb) & ubuntu
 
-Right now only supports dotdeb on debian squeeze, should be fairly easy to modify if needed though
-
 Puppet forge URL: http://forge.puppetlabs.com/nodes/php
 
 ### Installation
