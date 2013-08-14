@@ -138,11 +138,45 @@ augeas { "php-${uniqie-name}-config":
 		"set '.anon/apc.enabled' '1'"
 	}
 }
+
+# or to modify php.ini
+# note that keys outside of the sections in php.ini file should be referenced by PHP and not .anon
+
+php::config { '$unique-name':
+  inifile  => '$full_path_to_php.ini_file',
+  settings => {
+    set => {
+    'Date/date.timezone' => "UTC",
+    'PHP/short_open_tag' => "Off",
+    }
+  }
+}
+
+# same as
+
+augeas { "php-${uniqie-name}-config":
+	context => "/files${full_path_to_php.ini_file}",
+	changes => {
+		"set 'Date/date.timezone' 'UTC'",
+		"set 'PHP/short_open_tag' 'Off'"
+	}
+}
+
 ```
 
 `settings` is a key / value `augeas` hash
 
 Currently `settings` only support the type `set` in augeas
+
+To remove a config key you might use
+```
+augeas { "remove-disable_functions":
+  context => "/files/etc/php5/fpm/php.ini/PHP",
+  changes => [
+    "rm disable_functions"
+  ];
+}
+```
 
 The advantage of using `php::config` over `augeas` is the anchor of dependency mentioned in **Setup**
 
