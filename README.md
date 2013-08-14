@@ -140,6 +140,7 @@ augeas { "php-${uniqie-name}-config":
 }
 
 # or to modify php.ini
+# note that keys outside of the sections in php.ini file should be referenced by PHP and not .anon
 
 php::config { '$unique-name':
   inifile  => '$full_path_to_php.ini_file',
@@ -150,6 +151,7 @@ php::config { '$unique-name':
     }
   }
 }
+
 # same as
 
 augeas { "php-${uniqie-name}-config":
