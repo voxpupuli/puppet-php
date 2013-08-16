@@ -3,6 +3,8 @@ require 'rake'
 
 task_dir = File.expand_path("../tasks", __FILE__)
 
+PuppetLint.configuration.send('disable_class_parameter_defaults')
+
 FileList["#{task_dir}/**/*.rake"].each { |fn| load fn }
 
 desc "Default task prints the available targets."
