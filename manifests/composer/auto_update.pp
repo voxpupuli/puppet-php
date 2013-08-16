@@ -4,7 +4,14 @@
 #
 # === Parameters
 #
-# No parameters
+# [*max_age*]
+# Defines number of days after which Composer should be updated
+#
+# [*source*]
+# Holds URL to the Composer source file
+#
+# [*destination*]
+# Holds path to the Composer executable
 #
 # === Variables
 #
@@ -13,6 +20,9 @@
 # === Examples
 #
 #  include php::composer::auto_update
+#  class { "php::composer::auto_update":
+#    "max_age" => 90
+#  }
 #
 # === Authors
 #
@@ -22,13 +32,17 @@
 #
 # Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
 #
-class php::composer::auto_update($max_age = 30) {
+class php::composer::auto_update (
+  $max_age = $php::composer::params::max_age,
+  $source = $php::composer::params::source,
+  $destination = $php::composer::params::destination
+) inherits php::composer::params {
 
   exec { 'update composer':
-    command => 'wget http://getcomposer.org/composer.phar -O /usr/local/bin/composer',
-    onlyif  => "find '/usr/local/bin/composer' -mtime +${max_age}",
+    command => "wget ${source} -O ${destination}",
+    onlyif  => "find '${destination}' -mtime +${max_age}",
     path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
-    require => File['/usr/local/bin/composer'];
+    require => File[$destination],
   }
 
 }

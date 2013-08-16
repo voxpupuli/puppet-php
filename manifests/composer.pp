@@ -4,7 +4,11 @@
 #
 # === Parameters
 #
-# No parameters
+# [*source*]
+# Holds URL to the Composer source file
+#
+# [*destination*]
+# Holds path to the Composer executable
 #
 # === Variables
 #
@@ -22,19 +26,22 @@
 #
 # Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
 #
-class php::composer {
+class php::composer (
+  $source = $php::composer::params::source,
+  $destination = $php::composer::params::destination
+) inherits php::composer::params {
 
   exec { 'download composer':
-    command => 'wget http://getcomposer.org/composer.phar -O /usr/local/bin/composer',
-    creates => '/usr/local/bin/composer',
-    path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ];
+    command => "wget ${source} -O ${destination}",
+    creates => $destination,
+    path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
   }
 
-  file { '/usr/local/bin/composer':
+  file { $destination:
     mode    => '0555',
     owner   => root,
     group   => root,
-    require => Exec['download composer']
+    require => Exec['download composer'],
   }
 
 }
