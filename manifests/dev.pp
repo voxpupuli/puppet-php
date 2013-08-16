@@ -40,12 +40,12 @@ class php::dev(
 ) inherits php::dev::params {
 
   php::contrib::base_package { 'dev':
-    ensure  => $ensure,
+    ensure   => $ensure,
     provider => $provider;
   }
 
   package { $package:
-    ensure	 => $ensure,
+    ensure   => $ensure,
     provider => $provider;
   }
 
