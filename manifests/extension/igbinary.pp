@@ -39,15 +39,15 @@
 # Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
 #
 class php::extension::igbinary(
-	$ensure   = $php::extension::igbinary::params::ensure,
-  $package 	= $php::extension::igbinary::params::package,
+  $ensure   = $php::extension::igbinary::params::ensure,
+  $package  = $php::extension::igbinary::params::package,
   $provider = $php::extension::igbinary::params::provider,
   $inifile  = $php::extension::igbinary::params::inifile,
   $settings = $php::extension::igbinary::params::settings
 ) inherits php::extension::igbinary::params {
 
   php::extension { 'igbinary':
-    ensure  => $ensure,
+    ensure   => $ensure,
     package  => $package,
     provider => $provider
   }
