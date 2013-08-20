@@ -38,12 +38,12 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::extension::curl::params {
+class php::extension::intl::params {
 
   $ensure   = $php::params::ensure
-  $package  = 'php5-curl'
+  $package  = 'php5-intl'
   $provider = undef
-  $inifile  = '/etc/php5/conf.d/20-curl.ini'
+  $inifile  = '/etc/php5/conf.d/20-intl.ini'
   $settings = {
     set => {
 

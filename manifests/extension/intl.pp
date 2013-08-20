@@ -1,6 +1,6 @@
-# == Class: php::extension::curl
+# == Class: php::extension::intl
 #
-# Install the curl PHP extension
+# Install the Intl PHP extension
 #
 # === Parameters
 #
@@ -28,7 +28,7 @@
 #
 # === Examples
 #
-#  include php::extension::curl
+#  include php::extension::intl
 #
 # === Authors
 #
@@ -38,21 +38,21 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::extension::curl(
-  $ensure   = $php::extension::curl::params::ensure,
-  $package  = $php::extension::curl::params::package,
-  $provider = $php::extension::curl::params::provider,
-  $inifile  = $php::extension::curl::params::inifile,
-  $settings = $php::extension::curl::params::settings
-) inherits php::extension::curl::params {
+class php::extension::intl(
+  $ensure   = $php::extension::intl::params::ensure,
+  $package  = $php::extension::intl::params::package,
+  $provider = $php::extension::intl::params::provider,
+  $inifile  = $php::extension::intl::params::inifile,
+  $settings = $php::extension::intl::params::settings
+) inherits php::extension::intl::params {
 
-  php::extension { 'curl':
+  php::extension { 'intl':
     ensure   => $ensure,
     package  => $package,
     provider => $provider
   }
 
-  php::config { 'php-extension-curl':
+  php::config { 'php-extension-intl':
     inifile  => $inifile,
     settings => $settings
   }
