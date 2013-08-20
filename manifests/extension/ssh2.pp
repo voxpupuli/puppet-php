@@ -39,7 +39,7 @@
 # Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
 #
 class php::extension::ssh2(
-  $ensure  	= $php::extension::ssh2::params::ensure,
+  $ensure   = $php::extension::ssh2::params::ensure,
   $package  = $php::extension::ssh2::params::package,
   $provider = $php::extension::ssh2::params::provider,
   $inifile  = $php::extension::ssh2::params::inifile,
