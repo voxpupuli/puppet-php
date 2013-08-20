@@ -37,8 +37,8 @@ class php::pear(
   $provider = $php::pear::params::provider
 ) inherits php::pear::params {
 
-	package { $package:
-    ensure	 => $ensure,
+  package { $package:
+    ensure   => $ensure,
     provider => $provider;
   }
 
