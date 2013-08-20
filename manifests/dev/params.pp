@@ -35,6 +35,6 @@ class php::dev::params {
 
   $ensure   = $php::params::ensure
   $package  = 'php5-dev'
-  $provider	= undef
+  $provider = undef
 
 }
