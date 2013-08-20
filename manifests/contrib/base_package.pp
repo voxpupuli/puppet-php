@@ -26,16 +26,13 @@
 #
 #
 #
-define php::contrib::base_package(
-  $ensure,
-  $provider
-) {
+define php::contrib::base_package($ensure, $provider) {
 
-	if !defined(Package['php5-common']) {
-		package { 'php5-common':
-			ensure 	 => $ensure,
-			provider => $provider
-		}
-	}
+  if !defined(Package['php5-common']) {
+    package { 'php5-common':
+      ensure 	 => $ensure,
+      provider => $provider
+    }
+  }
 
 }
