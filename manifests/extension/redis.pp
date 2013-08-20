@@ -33,7 +33,7 @@
 # Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
 #
 class php::extension::redis(
-	$ensure   = $php::extension::redis::params::ensure,
+  $ensure   = $php::extension::redis::params::ensure,
   $package  = $php::extension::redis::params::package,
   $provider = $php::extension::redis::params::provider,
   $inifile  = $php::extension::redis::params::inifile,
