@@ -39,7 +39,7 @@
 # Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
 #
 class php::extension::http(
-	$ensure  	= $php::extension::http::params::ensure,
+  $ensure   = $php::extension::http::params::ensure,
   $package  = $php::extension::http::params::package,
   $provider = $php::extension::http::params::provider,
   $inifile  = $php::extension::http::params::inifile,
@@ -52,7 +52,7 @@ class php::extension::http(
     provider => $provider;
   }
 
- php::config { 'php-extension-http':
+  php::config { 'php-extension-http':
     inifile  => $inifile,
     settings => $settings;
   }
