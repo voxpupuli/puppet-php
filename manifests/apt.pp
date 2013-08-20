@@ -30,7 +30,7 @@ class php::apt(
     $dotdeb       = true
   ) {
 
-  apt::source { "source_php_$release":
+  apt::source { "source_php_${release}":
     location    => $location,
     release     => $release,
     repos       => $repos,
@@ -39,12 +39,13 @@ class php::apt(
 
   if ($dotdeb) {
     exec { 'add_dotdeb_key':
-      command => 'curl --silent "http://www.dotdeb.org/dotdeb.gpg" | apt-key add -',
-      unless => 'apt-key list | grep -q dotdeb',
+      command =>
+        'curl --silent "http://www.dotdeb.org/dotdeb.gpg" | apt-key add -',
+      unless  => 'apt-key list | grep -q dotdeb',
       path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ];
     }
 
-    Exec['add_dotdeb_key'] -> Apt::Source["source_php_$release"]
+    Exec['add_dotdeb_key'] -> Apt::Source["source_php_${release}"]
   }
 
 }
