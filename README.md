@@ -21,7 +21,7 @@ To ensure that things happen in a predictable order please use the example below
 
 ```
 # Install extensions; Configure extensions; Reload apache if changed
-Php::Extension <| |> -> Php::Config <| |> ~> Service["apache2"]
+Package['php5-dev'] -> Php::Extension <| |> -> Php::Config <| |> ~> Service["apache2"]
 ```
 
 If you rely on `dotdeb` you also want to make sure that the `php::apt` class is loaded and `apt` has been updated (`apt-get update`) before packages are installed
