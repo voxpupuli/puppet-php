@@ -40,7 +40,7 @@ class php::composer::auto_update (
 
   exec { 'update composer':
     command => "wget ${source} -O ${destination}",
-    onlyif  => "find '${destination}' -mtime +${max_age}",
+    onlyif  => "test `find '${destination}' -mtime +${max_age}`",
     path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
     require => File[$destination],
   }
