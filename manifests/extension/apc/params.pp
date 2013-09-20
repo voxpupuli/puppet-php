@@ -43,7 +43,7 @@ class php::extension::apc::params {
   $ensure   = $php::params::ensure
   $package  = 'php5-apc'
   $provider = undef
-  $inifile  = "${php::params::configRoot}/apc.ini"
+  $inifile  = "${php::params::config_root_ini}/apc.ini"
   $settings = {
     set => {
       '.anon/apc.enabled'           => 1,

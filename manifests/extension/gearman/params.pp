@@ -43,7 +43,7 @@ class php::extension::gearman::params {
   $ensure   = $php::params::ensure
   $package  = 'php5-gearman'
   $provider = undef
-  $inifile  = "${php::params::configRoot}/gearman.ini"
+  $inifile  = "${php::params::config_root_ini}/gearman.ini"
   $settings = {
     set => {
 

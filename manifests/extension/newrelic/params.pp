@@ -43,7 +43,7 @@ class php::extension::newrelic::params {
   $ensure   = $php::params::ensure
   $package  = 'newrelic-php5'
   $provider = undef
-  $inifile  = "${php::params::configRoot}/newrelic.ini"
+  $inifile  = "${php::params::config_root_ini}/newrelic.ini"
   $settings = {
     set => {
 

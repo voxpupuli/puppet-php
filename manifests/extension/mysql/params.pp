@@ -43,7 +43,7 @@ class php::extension::mysql::params {
   $ensure   = $php::params::ensure
   $package  = 'php5-mysql'
   $provider = undef
-  $inifile  = "${php::params::configRoot}/mysql.ini"
+  $inifile  = "${php::params::config_root_ini}/mysql.ini"
   $settings = {
     set => {
 
