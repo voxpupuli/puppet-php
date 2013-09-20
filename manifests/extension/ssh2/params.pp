@@ -43,7 +43,7 @@ class php::extension::ssh2::params {
   $ensure   = $php::params::ensure
   $package  = 'php5-ssh2'
   $provider = undef
-  $inifile  = '/etc/php5/conf.d/20-ssh2.ini'
+  $inifile  = "${php::params::configRoot}/ssh2.ini"
   $settings = {
     set => {
 

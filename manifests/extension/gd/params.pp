@@ -43,7 +43,7 @@ class php::extension::gd::params {
   $ensure   = $php::params::ensure
   $package  = 'php5-gd'
   $provider = undef
-  $inifile  = '/etc/php5/conf.d/20-gd.ini'
+  $inifile  = "${php::params::configRoot}/gd.ini"
   $settings = {
     set => {
 

@@ -43,7 +43,7 @@ class php::extension::redis::params {
   $ensure   = $php::params::ensure
   $package  = 'php5-redis'
   $provider = undef
-  $inifile  = '/etc/php5/conf.d/20-redis.ini'
+  $inifile  = "${php::params::configRoot}/redis.ini"
   $settings = {
     set => {
 

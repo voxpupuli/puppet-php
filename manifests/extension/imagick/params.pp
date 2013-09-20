@@ -43,7 +43,7 @@ class php::extension::imagick::params {
   $ensure   = $php::params::ensure
   $package  = 'php5-imagick'
   $provider = undef
-  $inifile  = '/etc/php5/conf.d/20-imagick.ini'
+  $inifile  = "${php::params::configRoot}/imagick.ini"
   $settings = {
     set => {
 

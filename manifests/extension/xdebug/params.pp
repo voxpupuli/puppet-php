@@ -47,7 +47,7 @@ class php::extension::xdebug::params {
   $package     = 'php5-xdebug'
   $provider    = undef
   $install_dir = '/usr/lib/php5/20121212'
-  $inifile     = '/etc/php5/conf.d/xdebug.ini'
+  $inifile     = "${php::params::configRoot}/xdebug.ini"
   $settings = {
     set => {
       '.anon/zend_extension' => "${install_dir}/xdebug.so",

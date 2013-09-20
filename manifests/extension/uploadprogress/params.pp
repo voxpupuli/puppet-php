@@ -43,7 +43,7 @@ class php::extension::uploadprogress::params {
   $ensure   = $php::params::ensure
   $package  = 'uploadprogress'
   $provider = 'pecl'
-  $inifile  = '/etc/php5/conf.d/uploadprogress.ini'
+  $inifile  = "${php::params::configRoot}/uploadprogress.ini"
   $settings = {
     set => {
       '.anon/extension' => 'uploadprogress.so'

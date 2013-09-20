@@ -43,7 +43,7 @@ class php::extension::mcrypt::params {
   $ensure   = $php::params::ensure
   $package  = 'php5-mcrypt'
   $provider = undef
-  $inifile  = '/etc/php5/conf.d/20-mcrypt.ini'
+  $inifile  = "${php::params::configRoot}/mcrypt.ini"
   $settings = {
     set => {
 

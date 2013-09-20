@@ -29,4 +29,6 @@ class php::params {
 
   $ensure = 'installed'
 
+  $configRoot = '/etc/php5/mods-available/'
+
 }

@@ -43,7 +43,7 @@ class php::extension::curl::params {
   $ensure   = $php::params::ensure
   $package  = 'php5-curl'
   $provider = undef
-  $inifile  = '/etc/php5/conf.d/20-curl.ini'
+  $inifile  = "${php::params::configRoot}/curl.ini"
   $settings = {
     set => {
 

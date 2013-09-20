@@ -43,7 +43,7 @@ class php::extension::igbinary::params {
   $ensure   = $php::params::ensure
   $package  = 'igbinary'
   $provider = 'pecl'
-  $inifile  = '/etc/php5/conf.d/igbinary.ini'
+  $inifile  = "${php::params::configRoot}/igbinary.ini"
   $settings = {
     set => {
       '.anon/extension' => 'igbinary.so'

@@ -43,7 +43,7 @@ class php::extension::pgsql::params {
   $ensure   = $php::params::ensure
   $package  = 'php5-pgsql'
   $provider = undef
-  $inifile  = '/etc/php5/conf.d/20-pgsql.ini'
+  $inifile  = "${php::params::configRoot}/pgsql.ini"
   $settings = {
     set => {}
   }
