@@ -35,6 +35,9 @@ class php::composer (
     command => "wget ${source} -O ${destination}",
     creates => $destination,
     path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
+    require => [
+      Package['php5-cli']
+    ]
   }
 
   file { $destination:
