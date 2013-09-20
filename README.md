@@ -206,6 +206,7 @@ The following modules are implemented by default:
 * imagick (php::extension::imagick)
 * mcrypt (php::extension::mcrypt)
 * mysql (php::extension::mysql)
+* pgsql (php::extension::pgsql)
 * redis (php::extension::redis)
 * ssh2 (php::extension::ssh2)
 * uploadprogress (php::extension::uploadprogress)
