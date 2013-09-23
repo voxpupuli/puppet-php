@@ -223,6 +223,9 @@ The following PHP related packages come build in too
 * Composer (php::composer)
 * phpunit (php::phpunit)
 
+### Note on upgrading with "puppet install" prior to version 0.6.2
+If you are using `puppet module` to install from Puppet Forge and want to upgrade from a version prior to 0.6.1, you will need to use `puppet module install --force` to resolve an issue with the package name not matching what puppet expects to find. Future updates should work as expected.
+
 # Dev links
 
 http://docs.puppetlabs.com/puppet/2.7/reference/modules_publishing.html
