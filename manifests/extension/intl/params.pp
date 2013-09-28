@@ -44,10 +44,6 @@ class php::extension::intl::params {
   $package  = 'php5-intl'
   $provider = undef
   $inifile  = "${php::params::config_root_ini}/intl.ini"
-  $settings = {
-    set => {
-
-    }
-  }
+  $settings = [ ]
 
 }

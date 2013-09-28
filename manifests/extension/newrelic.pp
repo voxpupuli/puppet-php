@@ -53,8 +53,8 @@ class php::extension::newrelic(
   }
 
   php::config { 'php-extension-newrelic':
-    inifile   => $inifile,
-    settings  => $settings
+    file    => $inifile,
+    config  => $settings
   }
 
 }

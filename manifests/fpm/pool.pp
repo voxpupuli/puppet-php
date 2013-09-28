@@ -15,7 +15,7 @@
 #      user   => 'customer2',
 #  }
 #
-define php::fpm::conf (
+define php::fpm::pool (
   $ensure = 'present',
   $listen = '127.0.0.1:9000',
   # Puppet does not allow dots in variable names

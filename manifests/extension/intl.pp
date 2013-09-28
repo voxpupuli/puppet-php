@@ -53,8 +53,8 @@ class php::extension::intl(
   }
 
   php::config { 'php-extension-intl':
-    inifile  => $inifile,
-    settings => $settings
+    file    => $inifile,
+    config  => $settings
   }
 
 }

@@ -57,8 +57,8 @@ class php::cli(
   }
 
   php::config { 'php-cli':
-    inifile  => $inifile,
-    settings => $settings
+    file    => $inifile,
+    config  => $settings
   }
 
 }

@@ -53,8 +53,8 @@ class php::extension::gearman(
   }
 
   php::config { 'php-extension-gearman':
-    inifile   => $inifile,
-    settings  => $settings
+    file    => $inifile,
+    config  => $settings
   }
 
 }

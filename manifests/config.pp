@@ -34,16 +34,16 @@
 # Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
 #
 define php::config(
-  $inifile,
-  $settings
+  $file,
+  $config
 ) {
 
   include php::augeas
 
   augeas { "php-${name}-config":
-    context   => "/files${inifile}",
+    context   => "/files${file}",
     load_path => '/usr/share/augeas/lenses/contrib/',
-    changes   => template('php/augeas_commands.erb'),
+    changes   => $config,
     require   => Class['php::augeas']
   }
 

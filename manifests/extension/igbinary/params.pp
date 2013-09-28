@@ -44,10 +44,8 @@ class php::extension::igbinary::params {
   $package  = 'igbinary'
   $provider = 'pecl'
   $inifile  = "${php::params::config_root_ini}/igbinary.ini"
-  $settings = {
-    set => {
-      '.anon/extension' => 'igbinary.so'
-    }
-  }
+  $settings = [
+    'set ".anon/extension" "igbinary.so"'
+  ]
 
 }

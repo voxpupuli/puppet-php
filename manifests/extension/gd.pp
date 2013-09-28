@@ -53,8 +53,8 @@ class php::extension::gd(
   }
 
   php::config { 'php-extension-gd':
-    inifile  => $inifile,
-    settings => $settings
+    file    => $inifile,
+    config  => $settings
   }
 
 }

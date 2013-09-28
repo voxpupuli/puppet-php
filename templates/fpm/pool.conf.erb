@@ -244,25 +244,50 @@ env[<%= key %>] = <%= value %>
 ;php_admin_value[error_log] = /var/log/php-fpm/www-error.log
 ;php_admin_flag[log_errors] = on
 ;php_admin_value[memory_limit] = 32M
-;<% if @error_log == true -%>
+<% if @error_log == true -%>
 ;error_log = /var/log/php-fpm/<%= @pool %>-error.log
 ;log_errors = on
-;<% elsif !@error_log.empty? -%>
+<% elsif !@error_log.empty? -%>
 ;error_log = <%= @error_log %>
 ;log_errors = on
-;<% end -%>
-;<% @php_value.sort_by {|key,value| key}.each do |key,value| -%>
-;<%= key %> = <%= value %>
-;<% end -%>
-;<% @php_flag.sort_by {|key,flag| key}.each do |key,flag| -%>
-;php_flag[<%= key %>] = <%= flag %>
-;<% end -%>
-;<% @php_admin_value.sort_by {|key,value| key}.each do |key,value| -%>
-;<%= key %> = <%= value %>
-;<% end -%>
-;<% @php_admin_flag.sort_by {|key,flag| key}.each do |key,flag| -%>
-;<%= key %> = <%= flag %>
-;<% end -%>
+<% end %>
+
+;
+; Custom PHP values
+;
+
+<% @php_value.sort_by {|key,value| key}.each do |key,value| -%>
+<%= key -%> = <%= value %>
+<% end -%>
+
+;
+; Custom PHP flags
+;
+
+<% @php_flag.sort_by {|key,flag| key}.each do |key,flag| -%>
+php_flag[<%= key -%>] = <%= flag %>
+<% end -%>
+
+;
+; Custom PHP admin values
+;
+
+<% @php_admin_value.sort_by {|key,value| key}.each do |key,value| -%>
+<%= key -%> = <%= value %>
+<% end -%>
+
+;
+; Custom PHP admin flags
+;
+
+<% @php_admin_flag.sort_by {|key,flag| key}.each do |key,flag| -%>
+<%= key -%> = <%= flag %>
+<% end -%>
+
+;
+; Custom PHP directives
+;
+
 <% @php_directives.each do |line| -%>
-<%= line %>
+<%= line.gsub "{", "%{" %>
 <% end -%>

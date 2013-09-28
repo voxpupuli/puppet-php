@@ -53,8 +53,8 @@ class php::extension::xdebug (
   }
 
   php::config { 'php-extension-xdebug':
-    inifile  => $inifile,
-    settings => $settings
+    file    => $inifile,
+    config  => $settings
   }
 
 }

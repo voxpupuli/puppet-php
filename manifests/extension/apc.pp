@@ -53,8 +53,8 @@ class php::extension::apc(
   }
 
   php::config { 'php-extension-apc':
-    inifile  => $inifile,
-    settings => $settings
+    file    => $inifile,
+    config  => $settings
   }
 
 }

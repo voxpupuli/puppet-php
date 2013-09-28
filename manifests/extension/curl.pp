@@ -53,8 +53,8 @@ class php::extension::curl(
   }
 
   php::config { 'php-extension-curl':
-    inifile  => $inifile,
-    settings => $settings
+    file    => $inifile,
+    config  => $settings
   }
 
 }

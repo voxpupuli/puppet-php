@@ -53,8 +53,8 @@ class php::extension::http(
   }
 
   php::config { 'php-extension-http':
-    inifile  => $inifile,
-    settings => $settings;
+    file    => $inifile,
+    config  => $settings
   }
 
 }

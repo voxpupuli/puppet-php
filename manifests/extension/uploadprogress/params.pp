@@ -44,10 +44,8 @@ class php::extension::uploadprogress::params {
   $package  = 'uploadprogress'
   $provider = 'pecl'
   $inifile  = "${php::params::config_root_ini}/uploadprogress.ini"
-  $settings = {
-    set => {
-      '.anon/extension' => 'uploadprogress.so'
-    }
-  }
+  $settings = [
+    'set ".anon/extension" "uploadprogress.so"'
+  ]
 
 }

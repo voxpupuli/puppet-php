@@ -57,8 +57,8 @@ class php::extension::uploadprogress(
   }
 
   php::config { 'php-extension-uploadprogress':
-    inifile   => $inifile,
-    settings  => $settings
+    file    => $inifile,
+    config  => $settings
   }
 
 }

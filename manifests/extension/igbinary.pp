@@ -53,8 +53,8 @@ class php::extension::igbinary(
   }
 
   php::config { 'php-extension-igbinary':
-    inifile   => $inifile,
-    settings  => $settings
+    file    => $inifile,
+    config  => $settings
   }
 
 }
