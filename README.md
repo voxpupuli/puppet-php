@@ -140,7 +140,7 @@ php::config { '$unique-name':
 
 # same as
 
-augeas { "php-${uniqie-name}-config":
+augeas { "php-${unique-name}-config":
     context => "/files${full_path_to_ini_file}",
     changes => {
         "set '.anon/apc.enabled' '1'"
@@ -163,7 +163,7 @@ php::config { '$unique-name':
 
 # same as
 
-augeas { "php-${uniqie-name}-config":
+augeas { "php-${unique-name}-config":
     context => "/files${full_path_to_php.ini_file}",
     changes => {
         "set 'Date/date.timezone' 'UTC'",
