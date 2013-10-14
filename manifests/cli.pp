@@ -49,13 +49,13 @@ class php::cli(
   php::contrib::base_package { 'cli':
     ensure   => $ensure,
     provider => $provider;
-  }
+  } ->
 
   package { $package:
     ensure   => $ensure,
     provider => $provider;
-  }
-
+  } ->
+  
   php::config { 'php-cli':
     inifile  => $inifile,
     settings => $settings
