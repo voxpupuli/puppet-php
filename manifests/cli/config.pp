@@ -31,7 +31,7 @@ define php::cli::config(
   $config
 ) {
 
-  php::config { $name:
+  php::config { "cli-${name}":
     file   => $file,
     config => $config
   }

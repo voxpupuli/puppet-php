@@ -31,7 +31,7 @@ define php::fpm::config(
   $config
 ) {
 
-  php::config { $name:
+  php::config { "fpm-${name}":
     file      => $file,
     config    => $config,
     notify    => Service[$php::fpm::params::service_name]
