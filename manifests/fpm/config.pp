@@ -29,7 +29,7 @@
 define php::fpm::config(
   $file     = $php::fpm::params::inifile,
   $config   = [ ]
-) inherits php::fpm::params {
+) {
 
   php::config { $name:
     file      => $file,

@@ -28,8 +28,8 @@
 #
 define php::cli::config(
   $file     = $php::cli::params::inifile,
-  $config   = [ ]
-) inherits php::cli::params {
+  $config   = []
+) {
 
   php::config { $name:
     file      => $file,
