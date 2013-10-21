@@ -27,7 +27,7 @@
 # Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
 #
 define php::fpm::config(
-  $file     = $php::cli::params::inifile,
+  $file = $php::cli::params::inifile,
   $config
 ) {
 
