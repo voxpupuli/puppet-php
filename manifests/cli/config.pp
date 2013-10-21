@@ -1,4 +1,4 @@
-# == Class: php::fpm::config
+# == Class: php::cli::config
 #
 # Configure php.ini settings for a PHP SAPI
 #
@@ -26,15 +26,14 @@
 #
 # Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
 #
-define php::fpm::config(
-  $file     = $php::fpm::params::inifile,
+define php::cli::config(
+  $file     = $php::cli::params::inifile,
   $config   = [ ]
-) inherits php::fpm::params {
+) inherits php::cli::params {
 
   php::config { $name:
     file      => $file,
-    config    => $config,
-    notify    => Service[$php::fpm::params::service_name]
+    config    => $config
   }
 
 }
