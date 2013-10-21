@@ -26,14 +26,11 @@
 #
 # Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
 #
-define php::cli::config(
-  $file     = $php::cli::params::inifile,
-  $config   = []
-) {
+define php::cli::config($file = $php::cli::params::inifile, $config) {
 
   php::config { $name:
-    file      => $file,
-    config    => $config
+    file   => $file,
+    config => $config
   }
 
 }
