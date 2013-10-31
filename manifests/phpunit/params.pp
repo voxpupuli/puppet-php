@@ -37,7 +37,7 @@
 #
 # Copyright 2012-2013 Nodes, unless otherwise noted.
 #
-class php::phpunit::params {
+class php::phpunit::params inherits php::params {
 
   $ensure   = $php::params::ensure
   $package  = 'pear.phpunit.de/PHPUnit'
