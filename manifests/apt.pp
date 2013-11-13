@@ -51,7 +51,7 @@ class php::apt(
 
     exec { 'add_dotdeb_key':
       command =>
-        'curl --silent "http://www.dotdeb.org/dotdeb.gpg" | apt-key add -',
+        'curl -L --silent "http://www.dotdeb.org/dotdeb.gpg" | apt-key add -',
       unless  => 'apt-key list | grep -q dotdeb',
       path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ];
     }
