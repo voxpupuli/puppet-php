@@ -1,7 +1,6 @@
-#!/usr/bin/env rspec
-
 require 'spec_helper'
 
-describe 'php' do
+describe 'php', :type => :class do
   it { should contain_class 'php' }
+  it { should include_class 'php::params' }
 end
