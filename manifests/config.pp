@@ -41,8 +41,9 @@ define php::config(
   include php::augeas
 
   augeas { "php-${name}-config":
-    context   => "/files${inifile}",
-    load_path => '/usr/share/augeas/lenses/contrib/',
+    incl      => $inifile,
+    lens      => 'PHP.lns',
+    load_path => $php::params::augeas_contrib_dir,
     changes   => template('php/augeas_commands.erb'),
     require   => Class['php::augeas']
   }

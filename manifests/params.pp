@@ -29,4 +29,6 @@ class php::params {
 
   $ensure = 'installed'
 
+  $augeas_contrib_dir = '/usr/share/augeas/lenses/contrib'
+
 }
