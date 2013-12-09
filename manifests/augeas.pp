@@ -28,8 +28,8 @@
 #
 class php::augeas {
 
-  if !defined(File['/usr/share/augeas/lenses/contrib']) {
-    file { '/usr/share/augeas/lenses/contrib':
+  if !defined(File[$php::params::augeas_contrib_dir]) {
+    file { $php::params::augeas_contrib_dir:
       ensure  => directory,
       recurse => true,
       purge   => true,
@@ -40,10 +40,10 @@ class php::augeas {
     }
   }
 
-  file { '/usr/share/augeas/lenses/contrib/php.aug':
+  file { "${php::params::augeas_contrib_dir}/php.aug":
     ensure  => present,
     source  => 'puppet:///modules/php/php.aug',
-    require => File['/usr/share/augeas/lenses/contrib']
+    require => File[$php::params::augeas_contrib_dir]
   }
 
 }
