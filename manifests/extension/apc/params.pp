@@ -41,7 +41,7 @@
 class php::extension::apc::params {
 
   $ensure   = $php::params::ensure
-  $package  = 'php5-apc'
+  $package  = 'php-apc'
   $provider = undef
   $inifile  = '/etc/php5/conf.d/20-apc.ini'
   $settings = {
