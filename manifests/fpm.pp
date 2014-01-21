@@ -45,7 +45,7 @@ class php::fpm (
   $provider = $php::fpm::params::provider,
   $inifile  = $php::fpm::params::inifile,
   $settings = $php::fpm::params::settings
-inherits php::fpm::params {
+) inherits php::fpm::params {
 
   package { $package:
     ensure   => $ensure,
