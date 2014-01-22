@@ -39,7 +39,7 @@
 #
 # Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
 #
-class php::fpm(
+class php::fpm (
   $ensure   = $php::fpm::params::ensure,
   $package  = $php::fpm::params::package,
   $provider = $php::fpm::params::provider,
@@ -55,14 +55,6 @@ class php::fpm(
   php::config { 'php-fpm':
     inifile  => $inifile,
     settings => $settings
-  }
-
-  service { 'php5-fpm':
-    ensure    => running,
-    enable    => true,
-    restart   => 'service php5-fpm reload',
-    hasstatus => true,
-    require   => Package[$package]
   }
 
 }

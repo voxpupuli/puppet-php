@@ -6,14 +6,14 @@
 #  include php::fpm::daemon
 #
 class php::fpm::daemon (
-  $ensure                       = 'present',
-  $log_level                    = 'notice',
-  $emergency_restart_threshold  = '0',
-  $emergency_restart_interval   = '0',
-  $process_control_timeout      = '0',
-  $log_owner                    = 'root',
-  $log_group                    = false,
-  $log_dir_mode                 = '0770'
+  $ensure       = 'present',
+  $log_level    = 'notice',
+  $emergency_restart_threshold = '0',
+  $emergency_restart_interval  = '0',
+  $process_control_timeout     = '0',
+  $log_owner    = 'root',
+  $log_group    = false,
+  $log_dir_mode = '0770'
 ) {
 
   # Hack-ish to default to user for group too
@@ -22,17 +22,7 @@ class php::fpm::daemon (
     default => $log_group,
   }
 
-  if ( $ensure == 'absent' ) {
-
-    package { 'php5-fpm':
-      ensure => absent
-    }
-
-  } else {
-
-    package { 'php5-fpm':
-      ensure => installed
-    }
+  if ($ensure == 'present') {
 
     service { 'php5-fpm':
       ensure    => running,
