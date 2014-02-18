@@ -11,6 +11,7 @@ Contents: Epic hello world epics
 .. toctree::
    :maxdepth: 2
 
+   sample
 
 Indices and tables
 ==================
