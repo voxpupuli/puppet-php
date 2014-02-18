@@ -48,12 +48,7 @@ class php::fpm(
   $service_name = $php::fpm::params::service_name
 ) inherits php::fpm::params {
 
-  class { 'php::fpm::package':
-
-  }
-
-  class { 'php::fpm::service':
-
-  }
+  include php::fpm::package
+  include php::fpm::service
 
 }

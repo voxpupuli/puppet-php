@@ -1,6 +1,6 @@
-# == Class: php::extension::apc::params
+# == Class: php::extension::memcache::params
 #
-# Defaults file for the APC PHP extension
+# Defaults file for the Memcache PHP extension
 #
 # === Parameters
 #
@@ -33,30 +33,22 @@
 # === Authors
 #
 # Christian "Jippi" Winther <jippignu@gmail.com>
+# Nathan Sullivan <nmsullivan@gmail.com>
 #
 # === Copyright
 #
 # Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
 #
-class php::extension::apc::params {
+class php::extension::memcache::params {
 
   $ensure   = $php::params::ensure
-  $package  = $::lsbdistcodename ? {
-    # php-apc is phased out as of Ubuntu 13.10 (saucy)
-    # and Debian jessie in favour of php5-apcu
-    # Debian
-    'squeeze' => 'php-apc',
-    'wheezy' => 'php-apc',
-    # Ubuntu
-    'lucid' => 'php-apc',
-    'precise' => 'php-apc',
-    'quantal' => 'php-apc',
-    'raring' => 'php-apc',
-    # Default to support future distros cleanly.
-    default => 'php5-apcu',
-  }
+  $package  = 'php5-memcache'
   $provider = undef
-  $inifile  = "${php::params::config_root_ini}/apc.ini"
-  $settings = [ ]
+  $inifile  = '/etc/php5/conf.d/20-memcache.ini'
+  $settings = {
+    set => {
+
+    }
+  }
 
 }

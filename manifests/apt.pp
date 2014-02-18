@@ -38,9 +38,20 @@ class php::apt(
   }
 
   if ($dotdeb) {
+    # wheezy-php55 requires both repositories to work correctly
+    # See: http://www.dotdeb.org/instructions/
+    if $release == 'wheezy-php55' {
+      apt::source { 'dotdeb-wheezy':
+        location    => $location,
+        release     => 'wheezy',
+        repos       => $repos,
+        include_src => $include_src
+      }
+    }
+
     exec { 'add_dotdeb_key':
       command =>
-        'curl --silent "http://www.dotdeb.org/dotdeb.gpg" | apt-key add -',
+        'curl -L --silent "http://www.dotdeb.org/dotdeb.gpg" | apt-key add -',
       unless  => 'apt-key list | grep -q dotdeb',
       path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ];
     }

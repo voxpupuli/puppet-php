@@ -65,8 +65,8 @@ The module provides a `pear` and `pecl` provider
 
 ```
 package { 'pear.phpunit.de/PHPUnit':
-	ensure 	 => installed,
-	provider => pear;
+    ensure   => installed,
+    provider => pear;
 }
 ```
 
@@ -74,8 +74,8 @@ package { 'pear.phpunit.de/PHPUnit':
 
 ```
 package { 'igbinary':
-	ensure   => installed,
-	provider => pecl;
+    ensure   => installed,
+    provider => pecl;
 }
 ```
 
@@ -95,16 +95,16 @@ It's quite simple to install packages not included in the package, simply use `p
 
 ```
 php::extension { 'platform-independent-name':
-  ensure   => $ensure,		# Same as Package { ensure }
-  package  => $package,		# Package name as defined in the package provider
-  provider => $provider;	# Provider used to install (pecl, pear, (default)undef)
+  ensure   => $ensure,      # Same as Package { ensure }
+  package  => $package,     # Package name as defined in the package provider
+  provider => $provider;    # Provider used to install (pecl, pear, (default)undef)
 }
 
 # same as
 
-package { $package:			# Package name as defined in the package provider
-	ensure   => $ensure,	# Same as Package { ensure }
-	provider => $provider;	# Provider used to install (pecl, pear, (default)undef)
+package { $package:         # Package name as defined in the package provider
+    ensure   => $ensure,    # Same as Package { ensure }
+    provider => $provider;  # Provider used to install (pecl, pear, (default)undef)
 }
 ```
 
@@ -114,9 +114,9 @@ Packages from a custom `pear` channel is also supported nicely
 
 ```
 package { 'pear.phpunit.de/PHPUnit':
-	ensure   => '3.7.12', # Same as Package { ensure }
-	provider => pear,
-	require  => Exec['php::pear::auto_discover'];
+    ensure   => '3.7.12', # Same as Package { ensure }
+    provider => pear,
+    require  => Exec['php::pear::auto_discover'];
 }
 ```
 
@@ -130,21 +130,21 @@ Simply use `php::config` to modify your ini files
 
 ```
 php::config { '$unique-name':
- 	inifile  => '$full_path_to_ini_file'
-	settings => {
-		set => {
-			'.anon/apc.enabled' => 1
-		}
-	}
+    inifile  => '$full_path_to_ini_file'
+    settings => {
+        set => {
+            '.anon/apc.enabled' => 1
+        }
+    }
 }
 
 # same as
 
-augeas { "php-${uniqie-name}-config":
-	context => "/files${full_path_to_ini_file}",
-	changes => {
-		"set '.anon/apc.enabled' '1'"
-	}
+augeas { "php-${unique-name}-config":
+    context => "/files${full_path_to_ini_file}",
+    changes => {
+        "set '.anon/apc.enabled' '1'"
+    }
 }
 
 # or to modify php.ini
@@ -163,12 +163,12 @@ php::config { '$unique-name':
 
 # same as
 
-augeas { "php-${uniqie-name}-config":
-	context => "/files${full_path_to_php.ini_file}",
-	changes => {
-		"set 'Date/date.timezone' 'UTC'",
-		"set 'PHP/short_open_tag' 'Off'"
-	}
+augeas { "php-${unique-name}-config":
+    context => "/files${full_path_to_php.ini_file}",
+    changes => {
+        "set 'Date/date.timezone' 'UTC'",
+        "set 'PHP/short_open_tag' 'Off'"
+    }
 }
 
 ```
@@ -204,6 +204,8 @@ The following modules are implemented by default:
 * http (php::extension::http)
 * igbinary (php::extension::igbinary)
 * imagick (php::extension::imagick)
+* imap (php::extension::imap)
+* ldap (php::extension::ldap)
 * mcrypt (php::extension::mcrypt)
 * mysql (php::extension::mysql)
 * pgsql (php::extension::pgsql)
@@ -220,6 +222,9 @@ The following PHP related packages come build in too
 
 * Composer (php::composer)
 * phpunit (php::phpunit)
+
+### Note on upgrading with "puppet install" prior to version 0.6.2
+If you are using `puppet module` to install from Puppet Forge and want to upgrade from a version prior to 0.6.1, you will need to use `puppet module install --force` to resolve an issue with the package name not matching what puppet expects to find. Future updates should work as expected.
 
 # Dev links
 

@@ -1,9 +1,9 @@
-name 'puppet-php'
-version '0.6.1'
+name 'nodes-php'
+version '0.7.0'
 author 'jippi'
 license 'MIT'
-summary 'Puppet module to manage PHP on debian / ubuntu - easily expandable to support other platforms'
-description 'Puppet module to manage PHP on debian / ubuntu - easily expandable to support other platforms'
+summary 'Puppet module to manage PHP, PECL & PEAR on debian / ubuntu - easily expandable to support other platforms. (FPM, Apache, CLI)'
+description 'Puppet module to manage PHP, PECL & PEAR on debian / ubuntu - easily expandable to support other platforms (FPM, Apache, CLI)'
 project_page 'https://github.com/jippi/puppet-php'
 
 dependency 'puppetlabs/stdlib', '> 0.0.0'

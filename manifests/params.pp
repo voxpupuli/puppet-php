@@ -33,4 +33,6 @@ class php::params {
 
   $config_root_ini = "${::php::params::config_root}/mods-available"
 
+  $augeas_contrib_dir = '/usr/share/augeas/lenses/contrib'
+
 }

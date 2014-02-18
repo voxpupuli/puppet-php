@@ -60,9 +60,9 @@
 define php::extension(
   $ensure,
   $package,
-  $provider,
-  $pipe = undef,
-  $source = undef
+  $provider = undef,
+  $pipe     = undef,
+  $source   = undef
 ) {
 
   if $provider == 'pecl' {

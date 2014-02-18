@@ -26,7 +26,7 @@ Puppet::Type.type(:package).provide :pear, :parent => Puppet::Provider::Package 
         end
 
         if hash[:justme]
-          if set =~ /^hash[:justme]/
+          if set =~ /^#{hash[:justme]}/
             pearhash = pearsplit(set, channel)
             pearhash[:provider] = :pear
             pearhash
@@ -84,7 +84,7 @@ Puppet::Type.type(:package).provide :pear, :parent => Puppet::Provider::Package 
   end
 
   def install(useversion = true)
-    command = ["upgrade"]
+    command = ["upgrade", "-a"]
 
     if source = @resource[:source]
       command << source
