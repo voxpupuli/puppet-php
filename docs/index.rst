@@ -6,7 +6,7 @@
 Welcome to puppet-php's documentation!
 ======================================
 
-Contents:
+Contents: Epic hello world
 
 .. toctree::
    :maxdepth: 2
