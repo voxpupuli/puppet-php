@@ -12,7 +12,6 @@ Contents: Epic hello world epics
    :maxdepth: 2
 
 
-
 Indices and tables
 ==================
 
