@@ -37,6 +37,7 @@ define php::fpm::conf (
   $ping_response = 'pong',
   $request_terminate_timeout = '0',
   $request_slowlog_timeout = '0',
+  $security_limit_extensions = undef,
   $slowlog = "/var/log/php-fpm/${name}-slow.log",
   $rlimit_files = undef,
   $rlimit_core = undef,
