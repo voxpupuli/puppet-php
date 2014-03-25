@@ -59,7 +59,7 @@ Puppet::Type.type(:package).provide :pecl, :parent => Puppet::Provider::Package 
     when /No packages installed from channel/i then return nil
     when /^=/ then return nil
     when /^PACKAGE/ then return nil
-    when /^(\S+)\s+([.\d]+)\s+\S+/ then
+    when /^(\S+)\s+(\S+)\s+\S+/ then
       name = $1
       version = $2
 
