@@ -36,12 +36,15 @@ define php::config(
   $config
 ) {
 
+  validate_array($config)
+
   include php::augeas
+  include php::params
 
   augeas { "php-${name}-config":
     incl      => $file,
     changes   => $config,
-    load_path => $php::params::augeas_contrib_dir,
+    load_path => $::php::params::augeas_contrib_dir,
     lens      => 'PHP.lns',
     require   => Class['php::augeas']
   }
