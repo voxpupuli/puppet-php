@@ -46,4 +46,6 @@ class php::apache::params {
   $inifile  = '/etc/php5/apache2/php.ini'
   $settings = [ ]
 
+  $service_name = 'apache2'
+
 }

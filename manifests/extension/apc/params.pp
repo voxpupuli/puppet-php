@@ -47,11 +47,13 @@ class php::extension::apc::params {
     # Debian
     'squeeze' => 'php-apc',
     'wheezy' => 'php-apc',
+
     # Ubuntu
     'lucid' => 'php-apc',
     'precise' => 'php-apc',
     'quantal' => 'php-apc',
     'raring' => 'php-apc',
+
     # Default to support future distros cleanly.
     default => 'php5-apcu',
   }

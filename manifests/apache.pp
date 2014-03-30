@@ -40,11 +40,12 @@
 # Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
 #
 class php::apache(
-  $ensure   = $php::apache::params::ensure,
-  $package  = $php::apache::params::package,
-  $provider = $php::apache::params::provider,
-  $inifile  = $php::apache::params::inifile,
-  $settings = $php::apache::params::settings
+  $ensure       = $php::apache::params::ensure,
+  $package      = $php::apache::params::package,
+  $provider     = $php::apache::params::provider,
+  $inifile      = $php::apache::params::inifile,
+  $settings     = $php::apache::params::settings,
+  $service_name = $php::apache::params::service_name
 ) inherits php::apache::params {
 
   php::contrib::base_package { 'apache':
@@ -57,9 +58,9 @@ class php::apache(
     provider => $provider;
   }
 
-  php::config { 'php-apache':
-    inifile  => $inifile,
-    settings => $settings
+  php::apache::config { 'php-apache':
+    file    => $inifile,
+    config  => $settings
   }
 
 }

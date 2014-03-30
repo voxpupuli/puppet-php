@@ -11,5 +11,6 @@ Contents
   configuration
   sapi
   extensions
+  examples
 
 .. todolist::

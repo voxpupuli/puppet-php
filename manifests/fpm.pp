@@ -51,4 +51,9 @@ class php::fpm(
   include php::fpm::package
   include php::fpm::service
 
+  php::fpm::config { 'php-fpm':
+    file    => $inifile,
+    config  => $settings
+  }
+
 }

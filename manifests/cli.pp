@@ -55,8 +55,8 @@ class php::cli(
     ensure   => $ensure,
     provider => $provider;
   } ->
-  
-  php::config { 'php-cli':
+
+  php::cli::config { 'php-cli':
     file    => $inifile,
     config  => $settings
   }

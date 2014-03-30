@@ -42,8 +42,19 @@ modifications done through this function, ensures that PHP FPM is reloaded.
 
 .. note ::
 
-  The default value for ``$file`` in this function is the actual PHP FPM configuration
-  file
+  The default value for ``$file`` in this function is the actual PHP FPM
+  configuration file
+
+php::apache::config
+###################
+
+This function works exactly as ``php::config``, with the added benefit that any
+modifications done through this function, ensures that apache is reloaded.
+
+.. note ::
+
+  The default value for ``$file`` in this function is the actual PHP apache
+  configuration file
 
 php::cli::config
 ################
@@ -55,5 +66,5 @@ authoring.
 
 .. note ::
 
-  The default value for ``$file`` in this function is the actual PHP CLI configuration
-  file
+  The default value for ``$file`` in this function is the actual PHP CLI
+  configuration file
