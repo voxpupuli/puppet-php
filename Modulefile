@@ -1,5 +1,5 @@
 name 'nodes-php'
-version '0.8.1'
+version '0.8.2'
 author 'jippi'
 license 'MIT'
 summary 'Puppet module to manage PHP, PECL & PEAR on debian / ubuntu - easily expandable to support other platforms. (FPM, Apache, CLI)'
