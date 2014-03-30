@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# crud documentation build configuration file, created by
+# puppet-php documentation build configuration file, created by
 # sphinx-quickstart on Tue Feb 18 16:24:32 2014.
 #
 # This file is execfile()d with the current directory set to its
@@ -210,7 +210,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'crud.tex', u'crud',
+  ('index', 'puppet-php.tex', u'puppet-php',
    u'Christian Winther', 'manual'),
 ]
 
