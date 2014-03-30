@@ -25,6 +25,11 @@ Source code
 
 The source can be found at `github.com/jippi/puppet-php <https://github.com/jippi/puppet-php/>`_
 
+License
+-------
+
+The project is released under the permissive MIT license.
+
 Bugs
 ----
 
