@@ -31,7 +31,7 @@
 # Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
 #
 class php::composer::params {
-  $max_age = 30
-  $source = 'https://getcomposer.org/composer.phar'
-  $destination = '/usr/local/bin/composer'
+  $max_age 			= 30
+  $source 			= 'https://getcomposer.org/composer.phar'
+  $destination 	= '/usr/local/bin/composer'
 }

@@ -33,9 +33,9 @@
 # Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
 #
 class php::composer::auto_update (
-  $max_age = $php::composer::params::max_age,
-  $source = $php::composer::params::source,
-  $destination = $php::composer::params::destination
+  $max_age 			= $php::composer::params::max_age,
+  $source 			= $php::composer::params::source,
+  $destination 	= $php::composer::params::destination
 ) inherits php::composer::params {
 
   exec { 'update composer':

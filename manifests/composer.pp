@@ -27,8 +27,8 @@
 # Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
 #
 class php::composer (
-  $source = $php::composer::params::source,
-  $destination = $php::composer::params::destination
+  $source       = $php::composer::params::source,
+  $destination  = $php::composer::params::destination
 ) inherits php::composer::params {
 
   exec { 'download composer':

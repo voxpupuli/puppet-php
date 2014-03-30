@@ -11,6 +11,8 @@ Contents
   configuration
   sapi
   extensions
+  composer
+  phpunit
   examples
 
 .. todolist::
