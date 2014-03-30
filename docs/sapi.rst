@@ -1,11 +1,6 @@
 SAPI
 ####
 
-More On SAPI
-^^^^^^^^^^^^
+Apache
+------
 
-.. toctree::
-
-  sapi/apache
-  sapi/cli
-  sapi/fpm
