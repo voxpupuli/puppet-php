@@ -4,11 +4,11 @@
 #
 # === Parameters
 #
-# [*inifile*]
+# [*file*]
 #   The path to ini file
 #
-# [*settings*]
-#   The hash having key => values pairs to change
+# [*config*]
+#   Array of augeas commands, one command per entry
 #
 # === Variables
 #

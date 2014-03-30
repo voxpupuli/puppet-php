@@ -4,11 +4,11 @@
 #
 # === Parameters
 #
-# [*inifile*]
+# [*file*]
 #   The path to ini file
 #
-# [*settings*]
-#   The hash having key => values pairs to change
+# [*config*]
+#   An array of augeas commands to execute
 #
 # === Variables
 #
@@ -16,14 +16,12 @@
 #
 # === Examples
 #
-#  php::config { '$unique-name':
-#    inifile  => '$full_path_to_ini_file'
-#    settings => {
-#      set => {
-#        '.anon/apc.enabled' => 1
-#      }
-#    }
-#  }
+# php::config { '$unique-name':
+#   file  => '$full_path_to_ini_file'
+#   config => [
+#     'set .anon/apc.enabled 1'
+#   ]
+# }
 #
 # === Authors
 #
@@ -31,7 +29,7 @@
 #
 # === Copyright
 #
-# Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
+# Copyright 2012-2014 Christian "Jippi" Winther, unless otherwise noted.
 #
 define php::config(
   $file,
