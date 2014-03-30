@@ -20,6 +20,11 @@ Why Use puppet-php
 
 * it uses the MIT license.
 
+Source code
+-----------
+
+The source can be found at `github.com/jippi/puppet-php <https://github.com/jippi/puppet-php/>`_
+
 Bugs
 ----
 
