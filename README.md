@@ -1,231 +1,56 @@
-puppet-php
-==========
+Introduction
+============
 
-Puppet module to manage PHP on debian (optionally with dotdeb) & ubuntu
+``puppet-php`` is a module for managing PHP using puppet.
 
-Puppet forge URL: http://forge.puppetlabs.com/nodes/php
+Why Use puppet-php
+------------------
 
-### Installation
+* it's [very fast to install](http://puppet-php.readthedocs.org/en/latest/installation.html), a few minutes tops.
 
-```
-puppet module install nodes/php
-```
+* it supports [all PHP SAPIs](http://puppet-php.readthedocs.org/en/latest/sapi.html) out of the box.
 
-or simply clone the repository in your `module_path` (the folder must be named **php**)
+* it supports [a lot of PHP extensions](http://puppet-php.readthedocs.org/en/latest/extensions.html) out of the box.
 
-### Setup
+* it's is very flexible and has tons of configuration options, and sane defaults.
 
-There is little to no class dependency between all classes
+* it aims to stay out of your way, and if it happens to get in your way, you can change the undesired behavior very easily.
 
-To ensure that things happen in a predictable order please use the example below to ensure that extensions are installed before they are configured
+* it removes the boilerplate code from your manifests, which mean less code to maintain, and less code to spend time unit testing.
 
-```
-# Install extensions; Configure extensions; Reload apache if changed
-Package['php5-dev'] -> Php::Extension <| |> -> Php::Config <| |> ~> Service["apache2"]
-```
+* it uses the MIT license.
 
-If you rely on `dotdeb` you also want to make sure that the `php::apt` class is loaded and `apt` has been updated (`apt-get update`) before packages are installed
+Documentation
+-------------
 
-```
-# Install sources; Update sources; Install packages
-Apt::Source <| |> ~> Exec['apt_update'] -> Package <| |>
-```
+The documentation can be found at [puppet-php.readthedocs.org/en/](http://puppet-php.readthedocs.org/en/latest)
 
-Using the Pecl package provider requires the `php5-dev` and `build-essential` package to be installed beforehand
+Source code
+-----------
 
-### Example configuration of the module.
+The source can be found at [github.com/jippi/puppet-php](https://github.com/jippi/puppet-php/)
 
-It will install CLI, mod_php for apache, dev packages, pear and APC
+License
+-------
 
-```
-$php_version = '5.4.11-1~dotdeb.0'
+The project is released under the permissive MIT license.
 
-include php
-include php::apt
+Bugs
+----
 
-class {
-  'php::cli':
-    ensure => $php_version;
-  'php::apache':
-    ensure => $php_version;
-  'php::dev':
-    ensure => $php_version;
-  'php::pear':
-    ensure => $php_version;
-  'php::extension::apc':
-    ensure => $php_version;
-}
-```
+If you happen to stumble upon a bug, please feel free to create a pull request with a fix
+(optionally with a test), and a description of the bug and how it was resolved.
 
-### Package providers
+You can also create an issue with a description to raise awareness of the bug.
 
-The module provides a `pear` and `pecl` provider
+Features
+--------
 
-#### Pear package example
+If you have a good idea for a feature, please join us on IRC and let's discuss it.
+Pull requests are always more than welcome.
 
-```
-package { 'pear.phpunit.de/PHPUnit':
-    ensure   => installed,
-    provider => pear;
-}
-```
+Support / Questions
+-------------------
 
-#### Pecl package example
-
-```
-package { 'igbinary':
-    ensure   => installed,
-    provider => pecl;
-}
-```
-
-#### deb package example
-
-```
-  package { "libgearman":
-    ensure    =>  "latest",
-    provider  =>  "dpkg",
-    source    =>  "/path/to/libgearman8_1.1.7-1_amd64.deb",
-  }
-```
-
-### Installing packages
-
-It's quite simple to install packages not included in the package, simply use `php::extension`
-
-```
-php::extension { 'platform-independent-name':
-  ensure   => $ensure,      # Same as Package { ensure }
-  package  => $package,     # Package name as defined in the package provider
-  provider => $provider;    # Provider used to install (pecl, pear, (default)undef)
-}
-
-# same as
-
-package { $package:         # Package name as defined in the package provider
-    ensure   => $ensure,    # Same as Package { ensure }
-    provider => $provider;  # Provider used to install (pecl, pear, (default)undef)
-}
-```
-
-The advantage of using `php::extension` over `package` is the anchor of dependency mentioned in **Setup**
-
-Packages from a custom `pear` channel is also supported nicely
-
-```
-package { 'pear.phpunit.de/PHPUnit':
-    ensure   => '3.7.12', # Same as Package { ensure }
-    provider => pear,
-    require  => Exec['php::pear::auto_discover'];
-}
-```
-
-If you want to auto-discover channels, make sure to `require` `Exec['php::pear::auto_discover']`
-
-### Configure packages
-
-Modifying php configuration is also baked right now
-
-Simply use `php::config` to modify your ini files
-
-```
-php::config { '$unique-name':
-    inifile  => '$full_path_to_ini_file'
-    settings => {
-        set => {
-            '.anon/apc.enabled' => 1
-        }
-    }
-}
-
-# same as
-
-augeas { "php-${unique-name}-config":
-    context => "/files${full_path_to_ini_file}",
-    changes => {
-        "set '.anon/apc.enabled' '1'"
-    }
-}
-
-# or to modify php.ini
-# note that keys outside of the sections in php.ini file
-# should be referenced by PHP and not .anon
-
-php::config { '$unique-name':
-  inifile  => '$full_path_to_php.ini_file',
-  settings => {
-    set => {
-    'Date/date.timezone' => "UTC",
-    'PHP/short_open_tag' => "Off",
-    }
-  }
-}
-
-# same as
-
-augeas { "php-${unique-name}-config":
-    context => "/files${full_path_to_php.ini_file}",
-    changes => {
-        "set 'Date/date.timezone' 'UTC'",
-        "set 'PHP/short_open_tag' 'Off'"
-    }
-}
-
-```
-
-`settings` is a key / value `augeas` hash
-
-Currently `settings` only support the type `set` in augeas
-
-To remove a config key you might use
-```
-augeas { "remove-disable_functions":
-  context => "/files/etc/php5/fpm/php.ini/PHP",
-  changes => [
-    "rm disable_functions"
-  ];
-}
-```
-
-The advantage of using `php::config` over `augeas` is the anchor of dependency mentioned in **Setup**
-
-### PHP SAPIs
-
-By default the module comes with support for mod_php (`php::apache`), cli `php::cli` and fpm `php::fpm`
-
-### PHP modules
-
-The following modules are implemented by default:
-
-* apc (php::extension::apc)
-* curl (php::extension::curl)
-* gd (php::extension::gd)
-* gearman (php::extension::gearman)
-* http (php::extension::http)
-* igbinary (php::extension::igbinary)
-* imagick (php::extension::imagick)
-* imap (php::extension::imap)
-* ldap (php::extension::ldap)
-* mcrypt (php::extension::mcrypt)
-* mysql (php::extension::mysql)
-* pgsql (php::extension::pgsql)
-* redis (php::extension::redis)
-* ssh2 (php::extension::ssh2)
-* uploadprogress (php::extension::uploadprogress)
-* xdebug (php::extension::xdebug)
-
-each of them are located in the `php::extension` namespace
-
-### Packages
-
-The following PHP related packages come build in too
-
-* Composer (php::composer)
-* phpunit (php::phpunit)
-
-### Note on upgrading with "puppet install" prior to version 0.6.2
-If you are using `puppet module` to install from Puppet Forge and want to upgrade from a version prior to 0.6.1, you will need to use `puppet module install --force` to resolve an issue with the package name not matching what puppet expects to find. Future updates should work as expected.
-
-# Dev links
-
-http://docs.puppetlabs.com/puppet/2.7/reference/modules_publishing.html
+You can find me on IRC in the #puppet channel on irc.freenode.net for any support or questions.
+My alias is ``Jippi``
