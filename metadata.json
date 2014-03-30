@@ -18,11 +18,10 @@
   "name": "nodes-php",
   "license": "MIT",
   "operatingsystem_support": [
-    {
-      "operatingsystem": "Ubuntu"
-    },
-    {
-      "operatingsystem": "Debian"
-    }
+    {"operatingsystem": "Ubuntu"},
+    {"operatingsystem": "Debian"}
+  ],
+  "requirements": [
+    { "name": "puppet", "version_requirement": ">=3.2.0" }
   ]
 }
