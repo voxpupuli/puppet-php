@@ -16,5 +16,4 @@ describe 'php::config' do
     it { should contain_augeas("php-unique-name-config").with({ 'changes' => "set .anon/apc.enabled 1" })}
   end
 
-
 end
