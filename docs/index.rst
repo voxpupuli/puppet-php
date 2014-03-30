@@ -10,6 +10,8 @@ Why Use puppet-php
 
 * it supports :doc:`all PHP SAPIs</sapi>` out of the box.
 
+* it supports :doc:`a lot of PHP extensions</extensions>` out of the box.
+
 * it's is very flexible and has tons of configuration options, and sane defaults.
 
 * it aims to stay out of your way, and if it happens to get in your way, you can change the undesired behavior very easily.
