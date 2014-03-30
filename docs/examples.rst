@@ -14,7 +14,6 @@ Generic / CLI
     include php::pear
     include php::composer
     include php::composer::auto_update
-    include php_support
 
     # Extensions must be installed before they are configured
     Php::Extension <| |> -> Php::Config <| |>

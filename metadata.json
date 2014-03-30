@@ -1,0 +1,28 @@
+{
+  "project_page": "https://github.com/jippi/puppet-php",
+  "source": "git@github.com:jippi/puppet-php.git",
+  "description": "Puppet module to manage PHP, PECL & PEAR on debian / ubuntu - easily expandable to support other platforms (FPM, Apache, CLI)",
+  "summary": "Puppet module to manage PHP, PECL & PEAR on debian / ubuntu - easily expandable to support other platforms. (FPM, Apache, CLI)",
+  "dependencies": [
+    {
+      "version_requirement": "> 0.0.0",
+      "name": "puppetlabs/stdlib"
+    },
+    {
+      "version_requirement": "> 0.0.0",
+      "name": "puppetlabs/apt"
+    }
+  ],
+  "author": "jippi",
+  "version": "0.8.3",
+  "name": "nodes-php",
+  "license": "MIT",
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Ubuntu"
+    },
+    {
+      "operatingsystem": "Debian"
+    }
+  ]
+}
