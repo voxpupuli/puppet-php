@@ -2,3 +2,4 @@ pkg/
 .idea/
 atlassian-ide-plugin.xml
 docs/_build/
+Gemfile.lock
