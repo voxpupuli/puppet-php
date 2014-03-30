@@ -44,4 +44,6 @@ class php::extension::xcache::params {
   $package  = 'php5-xcache'
   $provider = undef
   $inifile  = '/etc/php5/conf.d/20-xcache.ini'
+  $settings = []
+
 }

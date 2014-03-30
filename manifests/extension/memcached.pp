@@ -54,8 +54,8 @@ class php::extension::memcached(
   }
 
   php::config { 'php-extension-memcached':
-    inifile  => $inifile,
-    settings => $settings
+    file    => $inifile,
+    config  => $settings
   }
 
 }

@@ -44,7 +44,5 @@ class php::extension::apcu::params {
   $package  = 'php5-apcu'
   $provider = undef
   $inifile  = "${php::params::config_root_ini}/apcu.ini"
-  $settings = {
-    set => {}
-  }
+  $settings = []
 }

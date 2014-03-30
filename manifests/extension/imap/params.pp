@@ -44,7 +44,5 @@ class php::extension::imap::params {
   $package  = 'php5-imap'
   $provider = undef
   $inifile  = '/etc/php5/conf.d/20-imap.ini'
-  $settings = {
-    set => {}
-  }
+  $settings = []
 }

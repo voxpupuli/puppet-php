@@ -44,7 +44,5 @@ class php::extension::ldap::params {
   $package  = 'php5-ldap'
   $provider = undef
   $inifile  = '/etc/php5/conf.d/20-ldap.ini'
-  $settings = {
-    set => {}
-  }
+  $settings = []
 }

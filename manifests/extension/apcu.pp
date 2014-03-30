@@ -53,8 +53,8 @@ class php::extension::apcu(
   }
 
   php::config { 'php-extension-apcu':
-    inifile  => $inifile,
-    settings => $settings
+    file   => $inifile,
+    config => $settings
   }
 
 }
