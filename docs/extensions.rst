@@ -157,6 +157,19 @@ Class name: ``php::extension::memcached``.
 
 * ``$inifile`` defaults to ``${php::params::config_root_ini}/memcached.ini``
 
+mongo
+-----
+
+FIX ME
+
+Class name: ``php::extension::mongo``.
+
+* ``$package`` defaults to ``mongo``
+
+* ``$provider`` defaults to ``pecl``
+
+* ``$inifile`` defaults to ``${php::params::config_root_ini}/mongo.ini``
+
 mysql
 -----
 
