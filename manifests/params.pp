@@ -31,16 +31,16 @@ class php::params {
 
   $config_root = '/etc/php5'
 
-  $config_root_ini = "${::php::params::config_root}/mods-available"
-
   $augeas_contrib_dir = '/usr/share/augeas/lenses/contrib'
 
   case $::osfamily {
     'Suse': {
       $base_package = false
+      $config_root_ini = "${::php::params::config_root}/conf.d"
     }
     default: {
       $base_package = true
+      $config_root_ini = "${::php::params::config_root}/mods-available"
     }
   }
 }

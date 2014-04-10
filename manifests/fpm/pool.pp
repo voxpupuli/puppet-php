@@ -50,7 +50,8 @@ define php::fpm::pool (
   $php_admin_value = {},
   $php_admin_flag = {},
   $php_directives = [],
-  $error_log = true
+  $error_log = true,
+  $service_name = $php::fpm::params::service_name
 ) {
 
   $pool = $title
@@ -61,12 +62,12 @@ define php::fpm::pool (
   if ($ensure == 'absent') {
     file { "/etc/php5/fpm/pool.d/${pool}.conf":
       ensure => absent,
-      # notify => Service[$php::fpm::params::service_name]
+      notify => Service[$service_name]
     }
   } else {
     file { "/etc/php5/fpm/pool.d/${pool}.conf":
       ensure  => file,
-      # notify  => Service[$php::fpm::params::service_name],
+      notify  => Service[$service_name],
       require => Package['php5-fpm'],
       content => template('php/fpm/pool.conf.erb'),
       owner   => root,

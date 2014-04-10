@@ -45,7 +45,9 @@ class php::fpm(
   $provider     = $php::fpm::params::provider,
   $inifile      = $php::fpm::params::inifile,
   $settings     = $php::fpm::params::settings,
-  $service_name = $php::fpm::params::service_name
+  $service_name = $php::fpm::params::service_name,
+  $user         = $php::fpm::params::user,
+  $group        = undef
 ) inherits php::fpm::params {
 
   include php::fpm::package
@@ -56,7 +58,10 @@ class php::fpm(
     file    => $inifile,
     config  => $settings
   } ->
-  php::fpm::pool { 'www': } ->
+  php::fpm::pool { 'www':
+    user  => $user,
+    group => $group
+  } ->
   Class['php::fpm::service']
 
 }

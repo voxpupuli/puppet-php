@@ -52,7 +52,8 @@ define php::fpm::config(
     owner   => root,
     group   => root,
     mode    => '0644',
-  } ->
+  }
+
   file { '/etc/php5/fpm/pool.d':
     ensure  => directory,
     owner   => root,

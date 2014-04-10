@@ -86,8 +86,13 @@ define php::extension(
     # }
     exec { 'pecl-install':
       command => "pecl install ${real_package}",
+      unless  => "pecl list | grep -iw ${real_package}",
       user    => 'root',
-      path    => ['/usr/bin', 'bin']
+      path    => ['/bin', '/usr/bin']
+    }
+    php::config { $real_package:
+      file   =>"${php::params::config_root_ini}/${real_package}.ini",
+      config => ["set .anon/extension '${real_package}.so'"]
     }
   } elsif $provider == 'dpkg' {
     package { $real_package:
