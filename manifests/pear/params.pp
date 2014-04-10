@@ -46,7 +46,14 @@
 class php::pear::params {
 
   $ensure   = $php::params::ensure
-  $package  = 'php-pear'
   $provider = undef
 
+  case $::osfamily {
+    'Suse': {
+      $package  = 'php5-pear'
+    }
+    default: {
+      $package  = 'php-pear'
+    }
+  }
 }

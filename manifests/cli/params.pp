@@ -41,9 +41,17 @@
 class php::cli::params {
 
   $ensure   = $php::params::ensure
-  $package  = 'php5-cli'
   $provider = undef
   $inifile  = '/etc/php5/cli/php.ini'
   $settings = [ ]
+
+  case $::osfamily {
+    'Suse': {
+      $package = 'php5'
+    }
+    default: {
+      $package = 'php5-cli'
+    }
+  }
 
 }

@@ -51,9 +51,12 @@ class php::fpm(
   include php::fpm::package
   include php::fpm::service
 
+  Class['php::fpm::package'] ->
   php::fpm::config { 'php-fpm':
     file    => $inifile,
     config  => $settings
-  }
+  } ->
+  php::fpm::pool { 'www': } ->
+  Class['php::fpm::service']
 
 }

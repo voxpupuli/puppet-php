@@ -35,4 +35,12 @@ class php::params {
 
   $augeas_contrib_dir = '/usr/share/augeas/lenses/contrib'
 
+  case $::osfamily {
+    'Suse': {
+      $base_package = false
+    }
+    default: {
+      $base_package = true
+    }
+  }
 }

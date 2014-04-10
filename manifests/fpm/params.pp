@@ -40,15 +40,25 @@
 #
 class php::fpm::params inherits php::params {
 
-  $ensure   					= $::php::params::ensure
-  $package  					= 'php5-fpm'
-  $provider 					= undef
-  $inifile  					= '/etc/php5/fpm/php.ini'
-  $settings 					= [ ]
+  $ensure   			= $php::params::ensure
+  $package  			= 'php5-fpm'
+  $provider 			= undef
+  $inifile  			= '/etc/php5/fpm/php.ini'
+  $settings 			= []
 
-  $service_name 		  = 'php5-fpm'
-  $service_ensure 		= 'running'
-  $service_enable 		= true
+  $service_ensure     = 'running'
+  $service_enable     = true
   $service_has_status = true
+
+  case $::osfamily {
+    'Suse': {
+      $service_name = 'php-fpm'
+      $user         = 'nginx'
+    }
+    default: {
+      $service_name = 'php5-fpm'
+      $user         = 'www-data'
+    }
+  }
 
 }

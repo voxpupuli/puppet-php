@@ -36,7 +36,7 @@ class php::composer (
     creates => $destination,
     path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
     require => [
-      Package['php5-cli']
+      Package[$php::cli::params::package]
     ]
   }
 

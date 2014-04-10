@@ -59,26 +59,44 @@
 #
 define php::extension(
   $ensure,
-  $package,
+  $package  = undef,
   $provider = undef,
   $pipe     = undef,
   $source   = undef
 ) {
 
+  if $package {
+    $real_package = $package
+  } elsif $provider == 'pecl' {
+    $real_package = $title
+  } else {
+    $real_package = "php5-${title}"
+  }
+
   if $provider == 'pecl' {
-    package { $package:
-      ensure   => $ensure,
-      provider => $provider,
-      pipe     => $pipe;
+    # FIXME: due to multiple package declarations we cannot rely on package here currently
+    # e.g. you cannot install package memcached with two different providers
+    # https://tickets.puppetlabs.com/browse/PUP-1073
+    #
+    # package { "pecl-${real_package}":
+    #   ensure   => $ensure,
+    #   pkgname  => $real_package,
+    #   provider => $provider,
+    #   pipe     => $pipe
+    # }
+    exec { 'pecl-install':
+      command => "pecl install ${real_package}",
+      user    => 'root',
+      path    => ['/usr/bin', 'bin']
     }
   } elsif $provider == 'dpkg' {
-    package { $package:
+    package { $real_package:
       ensure   => $ensure,
       provider => $provider,
       source   => $source;
     }
   } else {
-    package { $package:
+    package { $real_package:
       ensure   => $ensure,
       provider => $provider;
     }

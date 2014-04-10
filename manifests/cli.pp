@@ -46,10 +46,13 @@ class php::cli(
   $settings = $php::cli::params::settings
 ) inherits php::cli::params {
 
-  php::contrib::base_package { 'cli':
-    ensure   => $ensure,
-    provider => $provider;
-  } ->
+  if $php::params::base_package {
+    php::contrib::base_package { 'cli':
+      ensure   => $ensure,
+      provider => $provider,
+      before   => Package[$package]
+    }
+  }
 
   package { $package:
     ensure   => $ensure,
