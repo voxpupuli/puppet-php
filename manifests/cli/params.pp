@@ -41,9 +41,15 @@
 class php::cli::params {
 
   $ensure   = $php::params::ensure
-  $package  = 'php5-cli'
+  $package  = $operatingsystem ? {
+    CentOS  => 'php-cli',
+    default => 'php5-cli'
+  }
   $provider = undef
-  $inifile  = '/etc/php5/cli/php.ini'
+  $inifile  = $operatingsystem ? {
+    CentOS => '/etc/php-cli.ini',
+    default => '/etc/php5/cli/php.ini'
+  }
   $settings = {
     set => {
       'PHP/short_open_tag'       => 'Off',

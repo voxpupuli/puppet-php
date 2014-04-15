@@ -41,9 +41,12 @@
 class php::extension::mysql::params {
 
   $ensure   = $php::params::ensure
-  $package  = 'php5-mysql'
+  $package  = $operatingsystem ? {
+    CentOS  => 'php-mysql',
+    default => 'php5-mysql'
+  }
   $provider = undef
-  $inifile  = '/etc/php5/conf.d/20-mysql.ini'
+  $inifile  = '${php::params::config_root_ini}/20-mysql.ini'
   $settings = {
     set => {
 

@@ -34,7 +34,10 @@
 class php::dev::params {
 
   $ensure   = $php::params::ensure
-  $package  = 'php5-dev'
+  $package  = $operatingsystem ? {
+    CentOS  => 'php-devel',
+    default => 'php5-dev'
+  }
   $provider = undef
 
 }

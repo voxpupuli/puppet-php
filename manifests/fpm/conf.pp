@@ -60,15 +60,15 @@ define php::fpm::conf (
   $group_final = $group ? { undef => $user, default => $group }
 
   if ($ensure == 'absent') {
-    file { "/etc/php5/fpm/pool.d/${pool}.conf":
+    file { "${php::fpm::params::pool_base_dir}/${pool}.conf":
       ensure => absent,
-      notify => Service['php5-fpm']
+      notify => Service['php-fpm']
     }
   } else {
-    file { "/etc/php5/fpm/pool.d/${pool}.conf":
+    file { "${php::fpm::params::pool_base_dir}/${pool}.conf":
       ensure  => file,
-      notify  => Service['php5-fpm'],
-      require => Package['php5-fpm'],
+      notify  => Service['php-fpm'],
+      require => Package[$php::fpm::params::package],
       content => template('php/fpm/pool.conf.erb'),
       owner   => root,
       group   => root,

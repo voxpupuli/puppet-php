@@ -1,6 +1,6 @@
-# == Class: php::extension::xdebug::params
+# == Class: php::extension::mysqlnd::params
 #
-# Defaults file for the xdebug PHP extension
+# Defaults file for the mysqlnd PHP extension
 #
 # === Parameters
 #
@@ -18,9 +18,6 @@
 #
 # [*provider*]
 #   The provider used to install the package
-#
-# [*install_dir*]
-#   The path of the installed xdebug.so binary
 #
 # [*inifile*]
 #   The path to the extension ini file
@@ -41,21 +38,18 @@
 #
 # Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
 #
-class php::extension::xdebug::params {
+class php::extension::mysqlnd::params {
 
-  $ensure      = $php::params::ensure
-  $package     = $operatingsystem ? {
-    CentOS     => 'php-pecl-xdebug',
-    default    => 'php5-xdebug'
+  $ensure   = $php::params::ensure
+  $package  = $operatingsystem ? {
+    CentOS  => 'php-mysqlnd',
+    default => 'php5-mysqlnd'
   }
-  $provider    = undef
-  $install_dir = '/usr/lib/php5/20100525'
-  $inifile = "${php::params::config_base_dir}/xdebug.ini"
-
+  $provider = undef
+  $inifile  = '${php::params::config_root_ini}/20-mysqlnd.ini'
   $settings = {
     set => {
-      '.anon/zend_extension' => "${install_dir}/xdebug.so",
-      '.anon/xdebug.max_nesting_level' => '1000'
+
     }
   }
 

@@ -41,7 +41,10 @@
 class php::extension::intl::params {
 
   $ensure   = $php::params::ensure
-  $package  = 'php5-intl'
+  $package  = $operatingsystem ? {
+    CentOS  => 'php-intl',
+    default => 'php5-intl'
+  }
   $provider = undef
   $inifile  = '/etc/php5/conf.d/20-intl.ini'
   $settings = {

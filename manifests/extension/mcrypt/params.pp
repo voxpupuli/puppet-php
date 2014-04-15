@@ -41,7 +41,10 @@
 class php::extension::mcrypt::params {
 
   $ensure   = $php::params::ensure
-  $package  = 'php5-mcrypt'
+  $package  = $operatingsystem ? {
+    CentOS  => 'php-mcrypt',
+    default => 'php5-mcrypt'
+  }
   $provider = undef
   $inifile  = '/etc/php5/conf.d/20-mcrypt.ini'
   $settings = {

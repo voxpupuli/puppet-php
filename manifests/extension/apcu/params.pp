@@ -40,9 +40,28 @@
 #
 class php::extension::apcu::params {
 
+  case $operatingsystem {
+    CentOS: { $package = 'php-pecl-apcu' }
+    default: {
+      $package = $::lsbdistcodename ? {
+        # php-apc is phased out as of Ubuntu 13.10 (saucy)
+        # and Debian jessie in favour of php5-apcu
+        # Debian
+        'squeeze' => 'php-apcu',
+        'wheezy' => 'php-apcu',
+        # Ubuntu
+        'lucid' => 'php-apcu',
+        'precise' => 'php-apcu',
+        'quantal' => 'php-apcu',
+        'raring' => 'php-apcu',
+        # Default to support future distros cleanly.
+        default => 'php5-apcu',
+      }
+    }
+  }
+
   $ensure   = $php::params::ensure
-  $package  = 'php5-apcu'
   $provider = undef
   $inifile  = "${php::params::config_root_ini}/apcu.ini"
-  $settings = []
+  $settings = { set => {} }
 }

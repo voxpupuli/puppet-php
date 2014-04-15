@@ -32,9 +32,12 @@ define php::contrib::base_package(
   $ensure,
   $provider = undef
 ) {
-
-  if !defined(Package['php5-common']) {
-    package { 'php5-common':
+  case $operatingsystem {
+    CentOS: { $package = 'php-common' }
+    default: { $package = 'php5-common' }
+  }
+  if !defined(Package[$package]) {
+    package { $package:
       ensure   => $ensure,
       provider => $provider
     }

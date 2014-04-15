@@ -46,10 +46,15 @@ class php::extension::curl(
   $settings = $php::extension::curl::params::settings
 ) inherits php::extension::curl::params {
 
-  php::extension { 'curl':
-    ensure   => $ensure,
-    package  => $package,
-    provider => $provider
+  case $operatingsystem {
+    CentOS: {}
+    default: {
+      php::extension { 'curl':
+        ensure   => $ensure,
+        package  => $package,
+        provider => $provider
+      }
+    }
   }
 
   php::config { 'php-extension-curl':

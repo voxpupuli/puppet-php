@@ -13,7 +13,8 @@ class php::fpm::daemon (
   $process_control_timeout     = '0',
   $log_owner    = 'root',
   $log_group    = false,
-  $log_dir_mode = '0770'
+  $log_dir_mode = '0770',
+  $pool_base_dir = $php::fpm::params::pool_base_dir,
 ) {
 
   # Hack-ish to default to user for group too
@@ -24,16 +25,21 @@ class php::fpm::daemon (
 
   if ($ensure == 'present') {
 
-    service { 'php5-fpm':
+    service { 'php-fpm':
       ensure    => running,
       enable    => true,
-      restart   => 'service php5-fpm reload',
+      restart   => 'service php-fpm reload',
       hasstatus => true,
-      require   => Package['php5-fpm'],
+      require   => Package[$php::fpm::params::package],
     }
 
-    file { '/etc/php5/fpm/php-fpm.conf':
-      notify  => Service['php5-fpm'],
+    case $operatingsystem {
+      CentOS: { $conffile = $php::fpm::params::inifile }
+      default: { $conffile = '/etc/php5/fpm/php-fpm.conf' }
+    }
+
+    file { $conffile:
+      notify  => Service['php-fpm'],
       content => template('php/fpm/php-fpm.conf.erb'),
       owner   => root,
       group   => root,
