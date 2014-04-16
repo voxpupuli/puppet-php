@@ -59,40 +59,31 @@
 #
 define php::extension(
   $ensure,
-  $package  = undef,
   $provider = undef,
-  $pipe     = undef,
   $source   = undef
 ) {
 
-  if $package {
-    $real_package = $package
-  } elsif $provider == 'pecl' {
+  if $provider == 'pecl' {
     $real_package = $title
   } else {
     $real_package = "php5-${title}"
   }
 
-  if $provider == 'pecl' {
+  if $provider == 'pecl' and defined(Package[$real_package]) {
     # FIXME: due to multiple package declarations we cannot rely on package here currently
     # e.g. you cannot install package memcached with two different providers
     # https://tickets.puppetlabs.com/browse/PUP-1073
-    #
-    # package { "pecl-${real_package}":
-    #   ensure   => $ensure,
-    #   pkgname  => $real_package,
-    #   provider => $provider,
-    #   pipe     => $pipe
-    # }
-    exec { 'pecl-install':
-      command => "pecl install ${real_package}",
+    if $ensure =~ /present|latest|absent/ {
+      $command = "pecl install ${real_package}"
+    } else {
+      $command = "pecl install ${real_package}-${ensure}"
+    }
+
+    exec { "pecl-install-${real_package}":
+      command => $command,
       unless  => "pecl list | grep -iw ${real_package}",
       user    => 'root',
       path    => ['/bin', '/usr/bin']
-    }
-    php::config { $real_package:
-      file   =>"${php::params::config_root_ini}/${real_package}.ini",
-      config => ["set .anon/extension '${real_package}.so'"]
     }
   } elsif $provider == 'dpkg' {
     package { $real_package:
@@ -107,4 +98,10 @@ define php::extension(
     }
   }
 
+  if $provider == 'pecl' {
+    php::config { $real_package:
+      file   =>"${php::params::config_root_ini}/${real_package}.ini",
+      config => ["set .anon/extension '${real_package}.so'"]
+    }
+  }
 }
