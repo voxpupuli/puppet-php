@@ -53,15 +53,16 @@ class php::fpm(
   include php::fpm::package
   include php::fpm::service
 
-  Class['php::fpm::package'] ->
-  php::fpm::config { 'php-fpm':
-    file    => $inifile,
-    config  => $settings
-  } ->
-  php::fpm::pool { 'www':
-    user  => $user,
-    group => $group
-  } ->
-  Class['php::fpm::service']
-
+  anchor { 'php::fpm::begin': } ->
+    Class['php::fpm::package'] ->
+    php::fpm::config { 'php-fpm':
+      file    => $inifile,
+      config  => $settings
+    } ->
+    php::fpm::pool { 'www':
+      user  => $user,
+      group => $group
+    } ->
+    Class['php::fpm::service']
+    anchor { 'php::fpm::end': }
 }
