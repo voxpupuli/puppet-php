@@ -60,7 +60,8 @@
 define php::extension(
   $ensure,
   $provider = undef,
-  $source   = undef
+  $source   = undef,
+  $config   = []
 ) {
 
   if $provider == 'pecl' {
@@ -98,10 +99,12 @@ define php::extension(
     }
   }
 
-  if $provider == 'pecl' {
-    php::config { $real_package:
-      file   =>"${php::params::config_root_ini}/${real_package}.ini",
-      config => ["set .anon/extension '${real_package}.so'"]
-    }
+  $real_config = $provider ? {
+    'pecl'  => concat(["set .anon/extension '${title}.so'"], $config),
+    default => $config
+  }
+  php::config { $title:
+    file   => "${php::params::config_root_ini}/${downcase($title)}.ini",
+    config => $real_config
   }
 }
