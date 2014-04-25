@@ -60,11 +60,14 @@
 define php::extension(
   $ensure,
   $provider = undef,
+  $package  = undef,
   $source   = undef,
   $config   = []
 ) {
 
-  if $provider == 'pecl' {
+  if $package {
+    $real_package = $package
+  } elsif $provider == 'pecl' {
     $real_package = $title
   } else {
     $real_package = "php5-${title}"
