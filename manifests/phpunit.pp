@@ -24,17 +24,16 @@
 # Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
 #
 
+#FIXME: no pear
 class php::phpunit (
-  $ensure   = $php::phpunit::params::ensure,
-  $package  = $php::phpunit::params::package,
-  $provider = $php::phpunit::params::provider
-) inherits php::phpunit::params {
+  $package  = 'pear.phpunit.de/PHPUnit',
+  $provider = 'pear'
+) {
 
   package { $package:
-    ensure    => $ensure,
+    ensure    => present,
     provider  => $provider;
   }
 
   Exec['php::pear::auto_discover'] -> Package[$package]
-
 }

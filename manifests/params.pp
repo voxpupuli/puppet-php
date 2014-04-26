@@ -27,20 +27,28 @@
 #
 class php::params {
 
-  $ensure = 'installed'
-
-  $config_root = '/etc/php5'
-
+  $config_root        = '/etc/php5'
   $augeas_contrib_dir = '/usr/share/augeas/lenses/contrib'
+  $fpm_package        = 'php5-fpm'
+  $fpm_inifile        = '/etc/php5/fpm/php.ini'
 
   case $::osfamily {
     'Suse': {
-      $base_package = false
-      $config_root_ini = "${::php::params::config_root}/conf.d"
+      $base_package     = false
+      $config_root_ini  = "${config_root}/conf.d"
+      $fpm_service_name = 'php-fpm'
+      $fpm_user         = 'nginx'
+      $dev_package  = 'php5-devel'
+    }
+    'Debian': {
+      $base_package     = true
+      $config_root_ini  = "${config_root}/mods-available"
+      $fpm_service_name = 'php5-fpm'
+      $fpm_user         = 'www-data'
+      $dev_package  = 'php5-dev'
     }
     default: {
-      $base_package = true
-      $config_root_ini = "${::php::params::config_root}/mods-available"
+      fail("Unsupported osfamily: ${::osfamily} operatingsystem: ${::operatingsystem}, module ${module_name} only support osfamily Debian, and Suse")
     }
   }
 }

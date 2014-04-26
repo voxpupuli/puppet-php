@@ -48,5 +48,4 @@ define php::config(
     lens      => 'PHP.lns',
     require   => Class['php::augeas']
   }
-
 }

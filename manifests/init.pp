@@ -24,6 +24,4 @@
 #
 class php {
 
-  include php::params
-
 }

@@ -40,7 +40,9 @@
 #
 class php::cli::params {
 
-  $ensure   = $php::params::ensure
+  include php::params
+
+  $ensure   = 'present'
   $provider = undef
   $inifile  = '/etc/php5/cli/php.ini'
   $settings = [ ]

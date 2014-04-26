@@ -24,7 +24,7 @@ define php::fpm::pool (
   $listen_owner = undef,
   $listen_group = undef,
   $listen_mode = undef,
-  $user = $php::fpm::params::user,
+  $user = $php::params::fpm_user,
   $group = undef,
   $pm = 'dynamic',
   $pm_max_children = '50',
@@ -51,7 +51,7 @@ define php::fpm::pool (
   $php_admin_flag = {},
   $php_directives = [],
   $error_log = true,
-  $service_name = $php::fpm::params::service_name
+  $service_name = $php::params::fpm_service_name
 ) {
 
   $pool = $title

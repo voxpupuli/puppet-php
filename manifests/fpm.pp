@@ -40,21 +40,14 @@
 # Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
 #
 class php::fpm(
-  $ensure       = $php::fpm::params::ensure,
-  $package      = $php::fpm::params::package,
-  $provider     = $php::fpm::params::provider,
-  $inifile      = $php::fpm::params::inifile,
-  $settings     = $php::fpm::params::settings,
-  $service_name = $php::fpm::params::service_name,
-  $user         = $php::fpm::params::user,
+  $inifile      = $php::params::fpm_inifile,
+  $user         = $php::params::fpm_user,
+  $settings     = [],
   $group        = undef
-) inherits php::fpm::params {
-
-  include php::fpm::package
-  include php::fpm::service
+) inherits php::params {
 
   anchor { 'php::fpm::begin': } ->
-    Class['php::fpm::package'] ->
+    class { 'php::fpm::package': } ->
     php::fpm::config { 'php-fpm':
       file    => $inifile,
       config  => $settings
@@ -63,6 +56,6 @@ class php::fpm(
       user  => $user,
       group => $group
     } ->
-    Class['php::fpm::service']
-    anchor { 'php::fpm::end': }
+    class { 'php::fpm::service': } ->
+  anchor { 'php::fpm::end': }
 }

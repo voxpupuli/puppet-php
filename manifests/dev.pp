@@ -34,21 +34,17 @@
 # Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
 #
 class php::dev(
-  $ensure   = $php::dev::params::ensure,
-  $package  = $php::dev::params::package,
-  $provider = $php::dev::params::provider
-) inherits php::dev::params {
+  $ensure   = present,
+  $package  = $php::params::dev_package,
+) inherits php::params {
 
   if $php::params::base_package {
     php::contrib::base_package { 'dev':
       ensure   => $ensure,
-      provider => $provider;
     }
   }
 
   package { $package:
     ensure   => $ensure,
-    provider => $provider;
   }
-
 }

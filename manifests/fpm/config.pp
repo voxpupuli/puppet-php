@@ -26,10 +26,8 @@
 #
 # Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
 #
-include php::fpm::params
-
 define php::fpm::config(
-  $file         = $::php::fpm::params::inifile,
+  $file         = $::php::params::fpm_inifile,
   $config       = [],
   $log_level    = 'notice',
   $emergency_restart_threshold = '0',
@@ -47,7 +45,7 @@ define php::fpm::config(
   }
 
   file { '/etc/php5/fpm/php-fpm.conf':
-    notify  => Service[$::php::fpm::params::service_name],
+    notify  => Service[$::php::params::fpm_service_name],
     content => template('php/fpm/php-fpm.conf.erb'),
     owner   => root,
     group   => root,
@@ -64,6 +62,6 @@ define php::fpm::config(
   php::config { "fpm-${name}":
     file      => $file,
     config    => $config,
-    notify    => Service[$::php::fpm::params::service_name]
+    notify    => Service[$::php::params::fpm_service_n]
   }
 }
