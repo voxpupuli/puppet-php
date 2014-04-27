@@ -21,7 +21,7 @@
 #
 # [*settings*]
 #   Hash with 'set' nested hash of key => value
-#   set changes to agues when applied to *inifile*
+#   set changes to augues when applied to *inifile*
 #
 # === Variables
 #
@@ -34,33 +34,33 @@
 # === Authors
 #
 # Christian "Jippi" Winther <jippignu@gmail.com>
+# Robin Gloster <robin.gloster@mayflower.de>
 #
 # === Copyright
 #
-# Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
+# See LICENSE file
 #
 class php::apache(
-  $ensure       = $php::apache::params::ensure,
-  $package      = $php::apache::params::package,
-  $provider     = $php::apache::params::provider,
-  $inifile      = $php::apache::params::inifile,
-  $settings     = $php::apache::params::settings,
-  $service_name = $php::apache::params::service_name
-) inherits php::apache::params {
+  $ensure       = 'installed',
+  $package      = $php::params::apache_package,
+  $inifile      = $php::params::apache_inifile,
+  $settings     = [],
+  $service_name = $php::params::apache_service_name
+) inherits php::params {
 
-  php::contrib::base_package { 'apache':
-    ensure   => $ensure,
-    provider => $provider;
+  if $caller_module_name != $module_name {
+    warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
   }
 
   package { $package:
     ensure   => $ensure,
-    provider => $provider;
   }
 
   php::apache::config { 'php-apache':
-    file    => $inifile,
-    config  => $settings
+    file   => $inifile,
+    config => $settings
+    notify => Service[$service_name]
   }
 
+  Php::Extension <| |> ~> Service[$service_name]
 }

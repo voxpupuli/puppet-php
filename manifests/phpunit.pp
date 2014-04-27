@@ -21,7 +21,7 @@
 #
 # === Copyright
 #
-# Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
+# See LICENSE file
 #
 
 #FIXME: no pear
@@ -29,6 +29,10 @@ class php::phpunit (
   $package  = 'pear.phpunit.de/PHPUnit',
   $provider = 'pear'
 ) {
+
+  if $caller_module_name != $module_name {
+    warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
+  }
 
   package { $package:
     ensure    => present,

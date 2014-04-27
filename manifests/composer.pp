@@ -21,30 +21,42 @@
 # === Authors
 #
 # Christian "Jippi" Winther <jippignu@gmail.com>
+# Robin Gloster <robin.gloster@mayflower.de>
 #
 # === Copyright
 #
-# Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
+# See LICENSE file
 #
 class php::composer (
-  $source       = $php::composer::params::source,
-  $destination  = $php::composer::params::destination
-) inherits php::composer::params {
+  $source      = $php::params::composer_source,
+  $path        = $php::params::composer_path,
+  $auto_update = true,
+  $max_age     = $php::params::composer_max_age,
+) inherits php::params {
+
+  if $caller_module_name != $module_name {
+    warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
+  }
 
   exec { 'download composer':
-    command => "wget ${source} -O ${destination}",
-    creates => $destination,
-    path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
+    command => "wget ${source} -O ${path}",
+    creates => $path,
+    path    => ['/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/'],
     require => [
       Package[$php::cli::params::package]
     ]
-  }
-
-  file { $destination:
+  } ->
+  file { $path:
     mode    => '0555',
     owner   => root,
     group   => root,
-    require => Exec['download composer'],
   }
 
+  if $auto_update {
+    class {'php::composer::auto_update':
+      max_age => $max_age,
+      source  => $source,
+      path    => $path
+    }
+  }
 }

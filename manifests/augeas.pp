@@ -24,9 +24,13 @@
 #
 # === Copyright
 #
-# Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
+# See LICENSE file
 #
 class php::augeas {
+
+  if $caller_module_name != $module_name {
+    warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
+  }
 
   if !defined(File[$php::params::augeas_contrib_dir]) {
     file { $php::params::augeas_contrib_dir:
@@ -45,5 +49,4 @@ class php::augeas {
     source  => 'puppet:///modules/php/php.aug',
     require => File[$php::params::augeas_contrib_dir]
   }
-
 }

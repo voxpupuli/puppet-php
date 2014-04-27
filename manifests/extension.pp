@@ -52,18 +52,24 @@
 # === Authors
 #
 # Christian "Jippi" Winther <jippignu@gmail.com>
+# Robin Gloster <robin.gloster@mayflower.de>
 #
 # === Copyright
 #
-# Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
+# See LICENSE file
 #
 define php::extension(
-  $ensure,
+  $ensure   = 'installed',
   $provider = undef,
   $package  = undef,
-  $source   = undef,
   $config   = []
 ) {
+
+  if $caller_module_name != $module_name {
+    warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
+  }
+
+  validate_string($ensure)
 
   if $package {
     $real_package = $package
@@ -75,7 +81,8 @@ define php::extension(
 
   if $provider == 'pecl' and defined(Package[$real_package]) {
     # FIXME: due to multiple package declarations we cannot rely on package here currently
-    # e.g. you cannot install package memcached with two different providers
+    # e.g. you cannot install package memcached rom two different providers
+    # this whole if should be removed at some point
     # https://tickets.puppetlabs.com/browse/PUP-1073
     if $ensure =~ /present|latest|absent/ {
       $command = "pecl install ${real_package}"
@@ -83,17 +90,30 @@ define php::extension(
       $command = "pecl install ${real_package}-${ensure}"
     }
 
+    include php::pear
+    include php::dev
+
     exec { "pecl-install-${real_package}":
       command => $command,
       unless  => "pecl list | grep -iw ${real_package}",
       user    => 'root',
-      path    => ['/bin', '/usr/bin']
+      path    => ['/bin', '/usr/bin'],
+      require => [
+        Class['php::pear'],
+        Class['php::dev'],
+      ]
     }
-  } elsif $provider == 'dpkg' {
+  } if $provider == 'pecl' {
+    include php::pear
+    include php::dev
+
     package { $real_package:
       ensure   => $ensure,
       provider => $provider,
-      source   => $source;
+      require  => [
+        Class['php::pear'],
+        Class['php::dev'],
+      ]
     }
   } else {
     package { $real_package:

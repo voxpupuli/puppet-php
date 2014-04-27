@@ -21,20 +21,24 @@
 # === Authors
 #
 # Christian "Jippi" Winther <jippignu@gmail.com>
+# Robin Gloster <robin.gloster@mayflower.de>
 #
 # === Copyright
 #
-# Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
+# See LICENSE file
 #
 define php::apache::config(
-  $file = $php::apache::params::inifile,
-  $config
+  $file   = $php::params::apache_inifile,
+  $config = [],
 ) {
+
+  if $caller_module_name != $module_name {
+    warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
+  }
 
   php::config { "apache-${name}":
     file      => $file,
     config    => $config,
-    notify    => Service[$php::apache::params::service_name]
+    notify    => Service[$php::params::apache_service_name],
   }
-
 }

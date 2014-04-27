@@ -28,20 +28,20 @@
 # === Authors
 #
 # Christian "Jippi" Winther <jippignu@gmail.com>
+# Robin Gloster <robin.gloster@mayflower.de>
 #
 # === Copyright
 #
-# Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
+# See LICENSE file
 #
 class php::dev(
-  $ensure   = present,
+  $ensure   = 'installed',
   $package  = $php::params::dev_package,
 ) inherits php::params {
 
-  if $php::params::base_package {
-    php::contrib::base_package { 'dev':
-      ensure   => $ensure,
-    }
+
+  if $caller_module_name != $module_name {
+    warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
   }
 
   package { $package:

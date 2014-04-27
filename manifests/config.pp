@@ -29,12 +29,16 @@
 #
 # === Copyright
 #
-# Copyright 2012-2014 Christian "Jippi" Winther, unless otherwise noted.
+# See LICENSE file
 #
 define php::config(
   $file,
   $config
 ) {
+
+  if $caller_module_name != $module_name {
+    warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
+  }
 
   validate_array($config)
 

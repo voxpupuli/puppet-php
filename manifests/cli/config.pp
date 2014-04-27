@@ -21,19 +21,23 @@
 # === Authors
 #
 # Christian "Jippi" Winther <jippignu@gmail.com>
+# Robin Gloster <robin.gloster@mayflower.de>
 #
 # === Copyright
 #
-# Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
+# See LICENSE file
 #
 define php::cli::config(
-  $file = $php::cli::params::inifile,
-  $config
+  $file   = $php::params::fpm_inifile,
+  $config = [],
 ) {
+
+  if $caller_module_name != $module_name {
+    warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
+  }
 
   php::config { "cli-${name}":
     file   => $file,
-    config => $config
+    config => $config,
   }
-
 }

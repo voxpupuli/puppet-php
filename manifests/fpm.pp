@@ -33,18 +33,27 @@
 #
 # === Authors
 #
-# Christian "Jippi" Winther <jippignu@gmail.com>
+# Robin Gloster <robin.gloster@mayflower.de>
 #
 # === Copyright
 #
-# Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
+# See LICENSE file
 #
 class php::fpm(
   $inifile      = $php::params::fpm_inifile,
   $user         = $php::params::fpm_user,
+  $group        = undef,
   $settings     = [],
-  $group        = undef
 ) inherits php::params {
+
+  if $caller_module_name != $module_name {
+    warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
+  }
+
+  validate_string($inifile)
+  validate_string($user)
+  validate_string($group)
+  validate_array($settings)
 
   anchor { 'php::fpm::begin': } ->
     class { 'php::fpm::package': } ->

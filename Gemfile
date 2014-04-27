@@ -9,6 +9,9 @@ group :development, :test do
   gem 'rspec-system-puppet',     :require => false
   gem 'rspec-system-serverspec', :require => false
   gem 'puppet-lint',             :require => false
+  gem 'rspec'
+  gem 'ci_reporter'
+  gem 'fpm', '<=0.3.11'
 end
 
 if facterversion = ENV['FACTER_GEM_VERSION']

@@ -24,19 +24,23 @@
 #
 # === Copyright
 #
-# Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
-#
+# See LICENSE file
+# FIXME
 define php::fpm::config(
-  $file         = $::php::params::fpm_inifile,
-  $config       = [],
-  $log_level    = 'notice',
+  $file                        = $php::params::fpm_inifile,
+  $config                      = [],
+  $log_level                   = 'notice',
   $emergency_restart_threshold = '0',
   $emergency_restart_interval  = '0',
   $process_control_timeout     = '0',
-  $log_owner    = 'root',
-  $log_group    = false,
-  $log_dir_mode = '0770'
+  $log_owner                   = 'root',
+  $log_group                   = false,
+  $log_dir_mode                = '0770'
 ) {
+
+  if $caller_module_name != $module_name {
+    warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
+  }
 
   # Hack-ish to default to user for group too
   $log_group_final = $log_group ? {
@@ -45,7 +49,7 @@ define php::fpm::config(
   }
 
   file { '/etc/php5/fpm/php-fpm.conf':
-    notify  => Service[$::php::params::fpm_service_name],
+    notify  => Service[$php::params::fpm_service_name],
     content => template('php/fpm/php-fpm.conf.erb'),
     owner   => root,
     group   => root,
@@ -62,6 +66,6 @@ define php::fpm::config(
   php::config { "fpm-${name}":
     file      => $file,
     config    => $config,
-    notify    => Service[$::php::params::fpm_service_n]
+    notify    => Service[$php::params::fpm_service_n]
   }
 }

@@ -1,6 +1,6 @@
 {
-  "project_page": "https://github.com/jippi/puppet-php",
-  "source": "git@github.com:jippi/puppet-php.git",
+  "project_page": "https://github.com/Mayflower/puppet-php",
+  "source": "git@github.com:Mayflower/puppet-php.git",
   "description": "Puppet module to manage PHP, PECL & PEAR on debian / ubuntu - easily expandable to support other platforms (FPM, Apache, CLI)",
   "summary": "Puppet module to manage PHP, PECL & PEAR on debian / ubuntu - easily expandable to support other platforms. (FPM, Apache, CLI)",
   "dependencies": [
@@ -20,6 +20,7 @@
   "operatingsystem_support": [
     {"operatingsystem": "Ubuntu", "operatingsystemrelease": [] },
     {"operatingsystem": "Debian", "operatingsystemrelease": [] }
+    {"operatingsystem": "SLES", "operatingsystemrelease": [] }
   ],
   "requirements": [
     { "name": "puppet", "version_requirement": ">=3.2.0" }

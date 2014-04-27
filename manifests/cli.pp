@@ -33,35 +33,28 @@
 # === Authors
 #
 # Christian "Jippi" Winther <jippignu@gmail.com>
+# Robin Gloster <robin.gloster@mayflower.de>
 #
 # === Copyright
 #
-# Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
+# See LICENSE file
 #
 class php::cli(
-  $ensure   = $php::cli::params::ensure,
-  $package  = $php::cli::params::package,
-  $provider = $php::cli::params::provider,
-  $inifile  = $php::cli::params::inifile,
-  $settings = $php::cli::params::settings
-) inherits php::cli::params {
+  $ensure   = 'installed',
+  $package  = $php::params::cli_package,
+  $inifile  = '/etc/php5/cli/php.ini',
+  $settings = []
+) inherits php::params {
 
-  if $php::params::base_package {
-    php::contrib::base_package { 'cli':
-      ensure   => $ensure,
-      provider => $provider,
-      before   => Package[$package]
-    }
+  if $caller_module_name != $module_name {
+    warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
   }
 
   package { $package:
     ensure   => $ensure,
-    provider => $provider;
   } ->
-
   php::cli::config { 'php-cli':
     file    => $inifile,
     config  => $settings
   }
-
 }

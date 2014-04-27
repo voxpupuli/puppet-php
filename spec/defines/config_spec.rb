@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe 'php::config' do
+  let(:facts) { {  :osfamily => 'Debian',
+                    :path     => '/usr/local/bin:/usr/bin:/bin' } }
 
   context 'default config' do
     let(:title) { 'unique-name' }

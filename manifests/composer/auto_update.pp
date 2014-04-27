@@ -10,7 +10,7 @@
 # [*source*]
 # Holds URL to the Composer source file
 #
-# [*destination*]
+# [*path*]
 # Holds path to the Composer executable
 #
 # === Variables
@@ -27,22 +27,26 @@
 # === Authors
 #
 # Christian "Jippi" Winther <jippignu@gmail.com>
+# Robin Gloster <robin.gloster@mayflower.de>
 #
 # === Copyright
 #
-# Copyright 2012-2013 Christian "Jippi" Winther, unless otherwise noted.
+# See LICENSE file
 #
 class php::composer::auto_update (
-  $max_age 			= $php::composer::params::max_age,
-  $source 			= $php::composer::params::source,
-  $destination 	= $php::composer::params::destination
-) inherits php::composer::params {
+  $max_age,
+  $source,
+  $path,
+) {
 
-  exec { 'update composer':
-    command => "wget ${source} -O ${destination}",
-    onlyif  => "test `find '${destination}' -mtime +${max_age}`",
-    path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
-    require => File[$destination],
+  if $caller_module_name != $module_name {
+    warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
   }
 
+  exec { 'update composer':
+    command => "wget ${source} -O ${path}",
+    onlyif  => "test `find '${path}' -mtime +${max_age}`",
+    path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
+    require => File[$path],
+  }
 }
