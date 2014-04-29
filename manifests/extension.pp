@@ -79,31 +79,7 @@ define php::extension(
     $real_package = "php5-${title}"
   }
 
-  if $provider == 'pecl' and defined(Package[$real_package]) {
-    # FIXME: due to multiple package declarations we cannot rely on package here currently
-    # e.g. you cannot install package memcached rom two different providers
-    # this whole if should be removed at some point
-    # https://tickets.puppetlabs.com/browse/PUP-1073
-    if $ensure =~ /present|latest|absent/ {
-      $command = "pecl install ${real_package}"
-    } else {
-      $command = "pecl install ${real_package}-${ensure}"
-    }
-
-    include php::pear
-    include php::dev
-
-    exec { "pecl-install-${real_package}":
-      command => $command,
-      unless  => "pecl list | grep -iw ${real_package}",
-      user    => 'root',
-      path    => ['/bin', '/usr/bin'],
-      require => [
-        Class['php::pear'],
-        Class['php::dev'],
-      ]
-    }
-  } if $provider == 'pecl' {
+  if $provider == 'pecl' {
     include php::pear
     include php::dev
 
@@ -122,9 +98,10 @@ define php::extension(
     }
   }
 
+  $title_without_prefix = regsubst($title, 'pecl-', '')
   $lowercase_title = downcase($title)
   $real_config = $provider ? {
-    'pecl'  => concat(["set .anon/extension '${title}.so'"], $config),
+    'pecl'  => concat(["set .anon/extension '${title_without_prefix}.so'"], $config),
     default => $config
   }
   php::config { $title:

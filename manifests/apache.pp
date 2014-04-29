@@ -58,7 +58,7 @@ class php::apache(
 
   php::apache::config { 'php-apache':
     file   => $inifile,
-    config => $settings
+    config => $settings,
     notify => Service[$service_name]
   }
 

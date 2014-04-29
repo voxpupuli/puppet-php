@@ -66,6 +66,6 @@ define php::fpm::config(
   php::config { "fpm-${name}":
     file      => $file,
     config    => $config,
-    notify    => Service[$php::params::fpm_service_n]
+    notify    => Service[$php::params::fpm_service_name]
   }
 }

@@ -43,7 +43,7 @@ class php::composer (
     creates => $path,
     path    => ['/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/'],
     require => [
-      Package[$php::cli::params::package]
+      Package[$php::params::cli_package]
     ]
   } ->
   file { $path:

@@ -11,6 +11,10 @@
     {
       "version_requirement": "> 0.0.0",
       "name": "puppetlabs/apt"
+    },
+    {
+      "version_requirement": "> 0.0.0",
+      "name": "darin/zypprepo"
     }
   ],
   "author": "jippi",

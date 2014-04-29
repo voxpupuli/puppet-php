@@ -8,3 +8,4 @@ project_page 'https://github.com/jippi/puppet-php'
 
 dependency 'puppetlabs/stdlib', '> 0.0.0'
 dependency 'puppetlabs/apt', '> 0.0.0'
+dependency 'darin/zypprepo', '> 0.0.0'

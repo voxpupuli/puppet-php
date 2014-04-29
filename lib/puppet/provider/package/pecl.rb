@@ -86,9 +86,9 @@ Puppet::Type.type(:package).provide :pecl, :parent => Puppet::Provider::Package 
       command << source
     else
       if (! @resource.should(:ensure).is_a? Symbol) and useversion
-        command << "#{@resource[:name]}-#{@resource.should(:ensure)}"
+        command << "#{@resource[:name].sub('pecl-', '')}-#{@resource.should(:ensure)}"
       else
-        command << "#{@resource[:name]}"
+        command << "#{@resource[:name].sub('pecl-', '')}"
       end
     end
 
@@ -102,7 +102,7 @@ Puppet::Type.type(:package).provide :pecl, :parent => Puppet::Provider::Package 
 
   def latest
     version = ''
-    command = [command(:pearcmd), "remote-info", "#{@resource[:name]}"]
+    command = [command(:pearcmd), "remote-info", "#{@resource[:name].sub('pecl-', '')}"]
       list = execute(command).collect do |set|
       if set =~ /^Latest/
         version = set.split[1]
@@ -117,7 +117,7 @@ Puppet::Type.type(:package).provide :pecl, :parent => Puppet::Provider::Package 
   end
 
   def uninstall
-    output = pearcmd "uninstall", "#{@resource[:name]}"
+    output = pearcmd "uninstall", "#{@resource[:name].sub('pecl-', '')}"
     if output =~ /^uninstall ok/
     else
       raise Puppet::Error, output

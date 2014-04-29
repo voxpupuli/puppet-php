@@ -32,6 +32,7 @@ class php::params {
   $augeas_contrib_dir = '/usr/share/augeas/lenses/contrib'
   $cli_inifile        = '/etc/php5/cli/php.ini'
   $fpm_package        = 'php5-fpm'
+  $fpm_service_enable = true
   $fpm_inifile        = '/etc/php5/fpm/php.ini'
   $apache_inifile     = '/etc/php5/apache2/php.ini'
   $composer_source    = 'https://getcomposer.org/composer.phar'

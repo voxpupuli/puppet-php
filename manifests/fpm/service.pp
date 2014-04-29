@@ -25,7 +25,7 @@
 class php::fpm::service(
   $service_name = $php::params::fpm_service_name,
   $ensure       = 'running',
-  $enable       = $php::fpm_service_enable,
+  $enable       = $php::params::fpm_service_enable,
 ) inherits php::params {
 
   if $caller_module_name != $module_name {
