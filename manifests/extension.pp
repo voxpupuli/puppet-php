@@ -59,10 +59,11 @@
 # See LICENSE file
 #
 define php::extension(
-  $ensure   = 'installed',
-  $provider = undef,
-  $package  = undef,
-  $config   = []
+  $ensure          = 'installed',
+  $provider        = undef,
+  $package         = undef,
+  $header_packages = [],
+  $config          = [],
 ) {
 
   if $caller_module_name != $module_name {
@@ -97,6 +98,8 @@ define php::extension(
       provider => $provider;
     }
   }
+
+  ensure_packages($header_packages)
 
   $title_without_prefix = regsubst($title, 'pecl-', '')
   $lowercase_title = downcase($title)
