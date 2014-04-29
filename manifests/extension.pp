@@ -99,7 +99,9 @@ define php::extension(
     }
   }
 
-  ensure_packages($header_packages)
+  ensure_packages($header_packages, {
+    before => Package[$real_package]
+  })
 
   $title_without_prefix = regsubst($title, 'pecl-', '')
   $lowercase_title = downcase($title)
