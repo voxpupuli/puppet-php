@@ -29,12 +29,13 @@ class php::repo {
 
   case $::osfamily {
     'Debian': {
+      # no anchors here because apt does that already
       case $::operatingsystem {
         'Debian': {
-          # code
+          include php::repo::debian
         }
         'Ubuntu': {
-          # code
+          include php::repo::ubuntu
         }
         default: {
           fail("No repo available for ${::osfamily}/${::operatingsystem}, please fork this module and add one in repo.pp")

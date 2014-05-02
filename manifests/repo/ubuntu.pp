@@ -23,5 +23,5 @@
 # See LICENSE file
 #
 class php::repo::ubuntu {
-  fail('Not implemented yet, should use ondrej\'s php ppa')
+  apt::ppa { 'ppa:ondrej/php5': }
 }
