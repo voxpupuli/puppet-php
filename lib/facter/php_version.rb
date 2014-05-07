@@ -1,7 +1,7 @@
 Facter.add(:php_version) do
   confine :kernel => :linux
   setcode do
-    version = Facter::Util::Resolution.exec("/usr/bin/php --version | grep '^PHP ' | awk '{print $2}'")
+    version = Facter::Util::Resolution.exec("/usr/bin/env php -r 'echo PHP_VERSION;'")
     if version
       version.match(/(\d+\.\d+\.\d+)/).to_s
     else
