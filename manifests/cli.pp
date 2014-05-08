@@ -49,7 +49,7 @@ class php::cli(
   package { $package:
     ensure   => $ensure,
   } ->
-  php::cli::config { 'php-cli':
+  php::config { 'cli':
     file    => $inifile,
     config  => $settings
   }

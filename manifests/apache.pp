@@ -54,10 +54,10 @@ class php::apache(
     ensure   => $ensure,
   }
 
-  php::apache::config { 'php-apache':
+  php::config { 'apache':
     file   => $inifile,
     config => $settings,
-    notify => Service[$service_name]
+    notify => Service[$service_name],
   }
 
   Php::Extension <| |> ~> Service[$service_name]
