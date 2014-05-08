@@ -52,10 +52,10 @@ Bugs
 If you happen to stumble upon a bug, please feel free to create a pull request with a fix
 (optionally with a test), and a description of the bug and how it was resolved.
 
-You can also create an issue with a description to raise awareness of the bug.
+Or simply create an issue adding steps to let us reproduce the bug.
 
 Features
 --------
 
-If you have a good idea for a feature, please join us on IRC and let's discuss it.
+If you have a good idea for a feature, please create an issue to discuss it.
 Pull requests are always more than welcome.
