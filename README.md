@@ -26,7 +26,7 @@ class { '::php':
 
 Extensions can be installed either by using the parameter on the main class or by defining the hash `php::extension` in hiera.
 
-```puppet
+```yaml
 php::extensions:
   json: {}
   mysql: {}
