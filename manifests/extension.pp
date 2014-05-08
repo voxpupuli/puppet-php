@@ -77,7 +77,7 @@ define php::extension(
     }
   }
 
-  ensure_packages($header_packages, {
+  ensure_resource('package', $header_packages, {
     before => Package[$real_package]
   })
 
