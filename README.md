@@ -10,23 +10,23 @@ The module aims to use sane defaults and be easily configurable with hiera.
 
 The recommended way is to use the main class to install php with following defaults.
 
-```
-  class { '::php':
-    manage_repos => true,
-    fpm          => true,
-    apache       => false,
-    dev          => true,
-    composer     => true,
-    pear         => true,
-    extensions   => {}
-  }
+```puppet
+class { '::php':
+  manage_repos => true,
+  fpm          => true,
+  apache       => false,
+  dev          => true,
+  composer     => true,
+  pear         => true,
+  extensions   => {}
+}
 ```
 
-Installing extensions
+### Installing extensions
 
 Extensions can be installed either by using the parameter on the main class or by defining the hash `php::extension` in hiera.
 
-```
+```puppet
 php::extensions:
   json: {}
   mysql: {}
