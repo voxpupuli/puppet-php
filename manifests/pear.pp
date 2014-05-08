@@ -5,15 +5,11 @@
 # === Parameters
 #
 # [*ensure*]
-#   The PHP ensure of PHP pear to install
+#   The PHP ensure of PHP pear to install and run pear auto_discover
 #
 # [*package*]
 #   The package name for PHP pear
 #   For debian it's php5-pear
-#
-# [*provider*]
-#   The provider used to install php5-pear
-#   Could be "pecl", "apt" or any other OS package provider
 #
 # === Variables
 #

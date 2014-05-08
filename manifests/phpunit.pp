@@ -1,10 +1,14 @@
 # == Class: php::phpunit
 #
-# Install phpunit, PHP testing framework
+# Install phpunit, PHP testing framework via PEAR, this will be changed to use composer
 #
 # === Parameters
+# 
+# [*package*]
+#   The package name for PHPUnit, defaults to phpunit's pear package
 #
-# No parameters
+# [*provider*]
+#   The package provider used to install PHPUnit, defaults to pear
 #
 # === Variables
 #
@@ -18,6 +22,7 @@
 #
 # Christian "Jippi" Winther <jippignu@gmail.com>
 # Tobias Nyholm <tobias@happyrecruiting.se>
+# Robin Gloster <robin.gloster@mayflower.de>
 #
 # === Copyright
 #

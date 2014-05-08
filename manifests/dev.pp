@@ -17,10 +17,6 @@
 #   The package name for PHP dev
 #   For debian it's php5-dev
 #
-# [*provider*]
-#   The provider used to install php5-dev
-#   Could be "pecl", "apt" or any other OS package provider
-#
 # === Examples
 #
 #  include php::dev

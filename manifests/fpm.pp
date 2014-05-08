@@ -4,24 +4,18 @@
 #
 # === Parameters
 #
-# [*ensure*]
-#   The ensure of the fpm package to install
-#   Could be "latest", "installed" or a pinned verison
-#
-# [*package*]
-#   The package name for fpm package
-#   For debian it's php5-fpm
-#
-# [*provider*]
-#   The provider used to install php5-fpm
-#   Could be "pecl", "apt" or any other OS package provider
-#
 # [*inifile*]
 #   The path to the ini php5-fpm ini file
 #
 # [*settings*]
 #   Hash with 'set' nested hash of key => value
-#   set changes to agues when applied to *inifile*
+#   set changes to augeas when applied to *inifile*
+#
+# [*user*]
+#   user to run default FPM pool as
+#
+# [*group*]
+#   group to run default FPM pool as
 #
 # === Variables
 #

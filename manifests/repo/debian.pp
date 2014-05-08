@@ -4,15 +4,28 @@
 #
 # === Parameters
 #
-# No parameters
-#
+# [*location*]
+#   location of the apt repository
+# 
+# [*release*]
+#   release of the apt repository
+# 
+# [*repos*]
+#   apt repository names
+# 
+# [*include_src*]
+#   add source source repository 
+# 
+# [*dotdeb*]
+#   enable special dotdeb handling
+# 
 # === Variables
 #
 # No variables
 #
 # === Examples
 #
-#  include php::apt
+#  include php::repo::debian
 #
 # === Authors
 #

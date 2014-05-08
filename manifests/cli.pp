@@ -11,10 +11,6 @@
 #   The package name for PHP CLI
 #   For debian it's php5-cli
 #
-# [*provider*]
-#   The provider used to install php5-cli
-#   Could be "pecl", "apt" or any other OS package provider
-#
 # [*inifile*]
 #   The path to the ini php5-cli ini file
 #

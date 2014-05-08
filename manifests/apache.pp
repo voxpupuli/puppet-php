@@ -9,19 +9,17 @@
 #   Could be "latest", "installed" or a pinned verison
 #
 # [*package*]
-#   The package name for apache package
-#   For debian it's php5-apache
-#
-# [*provider*]
-#   The provider used to install php5-apache
-#   Could be "pecl", "apt" or any other OS package provider
+#   The package name for apache module package
 #
 # [*inifile*]
-#   The path to the ini php5-apache ini file
+#   The path to the apache ini file
 #
 # [*settings*]
 #   Hash with 'set' nested hash of key => value
 #   set changes to augues when applied to *inifile*
+#
+# [*service_name*]
+#   Service to notify after installation or change
 #
 # === Variables
 #

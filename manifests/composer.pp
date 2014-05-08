@@ -7,8 +7,14 @@
 # [*source*]
 # Holds URL to the Composer source file
 #
-# [*destination*]
+# [*path*]
 # Holds path to the Composer executable
+#
+# [*auto_update*]
+# defines if composer should be auto updated
+#
+# [*max_age*]
+# defines the time in days after which an auto-update gets executed
 #
 # === Variables
 #

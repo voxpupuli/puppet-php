@@ -4,7 +4,26 @@
 #
 # === Parameters
 #
-# No parameters
+# [*manage_repos*]
+#   Include repository (dotdeb, ppa, etc.) to install recent PHP from 
+#
+# [*fpm*]
+#   Install and configure php-fpm
+#
+# [*apache*]
+#   Install and configure apache php module, does not handle apache installation and configuration 
+#
+# [*dev*]
+#   Install php header files, needed to install pecl modules
+#
+# [*composer*]
+#   Install and auto-update composer 
+#
+# [*pear*]
+#   Install PEAR 
+#
+# [*extensions*]
+#   Install PHP extensions, this is overwritten by hiera hash `php::extensions` 
 #
 # === Variables
 #
@@ -83,5 +102,4 @@ class php (
     require => Anchor['php::begin'],
     before  => Anchor['php::end']
   })
-  Class['php::pear'] -> Php::Extension <| provider == pecl |>
 }
