@@ -1,8 +1,9 @@
 require 'spec_helper'
 
 describe 'php::fpm', :type => :class do
-  let(:facts) { { :osfamily => 'Debian',
-                  :path     => '/usr/local/bin:/usr/bin:/bin' } }
+  let(:facts) { { :osfamily  => 'Debian',
+                  :lsbdistid => 'Debian',
+                  :path      => '/usr/local/bin:/usr/bin:/bin' } }
 
   describe 'when called with no parameters on Debian' do
     it {

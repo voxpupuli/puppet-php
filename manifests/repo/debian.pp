@@ -6,19 +6,19 @@
 #
 # [*location*]
 #   location of the apt repository
-# 
+#
 # [*release*]
 #   release of the apt repository
-# 
+#
 # [*repos*]
 #   apt repository names
-# 
+#
 # [*include_src*]
-#   add source source repository 
-# 
+#   add source source repository
+#
 # [*dotdeb*]
 #   enable special dotdeb handling
-# 
+#
 # === Variables
 #
 # No variables

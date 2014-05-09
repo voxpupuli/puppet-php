@@ -3,7 +3,7 @@
 # Install phpunit, PHP testing framework via PEAR, this will be changed to use composer
 #
 # === Parameters
-# 
+#
 # [*package*]
 #   The package name for PHPUnit, defaults to phpunit's pear package
 #

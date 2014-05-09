@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe 'php', :type => :class do
   let(:facts) { { :osfamily        => 'Debian',
+                  :lsbdistid       => 'Debian',
                   :operatingsystem => 'Debian',
                   :path            => '/usr/local/bin:/usr/bin:/bin' } }
 
