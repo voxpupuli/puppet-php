@@ -4,7 +4,11 @@
 #
 # === Parameters
 #
-# No parameters
+# [*reponame*]
+#   Name of the Zypper repository
+#
+# [*baseurl*]
+#   Base URL of the Zypper repository
 #
 # === Variables
 #
@@ -22,8 +26,11 @@
 #
 # See LICENSE file
 #
-class php::repo::suse {
-  zypprepo { 'mayflower-php54':
-    baseurl => 'http://download.opensuse.org/repositories/home:/mayflower:/php5.4_based/SLE_11_SP3/',
+class php::repo::suse (
+  $reponame = 'mayflower-php54',
+  $baseurl  = 'http://download.opensuse.org/repositories/home:/mayflower:/php5.4_based/SLE_11_SP3/',
+) {
+  zypprepo { $reponame:
+    baseurl => $baseurl,
   }
 }
