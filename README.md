@@ -3,6 +3,9 @@ Introduction
 
 ``puppet-php`` is a module for managing PHP using puppet.
 
+This originally was a fork of [jippi/puppet-php](https://github.com/jippi/puppet-php)
+(nodes-php on Puppet Forge) but has since been rewritten in large parts.
+
 Documentation
 -------------
 
@@ -24,7 +27,8 @@ class { '::php':
 
 ### Installing extensions
 
-Extensions can be installed either by using the parameter on the main class or by defining the hash `php::extension` in hiera.
+Extensions can be installed either by using the parameter on the main class or by
+defining the hash `php::extension` in hiera.
 
 ```yaml
 php::extensions:
