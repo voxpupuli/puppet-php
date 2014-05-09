@@ -8,8 +8,8 @@
 #   The ensure of the package to install
 #   Could be "latest", "installed" or a pinned version
 #
-# [*package*]
-#   Package name as defined in the package provider
+# [*package_prefix*]
+#   Prefix to prepend to the package name for the package provider
 #
 # [*provider*]
 #   The provider used to install the package
@@ -38,7 +38,7 @@
 define php::extension(
   $ensure          = 'installed',
   $provider        = undef,
-  $package         = undef,
+  $package_prefix  = $php::params::package_prefix,
   $header_packages = [],
   $config          = [],
 ) {
@@ -48,20 +48,13 @@ define php::extension(
   }
 
   validate_string($ensure)
-
-  if $package {
-    $real_package = $package
-  } elsif $provider == 'pecl' {
-    $real_package = "pecl-${title}"
-  } else {
-    $real_package = "php5-${title}"
-  }
+  validate_string($package_prefix)
+  validate_array($header_packages)
 
   if $provider == 'pecl' {
-    include php::pear
-    include php::dev
+    $pecl_package = "pecl-${title}"
 
-    package { $real_package:
+    package { $pecl_package:
       ensure   => $ensure,
       provider => $provider,
       require  => [
@@ -69,16 +62,16 @@ define php::extension(
         Class['php::dev'],
       ]
     }
+
+    ensure_resource('package', $header_packages, {
+      before => Package[$pecl_package]
+    })
   } else {
-    package { $real_package:
+    package { "${package_prefix}${title}":
       ensure   => $ensure,
       provider => $provider;
     }
   }
-
-  ensure_resource('package', $header_packages, {
-    before => Package[$real_package]
-  })
 
   $lowercase_title = downcase($title)
   $real_config = $provider ? {

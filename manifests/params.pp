@@ -49,6 +49,7 @@ class php::params {
       $fpm_pool_dir        = "${config_root}/fpm/pool.d"
       $fpm_service_name    = 'php5-fpm'
       $fpm_user            = 'www-data'
+      $package_prefix      = 'php5-'
       $pear_package        = 'php-pear'
     }
     'Suse': {
@@ -65,6 +66,7 @@ class php::params {
       $fpm_pool_dir        = "${config_root}/fpm/pool.d"
       $fpm_service_name    = 'php-fpm'
       $fpm_user            = 'nginx'
+      $package_prefix      = 'php5-'
       $pear_package        = 'php5-pear'
     }
     'RedHat': {
@@ -80,6 +82,7 @@ class php::params {
       $fpm_pool_dir        = '/etc/php-fpm.d'
       $fpm_service_name    = 'php-fpm'
       $fpm_user            = 'www-data'
+      $package_prefix      = 'php-'
       $pear_package        = 'php-pear'
     }
     default: {
