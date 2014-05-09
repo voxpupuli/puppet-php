@@ -30,7 +30,7 @@ Extensions can be installed either by using the parameter on the main class or b
 php::extensions:
   json: {}
   mysql: {}
-  pecl-memcached:
+  memcached:
     provider: pecl
     header_packages:
       - libmemcached-dev

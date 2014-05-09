@@ -10,7 +10,6 @@
 #
 # [*package*]
 #   Package name as defined in the package provider
-#   PECL: there currently is a hack to allow prepending `pecl-` to avoid duplicate package declarations
 #
 # [*provider*]
 #   The provider used to install the package
@@ -53,7 +52,7 @@ define php::extension(
   if $package {
     $real_package = $package
   } elsif $provider == 'pecl' {
-    $real_package = $title
+    $real_package = "pecl-${title}"
   } else {
     $real_package = "php5-${title}"
   }
@@ -81,10 +80,9 @@ define php::extension(
     before => Package[$real_package]
   })
 
-  $title_without_prefix = regsubst($title, 'pecl-', '')
   $lowercase_title = downcase($title)
   $real_config = $provider ? {
-    'pecl'  => concat(["set .anon/extension '${title_without_prefix}.so'"], $config),
+    'pecl'  => concat(["set .anon/extension '${title}.so'"], $config),
     default => $config
   }
   php::config { $title:
