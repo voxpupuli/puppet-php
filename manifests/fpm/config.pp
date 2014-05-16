@@ -35,7 +35,8 @@ define php::fpm::config(
   $process_control_timeout     = '0',
   $log_owner                   = 'root',
   $log_group                   = undef,
-  $log_dir_mode                = '0770'
+  $log_dir_mode                = '0770',
+  $pool_base_dir               = $php::params::fpm_pool_dir,
 ) {
 
   if $caller_module_name != $module_name {
@@ -56,7 +57,7 @@ define php::fpm::config(
     mode    => '0644',
   }
 
-  file { '/etc/php5/fpm/pool.d':
+  file { $pool_base_dir:
     ensure  => directory,
     owner   => root,
     group   => root,
