@@ -40,7 +40,7 @@ php::extensions:
       - libmemcached-dev
 ```
 
-Source code
+Source Code
 -----------
 
 The source can be found at [github.com/Mayflower/puppet-php](https://github.com/Mayflower/puppet-php/)
