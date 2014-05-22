@@ -20,7 +20,7 @@ Puppet::Type.type(:package).provide :pecl, :parent => Puppet::Provider::Package 
     begin
       list = execute(command).split("\n").collect do |set|
         if hash[:justme]
-          if /^#{hash[:justme]}/i.match(set)
+          if /^#{hash[:justme]}$/i.match(set)
             if peclhash = peclsplit(set)
               peclhash[:provider] = :peclcmd
               peclhash
