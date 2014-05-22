@@ -1,6 +1,8 @@
 Introduction
 ============
 
+[![Build Status](https://travis-ci.org/Mayflower/puppet-php.svg?branch=master)](https://travis-ci.org/Mayflower/puppet-php)
+
 ``puppet-php`` is a module for managing PHP using puppet.
 
 This originally was a fork of [jippi/puppet-php](https://github.com/jippi/puppet-php)
