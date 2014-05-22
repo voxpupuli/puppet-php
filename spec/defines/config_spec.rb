@@ -11,8 +11,7 @@ describe 'php::config' do
       :config => []
     }}
 
-    it { should contain_augeas("php-unique-name-config")
-      .with({
+    it { should contain_augeas("php-unique-name-config").with({
         :incl      => '/etc/php5/conf.d/unique-name.ini',
         :changes   => [],
         :load_path => '/usr/share/augeas/lenses/contrib',
