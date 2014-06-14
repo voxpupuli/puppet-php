@@ -65,7 +65,8 @@ class php (
   }
 
   anchor { 'php::begin': } ->
-    class { 'php::cli': }
+    class { 'php::augeas': } ->
+    class { 'php::cli': } ->
   anchor { 'php::end': }
 
   if $fpm {

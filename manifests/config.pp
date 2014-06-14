@@ -45,7 +45,6 @@ define php::config(
   include php::params
 
   include php::augeas
-  Anchor['php::begin'] -> Class['php::augeas']
 
   augeas { "php-${name}-config":
     incl      => $file,
