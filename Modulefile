@@ -1,5 +1,5 @@
 name 'mayflower-php'
-version '1.0.1'
+version '1.0.2'
 author 'Mayflower'
 license 'MIT'
 summary 'Puppet module to manage PHP'
