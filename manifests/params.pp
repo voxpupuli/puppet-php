@@ -55,7 +55,7 @@ class php::params {
     'Suse': {
       $apache_inifile      = "${config_root}/apache2/php.ini"
       $apache_package      = 'apache2-mod_php5'
-      $apache_service_name = 'httpd'
+      $apache_service_name = 'apache2'
       $cli_inifile         = "${config_root}/cli/php.ini"
       $cli_package         = 'php5'
       $config_root         = '/etc/php5'
