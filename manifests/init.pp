@@ -48,6 +48,7 @@ class php (
   $dev          = true,
   $composer     = true,
   $pear         = true,
+  $phpunit      = false,
   $extensions   = {}
 ) {
   validate_bool($manage_repos)
@@ -56,6 +57,7 @@ class php (
   validate_bool($dev)
   validate_bool($composer)
   validate_bool($pear)
+  validate_bool($phpunit)
   validate_hash($extensions)
 
   if $manage_repos {
@@ -94,6 +96,12 @@ class php (
       class { 'php::pear': } ->
     Anchor['php::end']
   }
+  if $phpunit {
+    Anchor['php::begin'] ->
+      class { 'php::phpunit': } ->
+    Anchor['php::end']
+  }
+
 
   # FIXME: for deep merging support we need a explicit hash lookup instead of automatic parameter lookup
   #        (https://tickets.puppetlabs.com/browse/HI-118)

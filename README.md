@@ -23,6 +23,7 @@ class { '::php':
   dev          => true,
   composer     => true,
   pear         => true,
+  phpunit      => false,
   extensions   => {}
 }
 ```
