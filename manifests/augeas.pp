@@ -27,8 +27,8 @@
 # See LICENSE file
 #
 class php::augeas (
-  $augeas_contrib_dir = '/usr/share/augeas/lenses/contrib',
-) {
+  $augeas_contrib_dir = $php::params::augeas_contrib_dir,
+) inherits php::params {
 
   if $caller_module_name != $module_name {
     warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
