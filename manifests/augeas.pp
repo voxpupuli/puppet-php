@@ -26,14 +26,16 @@
 #
 # See LICENSE file
 #
-class php::augeas {
+class php::augeas (
+  $augeas_contrib_dir = '/usr/share/augeas/lenses/contrib',
+) {
 
   if $caller_module_name != $module_name {
     warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
   }
 
-  if !defined(File[$php::params::augeas_contrib_dir]) {
-    file { $php::params::augeas_contrib_dir:
+  if !defined(File[$augeas_contrib_dir]) {
+    file { $augeas_contrib_dir:
       ensure  => directory,
       recurse => true,
       purge   => true,
@@ -44,9 +46,9 @@ class php::augeas {
     }
   }
 
-  file { "${php::params::augeas_contrib_dir}/php.aug":
+  file { "${augeas_contrib_dir}/php.aug":
     ensure  => present,
     source  => 'puppet:///modules/php/php.aug',
-    require => File[$php::params::augeas_contrib_dir]
+    require => File[$augeas_contrib_dir]
   }
 }

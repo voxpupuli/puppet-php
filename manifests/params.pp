@@ -28,7 +28,6 @@
 #
 class php::params {
 
-  $augeas_contrib_dir = '/usr/share/augeas/lenses/contrib'
   $fpm_service_enable = true
   $composer_source    = 'https://getcomposer.org/composer.phar'
   $composer_path      = '/usr/local/bin/composer'
