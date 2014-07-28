@@ -34,10 +34,11 @@
 # See LICENSE file
 #
 class php::fpm(
-  $inifile      = $php::params::fpm_inifile,
-  $user         = $php::params::fpm_user,
-  $group        = undef,
-  $settings     = [],
+  $inifile  = $php::params::fpm_inifile,
+  $user     = $php::params::fpm_user,
+  $group    = undef,
+  $settings = [],
+  $pools    = undef,
 ) inherits php::params {
 
   if $caller_module_name != $module_name {
@@ -48,6 +49,7 @@ class php::fpm(
   validate_string($user)
   validate_string($group)
   validate_array($settings)
+  validate_hash($pools)
 
   anchor { 'php::fpm::begin': } ->
     class { 'php::fpm::package': } ->
@@ -55,10 +57,15 @@ class php::fpm(
       file    => $inifile,
       config  => $settings
     } ->
+    class { 'php::fpm::service': } ->
+  anchor { 'php::fpm::end': }
+
+  if $pools == undef or $pools == {} {
     php::fpm::pool { 'www':
       user  => $user,
       group => $group
-    } ->
-    class { 'php::fpm::service': } ->
-  anchor { 'php::fpm::end': }
+    }
+  } else {
+    create_resources(php::fpm::pool, $pools)
+  }
 }
