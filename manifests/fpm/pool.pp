@@ -59,7 +59,6 @@ define php::fpm::pool (
   $php_admin_flag = {},
   $php_directives = [],
   $error_log = true,
-  $service_name = $php::params::fpm_service_name
 ) {
 
   if $caller_module_name != $module_name {
@@ -74,13 +73,13 @@ define php::fpm::pool (
   if ($ensure == 'absent') {
     file { "${php::params::fpm_pool_dir}/${pool}.conf":
       ensure => absent,
-      notify => Service[$service_name]
+      notify => Class['php::fpm::service'],
     }
   } else {
     file { "${php::params::fpm_pool_dir}/${pool}.conf":
       ensure  => file,
-      notify  => Service[$service_name],
-      require => Package[$php::params::fpm_package],
+      notify  => Class['php::fpm::service'],
+      require => Class['php::fpm::package'],
       content => template('php/fpm/pool.conf.erb'),
       owner   => root,
       group   => root,
