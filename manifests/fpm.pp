@@ -49,7 +49,6 @@ class php::fpm(
   validate_string($user)
   validate_string($group)
   validate_array($settings)
-  validate_hash($pools)
 
   anchor { 'php::fpm::begin': } ->
     class { 'php::fpm::package': } ->
@@ -66,6 +65,7 @@ class php::fpm(
       group => $group
     }
   } else {
+    validate_hash($pools)
     create_resources(php::fpm::pool, $pools)
   }
 }
