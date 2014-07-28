@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'php::fpm::config' do
   let(:facts) { {  :osfamily => 'Debian',
-                    :path     => '/usr/local/bin:/usr/bin:/bin' } }
+                   :path     => '/usr/local/bin:/usr/bin:/bin' } }
 
   context 'valid config' do
     let(:title) { 'unique-name' }
