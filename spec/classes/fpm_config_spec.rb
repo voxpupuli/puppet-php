@@ -1,35 +1,27 @@
 require 'spec_helper'
 
 describe 'php::fpm::config' do
-  let(:facts) { {  :osfamily => 'Debian',
-                   :path     => '/usr/local/bin:/usr/bin:/bin' } }
+  let(:facts) { { :osfamily => 'Debian' } }
 
-  context 'valid config' do
-    let(:title) { 'unique-name' }
+  context 'creates config file' do
     let(:params) {{
-      :file   => '/etc/php5/conf.d/unique-name.ini',
-      :config => {
-        'apc.enabled' => 1
-      }
+      :php_inifile => '/etc/php5/conf.d/unique-name.ini',
+      :php_config  => {
+        'apc.enabled' => 1,
+      },
     }}
 
     it { should contain_php__fpm__config('unique-name').with({
-        'file'    => '/etc/php5/conf.d/unique-name.ini',
-        'config'  => {
-          'apc.enabled' => 1
-        }
-      })
-    }
-  end
+      :php_inifile => '/etc/php5/conf.d/unique-name.ini',
+      :php_config  => {
+        'apc.enabled' => 1,
+      },
+    })}
 
-  context 'invalid config (string)' do
-    let(:title) { 'unique-name' }
-    let(:params) {{
-      :file => '/etc/php5/conf.d/unique-name.ini',
-      :config => 'hello world'
-    }}
-
-    it { expect { should raise_error(Puppet::Error) }}
+    it { should contain_file('/etc/php5/conf.d/unique-name.ini').with({
+      :ensure  => 'present',
+      :content => 'apc.enabled = 1',
+    })}
   end
 
 end
