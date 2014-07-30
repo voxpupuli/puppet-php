@@ -15,6 +15,9 @@
 #   The provider used to install the package
 #   Could be "pecl", "apt", "dpkg" or any other OS package provider
 #
+# [*pecl_source*]
+#   The pecl source channel to install pecl package from
+#
 # [*header_packages*]
 #   system packages dependecies to install for pecl extensions (e.g. for memcached libmemcached-dev on debian)
 #
@@ -38,6 +41,7 @@
 define php::extension(
   $ensure          = 'installed',
   $provider        = undef,
+  $pecl_source     = undef,
   $package_prefix  = $php::params::package_prefix,
   $header_packages = [],
   $config          = [],
@@ -57,6 +61,7 @@ define php::extension(
     package { $pecl_package:
       ensure   => $ensure,
       provider => $provider,
+      source   => $pecl_source,
       require  => [
         Class['php::pear'],
         Class['php::dev'],
