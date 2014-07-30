@@ -44,7 +44,7 @@ define php::extension(
   $pecl_source     = undef,
   $package_prefix  = $php::params::package_prefix,
   $header_packages = [],
-  $config          = [],
+  $config          = {},
 ) {
 
   if $caller_module_name != $module_name {

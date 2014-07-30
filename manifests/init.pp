@@ -67,7 +67,6 @@ class php (
   }
 
   anchor { 'php::begin': } ->
-    class { 'php::augeas': } ->
     class { 'php::cli': } ->
   anchor { 'php::end': }
 

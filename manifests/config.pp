@@ -18,14 +18,14 @@
 #
 # php::config { '$unique-name':
 #   file  => '$full_path_to_ini_file'
-#   config => [
-#     'set .anon/apc.enabled 1'
-#   ]
+#   config => {
+#     {'Date/date.timezone' => 'Europe/Berlin'}
+#   }
 # }
 #
 # === Authors
 #
-# Christian "Jippi" Winther <jippignu@gmail.com>
+# Robin Gloster <robin.gloster@mayflower.de>
 #
 # === Copyright
 #
@@ -40,17 +40,9 @@ define php::config(
     warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
   }
 
-  validate_array($config)
+  validate_hash($config)
 
-  include php::params
-
-  include php::augeas
-
-  augeas { "php-${name}-config":
-    incl      => $file,
-    changes   => $config,
-    load_path => $::php::params::augeas_contrib_dir,
-    lens      => 'PHP.lns',
-    require   => Class['php::augeas']
-  }
+  create_resources(config::setting, hashify($config), {
+    file => $file
+  })
 }
