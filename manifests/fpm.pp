@@ -19,7 +19,7 @@
 #
 # [*pools*]
 #   Hash of php::fpm::pool resources that will be created. Defaults
-#   to a single php::fpm::pool with default parameters.
+#   to a single php::fpm::pool named www with default parameters.
 #
 # === Variables
 #
@@ -42,7 +42,7 @@ class php::fpm(
   $user     = $php::params::fpm_user,
   $group    = undef,
   $settings = [],
-  $pools    = { 'default' => {} },
+  $pools    = { 'www' => {} },
 ) inherits php::params {
 
   if $caller_module_name != $module_name {
