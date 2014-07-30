@@ -21,23 +21,44 @@
 # === Authors
 #
 # Christian "Jippi" Winther <jippignu@gmail.com>
+# Franz Pletz <franz.pletz@mayflower.de>
 #
 # === Copyright
 #
 # See LICENSE file
-# FIXME
-define php::fpm::config(
-  $file                        = $php::params::fpm_inifile,
-  $config                      = [],
+
+class php::fpm::config(
+  $config_file                 = $php::params::fpm_config_file,
+  $user                        = $php::params::fpm_user,
+  $group                       = $php::params::fpm_group,
+  $php_inifile                 = $php::params::fpm_inifile,
+  $php_config                  = [],
+  $pool_base_dir               = $php::params::fpm_pool_dir,
   $log_level                   = 'notice',
   $emergency_restart_threshold = '0',
   $emergency_restart_interval  = '0',
   $process_control_timeout     = '0',
-  $log_owner                   = 'root',
-  $log_group                   = undef,
+  $log_owner                   = $php::params::fpm_user,
+  $log_group                   = $php::params::fpm_group,
   $log_dir_mode                = '0770',
-  $pool_base_dir               = $php::params::fpm_pool_dir,
-) {
+) inherits php::params {
+
+  validate_string($user)
+  validate_string($group)
+  validate_string($php_inifile)
+  validate_array($php_config)
+
+  $number_re = '^\d+$'
+
+  validate_absolute_path($pool_base_dir)
+  validate_string($log_level)
+  validate_re($emergency_restart_threshold, $number_re)
+  validate_re($emergency_restart_interval, $number_re)
+  validate_re($process_control_timeout, $number_re)
+  validate_string($log_owner)
+  validate_string($log_group)
+  validate_re($log_dir_mode, $number_re)
+
 
   if $caller_module_name != $module_name {
     warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
@@ -49,8 +70,9 @@ define php::fpm::config(
     default => $log_group,
   }
 
-  file { '/etc/php5/fpm/php-fpm.conf':
-    notify  => Service[$php::params::fpm_service_name],
+  file { $config_file:
+    ensure  => present,
+    notify  => Class['php::fpm::service'],
     content => template('php/fpm/php-fpm.conf.erb'),
     owner   => root,
     group   => root,
@@ -64,9 +86,9 @@ define php::fpm::config(
     mode    => '0755',
   }
 
-  php::config { "fpm-${name}":
-    file      => $file,
-    config    => $config,
-    notify    => Service[$php::params::fpm_service_name]
+  php::config { 'fpm':
+    file      => $php_inifile,
+    config    => $php_config,
+    notify    => Class['php::fpm::service'],
   }
 }
