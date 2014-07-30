@@ -17,6 +17,10 @@
 # [*group*]
 #   group to run default FPM pool as
 #
+# [*pools*]
+#   Hash of php::fpm::pool resources that will be created. Defaults
+#   to a single php::fpm::pool with default parameters.
+#
 # === Variables
 #
 # No variables
