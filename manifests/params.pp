@@ -35,14 +35,15 @@ class php::params {
 
   case $::osfamily {
     'Debian': {
+      $config_root         = '/etc/php5'
+      $config_root_ini     = "${config_root}/mods-available"
       $apache_inifile      = "${config_root}/apache2/php.ini"
       $apache_package      = 'libapache2-mod-php5'
       $apache_service_name = 'apache2'
       $cli_inifile         = "${config_root}/cli/php.ini"
       $cli_package         = 'php5-cli'
-      $config_root         = '/etc/php5'
-      $config_root_ini     = "${config_root}/mods-available"
       $dev_package         = 'php5-dev'
+      $fpm_config_file     = "${config_root}/fpm/php-fpm.conf"
       $fpm_inifile         = "${config_root}/fpm/php.ini"
       $fpm_package         = 'php5-fpm'
       $fpm_pool_dir        = "${config_root}/fpm/pool.d"
@@ -52,14 +53,15 @@ class php::params {
       $pear_package        = 'php-pear'
     }
     'Suse': {
+      $config_root         = '/etc/php5'
+      $config_root_ini     = "${config_root}/conf.d"
       $apache_inifile      = "${config_root}/apache2/php.ini"
       $apache_package      = 'apache2-mod_php5'
       $apache_service_name = 'apache2'
       $cli_inifile         = "${config_root}/cli/php.ini"
       $cli_package         = 'php5'
-      $config_root         = '/etc/php5'
-      $config_root_ini     = "${config_root}/conf.d"
       $dev_package         = 'php5-devel'
+      $fpm_config_file     = "${config_root}/fpm/php-fpm.conf"
       $fpm_inifile         = "${config_root}/fpm/php.ini"
       $fpm_package         = 'php5-fpm'
       $fpm_pool_dir        = "${config_root}/fpm/pool.d"
@@ -69,14 +71,15 @@ class php::params {
       $pear_package        = 'php5-pear'
     }
     'RedHat': {
-      $apache_inifile      = "${config_root}/apache2/php.ini"
+      $config_root_ini     = '/etc/php.d'
+      $apache_inifile      = "${config_root_ini}/apache2/php.ini"
       $apache_package      = 'php'
       $apache_service_name = 'httpd'
       $cli_inifile         = '/etc/php-cli.ini'
       $cli_package         = 'php-cli'
-      $config_root_ini     = '/etc/php.d'
       $dev_package         = 'php-devel'
-      $fpm_inifile         = '/etc/php-fpm.conf'
+      $fpm_config_file     = '/etc/php-fpm.conf'
+      $fpm_inifile         = "${config_root_ini}/fpm/php.ini"
       $fpm_package         = 'php-fpm'
       $fpm_pool_dir        = '/etc/php-fpm.d'
       $fpm_service_name    = 'php-fpm'
