@@ -17,6 +17,10 @@
 # [*group*]
 #   group to run default FPM pool as
 #
+# [*pools*]
+#   Hash of php::fpm::pool resources that will be created. Defaults
+#   to a single php::fpm::pool with default parameters.
+#
 # === Variables
 #
 # No variables
@@ -34,10 +38,11 @@
 # See LICENSE file
 #
 class php::fpm(
-  $inifile      = $php::params::fpm_inifile,
-  $user         = $php::params::fpm_user,
-  $group        = undef,
-  $settings     = [],
+  $inifile  = $php::params::fpm_inifile,
+  $user     = $php::params::fpm_user,
+  $group    = undef,
+  $settings = [],
+  $pools    = { 'default' => {} },
 ) inherits php::params {
 
   if $caller_module_name != $module_name {
@@ -48,6 +53,7 @@ class php::fpm(
   validate_string($user)
   validate_string($group)
   validate_array($settings)
+  validate_hash($pools)
 
   anchor { 'php::fpm::begin': } ->
     class { 'php::fpm::package': } ->
@@ -55,10 +61,8 @@ class php::fpm(
       file    => $inifile,
       config  => $settings
     } ->
-    php::fpm::pool { 'www':
-      user  => $user,
-      group => $group
-    } ->
     class { 'php::fpm::service': } ->
   anchor { 'php::fpm::end': }
+
+  create_resources(php::fpm::pool, $pools)
 }

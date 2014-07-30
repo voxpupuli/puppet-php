@@ -7,4 +7,5 @@ rvm:
 env:
   - PUPPET_VERSION=3.4.3
   - PUPPET_VERSION=3.5.1
+  - PUPPET_VERSION=3.6.2
 
