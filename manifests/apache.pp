@@ -42,7 +42,7 @@ class php::apache(
   $ensure       = 'installed',
   $package      = $php::params::apache_package,
   $inifile      = $php::params::apache_inifile,
-  $settings     = [],
+  $settings     = {},
   $service_name = $php::params::apache_service_name
 ) inherits php::params {
 

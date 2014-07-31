@@ -34,7 +34,7 @@ define php::config::setting(
     warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
   }
 
-  validate_string($path)
+  validate_string($file)
 
   $split_name = split($name, '/')
   if count($split_name) == 1 {
