@@ -42,7 +42,7 @@ define php::config(
 
   validate_hash($config)
 
-  create_resources(config::setting, hashify($config), {
+  create_resources(config::setting, to_hash_settings($config, $file), {
     file => $file
   })
 }

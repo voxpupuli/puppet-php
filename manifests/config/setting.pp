@@ -26,6 +26,7 @@
 # See LICENSE file
 #
 define php::config::setting(
+  $key,
   $value,
   $file,
 ) {
@@ -36,7 +37,7 @@ define php::config::setting(
 
   validate_string($file)
 
-  $split_name = split($name, '/')
+  $split_name = split($key, '/')
   if count($split_name) == 1 {
     $section = ''
     $setting = $split_name[0]

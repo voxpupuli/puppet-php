@@ -1,7 +1,7 @@
 
 module Puppet::Parser::Functions
-  newfunction(:hashify, :type => :rvalue, :doc => <<-EOS
-This function converts a key => value into a nested hash.
+  newfunction(:to_hash_settings, :type => :rvalue, :doc => <<-EOS
+This function converts a {key => value} hash into a nested hash and adds an id to the outer key.
 
 *Examples:*
 
@@ -15,9 +15,10 @@ EOS
   ) do |arguments|
 
     raise(Puppet::ParseError, "hashify(): Wrong number of arguments " +
-      "given (#{arguments.size} for 1)") if arguments.size < 1
+      "given (#{arguments.size} for 2)") if arguments.size < 2
 
     hash = arguments[0]
+    id = arguments[1]
 
     unless hash.is_a?(Hash)
       raise(Puppet::ParseError, 'hashify(): Requires hash to work with')
@@ -26,7 +27,7 @@ EOS
     result = hash.reduce({}) { |acc, kv|
       acc.inspect
       kv.inspect
-      acc[kv[0]] = {'value' => kv[1]}
+      acc[id + ': ' + kv[0]] = {'key' => kv[0] ,'value' => kv[1]}
       acc
     }
 
