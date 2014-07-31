@@ -41,6 +41,22 @@ php::extensions:
     provider: pecl
     header_packages:
       - libmemcached-dev
+  apc:
+    package_prefix: php-
+      config:
+        apc.stat: 1
+        apc.stat_ctime: 1
+```
+
+### Defining php.ini settings
+
+Settings can be defined on php::{fpm, cli, apache} classes or as parameter to an extension.
+The recommended way is to use hiera to set these:
+
+```yaml
+php::cli::settings:
+  Date/date.timezone: Europe/London
+  PHP/short_open_tag: ‘On’
 ```
 
 Source Code
