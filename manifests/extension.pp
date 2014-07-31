@@ -22,7 +22,7 @@
 #   system packages dependecies to install for pecl extensions (e.g. for memcached libmemcached-dev on debian)
 #
 # [*config*]
-#   augeas commands to configure the extension
+#   Nested hash of key => value to apply to php.ini
 #
 # === Variables
 #

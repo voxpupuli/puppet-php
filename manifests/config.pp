@@ -8,7 +8,7 @@
 #   The path to ini file
 #
 # [*config*]
-#   An array of augeas commands to execute
+#   Nested hash of key => value to apply to php.ini
 #
 # === Variables
 #

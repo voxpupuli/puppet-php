@@ -8,8 +8,7 @@
 #   The path to the ini php5-fpm ini file
 #
 # [*settings*]
-#   Hash with 'set' nested hash of key => value
-#   set changes to augeas when applied to *inifile*
+#   Nested hash of key => value to apply to php.ini
 #
 # [*user*]
 #   user to run default FPM pool as
