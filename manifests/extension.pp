@@ -80,7 +80,7 @@ define php::extension(
 
   $lowercase_title = downcase($title)
   $real_config = $provider ? {
-    'pecl'  => concat(["set .anon/extension '${name}.so'"], $config),
+    'pecl'  => merge({'extension' => "'${name}.so'"}, $config),
     default => $config
   }
   $php_config_file = "${php::params::config_root_ini}/${lowercase_title}.ini"
