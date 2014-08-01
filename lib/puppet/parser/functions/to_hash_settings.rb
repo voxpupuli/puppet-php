@@ -5,7 +5,7 @@ This function converts a {key => value} hash into a nested hash and adds an id t
 
 *Examples:*
 
-hashify({'a' => 1, 'b' => 2})
+to_hash_settings({'a' => 1, 'b' => 2})
 
 Would return: {
   'a' => {'value' => 1},
@@ -14,19 +14,17 @@ Would return: {
 EOS
   ) do |arguments|
 
-    raise(Puppet::ParseError, "hashify(): Wrong number of arguments " +
+    raise(Puppet::ParseError, "to_hash_settings(): Wrong number of arguments " +
       "given (#{arguments.size} for 2)") if arguments.size < 2
 
     hash = arguments[0]
     id = arguments[1]
 
     unless hash.is_a?(Hash)
-      raise(Puppet::ParseError, 'hashify(): Requires hash to work with')
+      raise(Puppet::ParseError, 'to_hash_settings(): Requires hash to work with')
     end
 
     result = hash.reduce({}) { |acc, kv|
-      acc.inspect
-      kv.inspect
       acc[id + ': ' + kv[0]] = {'key' => kv[0] ,'value' => kv[1]}
       acc
     }
