@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.1
+ * some nasty bugs with the pecl php::extension provider were fixed
+ * php::extension now has a new pecl_source parameter for specifying custom
+   source channels for the pecl provider
+
 ## 1.1.0
  * add phpunit to main class
  * fix variable access for augeas
