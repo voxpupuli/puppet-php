@@ -83,8 +83,26 @@ define php::extension(
     'pecl'  => concat(["set .anon/extension '${title}.so'"], $config),
     default => $config
   }
+  $php_config_file = "${php::params::config_root_ini}/${lowercase_title}.ini"
+
   php::config { $title:
-    file   => "${php::params::config_root_ini}/${lowercase_title}.ini",
+    file   => $php_config_file,
     config => $real_config
+  }
+
+  # FIXME: On Ubuntu/Debian systems we use the mods-available folder and have
+  # to enable config files ourselves
+  if $::osfamily == 'Debian' {
+    $symlinks = ["${php::params::config_root}/cli/conf.d/20-${lowercase_title}.ini"]
+    $real_symlinks = concat($symlinks, $php::fpm ? {
+      true    => ["${php::params::config_root}/fpm/conf.d/20-${lowercase_title}.ini"],
+      default => [],
+    })
+
+    file { $real_symlinks:
+      ensure  => link,
+      target  => $php_config_file,
+      require => Php::Config[$title],
+    }
   }
 }
