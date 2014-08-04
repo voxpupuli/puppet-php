@@ -18,8 +18,7 @@ Puppet::Type.type(:package).provide :pecl, :parent => Puppet::Provider::Package 
     command = [command(:pearcmd), "list"]
 
     begin
-      list = execute(command).split("\n")
-      list = list.collect do |set|
+      list = execute(command).split("\n").collect do |set|
         if hash[:justme]
           if /^#{hash[:justme]}/i.match(set)
             if pearhash = pearsplit(set)
@@ -107,7 +106,7 @@ Puppet::Type.type(:package).provide :pecl, :parent => Puppet::Provider::Package 
   def latest
     version = ''
     command = [command(:pearcmd), "remote-info", self.name]
-      list = execute(command).collect do |set|
+    list = execute(command).each_line do |set|
       if set =~ /^Latest/
         version = set.split[1]
       end
