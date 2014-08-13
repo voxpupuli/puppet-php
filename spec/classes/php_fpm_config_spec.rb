@@ -5,15 +5,15 @@ describe 'php::fpm::config' do
 
   context 'creates config file' do
     let(:params) {{
-      :php_inifile => '/etc/php5/conf.d/unique-name.ini',
-      :php_config  => {
+      :php_inifile  => '/etc/php5/conf.d/unique-name.ini',
+      :php_settings => {
         'apc.enabled' => 1,
       },
     }}
 
     it { should contain_class('php::fpm::config').with({
-      :php_inifile => '/etc/php5/conf.d/unique-name.ini',
-      :php_config  => {
+      :php_inifile  => '/etc/php5/conf.d/unique-name.ini',
+      :php_settings => {
         'apc.enabled' => 1,
       },
     })}
