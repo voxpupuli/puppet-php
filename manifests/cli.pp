@@ -39,7 +39,7 @@ class php::cli(
   $ensure   = 'installed',
   $package  = $php::params::cli_package,
   $inifile  = '/etc/php5/cli/php.ini',
-  $settings = []
+  $settings = {}
 ) inherits php::params {
 
   if $caller_module_name != $module_name {

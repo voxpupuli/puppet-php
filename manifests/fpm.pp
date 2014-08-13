@@ -8,8 +8,7 @@
 #   The path to the ini php5-fpm ini file
 #
 # [*settings*]
-#   Hash with 'set' nested hash of key => value
-#   set changes to augeas when applied to *inifile*
+#   Nested hash of key => value to apply to php.ini
 #
 # [*user*]
 #   user to run default FPM pool as
@@ -41,7 +40,7 @@ class php::fpm(
   $inifile  = $php::params::fpm_inifile,
   $user     = $php::params::fpm_user,
   $group    = undef,
-  $settings = [],
+  $settings = {},
   $pools    = { 'www' => {} },
 ) inherits php::params {
 
@@ -52,7 +51,7 @@ class php::fpm(
   validate_string($inifile)
   validate_string($user)
   validate_string($group)
-  validate_array($settings)
+  validate_hash($settings)
   validate_hash($pools)
 
   anchor { 'php::fpm::begin': } ->

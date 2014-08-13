@@ -22,7 +22,7 @@
 #   system packages dependecies to install for pecl extensions (e.g. for memcached libmemcached-dev on debian)
 #
 # [*config*]
-#   augeas commands to configure the extension
+#   Nested hash of key => value to apply to php.ini
 #
 # === Variables
 #
@@ -44,7 +44,7 @@ define php::extension(
   $pecl_source     = undef,
   $package_prefix  = $php::params::package_prefix,
   $header_packages = [],
-  $config          = [],
+  $config          = {},
 ) {
 
   if $caller_module_name != $module_name {
@@ -80,7 +80,7 @@ define php::extension(
 
   $lowercase_title = downcase($title)
   $real_config = $provider ? {
-    'pecl'  => concat(["set .anon/extension '${name}.so'"], $config),
+    'pecl'  => merge({'extension' => "'${name}.so'"}, $config),
     default => $config
   }
   $php_config_file = "${php::params::config_root_ini}/${lowercase_title}.ini"

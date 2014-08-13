@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.0.0
+ * remove augeas and switch to inifile for configs
+
+Migration:
+Old: `settings => [‘set PHP/short_open_tag On‘]`
+New: `settings => {‘PHP/short_open_tag’ => ‘On‘]`
+
 ## 1.1.1
  * some nasty bugs with the pecl php::extension provider were fixed
  * php::extension now has a new pecl_source parameter for specifying custom

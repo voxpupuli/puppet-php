@@ -15,8 +15,7 @@
 #   The path to the apache ini file
 #
 # [*settings*]
-#   Hash with 'set' nested hash of key => value
-#   set changes to augues when applied to *inifile*
+#   Nested hash of key => value to apply to php.ini
 #
 # [*service_name*]
 #   Service to notify after installation or change
@@ -42,7 +41,7 @@ class php::apache(
   $ensure       = 'installed',
   $package      = $php::params::apache_package,
   $inifile      = $php::params::apache_inifile,
-  $settings     = [],
+  $settings     = {},
   $service_name = $php::params::apache_service_name
 ) inherits php::params {
 
