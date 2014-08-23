@@ -16,14 +16,6 @@
 # [*max_age*]
 # defines the time in days after which an auto-update gets executed
 #
-# === Variables
-#
-# No variables
-#
-# === Examples
-#
-#  include php::composer
-#
 # === Authors
 #
 # Christian "Jippi" Winther <jippignu@gmail.com>

@@ -20,14 +20,6 @@
 # [*service_name*]
 #   Service to notify after installation or change
 #
-# === Variables
-#
-# No variables
-#
-# === Examples
-#
-#  include php::apache
-#
 # === Authors
 #
 # Christian "Jippi" Winther <jippignu@gmail.com>

@@ -11,14 +11,6 @@
 #   The package name for PHP pear
 #   For debian it's php5-pear
 #
-# === Variables
-#
-# No variables
-#
-# === Examples
-#
-#  include php::pear
-#
 # === Authors
 #
 # Christian "Jippi" Winther <jippignu@gmail.com>

@@ -2,18 +2,6 @@
 #
 # Configure ubuntu ppa
 #
-# === Parameters
-#
-# No parameters
-#
-# === Variables
-#
-# No variables
-#
-# === Examples
-#
-#  include php::apt
-#
 # === Authors
 #
 # Robin Gloster <robin.gloster@mayflower.de>

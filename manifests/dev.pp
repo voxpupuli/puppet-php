@@ -6,20 +6,12 @@
 #
 # === Parameters
 #
-# No parameters
-#
-# === Variables
-#
 # [*ensure*]
 #   The PHP ensure of PHP dev to install
 #
 # [*package*]
 #   The package name for PHP dev
 #   For debian it's php5-dev
-#
-# === Examples
-#
-#  include php::dev
 #
 # === Authors
 #

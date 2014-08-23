@@ -24,11 +24,6 @@
 # [*config*]
 #   Nested hash of key => value to apply to php.ini
 #
-# === Variables
-#
-# === Examples
-#
-#
 # === Authors
 #
 # Christian "Jippi" Winther <jippignu@gmail.com>

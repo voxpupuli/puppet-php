@@ -2,18 +2,6 @@
 #
 # Configure package repository
 #
-# === Parameters
-#
-# No parameters
-#
-# === Variables
-#
-# No variables
-#
-# === Examples
-#
-#  TODO
-#
 # === Authors
 #
 # Robin Gloster <robin.gloster@mayflower.de>

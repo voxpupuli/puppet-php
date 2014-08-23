@@ -22,16 +22,11 @@
 # [*pear*]
 #   Install PEAR
 #
+# [*phpunit*]
+#   Install phpunit
+#
 # [*extensions*]
 #   Install PHP extensions, this is overwritten by hiera hash `php::extensions`
-#
-# === Variables
-#
-# No variables
-#
-# === Examples
-#
-#  include php
 #
 # === Authors
 #

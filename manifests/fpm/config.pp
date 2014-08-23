@@ -1,22 +1,46 @@
 # == Class: php::fpm::config
 #
-# Configure php.ini settings for a PHP SAPI
+# Configure php-fpm
 #
 # === Parameters
+# [*config_file*]
+#   The path to the fpm config file
 #
-# [*file*]
+# [*user*]
+#   The user that runs php-fpm
+#
+# [*group*]
+#   The group that runs php-fpm
+#
+# [*inifile*]
 #   The path to ini file
 #
-# [*config*]
+# [*settings*]
 #   Nested hash of key => value to apply to php.ini
 #
-# === Variables
+# [*pool_base_dir*]
+#   The folder that contains the php-fpm pool configs
 #
-# No variables
+# [*log_level*]
+#   The php-fpm log level
 #
-# === Examples
+# [*emergency_restart_threshold*]
+#   The php-fpm emergency_restart_threshold
 #
-# TODO
+# [*emergency_restart_interval*]
+#   The php-fpm emergency_restart_interval
+#
+# [*process_control_timeout*]
+#   The php-fpm process_control_timeout
+#
+# [*log_owner*]
+#   The php-fpm log owner
+#
+# [*log_group*]
+#   The group owning php-fpm logs
+#
+# [*log_dir_mode*]
+#   The octal mode of the directory
 #
 # === Authors
 #

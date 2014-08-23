@@ -10,10 +10,6 @@
 # [*config*]
 #   Nested hash of key => value to apply to php.ini
 #
-# === Variables
-#
-# No variables
-#
 # === Examples
 #
 # php::config { '$unique-name':

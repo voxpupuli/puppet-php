@@ -4,14 +4,11 @@
 #
 # === Parameters
 #
-# No parameters
+# [*package_name*]
+#   The name of the php-fpm package
 #
-# === Variables
-#
-# No variables
-#
-# === Examples
-#
+# [*package_ensure*]
+#   Status of the package
 #
 # === Authors
 #

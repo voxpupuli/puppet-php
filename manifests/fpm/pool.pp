@@ -6,13 +6,6 @@
 #
 # No parameters
 #
-# === Variables
-#
-# No variables
-#
-# === Examples
-#
-#
 # === Authors
 #
 # Christian "Jippi" Winther <jippignu@gmail.com>

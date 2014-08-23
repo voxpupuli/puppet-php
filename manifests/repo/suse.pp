@@ -10,14 +10,6 @@
 # [*baseurl*]
 #   Base URL of the Zypper repository
 #
-# === Variables
-#
-# No variables
-#
-# === Examples
-#
-#  include php::apt
-#
 # === Authors
 #
 # Robin Gloster <robin.gloster@mayflower.de>
