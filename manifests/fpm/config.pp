@@ -31,8 +31,8 @@ class php::fpm::config(
   $config_file                 = $php::params::fpm_config_file,
   $user                        = $php::params::fpm_user,
   $group                       = $php::params::fpm_group,
-  $php_inifile                 = $php::params::fpm_inifile,
-  $php_settings                = {},
+  $inifile                     = $php::params::fpm_inifile,
+  $settings                    = {},
   $pool_base_dir               = $php::params::fpm_pool_dir,
   $log_level                   = 'notice',
   $emergency_restart_threshold = '0',
@@ -45,8 +45,8 @@ class php::fpm::config(
 
   validate_string($user)
   validate_string($group)
-  validate_string($php_inifile)
-  validate_hash($php_settings)
+  validate_string($inifile)
+  validate_hash($settings)
 
   $number_re = '^\d+$'
 
@@ -87,8 +87,8 @@ class php::fpm::config(
   }
 
   php::config { 'fpm':
-    file   => $php_inifile,
-    config => $php_settings,
+    file   => $inifile,
+    config => $settings,
     notify => Class['php::fpm::service'],
   }
 }
