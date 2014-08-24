@@ -10,14 +10,6 @@
 # [*provider*]
 #   The package provider used to install PHPUnit, defaults to pear
 #
-# === Variables
-#
-# No variables
-#
-# === Examples
-#
-#  include php::phpunit
-#
 # === Authors
 #
 # Christian "Jippi" Winther <jippignu@gmail.com>

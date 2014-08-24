@@ -19,14 +19,6 @@
 # [*dotdeb*]
 #   enable special dotdeb handling
 #
-# === Variables
-#
-# No variables
-#
-# === Examples
-#
-#  include php::repo::debian
-#
 # === Authors
 #
 # Christian "Jippi" Winther <jippignu@gmail.com>

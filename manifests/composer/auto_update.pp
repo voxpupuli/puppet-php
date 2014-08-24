@@ -13,10 +13,6 @@
 # [*path*]
 # Holds path to the Composer executable
 #
-# === Variables
-#
-# No variables
-#
 # === Examples
 #
 #  include php::composer::auto_update

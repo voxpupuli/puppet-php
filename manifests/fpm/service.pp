@@ -4,14 +4,14 @@
 #
 # === Parameters
 #
-# No parameters
+# [*service_name*]
+#   name of the php-fpm service
 #
-# === Variables
+# [*ensure*]
+#   'ensure' value for the service
 #
-# No variables
-#
-# === Examples
-#
+# [*enable*]
+#   Defines if the service is enabled
 #
 # === Authors
 #

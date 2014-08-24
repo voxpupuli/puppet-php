@@ -16,14 +16,6 @@
 # [*max_age*]
 # defines the time in days after which an auto-update gets executed
 #
-# === Variables
-#
-# No variables
-#
-# === Examples
-#
-#  include php::composer
-#
 # === Authors
 #
 # Christian "Jippi" Winther <jippignu@gmail.com>
@@ -53,13 +45,13 @@ class php::composer (
     ]
   } ->
   file { $path:
-    mode    => '0555',
-    owner   => root,
-    group   => root,
+    mode  => '0555',
+    owner => root,
+    group => root,
   }
 
   if $auto_update {
-    class {'php::composer::auto_update':
+    class { 'php::composer::auto_update':
       max_age => $max_age,
       source  => $source,
       path    => $path

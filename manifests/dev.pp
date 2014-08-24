@@ -6,20 +6,12 @@
 #
 # === Parameters
 #
-# No parameters
-#
-# === Variables
-#
 # [*ensure*]
 #   The PHP ensure of PHP dev to install
 #
 # [*package*]
 #   The package name for PHP dev
 #   For debian it's php5-dev
-#
-# === Examples
-#
-#  include php::dev
 #
 # === Authors
 #
@@ -31,8 +23,8 @@
 # See LICENSE file
 #
 class php::dev(
-  $ensure   = 'installed',
-  $package  = $php::params::dev_package,
+  $ensure  = 'installed',
+  $package = $php::params::dev_package,
 ) inherits php::params {
 
 

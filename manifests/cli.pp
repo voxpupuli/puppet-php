@@ -15,16 +15,7 @@
 #   The path to the ini php5-cli ini file
 #
 # [*settings*]
-#   Hash with 'set' nested hash of key => value
-#   set changes to agues when applied to *inifile*
-#
-# === Variables
-#
-# No variables
-#
-# === Examples
-#
-#  include php::cli
+#   Hash with nested hash of key => value to set in inifile
 #
 # === Authors
 #
@@ -47,10 +38,10 @@ class php::cli(
   }
 
   package { $package:
-    ensure   => $ensure,
+    ensure => $ensure,
   } ->
   php::config { 'cli':
-    file    => $inifile,
-    config  => $settings
+    file   => $inifile,
+    config => $settings
   }
 }

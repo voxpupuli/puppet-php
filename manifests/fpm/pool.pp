@@ -6,13 +6,6 @@
 #
 # No parameters
 #
-# === Variables
-#
-# No variables
-#
-# === Examples
-#
-#
 # === Authors
 #
 # Christian "Jippi" Winther <jippignu@gmail.com>
@@ -31,8 +24,8 @@ define php::fpm::pool (
   $listen_owner = undef,
   $listen_group = undef,
   $listen_mode = undef,
-  $user = $php::fpm::user,
-  $group = $php::fpm::group,
+  $user = $php::fpm::config::user,
+  $group = $php::fpm::config::group,
   $pm = 'dynamic',
   $pm_max_children = '50',
   $pm_start_servers = '5',
@@ -60,6 +53,8 @@ define php::fpm::pool (
   $php_directives = [],
   $error_log = true,
 ) {
+
+  include php::params
 
   if $caller_module_name != $module_name {
     warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
