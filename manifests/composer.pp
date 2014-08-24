@@ -45,13 +45,13 @@ class php::composer (
     ]
   } ->
   file { $path:
-    mode    => '0555',
-    owner   => root,
-    group   => root,
+    mode  => '0555',
+    owner => root,
+    group => root,
   }
 
   if $auto_update {
-    class {'php::composer::auto_update':
+    class { 'php::composer::auto_update':
       max_age => $max_age,
       source  => $source,
       path    => $path

@@ -21,8 +21,8 @@
 # See LICENSE file
 #
 class php::pear(
-  $ensure   = 'installed',
-  $package  = $php::params::pear_package,
+  $ensure  = 'installed',
+  $package = $php::params::pear_package,
 ) inherits php::params {
 
   if $caller_module_name != $module_name {
@@ -33,7 +33,7 @@ class php::pear(
   validate_string($package)
 
   package { $package:
-    ensure   => $ensure,
+    ensure => $ensure,
   }
 
   exec { 'php::pear::auto_discover':
