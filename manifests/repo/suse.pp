@@ -19,8 +19,8 @@
 # See LICENSE file
 #
 class php::repo::suse (
-  $reponame = 'mayflower-php54',
-  $baseurl  = 'http://download.opensuse.org/repositories/home:/mayflower:/php5.4_based/SLE_11_SP3/',
+  $reponame = 'mayflower-php55',
+  $baseurl  = 'http://download.opensuse.org/repositories/home:/mayflower:/php5.5_based/SLE_11_SP3/',
 ) {
   zypprepo { $reponame:
     baseurl => $baseurl,
