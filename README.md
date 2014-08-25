@@ -56,7 +56,7 @@ The recommended way is to use hiera to set these:
 ```yaml
 php::cli::settings:
   Date/date.timezone: Europe/London
-  PHP/short_open_tag: ‘On’
+  PHP/short_open_tag: 'On'
 ```
 
 Source Code
