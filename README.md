@@ -43,9 +43,9 @@ php::extensions:
       - libmemcached-dev
   apc:
     package_prefix: php-
-      config:
-        apc.stat: 1
-        apc.stat_ctime: 1
+    config:
+      apc.stat: 1
+      apc.stat_ctime: 1
 ```
 
 ### Defining php.ini settings
