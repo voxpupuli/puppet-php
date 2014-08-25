@@ -5,6 +5,10 @@
    * old: `settings => [‘set PHP/short_open_tag On‘]`
    * new: `settings => {‘PHP/short_open_tag’ => ‘On‘}`
 
+## 1.1.2
+ * SLES: PHP 5.5 will now be installed
+ * Pecl extensions now autoload the .so based on $name instead of $title
+
 ## 1.1.1
  * some nasty bugs with the pecl php::extension provider were fixed
  * php::extension now has a new pecl_source parameter for specifying custom
