@@ -28,7 +28,10 @@ class php::fpm::package(
     warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
   }
 
-  package { $package_name:
-    ensure => $package_ensure,
+  # for some OS the fpm and cli package is the same
+  if $package_name != $php::params::cli_package {
+    package { $package_name:
+      ensure => $package_ensure,
+    }
   }
 }

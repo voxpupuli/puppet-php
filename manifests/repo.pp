@@ -37,6 +37,9 @@ class php::repo {
         Class['php::repo::suse'] ->
       Anchor['php::repo::end']
     }
+    'Gentoo': {
+      # Gentoo does not need additional repos
+    }
     default: {
       fail("No repo available for ${::osfamily}/${::operatingsystem}, please fork this module and add one in repo.pp")
     }

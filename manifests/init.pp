@@ -100,6 +100,23 @@ class php (
   # FIXME: for deep merging support we need a explicit hash lookup instead of automatic parameter lookup
   #        (https://tickets.puppetlabs.com/browse/HI-118)
   $real_extensions = hiera_hash('php::extensions', $extensions)
+
+  if $::osfamily == 'Gentoo' {
+    # add the extensions which are in fact USE flags to a package.use definition
+    # plus the apache and fpm settings turned into USE flags
+    $flags = concat(
+      intersection(keys($real_extensions), $php::params::php_flags),
+      delete_undef_values([
+        $apache ? { true => 'apache2', default => undef },
+        $fpm    ? { true => 'fpm',     default => undef } ])
+    )
+    package_use { $php::params::cli_package:
+      use    => $flags,
+      slot   => $php::params::php_slot,
+      target => "php-${php::params::php_slot}",
+      ensure => present
+    }
+  }
   create_resources('php::extension', $real_extensions, {
     ensure  => latest,
     require => Class['php::cli'],

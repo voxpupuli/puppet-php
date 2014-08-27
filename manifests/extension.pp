@@ -67,9 +67,13 @@ define php::extension(
       before => Package[$pecl_package]
     })
   } else {
-    package { "${package_prefix}${title}":
-      ensure   => $ensure,
-      provider => $provider;
+    if $::osfamily == 'Gentoo' and member($php::params::php_flags, $title) {
+      # do not install packages here which are in fact USE flags
+    } else {
+      package { "${package_prefix}${title}":
+        ensure   => $ensure,
+        provider => $provider;
+      }
     }
   }
 

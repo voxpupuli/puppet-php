@@ -41,8 +41,11 @@ class php::apache(
     warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
   }
 
-  package { $package:
-    ensure   => $ensure,
+  # for some OS the apache and cli package is the same
+  if $package != $php::params::cli_package {
+    package { $package:
+      ensure   => $ensure,
+    }
   }
 
   php::config { 'apache':
