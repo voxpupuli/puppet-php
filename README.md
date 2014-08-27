@@ -19,7 +19,6 @@ The recommended way is to use the main class to install php with following defau
 class { '::php':
   manage_repos => true,
   fpm          => true,
-  apache       => false,
   dev          => true,
   composer     => true,
   pear         => true,
@@ -50,7 +49,7 @@ php::extensions:
 
 ### Defining php.ini settings
 
-Settings can be defined on php::{fpm, cli, apache} classes or as parameter to an extension.
+Settings can be defined on php::{fpm, cli} classes or as parameter to an extension.
 The recommended way is to use hiera to set these:
 
 ```yaml

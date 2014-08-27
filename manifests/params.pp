@@ -22,9 +22,6 @@ class php::params {
     'Debian': {
       $config_root         = '/etc/php5'
       $config_root_ini     = "${config_root}/mods-available"
-      $apache_inifile      = "${config_root}/apache2/php.ini"
-      $apache_package      = 'libapache2-mod-php5'
-      $apache_service_name = 'apache2'
       $cli_inifile         = "${config_root}/cli/php.ini"
       $cli_package         = 'php5-cli'
       $dev_package         = 'php5-dev'
@@ -41,9 +38,6 @@ class php::params {
     'Suse': {
       $config_root         = '/etc/php5'
       $config_root_ini     = "${config_root}/conf.d"
-      $apache_inifile      = "${config_root}/apache2/php.ini"
-      $apache_package      = 'apache2-mod_php5'
-      $apache_service_name = 'apache2'
       $cli_inifile         = "${config_root}/cli/php.ini"
       $cli_package         = 'php5'
       $dev_package         = 'php5-devel'
@@ -59,9 +53,6 @@ class php::params {
     }
     'RedHat': {
       $config_root_ini     = '/etc/php.d'
-      $apache_inifile      = "${config_root_ini}/apache2/php.ini"
-      $apache_package      = 'php'
-      $apache_service_name = 'httpd'
       $cli_inifile         = '/etc/php-cli.ini'
       $cli_package         = 'php-cli'
       $dev_package         = 'php-devel'
