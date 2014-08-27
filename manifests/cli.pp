@@ -29,7 +29,7 @@
 class php::cli(
   $ensure   = 'installed',
   $package  = $php::params::cli_package,
-  $inifile  = '/etc/php5/cli/php.ini',
+  $inifile  = $php::params::cli_inifile,
   $settings = {}
 ) inherits php::params {
 
