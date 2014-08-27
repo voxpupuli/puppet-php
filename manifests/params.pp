@@ -75,8 +75,26 @@ class php::params {
       $package_prefix      = 'php-'
       $pear_package        = 'php-pear'
     }
+    'Gentoo': {
+      $php_slot            = '5.5'
+      $config_root_ini     = '/etc/php'
+      $apache_inifile      = "${config_root_ini}/apache2-php${php_slot}/php.ini"
+      $apache_package      = "dev-lang/php"
+      $apache_service_name = 'apache2'
+      $cli_inifile         = "${config_root_ini}/cli-php${php_slot}/php.ini"
+      $cli_package         = $apache_package
+      $fpm_config_file     = "${config_root_ini}/fpm-php${php_slot}/php-fpm.conf"
+      $fpm_inifile         = "${config_root_ini}/fpm-php${php_slot}/php.ini"
+      $fpm_package         = $apache_package
+      $fpm_pool_dir        = '/etc/php-fpm.d'
+      $fpm_service_name    = 'php-fpm'
+      $fpm_user            = 'www'
+      $fpm_group           = 'www'
+      $package_prefix      = 'dev-php/pecl-'
+      $pear_package        = 'dev-php/pear'
+    }
     default: {
-      fail("Unsupported osfamily: ${::osfamily} operatingsystem: ${::operatingsystem}, module ${module_name} only supports osfamily Debian, and Suse.\n
+      fail("Unsupported osfamily: ${::osfamily} operatingsystem: ${::operatingsystem}, module ${module_name} only supports osfamily Debian, RedHat, Suse and Gentoo.\n
         If possible please fork this module, add the correct parameters in params.pp and open a pull request")
     }
   }
