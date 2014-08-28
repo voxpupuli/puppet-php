@@ -19,7 +19,6 @@ describe 'php', :type => :class do
         'ensure' => 'installed',
       })
       should contain_class('php::composer')
-      should_not contain_package('libapache2-mod-php5')
     }
   end
 
@@ -42,12 +41,6 @@ describe 'php', :type => :class do
     }
   end
 
-  describe 'when apache is enabled' do
-    let(:params) { { :apache => true, } }
-    it {
-      should contain_class('php::apache')
-    }
-  end
   describe 'when fpm is disabled' do
     let(:params) { { :fpm => false, } }
     it {

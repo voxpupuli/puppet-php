@@ -10,9 +10,6 @@
 # [*fpm*]
 #   Install and configure php-fpm
 #
-# [*apache*]
-#   Install and configure apache php module, does not handle apache installation and configuration
-#
 # [*dev*]
 #   Install php header files, needed to install pecl modules
 #
@@ -39,7 +36,6 @@
 class php (
   $manage_repos = true,
   $fpm          = true,
-  $apache       = false,
   $dev          = true,
   $composer     = true,
   $pear         = true,
@@ -48,7 +44,6 @@ class php (
 ) {
   validate_bool($manage_repos)
   validate_bool($fpm)
-  validate_bool($apache)
   validate_bool($dev)
   validate_bool($composer)
   validate_bool($pear)
@@ -68,11 +63,6 @@ class php (
   if $fpm {
     Anchor['php::begin'] ->
       class { 'php::fpm': } ->
-    Anchor['php::end']
-  }
-  if $apache {
-    Anchor['php::begin'] ->
-      class { 'php::apache': } ->
     Anchor['php::end']
   }
   if $dev {

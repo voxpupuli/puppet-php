@@ -19,7 +19,6 @@ The recommended way is to use the main class to install php with following defau
 class { '::php':
   manage_repos => true,
   fpm          => true,
-  apache       => false,
   dev          => true,
   composer     => true,
   pear         => true,
@@ -27,6 +26,14 @@ class { '::php':
   extensions   => {}
 }
 ```
+
+### Apache support
+
+Apache with mod_php is not supported by this module. Please use
+[puppetlabs/apache](https://forge.puppetlabs.com/puppetlabs/apache) instead.
+
+We prefer using php-fpm. You can find an example Apache vhost in
+`manifests/apache_vhost.pp` that uses `mod_proxy_fcgi` to connect to php-fpm.
 
 ### Installing extensions
 
@@ -50,7 +57,7 @@ php::extensions:
 
 ### Defining php.ini settings
 
-Settings can be defined on php::{fpm, cli, apache} classes or as parameter to an extension.
+Settings can be defined on php::{fpm, cli} classes or as parameter to an extension.
 The recommended way is to use hiera to set these:
 
 ```yaml
