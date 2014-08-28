@@ -27,6 +27,14 @@ class { '::php':
 }
 ```
 
+### Apache support
+
+Apache with mod_php is not supported by this module. Please use
+[puppetlabs/apache](https://forge.puppetlabs.com/puppetlabs/apache) instead.
+
+We prefer using php-fpm. You can find an example Apache vhost in
+`manifests/apache_vhost.pp` that uses `mod_proxy_fcgi` to connect to php-fpm.
+
 ### Installing extensions
 
 Extensions can be installed either by using the parameter on the main class or by
