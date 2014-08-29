@@ -21,7 +21,7 @@
 # See LICENSE file
 #
 class php::pear(
-  $ensure  = 'installed',
+  $ensure  = $php::ensure,
   $package = $php::params::pear_package,
 ) inherits php::params {
 

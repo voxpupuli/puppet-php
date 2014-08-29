@@ -4,6 +4,10 @@
 #
 # === Parameters
 #
+# [*ensure*]
+#   Specify which version of PHP packages to install, defaults to 'latest'.
+#   Please note that 'absent' to remove packages is not supported!
+#
 # [*manage_repos*]
 #   Include repository (dotdeb, ppa, etc.) to install recent PHP from
 #
@@ -28,12 +32,14 @@
 # === Authors
 #
 # Robin Gloster <robin.gloster@mayflower.de>
+# Franz Pletz <franz.pletz@mayflower.de>
 #
 # === Copyright
 #
 # See LICENSE file
 #
 class php (
+  $ensure       = 'latest',
   $manage_repos = true,
   $fpm          = true,
   $dev          = true,
@@ -86,12 +92,11 @@ class php (
     Anchor['php::end']
   }
 
-
   # FIXME: for deep merging support we need a explicit hash lookup instead of automatic parameter lookup
   #        (https://tickets.puppetlabs.com/browse/HI-118)
   $real_extensions = hiera_hash('php::extensions', $extensions)
   create_resources('php::extension', $real_extensions, {
-    ensure  => latest,
+    ensure  => $ensure,
     require => Class['php::cli'],
     before  => Anchor['php::end']
   })

@@ -20,8 +20,8 @@
 # See LICENSE file
 #
 class php::fpm::package(
+  $package_ensure = $php::ensure,
   $package_name   = $php::params::fpm_package,
-  $package_ensure = 'installed',
 ) inherits php::params {
 
   if $caller_module_name != $module_name {

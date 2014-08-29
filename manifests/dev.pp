@@ -23,7 +23,7 @@
 # See LICENSE file
 #
 class php::dev(
-  $ensure  = 'installed',
+  $ensure  = $php::ensure,
   $package = $php::params::dev_package,
 ) inherits php::params {
 

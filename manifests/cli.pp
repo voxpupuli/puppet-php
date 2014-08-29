@@ -27,7 +27,7 @@
 # See LICENSE file
 #
 class php::cli(
-  $ensure   = 'installed',
+  $ensure   = $php::ensure,
   $package  = $php::params::cli_package,
   $inifile  = $php::params::cli_inifile,
   $settings = {}
