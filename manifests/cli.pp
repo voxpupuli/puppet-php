@@ -37,6 +37,11 @@ class php::cli(
     warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
   }
 
+  validate_string($ensure)
+  validate_string($package)
+  validate_absolute_path($inifile)
+  validate_hash($settings)
+
   package { $package:
     ensure  => $ensure,
     require => Class['php::packages'],

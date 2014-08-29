@@ -32,6 +32,9 @@ class php::dev(
     warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
   }
 
+  validate_string($ensure)
+  validate_string($package)
+
   package { $package:
     ensure  => $ensure,
     require => Class['php::packages'],

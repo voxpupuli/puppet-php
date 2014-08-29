@@ -28,6 +28,7 @@ class php::packages (
     warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
   }
 
+  validate_string($ensure)
   validate_array($packages)
 
   package { $packages:

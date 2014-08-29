@@ -48,6 +48,7 @@ class php (
   $phpunit      = false,
   $extensions   = {}
 ) {
+  validate_string($ensure)
   validate_bool($manage_repos)
   validate_bool($fpm)
   validate_bool($dev)

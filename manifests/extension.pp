@@ -49,6 +49,7 @@ define php::extension(
   validate_string($ensure)
   validate_string($package_prefix)
   validate_array($header_packages)
+  validate_hash($config)
 
   if $provider == 'pecl' {
     $pecl_package = "pecl-${title}"
