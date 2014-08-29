@@ -33,7 +33,8 @@ class php::pear(
   validate_string($package)
 
   package { $package:
-    ensure => $ensure,
+    ensure  => $ensure,
+    require => Class['php::cli'],
   }
 
   exec { 'php::pear::auto_discover':

@@ -29,6 +29,7 @@ class php::fpm::package(
   }
 
   package { $package_name:
-    ensure => $package_ensure,
+    ensure  => $package_ensure,
+    require => [Class['php::packages'], Class['php::cli']],
   }
 }

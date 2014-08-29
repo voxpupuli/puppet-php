@@ -63,6 +63,7 @@ class php (
   }
 
   anchor { 'php::begin': } ->
+    class { 'php::packages': } ->
     class { 'php::cli': } ->
   anchor { 'php::end': }
 

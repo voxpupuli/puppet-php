@@ -33,6 +33,7 @@ class php::dev(
   }
 
   package { $package:
-    ensure   => $ensure,
+    ensure  => $ensure,
+    require => Class['php::packages'],
   }
 }

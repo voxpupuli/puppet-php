@@ -38,7 +38,8 @@ class php::cli(
   }
 
   package { $package:
-    ensure => $ensure,
+    ensure  => $ensure,
+    require => Class['php::packages'],
   } ->
   php::config { 'cli':
     file   => $inifile,
