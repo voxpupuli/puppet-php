@@ -18,17 +18,24 @@
 # See LICENSE file
 #
 class php::fpm(
-  $pools = { 'www' => {} },
+  $ensure  = $php::ensure,
+  $package = $php::params::fpm_package,
+  $pools   = { 'www' => {} },
 ) {
 
   if $caller_module_name != $module_name {
     warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
   }
 
+  validate_string($ensure)
+  validate_string($package)
   validate_hash($pools)
 
   anchor { 'php::fpm::begin': } ->
-    class { 'php::fpm::package': } ->
+    class { 'php::fpm::package':
+      ensure  => $ensure,
+      package => $package,
+    } ->
     class { 'php::fpm::config': }  ->
     class { 'php::fpm::service': } ->
   anchor { 'php::fpm::end': }

@@ -20,16 +20,16 @@
 # See LICENSE file
 #
 class php::fpm::package(
-  $package_ensure = $php::ensure,
-  $package_name   = $php::params::fpm_package,
+  $ensure  = $php::ensure,
+  $package = $php::params::fpm_package,
 ) inherits php::params {
 
   if $caller_module_name != $module_name {
     warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
   }
 
-  package { $package_name:
-    ensure  => $package_ensure,
+  package { $package:
+    ensure  => $ensure,
     require => [Class['php::packages'], Class['php::cli']],
   }
 }
