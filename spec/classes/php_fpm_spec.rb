@@ -5,10 +5,11 @@ describe 'php::fpm', :type => :class do
 
   describe 'when called with no parameters on Debian' do
     let(:facts) { { :osfamily  => 'Debian' } }
+    let(:params) { { :ensure => 'latest' } }
 
     it {
       should contain_package('php5-fpm').with({
-        'ensure' => 'installed',
+        'ensure' => 'latest',
       })
       should contain_service('php5-fpm').with({
         'ensure' => 'running',
