@@ -36,6 +36,11 @@ class php::composer (
     warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
   }
 
+  validate_string($source)
+  validate_absolute_path($path)
+  validate_bool($auto_update)
+  validate_re($max_age, '^\d+$')
+
   exec { 'download composer':
     command => "wget ${source} -O ${path}",
     creates => $path,

@@ -27,7 +27,7 @@
 # See LICENSE file
 #
 class php::cli(
-  $ensure   = 'installed',
+  $ensure   = $php::ensure,
   $package  = $php::params::cli_package,
   $inifile  = $php::params::cli_inifile,
   $settings = {}
@@ -37,8 +37,14 @@ class php::cli(
     warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
   }
 
+  validate_string($ensure)
+  validate_string($package)
+  validate_absolute_path($inifile)
+  validate_hash($settings)
+
   package { $package:
-    ensure => $ensure,
+    ensure  => $ensure,
+    require => Class['php::packages'],
   } ->
   php::config { 'cli':
     file   => $inifile,

@@ -36,6 +36,7 @@ define php::config(
     warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
   }
 
+  validate_absolute_path($file)
   validate_hash($config)
 
   create_resources(config::setting, to_hash_settings($config, $file), {

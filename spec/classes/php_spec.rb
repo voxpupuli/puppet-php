@@ -9,14 +9,14 @@ describe 'php', :type => :class do
   describe 'when called with no parameters on Debian' do
     it {
       should contain_package('php5-cli').with({
-        'ensure' => 'installed',
+        'ensure' => 'latest',
       })
       should contain_class('php::fpm')
       should contain_package('php5-dev').with({
-        'ensure' => 'installed',
+        'ensure' => 'latest',
       })
       should contain_package('php-pear').with({
-        'ensure' => 'installed',
+        'ensure' => 'latest',
       })
       should contain_class('php::composer')
     }
@@ -27,13 +27,13 @@ describe 'php', :type => :class do
                     :path     => '/usr/local/bin:/usr/bin:/bin' } }
     it {
       should contain_package('php5').with({
-        'ensure' => 'installed',
+        'ensure' => 'latest',
       })
       should contain_package('php5-devel').with({
-        'ensure' => 'installed',
+        'ensure' => 'latest',
       })
       should contain_package('php5-pear').with({
-        'ensure' => 'installed',
+        'ensure' => 'latest',
       })
       should_not contain_package('php5-cli')
       should_not contain_package('php5-dev')
