@@ -18,10 +18,12 @@
 # See LICENSE file
 #
 class php::fpm(
-  $ensure  = $php::ensure,
-  $package = $php::params::fpm_package,
-  $pools   = { 'www' => {} },
-) {
+  $ensure   = $php::ensure,
+  $package  = $php::params::fpm_package,
+  $inifile  = $php::params::fpm_inifile,
+  $settings = {},
+  $pools    = { 'www' => {} },
+) inherits php::params {
 
   if $caller_module_name != $module_name {
     warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
@@ -29,6 +31,8 @@ class php::fpm(
 
   validate_string($ensure)
   validate_string($package)
+  validate_absolute_path($inifile)
+  validate_hash($settings)
   validate_hash($pools)
 
   anchor { 'php::fpm::begin': } ->
@@ -36,7 +40,10 @@ class php::fpm(
       ensure  => $ensure,
       package => $package,
     } ->
-    class { 'php::fpm::config': }  ->
+    class { 'php::fpm::config':
+      inifile  => $inifile,
+      settings => $settings,
+    } ->
     class { 'php::fpm::service': } ->
   anchor { 'php::fpm::end': }
 
