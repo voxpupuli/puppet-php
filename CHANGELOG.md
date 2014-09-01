@@ -5,6 +5,7 @@
    * Old: `settings => [‘set PHP/short_open_tag On‘]`
    * New: `settings => {‘PHP/short_open_tag’ => ‘On‘}`
  * The parameter `config` of `php::extension` resources is now called `settings`
+ * The parameters `user` and `group` of `php::fpm` have been moved to `php::fpm::config`
 
 ## 1.1.2
  * SLES: PHP 5.5 will now be installed
