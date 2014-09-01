@@ -50,7 +50,7 @@ php::extensions:
       - libmemcached-dev
   apc:
     package_prefix: php-
-    config:
+    settings:
       apc.stat: 1
       apc.stat_ctime: 1
 ```

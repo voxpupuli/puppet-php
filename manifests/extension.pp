@@ -21,8 +21,8 @@
 # [*header_packages*]
 #   system packages dependecies to install for pecl extensions (e.g. for memcached libmemcached-dev on debian)
 #
-# [*config*]
-#   Nested hash of key => value to apply to php.ini
+# [*settings*]
+#   Nested hash of global config parmeters for php.ini
 #
 # === Authors
 #
@@ -39,7 +39,7 @@ define php::extension(
   $pecl_source     = undef,
   $package_prefix  = $php::params::package_prefix,
   $header_packages = [],
-  $config          = {},
+  $settings        = {},
 ) {
 
   if $caller_module_name != $module_name {
@@ -49,7 +49,7 @@ define php::extension(
   validate_string($ensure)
   validate_string($package_prefix)
   validate_array($header_packages)
-  validate_hash($config)
+  validate_hash($settings)
 
   if $provider == 'pecl' {
     $pecl_package = "pecl-${title}"
@@ -75,15 +75,15 @@ define php::extension(
   }
 
   $lowercase_title = downcase($title)
-  $real_config = $provider ? {
-    'pecl'  => merge({'extension' => "'${name}.so'"}, $config),
-    default => $config
+  $real_settings = $provider ? {
+    'pecl'  => merge({'extension' => "'${name}.so'"}, $settings),
+    default => $settings,
   }
   $php_config_file = "${php::params::config_root_ini}/${lowercase_title}.ini"
 
   php::config { $title:
     file   => $php_config_file,
-    config => $real_config
+    config => $real_settings,
   }
 
   # FIXME: On Ubuntu/Debian systems we use the mods-available folder and have

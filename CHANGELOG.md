@@ -1,9 +1,10 @@
 # Changelog
 
 ## 2.0.0
- * remove augeas and switch to puppetlabs/inifile for configs
-   * old: `settings => [‘set PHP/short_open_tag On‘]`
-   * new: `settings => {‘PHP/short_open_tag’ => ‘On‘}`
+ * Remove augeas and switch to puppetlabs/inifile for configs
+   * Old: `settings => [‘set PHP/short_open_tag On‘]`
+   * New: `settings => {‘PHP/short_open_tag’ => ‘On‘}`
+ * The parameter `config` of `php::extension` resources is now called `settings`
 
 ## 1.1.2
  * SLES: PHP 5.5 will now be installed
