@@ -34,8 +34,8 @@ class php::phpunit (
   validate_string($package)
 
   package { $package:
-    ensure    => present,
-    provider  => $provider,
+    ensure   => present,
+    provider => $provider,
   }
 
   if $provider == 'pear' {
