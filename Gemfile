@@ -6,6 +6,7 @@ group :development, :test do
   gem 'rspec-puppet'
   gem 'puppetlabs_spec_helper'
   gem 'puppet-lint'
+  gem 'puppet-module'
 end
 
 if facterversion = ENV['FACTER_GEM_VERSION']
