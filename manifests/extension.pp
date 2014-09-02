@@ -21,8 +21,8 @@
 # [*header_packages*]
 #   system packages dependecies to install for pecl extensions (e.g. for memcached libmemcached-dev on debian)
 #
-# [*settings*]
-#   Nested hash of global config parmeters for php.ini
+# [*config*]
+#   Nested hash of key => value to apply to php.ini
 #
 # === Authors
 #
@@ -34,12 +34,13 @@
 # See LICENSE file
 #
 define php::extension(
-  $ensure          = 'installed',
-  $provider        = undef,
-  $pecl_source     = undef,
-  $package_prefix  = $php::params::package_prefix,
-  $header_packages = [],
-  $settings        = {},
+  $ensure            = 'installed',
+  $provider          = undef,
+  $pecl_source       = undef,
+  $package_prefix    = $php::params::package_prefix,
+  $header_packages   = [],
+  $compiler_packages = $php::params::compiler_packages,
+  $config            = {},
 ) {
 
   if $caller_module_name != $module_name {
@@ -49,7 +50,6 @@ define php::extension(
   validate_string($ensure)
   validate_string($package_prefix)
   validate_array($header_packages)
-  validate_hash($settings)
 
   if $provider == 'pecl' {
     $pecl_package = "pecl-${title}"
@@ -67,6 +67,9 @@ define php::extension(
     ensure_resource('package', $header_packages, {
       before => Package[$pecl_package]
     })
+    ensure_resource('package', $compiler_packages, {
+      before => Package[$pecl_package]
+    })
   } else {
     package { "${package_prefix}${title}":
       ensure   => $ensure,
@@ -75,15 +78,15 @@ define php::extension(
   }
 
   $lowercase_title = downcase($title)
-  $real_settings = $provider ? {
-    'pecl'  => merge({'extension' => "'${name}.so'"}, $settings),
-    default => $settings,
+  $real_config = $provider ? {
+    'pecl'  => merge({'extension' => "${name}.so"}, $config),
+    default => $config
   }
   $php_config_file = "${php::params::config_root_ini}/${lowercase_title}.ini"
 
   php::config { $title:
     file   => $php_config_file,
-    config => $real_settings,
+    config => $real_config
   }
 
   # FIXME: On Ubuntu/Debian systems we use the mods-available folder and have

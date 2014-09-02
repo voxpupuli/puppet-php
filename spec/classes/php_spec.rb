@@ -24,6 +24,7 @@ describe 'php', :type => :class do
 
   describe 'when called with no parameters on Suse' do
     let(:facts) { { :osfamily => 'Suse',
+                    :operatingsystem => 'SLES',
                     :path     => '/usr/local/bin:/usr/bin:/bin' } }
     it {
       should contain_package('php5').with({

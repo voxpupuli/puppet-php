@@ -18,7 +18,7 @@ describe 'php::fpm', :type => :class do
   end
 
   describe 'when called with no parameters on Suse' do
-    let(:facts) { { :osfamily => 'Suse' } }
+    let(:facts) { { :osfamily => 'Suse', :operatingsystem => 'SLES' } }
 
     it {
       should contain_service('php-fpm').with({
