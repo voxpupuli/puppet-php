@@ -21,13 +21,14 @@
 # [*header_packages*]
 #   system packages dependecies to install for pecl extensions (e.g. for memcached libmemcached-dev on debian)
 #
-# [*config*]
-#   Nested hash of key => value to apply to php.ini
+# [*settings*]
+#   Nested hash of global config parameters for php.ini
 #
 # === Authors
 #
 # Christian "Jippi" Winther <jippignu@gmail.com>
 # Robin Gloster <robin.gloster@mayflower.de>
+# Franz Pletz <franz.pletz@mayflower.de>
 #
 # === Copyright
 #
@@ -40,7 +41,7 @@ define php::extension(
   $package_prefix    = $php::params::package_prefix,
   $header_packages   = [],
   $compiler_packages = $php::params::compiler_packages,
-  $config            = {},
+  $settings            = {},
 ) {
 
   if $caller_module_name != $module_name {
@@ -78,19 +79,19 @@ define php::extension(
   }
 
   $lowercase_title = downcase($title)
-  $real_config = $provider ? {
-    'pecl'  => merge({'extension' => "${name}.so"}, $config),
-    default => $config
+  $real_settings = $provider ? {
+    'pecl'  => merge({'extension' => "${name}.so"}, $settings),
+    default => $settings
   }
-  $php_config_file = "${php::params::config_root_ini}/${lowercase_title}.ini"
+  $php_settings_file = "${php::params::config_root_ini}/${lowercase_title}.ini"
 
   php::config { $title:
-    file   => $php_config_file,
-    config => $real_config
+    file   => $php_settings_file,
+    config => $real_settings
   }
 
   # FIXME: On Ubuntu/Debian systems we use the mods-available folder and have
-  # to enable config files ourselves
+  # to enable settings files ourselves
   if $::osfamily == 'Debian' {
     $symlinks = ["${php::params::config_root}/cli/conf.d/20-${lowercase_title}.ini"]
     $real_symlinks = concat($symlinks, $php::fpm ? {
@@ -100,7 +101,7 @@ define php::extension(
 
     file { $real_symlinks:
       ensure  => link,
-      target  => $php_config_file,
+      target  => $php_settings_file,
       require => Php::Config[$title],
     }
   }

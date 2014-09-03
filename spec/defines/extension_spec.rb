@@ -5,10 +5,10 @@ describe 'php::extension' do
                    :path     => '/usr/local/bin:/usr/bin:/bin' } }
   let(:pre_condition) { 'include php::params' }
 
-  context 'pecl installationg' do
+  context 'pecl installation' do
     let(:title) { 'json' }
     let(:params) {{
-      :config          => {
+      :settings => {
         'test' => 'foo'
       }
     }}
@@ -31,7 +31,7 @@ describe 'php::extension' do
       :provider        => 'pecl',
       :header_packages => ['libmemcached-dev'],
       :name            => 'nice_name',
-      :config          => {
+      :settings        => {
         'test' => 'foo'
       }
     }}
