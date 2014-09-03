@@ -5,4 +5,5 @@ HOSTS:
     platform: ubuntu-14.04-amd64
     box: mayflower/trusty64-puppet3
     hypervisor: vagrant
-
+CONFIG:
+  type: foss
