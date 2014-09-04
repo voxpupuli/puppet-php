@@ -36,6 +36,7 @@ class php::params {
       $package_prefix      = 'php5-'
       $pear_package        = 'php-pear'
       $compiler_packages   = 'build-essential'
+      $manage_repos        = true
     }
     'Suse': {
       $config_root         = '/etc/php5'
@@ -53,6 +54,7 @@ class php::params {
       $fpm_group           = 'nginx'
       $package_prefix      = 'php5-'
       $pear_package        = 'php5-pear'
+      $manage_repos        = true
       case $::operatingsystem {
         'SLES': {
           $compiler_packages = 'Basis-Devel'
@@ -76,11 +78,12 @@ class php::params {
       $fpm_package         = 'php-fpm'
       $fpm_pool_dir        = '/etc/php-fpm.d'
       $fpm_service_name    = 'php-fpm'
-      $fpm_user            = 'www-data'
-      $fpm_group           = 'www-data'
+      $fpm_user            = 'apache'
+      $fpm_group           = 'apache'
       $package_prefix      = 'php-'
       $pear_package        = 'php-pear'
       $compiler_packages   = ['gcc', 'gcc-c++', 'make']
+      $manage_repos        = false
     }
     default: {
       fail("Unsupported osfamily: ${::osfamily} operatingsystem: ${::operatingsystem}, module ${module_name} only supports osfamily Debian, and Suse.\n

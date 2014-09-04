@@ -40,14 +40,14 @@
 #
 class php (
   $ensure       = 'latest',
-  $manage_repos = true,
+  $manage_repos = $php::params::manage_repos,
   $fpm          = true,
   $dev          = true,
   $composer     = true,
   $pear         = true,
   $phpunit      = false,
   $extensions   = {}
-) {
+) inherits php::params {
   validate_string($ensure)
   validate_bool($manage_repos)
   validate_bool($fpm)
