@@ -50,8 +50,8 @@ class php::params {
       $fpm_package         = 'php5-fpm'
       $fpm_pool_dir        = "${config_root}/fpm/pool.d"
       $fpm_service_name    = 'php-fpm'
-      $fpm_user            = 'nginx'
-      $fpm_group           = 'nginx'
+      $fpm_user            = 'wwwrun'
+      $fpm_group           = 'www'
       $package_prefix      = 'php5-'
       $pear_package        = 'php5-pear'
       $manage_repos        = true
