@@ -74,7 +74,7 @@ class php::params {
       $cli_package         = 'php-cli'
       $dev_package         = 'php-devel'
       $fpm_config_file     = '/etc/php-fpm.conf'
-      $fpm_inifile         = "${config_root_ini}/fpm/php.ini"
+      $fpm_inifile         = '/etc/php.ini'
       $fpm_package         = 'php-fpm'
       $fpm_pool_dir        = '/etc/php-fpm.d'
       $fpm_service_name    = 'php-fpm'
