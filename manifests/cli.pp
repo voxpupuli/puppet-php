@@ -42,7 +42,7 @@ class php::cli(
   validate_absolute_path($inifile)
   validate_hash($settings)
 
-  $real_settings = hiera_hash('php::cli::settings', $settings)
+  $real_settings = merge($settings, hiera_hash('php::cli::settings', {}))
 
   package { $package:
     ensure  => $ensure,
