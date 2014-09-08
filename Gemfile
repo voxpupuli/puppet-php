@@ -7,6 +7,9 @@ group :development, :test do
   gem 'puppetlabs_spec_helper'
   gem 'puppet-lint'
   gem 'puppet-module'
+  gem 'beaker', :github => 'Mayflower/beaker', :branch => 'master'
+  gem 'beaker-rspec'
+  gem 'pry'
 end
 
 if facterversion = ENV['FACTER_GEM_VERSION']

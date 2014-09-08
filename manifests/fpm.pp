@@ -35,6 +35,8 @@ class php::fpm(
   validate_hash($settings)
   validate_hash($pools)
 
+  $real_settings = merge($settings, hiera_hash('php::fpm::settings', {}))
+
   anchor { 'php::fpm::begin': } ->
     class { 'php::fpm::package':
       ensure  => $ensure,
@@ -42,7 +44,7 @@ class php::fpm(
     } ->
     class { 'php::fpm::config':
       inifile  => $inifile,
-      settings => $settings,
+      settings => $real_settings,
     } ->
     class { 'php::fpm::service': } ->
   anchor { 'php::fpm::end': }

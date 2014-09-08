@@ -40,6 +40,8 @@ class php::repo::debian(
     warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
   }
 
+  include '::apt'
+
   apt::source { "source_php_${release}":
     location    => $location,
     release     => $release,

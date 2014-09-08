@@ -40,14 +40,15 @@
 #
 class php (
   $ensure       = 'latest',
-  $manage_repos = true,
+  $manage_repos = $php::params::manage_repos,
   $fpm          = true,
   $dev          = true,
   $composer     = true,
   $pear         = true,
   $phpunit      = false,
-  $extensions   = {}
-) {
+  $extensions   = {},
+  $settings     = {}
+) inherits php::params {
   validate_string($ensure)
   validate_bool($manage_repos)
   validate_bool($fpm)
@@ -56,6 +57,7 @@ class php (
   validate_bool($pear)
   validate_bool($phpunit)
   validate_hash($extensions)
+  validate_hash($settings)
 
   if $manage_repos {
     anchor{ 'php::repo': } ->
@@ -65,12 +67,16 @@ class php (
 
   anchor { 'php::begin': } ->
     class { 'php::packages': } ->
-    class { 'php::cli': } ->
+    class { 'php::cli':
+      settings => $settings
+    } ->
   anchor { 'php::end': }
 
   if $fpm {
     Anchor['php::begin'] ->
-      class { 'php::fpm': } ->
+      class { 'php::fpm':
+        settings => $settings
+      } ->
     Anchor['php::end']
   }
   if $dev {
@@ -96,6 +102,8 @@ class php (
 
   # FIXME: for deep merging support we need a explicit hash lookup instead of automatic parameter lookup
   #        (https://tickets.puppetlabs.com/browse/HI-118)
+  $real_settings = hiera_hash('php::settings', $settings)
+
   $real_extensions = hiera_hash('php::extensions', $extensions)
   create_resources('php::extension', $real_extensions, {
     ensure  => $ensure,
