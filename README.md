@@ -16,6 +16,7 @@ The recommended way is to use the main class to install php with following defau
 ```puppet
 class { '::php':
   manage_repos => true,
+  cli          => true,
   fpm          => true,
   dev          => true,
   composer     => true,
