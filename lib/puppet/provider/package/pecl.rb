@@ -2,28 +2,28 @@ require 'puppet/provider/package'
 
 Puppet::Type.type(:package).newparam(:pipe)
 Puppet::Type.type(:package).provide :pecl, :parent => Puppet::Provider::Package do
-  desc "PHP PEAR support. By default uses the installed channels, but you can specify the path to a pear package via ``source``."
+  desc "PHP pecl support. By default uses the installed channels, but you can specify the path to a pecl package via ``source``."
 
   has_feature :versionable
   has_feature :upgradeable
 
   case Facter.value(:operatingsystem)
     when "Solaris"
-      commands :pearcmd => "/opt/coolstack/php5/bin/pecl"
+      commands :peclcmd => "/opt/coolstack/php5/bin/pecl"
     else
-      commands :pearcmd => "pecl"
+      commands :peclcmd => "pecl"
   end
 
-  def self.pearlist(hash)
-    command = [command(:pearcmd), "list"]
+  def self.pecllist(hash)
+    command = [command(:peclcmd), "list"]
 
     begin
       list = execute(command).split("\n").collect do |set|
         if hash[:justme]
           if /^#{hash[:justme]}/i.match(set)
-            if pearhash = pearsplit(set)
-              pearhash[:provider] = :pearcmd
-              pearhash
+            if peclhash = peclsplit(set)
+              peclhash[:provider] = :peclcmd
+              peclhash
             else
               nil
             end
@@ -31,16 +31,16 @@ Puppet::Type.type(:package).provide :pecl, :parent => Puppet::Provider::Package 
             nil
           end
         else
-          if pearhash = pearsplit(set)
-            pearhash[:provider] = :pearcmd
-            pearhash
+          if peclhash = peclsplit(set)
+            peclhash[:provider] = :peclcmd
+            peclhash
           else
             nil
           end
         end
       end.reject { |p| p.nil? }
     rescue Puppet::ExecutionFailure => detail
-      raise Puppet::Error, "Could not list pears: %s" % detail
+      raise Puppet::Error, "Could not list pecls: %s" % detail
     end
 
     if hash[:justme]
@@ -50,7 +50,7 @@ Puppet::Type.type(:package).provide :pecl, :parent => Puppet::Provider::Package 
     end
   end
 
-  def self.pearsplit(desc)
+  def self.peclsplit(desc)
     desc.strip!
 
     case desc
@@ -73,7 +73,7 @@ Puppet::Type.type(:package).provide :pecl, :parent => Puppet::Provider::Package 
   end
 
   def self.instances
-    pearlist(:local => true).collect do |hash|
+    pecllist(:local => true).collect do |hash|
       new(hash)
     end
   end
@@ -100,12 +100,12 @@ Puppet::Type.type(:package).provide :pecl, :parent => Puppet::Provider::Package 
         command << @resource[:pipe]
     end
 
-    pearcmd(*command)
+    peclcmd(*command)
   end
 
   def latest
     version = ''
-    command = [command(:pearcmd), "remote-info", self.name]
+    command = [command(:peclcmd), "remote-info", self.name]
     list = execute(command).each_line do |set|
       if set =~ /^Latest/
         version = set.split[1]
@@ -116,11 +116,11 @@ Puppet::Type.type(:package).provide :pecl, :parent => Puppet::Provider::Package 
   end
 
   def query
-    self.class.pearlist(:justme => self.name)
+    self.class.pecllist(:justme => self.name)
   end
 
   def uninstall
-    output = pearcmd "uninstall", self.name
+    output = peclcmd "uninstall", self.name
     if output =~ /^uninstall ok/
     else
       raise Puppet::Error, output
