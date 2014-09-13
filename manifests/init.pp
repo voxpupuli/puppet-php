@@ -11,6 +11,10 @@
 # [*manage_repos*]
 #   Include repository (dotdeb, ppa, etc.) to install recent PHP from
 #
+# [*cli*]
+#   Install the php command line interface binary. This is a requirement for
+#   PHP PEAR and PHP fpm.
+#
 # [*fpm*]
 #   Install and configure php-fpm
 #
@@ -41,6 +45,7 @@
 class php (
   $ensure       = 'latest',
   $manage_repos = $php::params::manage_repos,
+  $cli          = true,
   $fpm          = true,
   $dev          = true,
   $composer     = true,
@@ -51,6 +56,7 @@ class php (
 ) inherits php::params {
   validate_string($ensure)
   validate_bool($manage_repos)
+  validate_bool($cli)
   validate_bool($fpm)
   validate_bool($dev)
   validate_bool($composer)
@@ -59,6 +65,16 @@ class php (
   validate_hash($extensions)
   validate_hash($settings)
 
+  # validation
+  if $cli == false {
+    if $pear {
+      fail('PHP PEAR requires cli. Set both or none.')
+    }
+    if $fpm {
+      fail('PHP fpm requires cli. Set both or none.')
+    }
+  }
+
   if $manage_repos {
     anchor{ 'php::repo': } ->
       class { 'php::repo': } ->
@@ -66,11 +82,16 @@ class php (
   }
 
   anchor { 'php::begin': } ->
-    class { 'php::packages': } ->
-    class { 'php::cli':
-      settings => $settings
-    } ->
+    class { 'php::packages': }
   anchor { 'php::end': }
+
+  if $cli {
+    class { 'php::cli':
+      settings => $settings,
+      require  => Class['php::packages'],
+      before   => Anchor['php::end'],
+    }
+  }
 
   if $fpm {
     Anchor['php::begin'] ->
@@ -102,12 +123,18 @@ class php (
 
   # FIXME: for deep merging support we need a explicit hash lookup instead of automatic parameter lookup
   #        (https://tickets.puppetlabs.com/browse/HI-118)
-  $real_settings = hiera_hash('php::settings', $settings)
+  $real_settings = hiera('php::settings', false) ? {
+    false   => $settings,
+    default => merge(hiera_hash('php::settings'), $settings)
+  }
 
-  $real_extensions = hiera_hash('php::extensions', $extensions)
+  $real_extensions = hiera('php::extensions', false) ? {
+    false   => $extensions,
+    default => merge(hiera_hash('php::extensions'), $extensions)
+  }
+
   create_resources('php::extension', $real_extensions, {
     ensure  => $ensure,
-    require => Class['php::cli'],
     before  => Anchor['php::end']
   })
 }
