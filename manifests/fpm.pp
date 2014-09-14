@@ -35,7 +35,7 @@ class php::fpm(
   validate_hash($settings)
   validate_hash($pools)
 
-  $real_settings = merge($settings, hiera_hash('php::fpm::settings', {}))
+  $real_settings = deep_merge($settings, hiera_hash('php::fpm::settings', {}))
 
   anchor { 'php::fpm::begin': } ->
     class { 'php::fpm::package':

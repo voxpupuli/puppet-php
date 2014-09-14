@@ -80,7 +80,7 @@ define php::extension(
 
   $lowercase_title = downcase($title)
   $real_settings = $provider ? {
-    'pecl'  => merge({'extension' => "${name}.so"}, $settings),
+    'pecl'  => deep_merge({'extension' => "${name}.so"}, $settings),
     default => $settings
   }
   $php_settings_file = "${php::params::config_root_ini}/${lowercase_title}.ini"
