@@ -4,8 +4,11 @@
  * Remove augeas and switch to puppetlabs/inifile for configs
    * Old: `settings => [‘set PHP/short_open_tag On‘]`
    * New: `settings => {‘PHP/short_open_tag’ => ‘On‘}`
- * The parameter `config` of `php::extension` resources is now called `settings`
- * The parameters `user` and `group` of `php::fpm` have been moved to `php::fpm::config`
+ * Settings parmeter cleanups
+   * The parameter `config` of `php::extension` resources is now called `settings`
+   * The parameters `user` and `group` of `php::fpm` have been moved to `php::fpm::config`
+   * New parameter `php::settings` for global settings (i.e. CLI & FPM)
+ * New parameter `php::cli` to disable CLI if supported
 
 ## 1.1.2
  * SLES: PHP 5.5 will now be installed
