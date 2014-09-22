@@ -63,7 +63,7 @@ class php::params {
       $manage_repos        = true
       case $::operatingsystem {
         'SLES': {
-          $compiler_packages = 'Basis-Devel'
+          $compiler_packages = []
         }
         'OpenSuSE': {
           $compiler_packages = 'devel_basis'
