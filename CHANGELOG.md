@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.1
+ * This is a pure bug fix release
+   * Fix for CVE 2014-0185 (https://bugs.php.net/bug.php?id=67060)
+
 ## 2.0.0
  * Remove augeas and switch to puppetlabs/inifile for configs
    * Old: `settings => [‘set PHP/short_open_tag On‘]`
