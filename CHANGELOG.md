@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.3
+ * This will probably be the last 1.x release. Please upgrade to 2.x
+ * Fix CVE 2014-0185 (https://bugs.php.net/bug.php?id=67060)
+
 ## 1.1.2
  * SLES: PHP 5.5 will now be installed
  * Pecl extensions now autoload the .so based on $name instead of $title
