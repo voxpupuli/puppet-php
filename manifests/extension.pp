@@ -52,14 +52,18 @@ define php::extension(
   validate_string($package_prefix)
   validate_array($header_packages)
 
+  if $provider == 'pecl' {
+      $real_package = "pecl-${title}"
+  } else {
+      $real_package = "${package_prefix}${title}"
+  }
+
   ensure_resource('package', $header_packages, {
-    before => Package[$pecl_package]
+    before => Package[$real_package]
   })
 
   if $provider == 'pecl' {
-    $pecl_package = "pecl-${title}"
-
-    package { $pecl_package:
+    package { $real_package:
       ensure   => $ensure,
       provider => $provider,
       source   => $pecl_source,
@@ -70,10 +74,10 @@ define php::extension(
     }
 
     ensure_resource('package', $compiler_packages, {
-      before => Package[$pecl_package]
+      before => Package[$real_package]
     })
   } else {
-    package { "${package_prefix}${title}":
+    package { $real_package:
       ensure   => $ensure,
       provider => $provider;
     }
