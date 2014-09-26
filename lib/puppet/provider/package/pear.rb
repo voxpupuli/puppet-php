@@ -6,6 +6,7 @@ Puppet::Type.type(:package).provide :pear, :parent => Puppet::Provider::Package 
 
   has_feature :versionable
   has_feature :upgradeable
+  has_feature :install_options
 
   case Facter.value(:operatingsystem)
   when "Solaris"
@@ -85,8 +86,8 @@ Puppet::Type.type(:package).provide :pear, :parent => Puppet::Provider::Package 
 
   def install(useversion = true)
     command = ["upgrade"]
-    if @resource[:required_deps_only]
-      command << "--onlyreqdeps"
+    if @resource[:install_options]
+      command << @resource[:install_options]
     else
       command << "--alldeps"
     end
