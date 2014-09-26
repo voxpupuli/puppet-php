@@ -84,7 +84,12 @@ Puppet::Type.type(:package).provide :pear, :parent => Puppet::Provider::Package 
   end
 
   def install(useversion = true)
-    command = ["upgrade", "-a"]
+    command = ["upgrade"]
+    if @resource[:required_deps_only]
+      command << "--onlyreqdeps"
+    else
+      command << "--alldeps"
+    end
 
     if source = @resource[:source]
       command << source
