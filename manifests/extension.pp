@@ -19,7 +19,7 @@
 #   The pecl source channel to install pecl package from
 #
 # [*header_packages*]
-#   system packages dependecies to install for pecl extensions (e.g. for memcached libmemcached-dev on debian)
+#   system packages dependecies to install for extensions (e.g. for memcached libmemcached-dev on debian)
 #
 # [*settings*]
 #   Nested hash of global config parameters for php.ini
@@ -52,6 +52,10 @@ define php::extension(
   validate_string($package_prefix)
   validate_array($header_packages)
 
+  ensure_resource('package', $header_packages, {
+    before => Package[$pecl_package]
+  })
+
   if $provider == 'pecl' {
     $pecl_package = "pecl-${title}"
 
@@ -65,9 +69,6 @@ define php::extension(
       ]
     }
 
-    ensure_resource('package', $header_packages, {
-      before => Package[$pecl_package]
-    })
     ensure_resource('package', $compiler_packages, {
       before => Package[$pecl_package]
     })
