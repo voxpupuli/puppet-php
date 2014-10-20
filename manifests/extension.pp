@@ -58,9 +58,8 @@ define php::extension(
       $real_package = "${package_prefix}${title}"
   }
 
-  ensure_resource('package', $header_packages, {
-    before => Package[$real_package]
-  })
+  ensure_resource('package', $header_packages)
+  Package[$header_packages] -> Package[$real_package]
 
   if $provider == 'pecl' {
     package { $real_package:
@@ -73,9 +72,8 @@ define php::extension(
       ]
     }
 
-    ensure_resource('package', $compiler_packages, {
-      before => Package[$real_package]
-    })
+    ensure_resource('package', $compiler_packages)
+    Package[$compiler_packages] -> Package[$real_package]
   } else {
     package { $real_package:
       ensure   => $ensure,
