@@ -14,6 +14,7 @@
 # [*provider*]
 #   The provider used to install the package
 #   Could be "pecl", "apt", "dpkg" or any other OS package provider
+#   If set to "none", no package will be installed
 #
 # [*pecl_source*]
 #   The pecl source channel to install pecl package from
@@ -52,32 +53,36 @@ define php::extension(
   validate_string($package_prefix)
   validate_array($header_packages)
 
-  if $provider == 'pecl' {
+  if $provider != 'none' {
+    if $provider == 'pecl' {
       $real_package = "pecl-${title}"
-  } else {
+    }
+    else {
       $real_package = "${package_prefix}${title}"
-  }
-
-  ensure_resource('package', $header_packages)
-  Package[$header_packages] -> Package[$real_package]
-
-  if $provider == 'pecl' {
-    package { $real_package:
-      ensure   => $ensure,
-      provider => $provider,
-      source   => $pecl_source,
-      require  => [
-        Class['php::pear'],
-        Class['php::dev'],
-      ]
     }
 
-    ensure_resource('package', $compiler_packages)
-    Package[$compiler_packages] -> Package[$real_package]
-  } else {
-    package { $real_package:
-      ensure   => $ensure,
-      provider => $provider;
+    ensure_resource('package', $header_packages)
+    Package[$header_packages] -> Package[$real_package]
+
+    if $provider == 'pecl' {
+      package { $real_package:
+        ensure   => $ensure,
+        provider => $provider,
+        source   => $pecl_source,
+        require  => [
+          Class['php::pear'],
+          Class['php::dev'],
+        ]
+      }
+
+      ensure_resource('package', $compiler_packages)
+      Package[$compiler_packages] -> Package[$real_package]
+    }
+    else {
+      package { $real_package:
+        ensure   => $ensure,
+        provider => $provider;
+      }
     }
   }
 
