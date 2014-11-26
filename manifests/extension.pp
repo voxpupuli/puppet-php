@@ -93,18 +93,11 @@ define php::extension(
     config => $real_settings
   }
 
-  # FIXME: On Ubuntu/Debian systems we use the mods-available folder and have
-  # to enable settings files ourselves
+  # Ubuntu/Debian systems use the mods-available folder. We need to enable
+  # settings files ourselves with php5enmod command.
   if $::osfamily == 'Debian' and versioncmp($::php_version, '5.4') >= 0 {
-    $symlinks = ["${php::params::config_root}/cli/conf.d/20-${lowercase_title}.ini"]
-    $real_symlinks = concat($symlinks, $php::fpm ? {
-      true    => ["${php::params::config_root}/fpm/conf.d/20-${lowercase_title}.ini"],
-      default => [],
-    })
-
-    file { $real_symlinks:
-      ensure  => link,
-      target  => $php_settings_file,
+    exec { "php5enmod ${lowercase_title}":
+      unless  => "test -L ${php::params::config_root}/conf.d/*-${lowercase_title}.ini",
       require => Php::Config[$title],
     }
   }
