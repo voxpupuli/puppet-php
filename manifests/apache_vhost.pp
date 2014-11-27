@@ -41,6 +41,6 @@ define php::apache_vhost(
     default_vhost   => $default_vhost,
     port            => $port,
     override        => 'all',
-    custom_fragment => 'ProxyPassMatch ^/(.*\.php(/.*)?)$ ${fastcgi_socket}',
+    custom_fragment => "ProxyPassMatch ^/(.*\\.php(/.*)?)$ ${fastcgi_socket}",
   }
 }

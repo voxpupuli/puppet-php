@@ -14,7 +14,7 @@ class php::repo {
 
   anchor { 'php::repo': }
 
-  $msg_no_repo = 'No repo available for ${::osfamily}/${::operatingsystem}, please fork this module and add one in repo.pp'
+  $msg_no_repo = "No repo available for ${::osfamily}/${::operatingsystem}, please fork this module and add one in repo.pp"
 
   case $::osfamily {
     'Debian': {
