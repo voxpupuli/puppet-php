@@ -12,7 +12,8 @@
     { "name": "puppetlabs/stdlib", "version_requirement": ">= 4.2.0" },
     { "name": "puppetlabs/apt", "version_requirement": "> 0.0.0" },
     { "name": "puppetlabs/inifile", "version_requirement": ">= 1.0.0" },
-    { "name": "darin/zypprepo", "version_requirement": "> 0.0.0" }
+    { "name": "darin/zypprepo", "version_requirement": "> 0.0.0" },
+    { "name": "example42/yum", "version_requirement": "> 2.1.17" }
   ],
   "requirements": [
     { "name": "puppet", "version_requirement": "3.x" },
