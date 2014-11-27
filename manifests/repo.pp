@@ -12,8 +12,7 @@
 #
 class php::repo {
 
-  anchor { 'php::repo::begin': } ->
-  anchor { 'php::repo::end': }
+  anchor { 'php::repo': }
 
   case $::osfamily {
     'Debian': {
@@ -33,12 +32,14 @@ class php::repo {
     'Suse': {
       include php::repo::suse
 
-      Anchor['php::repo::begin'] ->
-        Class['php::repo::suse'] ->
-      Anchor['php::repo::end']
+      Class['php::repo::suse'] ->
+      Anchor['php::repo']
     }
     'RedHat': {
-      include php::repo::rhel
+      include '::yum::repo::epel'
+
+      Class['::yum::repo::epel'] ->
+      Anchor['php::repo']
     }
     default: {
       fail("No repo available for ${::osfamily}/${::operatingsystem}, please fork this module and add one in repo.pp")

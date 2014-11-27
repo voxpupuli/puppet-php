@@ -60,8 +60,7 @@ class php (
   validate_hash($settings)
 
   if $manage_repos {
-    anchor{ 'php::repo': } ->
-      class { 'php::repo': } ->
+    class { 'php::repo': } ->
     Anchor['php::begin']
   }
 
