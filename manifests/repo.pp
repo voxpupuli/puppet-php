@@ -37,6 +37,9 @@ class php::repo {
         Class['php::repo::suse'] ->
       Anchor['php::repo::end']
     }
+    'RedHat': {
+      include php::repo::rhel
+    }
     default: {
       fail("No repo available for ${::osfamily}/${::operatingsystem}, please fork this module and add one in repo.pp")
     }
