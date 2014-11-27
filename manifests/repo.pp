@@ -14,6 +14,8 @@ class php::repo {
 
   anchor { 'php::repo': }
 
+  $msg_no_repo = 'No repo available for ${::osfamily}/${::operatingsystem}, please fork this module and add one in repo.pp'
+
   case $::osfamily {
     'Debian': {
       # no anchors here because apt does that already
@@ -25,7 +27,7 @@ class php::repo {
           include php::repo::ubuntu
         }
         default: {
-          fail("No repo available for ${::osfamily}/${::operatingsystem}, please fork this module and add one in repo.pp")
+          fail($msg_no_repo)
         }
       }
     }
@@ -42,7 +44,7 @@ class php::repo {
       Anchor['php::repo']
     }
     default: {
-      fail("No repo available for ${::osfamily}/${::operatingsystem}, please fork this module and add one in repo.pp")
+      fail($msg_no_repo)
     }
   }
 }
