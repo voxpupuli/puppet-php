@@ -95,15 +95,20 @@ define php::extension(
 
   php::config { $title:
     file   => $php_settings_file,
-    config => $real_settings
+    config => $real_settings,
   }
 
   # Ubuntu/Debian systems use the mods-available folder. We need to enable
   # settings files ourselves with php5enmod command.
   if $::osfamily == 'Debian' and versioncmp($::php_version, '5.4') >= 0 {
-    exec { "php5enmod ${lowercase_title}":
-      unless  => "test -L ${php::params::config_root}/conf.d/*-${lowercase_title}.ini",
-      require => Php::Config[$title],
+    $cmd = "php5enmod ${lowercase_title}"
+
+    exec { $cmd:
+      refreshonly => true,
     }
+
+    Php::Config[$title] ~> Exec[$cmd]
+
+    Package <| name == $php::fpm::package |> ~> Exec[$cmd]
   }
 }
