@@ -39,7 +39,7 @@ class php::composer (
   validate_string($source)
   validate_absolute_path($path)
   validate_bool($auto_update)
-  validate_re($max_age, '^\d+$')
+  validate_re($max_age, "^\d+$")
 
   exec { 'download composer':
     command => "wget ${source} -O ${path}",
