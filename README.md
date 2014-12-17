@@ -9,21 +9,32 @@ This originally was a fork of [jippi/puppet-php](https://github.com/jippi/puppet
 
 ## Usage
 
-The module aims to use sane defaults and be easily configurable with hiera.
+The module aims to use sane defaults for the supported architectures. You
+must use hiera to configure most aspects of this module.
 
-The recommended way is to use the main class to install php with following defaults:
+The recommended way is to include the `php` main class in your manifests:
 
 ```puppet
-class { '::php':
-  manage_repos => true,
-  fpm          => true,
-  dev          => true,
-  composer     => true,
-  pear         => true,
-  phpunit      => false,
-  extensions   => {}
-}
+include ::php
 ```
+
+You can configure the module through hiera. Here are the defaults for some
+parameters as you would specify them in hiera:
+
+```yaml
+php::ensure: latest
+php::manage_repos: true
+php::fpm: true
+php::dev: true
+php::composer: true
+php::pear: true
+php::phpunit: false
+php::fpm::config:log_level: notice
+php::composer::auto_update: true
+```
+
+There are more configuration options available. Please refer to the
+documention in the manifests for a complete overview.
 
 ### Apache support
 
@@ -34,21 +45,32 @@ We prefer using php-fpm. You can find an example Apache vhost in
 `manifests/apache_vhost.pp` that shows you how to use `mod_proxy_fcgi` to
 connect to php-fpm.
 
-### Defining php.ini settings
+### Defining `php.ini` settings
 
-Can be defined as parameter `settings` on `php::{fpm, cli}` classes or
-`php::extension` resources. The recommended way is to use hiera:
+PHP configuration parmaters in `php.ini` files can be defined as parameter
+`settings` on the `php`, `php::fpm` and `php::cli` classes or
+`php::extension` resources for each component independently.
+
+These settings are written into their respective `php.ini` file. Global
+settings in `php::settings` are merged with the settings of all components.
+Please note that settings of extensions are always independent.
+
+In the following example the timezone will be set in the PHP cli application
+and all php-fpm pools.
 
 ```yaml
+php::settings:
+  Date/date.timezone: Europe/Berlin
 php::cli::settings:
-  Date/date.timezone: Europe/London
+  PHP/memory_limit: 512M
+php::fpm::settings:
   PHP/short_open_tag: 'On'
 ```
 
 ### Installing extensions
 
-Extensions can be installed either by using the parameter `extensions` in
-the main class or by defining the hash `php::extensions` in hiera.
+Extensions can be installed and configured by defining the hash
+`php::extensions` in hiera. They are activated for all activated components.
 
 ```yaml
 php::extensions:
