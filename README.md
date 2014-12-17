@@ -22,7 +22,7 @@ include ::php
 You can configure the module through hiera. Here are the defaults for some
 parameters as you would specify them in hiera:
 
-```yaml
+```
 php::ensure: latest
 php::manage_repos: true
 php::fpm: true
@@ -59,7 +59,7 @@ Please note that settings of extensions are always independent.
 In the following example the timezone will be set in the PHP cli application
 and all php-fpm pools.
 
-```yaml
+```
 php::settings:
   Date/date.timezone: Europe/Berlin
 php::cli::settings:
@@ -73,7 +73,7 @@ php::fpm::settings:
 Extensions can be installed and configured by defining the hash
 `php::extensions` in hiera. They are activated for all activated components.
 
-```yaml
+```
 php::extensions:
   json: {}
   mysql: {}
