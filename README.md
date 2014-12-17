@@ -1,9 +1,11 @@
-# puppet-php
+# mayflower/php Puppet Module
 
 [![Build Status](https://travis-ci.org/Mayflower/puppet-php.svg?branch=master)](https://travis-ci.org/Mayflower/puppet-php)
 
-``puppet-php`` is a Puppet module for managing PHP, in particular php-fpm.
-Apache with `mod_php` cannot be handled by this module.
+mayflower/php is a Puppet module for managing PHP >= 5.4 with a strong focus
+on php-fpm. We strive to support all recent versions of Debian, Ubuntu,
+RedHat/CentOS and openSuSE/SLES. Managing Apache with `mod_php` is not
+supported.
 
 This originally was a fork of [jippi/puppet-php](https://github.com/jippi/puppet-php)
 (nodes-php on Puppet Forge) but has since been rewritten in large parts.
