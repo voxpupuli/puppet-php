@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/Mayflower/puppet-php.svg?branch=master)](https://travis-ci.org/Mayflower/puppet-php)
 
 ``puppet-php`` is a Puppet module for managing PHP, in particular php-fpm.
+Apache with `mod_php` cannot be handled by this module.
 
 This originally was a fork of [jippi/puppet-php](https://github.com/jippi/puppet-php)
 (nodes-php on Puppet Forge) but has since been rewritten in large parts.
@@ -87,23 +88,30 @@ php::extensions:
       apc.stat_ctime: 1
 ```
 
-## Source Code
-
-The source can be found at
-[github.com/Mayflower/puppet-php](https://github.com/Mayflower/puppet-php/).
-
 ## Bugs & New Features
 
 If you happen to stumble upon a bug, please feel free to create a pull request
 with a fix (optionally with a test), and a description of the bug and how it
 was resolved.
 
-Or simply create an issue adding steps to let us reproduce the bug.
+Or if you're not into coding, simply create an issue adding steps to let us
+reproduce the bug and we will happily fix it.
 
-If you have a good idea for a feature, please create an issue to discuss it.
-Pull requests are always more than welcome.
+If you have a good idea for a feature or how to improve this module in general,
+please create an issue to discuss it. We are very open to feedback. Pull
+requests are always welcome.
+
+We hate orphaned and unmaintained Puppet modules as much as you do and
+therefore promise that we will continue to maintain this module and keep
+response times to issues short. If we happen to lose interest, we will write
+a big fat warning into this README to let you know.
 
 ## License
 
 The project is released under the permissive MIT license.
 
+The source can be found at
+[github.com/Mayflower/puppet-php](https://github.com/Mayflower/puppet-php/).
+
+This Puppet module is being actively maintained by some fellow pupeteers at
+Mayflower GmbH.
