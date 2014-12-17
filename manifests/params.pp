@@ -21,13 +21,7 @@ class php::params {
   case $::osfamily {
     'Debian': {
       $config_root         = '/etc/php5'
-
-      if $::php_version == '' or versioncmp($::php_version, '5.4') >= 0 {
-        $config_root_ini = "${::php::params::config_root}/mods-available"
-      } else {
-        $config_root_ini = "${::php::params::config_root}/conf.d"
-      }
-
+      $config_root_ini     = "${::php::params::config_root}/mods-available"
       $common_packages     = ['php5-common']
       $cli_inifile         = "${config_root}/cli/php.ini"
       $cli_package         = 'php5-cli'
