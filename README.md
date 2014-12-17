@@ -113,5 +113,5 @@ The project is released under the permissive MIT license.
 The source can be found at
 [github.com/Mayflower/puppet-php](https://github.com/Mayflower/puppet-php/).
 
-This Puppet module is being actively maintained by some fellow pupeteers at
+This Puppet module is being actively maintained by some fellow puppeteers at
 Mayflower GmbH.
