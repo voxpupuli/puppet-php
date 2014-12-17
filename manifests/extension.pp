@@ -96,7 +96,6 @@ define php::extension(
   php::config { $title:
     file   => $php_settings_file,
     config => $real_settings,
-    notify => Exec[$cmd],
   }
 
   # Ubuntu/Debian systems use the mods-available folder. We need to enable
