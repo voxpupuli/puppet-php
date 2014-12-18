@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.0.3
+ * Some issues & bugs with extensions were fixed
+ * If you set the `provider` parameter of an extension to `"none"`, no
+   extension packages will be installed
+ * The EPEL yum repo has been added for RedHat systems
+
+## 2.0.2
+ * Adds support for `header_packages` on all extensions
+ * Adds `install_options` to pear package provider
+
 ## 2.0.1
  * This is a pure bug fix release
    * Fix for CVE 2014-0185 (https://bugs.php.net/bug.php?id=67060)
