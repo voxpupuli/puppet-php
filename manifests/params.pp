@@ -17,6 +17,9 @@ class php::params {
   $composer_source    = 'https://getcomposer.org/composer.phar'
   $composer_path      = '/usr/local/bin/composer'
   $composer_max_age   = 30
+  $phpunit_source    = 'https://phar.phpunit.de/phpunit.phar'
+  $phpunit_path      = '/usr/local/bin/phpunit'
+  $phpunit_max_age   = 30
 
   case $::osfamily {
     'Debian': {
