@@ -7,8 +7,8 @@
 # [*ensure*]
 #   Specify which version of PHP packages to install
 #
-# [*packages*]
-#   List of packages to install
+# [*names*]
+#   List of the names of the package to install
 #
 # === Authors
 #
@@ -20,8 +20,9 @@
 #
 
 class php::packages (
-  $ensure   = $php::ensure,
-  $packages = $php::params::common_packages,
+  $ensure          = $php::ensure,
+  $names_to_prefix = prefix($php::params::common_package_suffixes, $php::package_prefix),
+  $names           = $php::params::common_package_names,
 ) inherits php::params {
 
   if $caller_module_name != $module_name {
@@ -29,10 +30,11 @@ class php::packages (
   }
 
   validate_string($ensure)
-  validate_array($packages)
+  validate_array($names)
+  validate_array($names_to_prefix)
 
-  package { $packages:
+  $real_names = union($names, $names_to_prefix)
+  package { $real_names:
     ensure => $ensure,
   }
-
 }

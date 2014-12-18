@@ -40,10 +40,10 @@ define php::extension(
   $ensure            = 'installed',
   $provider          = undef,
   $pecl_source       = undef,
-  $package_prefix    = $php::params::package_prefix,
+  $package_prefix    = $php::package_prefix,
   $header_packages   = [],
   $compiler_packages = $php::params::compiler_packages,
-  $settings            = {},
+  $settings          = {},
 ) {
 
   if $caller_module_name != $module_name {
@@ -102,7 +102,7 @@ define php::extension(
   # Ubuntu/Debian systems use the mods-available folder. We need to enable
   # settings files ourselves with php5enmod command.
   if $::osfamily == 'Debian' {
-    $cmd = "php5enmod ${lowercase_title}"
+    $cmd = "/usr/sbin/php5enmod ${lowercase_title}"
 
     exec { $cmd:
       refreshonly => true,
@@ -110,6 +110,8 @@ define php::extension(
 
     Php::Config[$title] ~> Exec[$cmd]
 
-    Package <| name == $php::fpm::package |> ~> Exec[$cmd]
+    if $php::fpm {
+      Package[$php::fpm::package] ~> Exec[$cmd]
+    }
   }
 }

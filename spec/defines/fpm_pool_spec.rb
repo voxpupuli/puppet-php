@@ -9,5 +9,4 @@ describe 'php::fpm::pool' do
 
     it { should contain_file('/etc/php5/fpm/pool.d/unique-name.conf') }
   end
-
 end

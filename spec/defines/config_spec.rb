@@ -43,5 +43,4 @@ describe 'php::config' do
 
     it { expect { should raise_error(Puppet::Error) }}
   end
-
 end

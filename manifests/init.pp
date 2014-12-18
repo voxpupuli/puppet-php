@@ -29,6 +29,11 @@
 # [*extensions*]
 #   Install PHP extensions, this is overwritten by hiera hash `php::extensions`
 #
+# [*package_prefix*]
+#   This is the prefix for constructing names of php packages. This defaults
+#   to a sensible default depending on your operating system, like 'php-' or
+#   'php5-'.
+#
 # === Authors
 #
 # Robin Gloster <robin.gloster@mayflower.de>
@@ -39,16 +44,18 @@
 # See LICENSE file
 #
 class php (
-  $ensure       = 'latest',
-  $manage_repos = $php::params::manage_repos,
-  $fpm          = true,
-  $dev          = true,
-  $composer     = true,
-  $pear         = true,
-  $phpunit      = false,
-  $extensions   = {},
-  $settings     = {}
+  $ensure         = 'latest',
+  $manage_repos   = $php::params::manage_repos,
+  $fpm            = true,
+  $dev            = true,
+  $composer       = true,
+  $pear           = true,
+  $phpunit        = false,
+  $extensions     = {},
+  $settings       = {},
+  $package_prefix = $php::params::package_prefix,
 ) inherits php::params {
+
   validate_string($ensure)
   validate_bool($manage_repos)
   validate_bool($fpm)

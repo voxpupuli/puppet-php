@@ -5,10 +5,11 @@ describe 'php::extension' do
                    :path     => '/usr/local/bin:/usr/bin:/bin' } }
   let(:pre_condition) { 'include php::params' }
 
-  context 'pecl installation' do
+  context 'installation from repository' do
     let(:title) { 'json' }
     let(:params) {{
-      :settings => {
+      :package_prefix => 'php5-',
+      :settings       => {
         'test' => 'foo'
       }
     }}
@@ -24,8 +25,7 @@ describe 'php::extension' do
     }
   end
 
-
-  context 'pecl installationg' do
+  context 'pecl installation' do
     let(:title) { 'json' }
     let(:params) {{
       :provider        => 'pecl',
@@ -62,5 +62,4 @@ describe 'php::extension' do
       })
     }
   end
-
 end

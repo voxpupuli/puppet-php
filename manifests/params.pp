@@ -13,48 +13,47 @@
 #
 class php::params {
 
-  $fpm_service_enable = true
-  $composer_source    = 'https://getcomposer.org/composer.phar'
-  $composer_path      = '/usr/local/bin/composer'
-  $composer_max_age   = 30
+  $fpm_service_enable  = true
+  $composer_source     = 'https://getcomposer.org/composer.phar'
+  $composer_path       = '/usr/local/bin/composer'
+  $composer_max_age    = 30
+  $pear_package_suffix = 'pear'
 
   case $::osfamily {
     'Debian': {
-      $config_root         = '/etc/php5'
-      $config_root_ini     = "${::php::params::config_root}/mods-available"
-      $common_packages     = ['php5-common']
-      $cli_inifile         = "${config_root}/cli/php.ini"
-      $cli_package         = 'php5-cli'
-      $dev_package         = 'php5-dev'
-      $fpm_config_file     = "${config_root}/fpm/php-fpm.conf"
-      $fpm_inifile         = "${config_root}/fpm/php.ini"
-      $fpm_package         = 'php5-fpm'
-      $fpm_pool_dir        = "${config_root}/fpm/pool.d"
-      $fpm_service_name    = 'php5-fpm'
-      $fpm_user            = 'www-data'
-      $fpm_group           = 'www-data'
-      $package_prefix      = 'php5-'
-      $pear_package        = 'php-pear'
-      $compiler_packages   = 'build-essential'
-      $manage_repos        = true
+      $config_root             = '/etc/php5'
+      $config_root_ini         = "${::php::params::config_root}/mods-available"
+      $common_package_names    = []
+      $common_package_suffixes = ['cli', 'common']
+      $cli_inifile             = "${config_root}/cli/php.ini"
+      $dev_package_suffix      = 'dev'
+      $fpm_config_file         = "${config_root}/fpm/php-fpm.conf"
+      $fpm_inifile             = "${config_root}/fpm/php.ini"
+      $fpm_package_suffix      = 'fpm'
+      $fpm_pool_dir            = "${config_root}/fpm/pool.d"
+      $fpm_service_name        = 'php5-fpm'
+      $fpm_user                = 'www-data'
+      $fpm_group               = 'www-data'
+      $package_prefix          = 'php5-'
+      $compiler_packages       = 'build-essential'
+      $manage_repos            = true
     }
     'Suse': {
-      $config_root         = '/etc/php5'
-      $config_root_ini     = "${config_root}/conf.d"
-      $common_packages     = []
-      $cli_inifile         = "${config_root}/cli/php.ini"
-      $cli_package         = 'php5'
-      $dev_package         = 'php5-devel'
-      $fpm_config_file     = "${config_root}/fpm/php-fpm.conf"
-      $fpm_inifile         = "${config_root}/fpm/php.ini"
-      $fpm_package         = 'php5-fpm'
-      $fpm_pool_dir        = "${config_root}/fpm/pool.d"
-      $fpm_service_name    = 'php-fpm'
-      $fpm_user            = 'wwwrun'
-      $fpm_group           = 'www'
-      $package_prefix      = 'php5-'
-      $pear_package        = 'php5-pear'
-      $manage_repos        = true
+      $config_root             = '/etc/php5'
+      $config_root_ini         = "${config_root}/conf.d"
+      $common_package_names    = ['php5']
+      $common_package_suffixes = []
+      $cli_inifile             = "${config_root}/cli/php.ini"
+      $dev_package_suffix      = 'devel'
+      $fpm_config_file         = "${config_root}/fpm/php-fpm.conf"
+      $fpm_inifile             = "${config_root}/fpm/php.ini"
+      $fpm_package_suffix      = 'fpm'
+      $fpm_pool_dir            = "${config_root}/fpm/pool.d"
+      $fpm_service_name        = 'php-fpm'
+      $fpm_user                = 'wwwrun'
+      $fpm_group               = 'www'
+      $package_prefix          = 'php5-'
+      $manage_repos            = true
       case $::operatingsystem {
         'SLES': {
           $compiler_packages = []
@@ -68,22 +67,21 @@ class php::params {
       }
     }
     'RedHat': {
-      $config_root_ini     = '/etc/php.d'
-      $common_packages     = ['php', 'php-common']
-      $cli_inifile         = '/etc/php-cli.ini'
-      $cli_package         = 'php-cli'
-      $dev_package         = 'php-devel'
-      $fpm_config_file     = '/etc/php-fpm.conf'
-      $fpm_inifile         = '/etc/php.ini'
-      $fpm_package         = 'php-fpm'
-      $fpm_pool_dir        = '/etc/php-fpm.d'
-      $fpm_service_name    = 'php-fpm'
-      $fpm_user            = 'apache'
-      $fpm_group           = 'apache'
-      $package_prefix      = 'php-'
-      $pear_package        = 'php-pear'
-      $compiler_packages   = ['gcc', 'gcc-c++', 'make']
-      $manage_repos        = false
+      $config_root_ini         = '/etc/php.d'
+      $common_package_names    = []
+      $common_package_suffixes = ['cli', 'common']
+      $cli_inifile             = '/etc/php-cli.ini'
+      $dev_package_suffix      = 'devel'
+      $fpm_config_file         = '/etc/php-fpm.conf'
+      $fpm_inifile             = '/etc/php.ini'
+      $fpm_package_suffix      = 'php-fpm'
+      $fpm_pool_dir            = '/etc/php-fpm.d'
+      $fpm_service_name        = 'php-fpm'
+      $fpm_user                = 'apache'
+      $fpm_group               = 'apache'
+      $package_prefix          = 'php-'
+      $compiler_packages       = ['gcc', 'gcc-c++', 'make']
+      $manage_repos            = false
     }
     default: {
       fail("Unsupported osfamily: ${::osfamily}")
