@@ -1,9 +1,11 @@
-# puppet-php
+# mayflower/php Puppet Module
 
 [![Build Status](https://travis-ci.org/Mayflower/puppet-php.svg?branch=master)](https://travis-ci.org/Mayflower/puppet-php)
 
-``puppet-php`` is a Puppet module for managing PHP, in particular php-fpm.
-Apache with `mod_php` cannot be handled by this module.
+mayflower/php is a Puppet module for managing PHP with a strong focus
+on php-fpm. We strive to support all recent versions of Debian, Ubuntu,
+RedHat/CentOS and openSuSE/SLES. Managing Apache with `mod_php` is not
+supported.
 
 This originally was a fork of [jippi/puppet-php](https://github.com/jippi/puppet-php)
 (nodes-php on Puppet Forge) but has since been rewritten in large parts.
@@ -36,15 +38,6 @@ php::composer::auto_update: true
 
 There are more configuration options available. Please refer to the
 documention in the manifests for a complete overview.
-
-### Apache support
-
-Apache with `mod_php` is not supported by this module. Please use
-[puppetlabs/apache](https://forge.puppetlabs.com/puppetlabs/apache) instead.
-
-We prefer using php-fpm. You can find an example Apache vhost in
-`manifests/apache_vhost.pp` that shows you how to use `mod_proxy_fcgi` to
-connect to php-fpm.
 
 ### Defining `php.ini` settings
 
@@ -87,6 +80,31 @@ php::extensions:
       apc.stat: 1
       apc.stat_ctime: 1
 ```
+
+## Notes
+
+### Debian squeeze & Ubuntu precise come with PHP 5.3
+
+On Debian-based systems, we use `php5enmod` to enable extension-specific
+configuration. This script is only present in `php5` packages beginning with
+version 5.4. Furthermore, PHP 5.3 is not supported by upstream anymore.
+
+We strongly suggest you use a recent PHP version, even if you're using an
+older though still supported distribution release. Our default is to have
+`php::manage_repos` enabled to add apt sources for
+[Dotdeb](http://www.dotdeb.org/) on Debian and
+[ppa:ondrej/php5](https://launchpad.net/~ondrej/+archive/ubuntu/php5/) on
+Ubuntu with packages for the current stable PHP version closely tracking
+upstream.
+
+### Apache support
+
+Apache with `mod_php` is not supported by this module. Please use
+[puppetlabs/apache](https://forge.puppetlabs.com/puppetlabs/apache) instead.
+
+We prefer using php-fpm. You can find an example Apache vhost in
+`manifests/apache_vhost.pp` that shows you how to use `mod_proxy_fcgi` to
+connect to php-fpm.
 
 ## Bugs & New Features
 
