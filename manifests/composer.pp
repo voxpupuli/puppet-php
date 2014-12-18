@@ -45,9 +45,7 @@ class php::composer (
     command => "wget ${source} -O ${path}",
     creates => $path,
     path    => ['/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/'],
-    require => [
-      Package[$php::params::cli_package]
-    ]
+    require => Class['php::cli'],
   } ->
   file { $path:
     mode  => '0555',
