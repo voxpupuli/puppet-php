@@ -37,7 +37,7 @@ class php::fpm::service(
     enable    => $enable,
     restart   => "service ${service_name} reload",
     hasstatus => true,
-    require   => Package[$php::params::fpm_package],
+    require   => Class['php::fpm::package'],
   }
 
   Php::Extension <| |> ~> Service[$service_name]
