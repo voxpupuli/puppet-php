@@ -5,6 +5,10 @@
    `php_admin_value` parameters to set the php settings `log_errors` and
    `error_log` instead.
 
+## 2.0.4
+ * Style fixes all over the place
+ * Module dependencies are now bound to the current major version
+
 ## 2.0.3
  * Some issues & bugs with extensions were fixed
  * If you set the `provider` parameter of an extension to `"none"`, no
