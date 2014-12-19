@@ -86,8 +86,7 @@ class php::params {
       $manage_repos        = false
     }
     default: {
-      fail("Unsupported osfamily: ${::osfamily} operatingsystem: ${::operatingsystem}, module ${module_name} only supports osfamily Debian, and Suse.\n
-        If possible please fork this module, add the correct parameters in params.pp and open a pull request")
+      fail("Unsupported osfamily: ${::osfamily}")
     }
   }
 }

@@ -99,7 +99,8 @@ class php (
     Anchor['php::end']
   }
 
-  # FIXME: for deep merging support we need a explicit hash lookup instead of automatic parameter lookup
+  # FIXME: for deep merging support we need a explicit hash lookup instead of
+  #        automatic parameter lookup
   #        (https://tickets.puppetlabs.com/browse/HI-118)
   $real_settings = hiera_hash('php::settings', $settings)
 

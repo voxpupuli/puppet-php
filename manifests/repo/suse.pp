@@ -28,7 +28,7 @@ class php::repo::suse (
     autorefresh => 1
   } ~>
   exec { 'zypprepo-accept-key':
-    command     => 'sudo zypper --gpg-auto-import-keys update -y && touch /etc/accept-keys',
+    command     => 'zypper --gpg-auto-import-keys update -y',
     path        => '/usr/bin',
     refreshonly => true,
   }

@@ -1,6 +1,7 @@
 # == Class: php::phpunit
 #
-# Install phpunit, PHP testing framework via PEAR, this will be changed to use composer
+# Install phpunit, PHP testing framework via PEAR, this will be changed to
+# use composer
 #
 # === Parameters
 #
@@ -28,7 +29,7 @@ class php::phpunit (
 ) {
 
   if $caller_module_name != $module_name {
-    warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
+    warning('php::phpunit is private')
   }
 
   validate_string($package)

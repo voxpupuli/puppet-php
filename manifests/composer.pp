@@ -33,13 +33,13 @@ class php::composer (
 ) inherits php::params {
 
   if $caller_module_name != $module_name {
-    warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
+    warning('php::composer is private')
   }
 
   validate_string($source)
   validate_absolute_path($path)
   validate_bool($auto_update)
-  validate_re("${max_age}", '^\d+$')
+  validate_re("x${max_age}", '^x\d+$')
 
   exec { 'download composer':
     command => "wget ${source} -O ${path}",

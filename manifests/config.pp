@@ -33,7 +33,7 @@ define php::config(
 ) {
 
   if $caller_module_name != $module_name {
-    warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
+    warning('php::config is private')
   }
 
   validate_absolute_path($file)

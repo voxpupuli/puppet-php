@@ -32,7 +32,7 @@ define php::config::setting(
 ) {
 
   if $caller_module_name != $module_name {
-    warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
+    warning('php::config::setting is private')
   }
 
   validate_string($file)
