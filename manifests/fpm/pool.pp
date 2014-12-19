@@ -51,7 +51,6 @@ define php::fpm::pool (
   $php_admin_value = {},
   $php_admin_flag = {},
   $php_directives = [],
-  $error_log = true,
 ) {
 
   include php::params

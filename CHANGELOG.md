@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.0.0
+ * Removed `$php::fpm::pool::error_log`. Use the `php_admin_flag` and
+   `php_admin_value` parameters to set the php settings `log_errors` and
+   `error_log` instead.
+
 ## 2.0.3
  * Some issues & bugs with extensions were fixed
  * If you set the `provider` parameter of an extension to `"none"`, no

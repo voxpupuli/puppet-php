@@ -244,13 +244,6 @@ env[<%= key %>] = <%= value %>
 ;php_admin_value[error_log] = /var/log/php-fpm/www-error.log
 ;php_admin_flag[log_errors] = on
 ;php_admin_value[memory_limit] = 32M
-<% if @error_log == true -%>
-;error_log = /var/log/php-fpm/<%= @pool %>-error.log
-;log_errors = on
-<% elsif !@error_log.empty? -%>
-;error_log = <%= @error_log %>
-;log_errors = on
-<% end %>
 
 ;
 ; Custom PHP values
