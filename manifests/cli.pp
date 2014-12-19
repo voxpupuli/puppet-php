@@ -27,8 +27,6 @@
 # See LICENSE file
 #
 class php::cli(
-  $ensure   = $php::ensure,
-  $package  = $php::params::cli_package,
   $inifile  = $php::params::cli_inifile,
   $settings = {}
 ) inherits php::params {
@@ -37,17 +35,11 @@ class php::cli(
     warning('php::cli is private')
   }
 
-  validate_string($ensure)
-  validate_string($package)
   validate_absolute_path($inifile)
   validate_hash($settings)
 
   $real_settings = deep_merge($settings, hiera_hash('php::cli::settings', {}))
 
-  package { $package:
-    ensure  => $ensure,
-    require => Class['php::packages'],
-  } ->
   php::config { 'cli':
     file   => $inifile,
     config => $real_settings

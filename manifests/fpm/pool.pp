@@ -73,12 +73,11 @@ define php::fpm::pool (
     file { "${php::params::fpm_pool_dir}/${pool}.conf":
       ensure  => file,
       notify  => Class['php::fpm::service'],
-      require => Class['php::fpm::package'],
+      require => Package[$php::fpm::package],
       content => template('php/fpm/pool.conf.erb'),
       owner   => root,
       group   => root,
       mode    => '0644'
     }
   }
-
 }

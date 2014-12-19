@@ -12,6 +12,9 @@ describe 'php', :type => :class do
         'ensure' => 'latest',
       })
       should contain_class('php::fpm')
+      should contain_package('php5-fpm').with({
+        'ensure' => 'latest',
+      })
       should contain_package('php5-dev').with({
         'ensure' => 'latest',
       })

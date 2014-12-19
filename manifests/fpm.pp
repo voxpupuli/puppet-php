@@ -17,9 +17,9 @@
 #
 # See LICENSE file
 #
-class php::fpm(
+class php::fpm (
   $ensure   = $php::ensure,
-  $package  = $php::params::fpm_package,
+  $package  = "${php::package_prefix}${php::params::fpm_package_suffix}",
   $inifile  = $php::params::fpm_inifile,
   $settings = {},
   $pools    = { 'www' => {} },
@@ -38,9 +38,9 @@ class php::fpm(
   $real_settings = deep_merge($settings, hiera_hash('php::fpm::settings', {}))
 
   anchor { 'php::fpm::begin': } ->
-    class { 'php::fpm::package':
+    package { $package:
       ensure  => $ensure,
-      package => $package,
+      require => Class['php::packages'],
     } ->
     class { 'php::fpm::config':
       inifile  => $inifile,

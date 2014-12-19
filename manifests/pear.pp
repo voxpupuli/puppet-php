@@ -9,7 +9,6 @@
 #
 # [*package*]
 #   The package name for PHP pear
-#   For debian it's php5-pear
 #
 # === Authors
 #
@@ -20,19 +19,34 @@
 #
 # See LICENSE file
 #
-class php::pear(
+class php::pear (
   $ensure  = $php::ensure,
-  $package = $php::params::pear_package,
+  $package = undef,
 ) inherits php::params {
 
   if $caller_module_name != $module_name {
     warning('php::pear is private')
   }
 
-  validate_string($ensure)
-  validate_string($package)
+  # Defaults for the pear package name
+  if $package == undef {
+    if $::osfamily == 'Debian' {
+      # Debian is a litte stupid: The pear package is called 'php-pear'
+      # even though others are called 'php5-fpm' or 'php5-dev'
+      $package_name = "php-${php::params::pear_package_suffix}"
+    } else {
+      # This is the default for all other architectures
+      $package_name =
+        "${php::package_prefix}${php::params::pear_package_suffix}"
+    }
+  } else {
+    $package_name = $package
+  }
 
-  package { $package:
+  validate_string($ensure)
+  validate_string($package_name)
+
+  package { $package_name:
     ensure  => $ensure,
     require => Class['php::cli'],
   }
@@ -41,6 +55,6 @@ class php::pear(
     command => 'pear config-set auto_discover 1 system',
     unless  => 'pear config-get auto_discover system | grep -q 1',
     path    => ['/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/'],
-    require => Package[$package],
+    require => Package[$package_name],
   }
 }

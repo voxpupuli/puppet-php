@@ -10,8 +10,7 @@
 #   The PHP ensure of PHP dev to install
 #
 # [*package*]
-#   The package name for PHP dev
-#   For debian it's php5-dev
+#   The package name for the PHP development files
 #
 # === Authors
 #
@@ -24,7 +23,7 @@
 #
 class php::dev(
   $ensure  = $php::ensure,
-  $package = $php::params::dev_package,
+  $package = "${php::package_prefix}${php::params::dev_package_suffix}",
 ) inherits php::params {
 
 

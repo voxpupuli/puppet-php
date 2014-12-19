@@ -25,5 +25,4 @@ describe 'php::fpm::config' do
       },
     })}
   end
-
 end
