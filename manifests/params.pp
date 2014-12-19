@@ -18,6 +18,9 @@ class php::params {
   $composer_path       = '/usr/local/bin/composer'
   $composer_max_age    = 30
   $pear_package_suffix = 'pear'
+  $phpunit_source    = 'https://phar.phpunit.de/phpunit.phar'
+  $phpunit_path      = '/usr/local/bin/phpunit'
+  $phpunit_max_age   = 30
 
   case $::osfamily {
     'Debian': {
