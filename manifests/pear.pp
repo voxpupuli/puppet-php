@@ -26,7 +26,7 @@ class php::pear(
 ) inherits php::params {
 
   if $caller_module_name != $module_name {
-    warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
+    warning('php::pear is private')
   }
 
   validate_string($ensure)

@@ -20,7 +20,8 @@
 #   The pecl source channel to install pecl package from
 #
 # [*header_packages*]
-#   system packages dependecies to install for extensions (e.g. for memcached libmemcached-dev on debian)
+#   system packages dependecies to install for extensions (e.g. for
+#   memcached libmemcached-dev on debian)
 #
 # [*settings*]
 #   Nested hash of global config parameters for php.ini
@@ -46,7 +47,7 @@ define php::extension(
 ) {
 
   if $caller_module_name != $module_name {
-    warning("${name} is not part of the public API of the ${module_name} module and should not be directly included in the manifest.")
+    warning('php::extension is private')
   }
 
   validate_string($ensure)
