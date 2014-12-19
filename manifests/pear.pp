@@ -31,12 +31,13 @@ class php::pear (
   # Defaults for the pear package name
   if $package == undef {
     if $::osfamily == 'Debian' {
-      # Debian is a litte stupid: The pear package is by default called 'php-pear'
+      # Debian is a litte stupid: The pear package is called 'php-pear'
       # even though others are called 'php5-fpm' or 'php5-dev'
       $package_name = "php-${php::params::pear_package_suffix}"
     } else {
       # This is the default for all other architectures
-      $package_name = "${php::package_prefix}${php::params::pear_package_suffix}"
+      $package_name =
+        "${php::package_prefix}${php::params::pear_package_suffix}"
     }
   } else {
     $package_name = $package

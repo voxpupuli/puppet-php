@@ -21,7 +21,9 @@
 
 class php::packages (
   $ensure          = $php::ensure,
-  $names_to_prefix = prefix($php::params::common_package_suffixes, $php::package_prefix),
+  $names_to_prefix = prefix(
+    $php::params::common_package_suffixes, $php::package_prefix
+  ),
   $names           = $php::params::common_package_names,
 ) inherits php::params {
 
