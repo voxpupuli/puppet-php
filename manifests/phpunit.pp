@@ -40,7 +40,7 @@ class php::phpunit (
   validate_string($source)
   validate_absolute_path($path)
   validate_bool($auto_update)
-  validate_re("${max_age}", '^\d+$')
+  validate_re("x${max_age}", '^x\d+$')
 
   exec { 'download phpunit':
     command => "wget ${source} -O ${path}",
