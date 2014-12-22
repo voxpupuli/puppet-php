@@ -8,4 +8,8 @@ env:
   - PUPPET_VERSION=3.4.3
   - PUPPET_VERSION=3.6.2
   - PUPPET_VERSION=3.7.3
-
+notifications:
+  webhooks:
+    urls:
+      - http://hubert.mayflower.de/hubot/travisci/devops
+    on_start: true
