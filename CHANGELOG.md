@@ -1,9 +1,20 @@
 # Changelog
 
 ## 3.0.0
- * Removed `$php::fpm::pool::error_log`. Use the `php_admin_flag` and
+ * Removes `$php::fpm::pool::error_log`. Use the `php_admin_flag` and
    `php_admin_value` parameters to set the php settings `log_errors` and
    `error_log` instead.
+ * Removes support for PHP 5.3 on Debian-based systems. See the notes in the
+   README for more information.
+ * Removes the `php_version` fact which had only worked on the later puppet runs.
+ * Moves CLI-package handling to `php::packages`
+ * Allows changing the package prefix via `php::package_prefix`.
+ * Moves FPM-package handling from `php::fpm::package` to `php::fpm`
+ * Changes `php::packages`, so that `php::packages::packages` becomes
+   `php::packages::names` and are installed and `php::packages::names_to_prefix`
+   are installed prefixed by `php::package_prefix`.
+ * PHPUnit is now installed as phar in the same way composer is installed, causing all
+   parameters to change
 
 ## 2.0.4
  * Style fixes all over the place
