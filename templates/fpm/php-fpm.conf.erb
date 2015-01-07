@@ -22,7 +22,7 @@
 ; Pid file
 ; Note: the default prefix is /var
 ; Default Value: none
-<% if @operatingsystem != "CentOS" %>
+<% if @osfamily != "RedHat" %>
 pid = /var/run/php5-fpm.pid
 <% else %>
 pid = /var/run/php-fpm/php-fpm.pid
@@ -33,7 +33,7 @@ pid = /var/run/php-fpm/php-fpm.pid
 ; in a local file.
 ; Note: the default prefix is /var
 ; Default Value: log/php-fpm.log
-<% if @operatingsystem != "CentOS" %>
+<% if @osfamily != "RedHat" %>
 error_log = /var/log/php5-fpm.log
 <% else %>
 error_log = /var/log/php-fpm/error.log
