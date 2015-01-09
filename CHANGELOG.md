@@ -13,8 +13,10 @@
  * Changes `php::packages`, so that `php::packages::packages` becomes
    `php::packages::names` and are installed and `php::packages::names_to_prefix`
    are installed prefixed by `php::package_prefix`.
- * PHPUnit is now installed as phar in the same way composer is installed, causing all
-   parameters to change
+ * PHPUnit is now installed as phar in the same way composer is installed,
+   causing all parameters to change
+ * The `php::extension` resource has a new parameter: `zend`. If set to true,
+   exenstions that were installed with pecl are loaded with `zend_extension`.
 
 ## 2.0.4
  * Style fixes all over the place
