@@ -25,6 +25,15 @@ describe 'php::extension' do
     }
   end
 
+  context 'non-pecl extensions cannot be configured as zend' do
+    let(:title) { 'xdebug' }
+    let(:params) {{
+      :zend => true,
+    }}
+
+    it { expect { should raise_error(Puppet::Error) }}
+  end
+
   context 'pecl installation' do
     let(:title) { 'json' }
     let(:params) {{
@@ -46,6 +55,22 @@ describe 'php::extension' do
           'extension' => 'nice_name.so',
           'test'      => 'foo'
         },
+      })
+    }
+  end
+
+  context 'pecl extensions can be configured as zend' do
+    let(:title) { 'xdebug' }
+    let(:params) {{
+      :provider => 'pecl',
+      :zend     => true
+    }}
+
+    it {
+      should contain_php__config('xdebug').with({
+        :config => {
+          'zend_extension' => 'xdebug.so'
+        }
       })
     }
   end
