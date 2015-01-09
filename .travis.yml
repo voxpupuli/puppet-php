@@ -11,5 +11,5 @@ env:
 notifications:
   webhooks:
     urls:
-      - http://hubert.mayflower.de/hubot/travisci/devops
+      - http://travis-notify.mayflower.de/opensource
     on_start: true
