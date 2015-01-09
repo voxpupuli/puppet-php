@@ -20,8 +20,12 @@
 #   The pecl source channel to install pecl package from
 #
 # [*header_packages*]
-#   system packages dependecies to install for extensions (e.g. for
+#   System packages dependecies to install for extensions (e.g. for
 #   memcached libmemcached-dev on debian)
+#
+# [*zend*]
+#  Boolean parameter, whether to load extension as zend_extension.
+#  This can only be set for pecl modules. Defaults to false.
 #
 # [*settings*]
 #   Nested hash of global config parameters for php.ini
@@ -43,6 +47,7 @@ define php::extension(
   $package_prefix    = $php::package_prefix,
   $header_packages   = [],
   $compiler_packages = $php::params::compiler_packages,
+  $zend              = false,
   $settings          = {},
 ) {
 
@@ -53,6 +58,7 @@ define php::extension(
   validate_string($ensure)
   validate_string($package_prefix)
   validate_array($header_packages)
+  validate_bool($zend)
 
   if $provider != 'none' {
     if $provider == 'pecl' {
@@ -87,9 +93,18 @@ define php::extension(
     }
   }
 
+  if $provider != 'pecl' and $zend {
+    fail('You can only use the zend parameter for pecl PHP extensions!')
+  }
+
+  $extension_key = $zend ? {
+    true  => 'zend_extension',
+    false => 'extension',
+  }
+
   $lowercase_title = downcase($title)
   $real_settings = $provider ? {
-    'pecl'  => deep_merge({'extension' => "${name}.so"}, $settings),
+    'pecl'  => deep_merge({ "${extension_key}" => "${name}.so" }, $settings),
     default => $settings
   }
   $php_settings_file = "${php::params::config_root_ini}/${lowercase_title}.ini"
