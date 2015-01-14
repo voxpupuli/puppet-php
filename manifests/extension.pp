@@ -62,7 +62,7 @@ define php::extension(
 
   if $provider != 'none' {
     $real_package = $provider ? {
-      'pecl'  => $title,
+      'pecl'  => "pecl-${title}",
       default => "${package_prefix}${title}",
     }
 
@@ -72,6 +72,7 @@ define php::extension(
     if $provider == 'pecl' {
       package { $real_package:
         ensure   => $ensure,
+        name     => $title,
         provider => $provider,
         source   => $pecl_source,
         require  => [
