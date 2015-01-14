@@ -78,10 +78,6 @@ Puppet::Type.type(:package).provide :pecl, :parent => Puppet::Provider::Package 
     end
   end
 
-  def name
-    super.sub('pecl-', '')
-  end
-
   def install(useversion = true)
     command = ["upgrade"]
 

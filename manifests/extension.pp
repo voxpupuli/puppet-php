@@ -61,11 +61,9 @@ define php::extension(
   validate_bool($zend)
 
   if $provider != 'none' {
-    if $provider == 'pecl' {
-      $real_package = "pecl-${title}"
-    }
-    else {
-      $real_package = "${package_prefix}${title}"
+    $real_package = $provider ? {
+      'pecl'  => $title,
+      default => "${package_prefix}${title}",
     }
 
     ensure_resource('package', $header_packages)
