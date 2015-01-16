@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.0.1
+ * Fix typo in package suffix for php-fpm on RHEL in params.pp
+
 ## 3.0.0
  * Removes `$php::fpm::pool::error_log`. Use the `php_admin_flag` and
    `php_admin_value` parameters to set the php settings `log_errors` and
