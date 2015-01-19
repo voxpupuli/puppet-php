@@ -67,7 +67,7 @@ define php::extension(
     }
 
     ensure_resource('package', $header_packages)
-    Package[$header_packages] -> Package[$real_package]
+    Package[$header_packages] -> Package[$real_package] -> Php::Config[$title]
 
     if $provider == 'pecl' {
       package { $real_package:
@@ -78,7 +78,7 @@ define php::extension(
         require  => [
           Class['php::pear'],
           Class['php::dev'],
-        ]
+        ],
       }
 
       ensure_resource('package', $compiler_packages)
@@ -87,7 +87,7 @@ define php::extension(
     else {
       package { $real_package:
         ensure   => $ensure,
-        provider => $provider;
+        provider => $provider,
       }
     }
   }
