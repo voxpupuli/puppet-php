@@ -44,12 +44,13 @@
 # See LICENSE file
 #
 class php (
-  $ensure         = 'latest',
+  $ensure         = $php::params::ensure,
   $manage_repos   = $php::params::manage_repos,
   $fpm            = true,
   $dev            = true,
   $composer       = true,
   $pear           = true,
+  $pear_ensure    = $php::params::pear_ensure,
   $phpunit        = false,
   $extensions     = {},
   $settings       = {},
@@ -62,6 +63,7 @@ class php (
   validate_bool($dev)
   validate_bool($composer)
   validate_bool($pear)
+  validate_string($pear_ensure)
   validate_bool($phpunit)
   validate_hash($extensions)
   validate_hash($settings)
@@ -97,7 +99,9 @@ class php (
   }
   if $pear {
     Anchor['php::begin'] ->
-      class { 'php::pear': } ->
+      class { 'php::pear':
+        ensure => $pear_ensure,
+      } ->
     Anchor['php::end']
   }
   if $phpunit {

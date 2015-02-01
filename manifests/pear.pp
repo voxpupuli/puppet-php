@@ -20,7 +20,7 @@
 # See LICENSE file
 #
 class php::pear (
-  $ensure  = $php::ensure,
+  $ensure  = $php::pear_ensure,
   $package = undef,
 ) inherits php::params {
 
