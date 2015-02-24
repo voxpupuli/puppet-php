@@ -73,12 +73,13 @@ class php::fpm::config(
   validate_hash($settings)
 
   $number_re = '^\d+$'
+  $interval_re = '^\d+[smhd]?$'
 
   validate_absolute_path($pool_base_dir)
   validate_string($log_level)
-  validate_re($emergency_restart_threshold, $number_re)
-  validate_re($emergency_restart_interval, $number_re)
-  validate_re($process_control_timeout, $number_re)
+  validate_re($emergency_restart_threshold, $interval_re)
+  validate_re($emergency_restart_interval, $interval_re)
+  validate_re($process_control_timeout, $interval_re)
   validate_string($log_owner)
   validate_string($log_group)
   validate_re($log_dir_mode, $number_re)
