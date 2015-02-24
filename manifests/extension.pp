@@ -16,8 +16,13 @@
 #   Could be "pecl", "apt", "dpkg" or any other OS package provider
 #   If set to "none", no package will be installed
 #
+# [*source*]
+#   The source to install the extension from. Possible values
+#   depend on the *provider* used
+#
 # [*pecl_source*]
 #   The pecl source channel to install pecl package from
+#   Superseded by *source*
 #
 # [*header_packages*]
 #   System packages dependecies to install for extensions (e.g. for
@@ -43,6 +48,7 @@
 define php::extension(
   $ensure            = 'installed',
   $provider          = undef,
+  $source            = undef,
   $pecl_source       = undef,
   $package_prefix    = $php::package_prefix,
   $header_packages   = [],
@@ -60,6 +66,17 @@ define php::extension(
   validate_array($header_packages)
   validate_bool($zend)
 
+  if $source and $pecl_source {
+    fail('Only one of $source and $pecl_source can be specified.')
+  }
+
+  if $source {
+    $real_source = $source
+  }
+  else {
+    $real_source = $pecl_source
+  }
+
   if $provider != 'none' {
     $real_package = $provider ? {
       'pecl'  => "pecl-${title}",
@@ -74,7 +91,7 @@ define php::extension(
         ensure   => $ensure,
         name     => $title,
         provider => $provider,
-        source   => $pecl_source,
+        source   => $real_source,
         require  => [
           Class['php::pear'],
           Class['php::dev'],
@@ -88,6 +105,7 @@ define php::extension(
       package { $real_package:
         ensure   => $ensure,
         provider => $provider,
+        source   => $real_source,
       }
     }
   }
