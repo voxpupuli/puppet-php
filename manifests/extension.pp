@@ -43,7 +43,7 @@
 define php::extension(
   $ensure            = 'installed',
   $provider          = undef,
-  $pecl_source       = undef,
+  $source            = undef,
   $package_prefix    = $php::package_prefix,
   $header_packages   = [],
   $compiler_packages = $php::params::compiler_packages,
@@ -74,7 +74,7 @@ define php::extension(
         ensure   => $ensure,
         name     => $title,
         provider => $provider,
-        source   => $pecl_source,
+        source   => $source,
         require  => [
           Class['php::pear'],
           Class['php::dev'],
@@ -88,6 +88,7 @@ define php::extension(
       package { $real_package:
         ensure   => $ensure,
         provider => $provider,
+        source   => $source,
       }
     }
   }
