@@ -21,6 +21,10 @@
 # [*pool_base_dir*]
 #   The folder that contains the php-fpm pool configs
 #
+# [*pool_purge*]
+#   Whether to purge pool config files not created
+#   by this module
+#
 # [*log_level*]
 #   The php-fpm log level
 #
@@ -58,6 +62,7 @@ class php::fpm::config(
   $inifile                     = $php::params::fpm_inifile,
   $settings                    = {},
   $pool_base_dir               = $php::params::fpm_pool_dir,
+  $pool_purge                  = false,
   $log_level                   = 'notice',
   $emergency_restart_threshold = '0',
   $emergency_restart_interval  = '0',
@@ -109,6 +114,13 @@ class php::fpm::config(
     owner  => root,
     group  => root,
     mode   => '0755',
+  }
+
+  if $pool_purge {
+    File[$pool_base_dir] {
+      purge   => true,
+      recurse => true,
+    }
   }
 
   php::config { 'fpm':
