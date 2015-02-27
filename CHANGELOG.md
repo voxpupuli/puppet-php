@@ -1,5 +1,23 @@
 # Changelog
 
+## 3.1.0
+ * New parameter `pool_purge` for `php::extension` to remove files not
+   managed by puppet from the pool directory.
+ * The `pecl_source` parameter for `php::extension` was renamend to
+   `source` because it is also useful for PEAR extensions.
+   `pecl_source` can still be used but is deprecated and will be
+   removed in the next major release.
+ * Parameters referring to time in `php::fpm::config` can now be
+   specified with units (i.e. `'60s'`, `'1d'`):
+   * `emergency_restart_threshold`
+   * `emergency_restart_interval`
+   * `process_control_timeout`
+ * The PEAR version is not independant of `$php::ensure` and can be
+   configured with `$php::pear_ensure`
+ * Give special thanks to the contributors of this release:
+   * Petr Sedlacek
+   * Sherlan Moriah
+
 ## 3.0.1
  * Fix typo in package suffix for php-fpm on RHEL in params.pp
 
