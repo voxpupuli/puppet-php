@@ -124,6 +124,7 @@ define php::fpm::pool (
   $php_admin_value = {},
   $php_admin_flag = {},
   $php_directives = [],
+  $root_group = $php::params::root_group,
 ) {
 
   include php::params
@@ -132,6 +133,13 @@ define php::fpm::pool (
 
   # Hack-ish to default to user for group too
   $group_final = $group ? { undef => $user, default => $group }
+
+  # On FreeBSD fpm is not a separate package, but included in the 'php' package.
+  # Implies that the option SET+=FPM was set when building the port.
+  $real_package = $::osfamily ? {
+    'FreeBSD' => [],
+    default   => $php::fpm::package,
+  }
 
   if ($ensure == 'absent') {
     file { "${php::params::fpm_pool_dir}/${pool}.conf":
@@ -142,10 +150,10 @@ define php::fpm::pool (
     file { "${php::params::fpm_pool_dir}/${pool}.conf":
       ensure  => file,
       notify  => Class['php::fpm::service'],
-      require => Package[$php::fpm::package],
+      require => Package[$real_package],
       content => template('php/fpm/pool.conf.erb'),
       owner   => root,
-      group   => root,
+      group   => $root_group,
       mode    => '0644'
     }
   }

@@ -22,10 +22,12 @@
 ; Pid file
 ; Note: the default prefix is /var
 ; Default Value: none
-<% if @osfamily != "RedHat" %>
-pid = /var/run/php5-fpm.pid
-<% else %>
+<% if @osfamily == "FreeBSD" %>
+pid = /var/run/php-fpm.pid
+<% elsif @osfamily == "RedHat" %>
 pid = /var/run/php-fpm/php-fpm.pid
+<% else %>
+pid = /var/run/php5-fpm.pid
 <% end %>
 
 ; Error log file
@@ -33,10 +35,12 @@ pid = /var/run/php-fpm/php-fpm.pid
 ; in a local file.
 ; Note: the default prefix is /var
 ; Default Value: log/php-fpm.log
-<% if @osfamily != "RedHat" %>
-error_log = /var/log/php5-fpm.log
-<% else %>
+<% if @osfamily == "FreeBSD" %>
+error_log = /var/log/php-fpm.log
+<% elsif @osfamily == "RedHat" %>
 error_log = /var/log/php-fpm/error.log
+<% else %>
+error_log = /var/log/php5-fpm.log
 <% end %>
 
 ; syslog_facility is used to specify what type of program is logging the

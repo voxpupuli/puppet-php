@@ -30,11 +30,13 @@ class php::phpunit (
   validate_bool($auto_update)
   validate_re("x${max_age}", '^x\d+$')
 
+  ensure_packages(['wget'])
+
   exec { 'download phpunit':
     command => "wget ${source} -O ${path}",
     creates => $path,
     path    => ['/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/'],
-    require => Class['php::cli'],
+    require => [Class['php::cli'],Package['wget']],
   } ->
   file { $path:
     mode  => '0555',

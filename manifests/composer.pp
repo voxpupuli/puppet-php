@@ -19,6 +19,7 @@ class php::composer (
   $path        = $php::params::composer_path,
   $auto_update = true,
   $max_age     = $php::params::composer_max_age,
+  $root_group  = $php::params::root_group,
 ) inherits php::params {
 
   if $caller_module_name != $module_name {
@@ -30,16 +31,19 @@ class php::composer (
   validate_bool($auto_update)
   validate_re("x${max_age}", '^x\d+$')
 
+  ensure_packages(['wget'])
+
   exec { 'download composer':
     command => "wget ${source} -O ${path}",
     creates => $path,
-    path    => ['/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/'],
-    require => Class['php::cli'],
+    path    => ['/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/',
+                '/usr/local/bin', '/usr/local/sbin'],
+    require => [Class['php::cli'],Package['wget']],
   } ->
   file { $path:
     mode  => '0555',
     owner => root,
-    group => root,
+    group => $root_group,
   }
 
   if $auto_update {

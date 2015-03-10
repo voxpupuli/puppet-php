@@ -13,7 +13,6 @@ class php::dev(
   $package = "${php::package_prefix}${php::params::dev_package_suffix}",
 ) inherits php::params {
 
-
   if $caller_module_name != $module_name {
     warning('php::dev is private')
   }
@@ -21,7 +20,13 @@ class php::dev(
   validate_string($ensure)
   validate_string($package)
 
-  package { $package:
+  # On FreeBSD there is no 'devel' package.
+  $real_package = $::osfamily ? {
+    'FreeBSD' => [],
+    default   => $package,
+  }
+
+  package { $real_package:
     ensure  => $ensure,
     require => Class['php::packages'],
   }
