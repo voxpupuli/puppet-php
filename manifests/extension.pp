@@ -134,16 +134,32 @@ define php::extension(
   # Ubuntu/Debian systems use the mods-available folder. We need to enable
   # settings files ourselves with php5enmod command.
   if $::osfamily == 'Debian' {
-    $cmd = "/usr/sbin/php5enmod ${lowercase_title}"
+    if versioncmp($::php_version, '5.4') >= 0 {
+      $cmd = "/usr/sbin/php5enmod ${lowercase_title}"
 
-    exec { $cmd:
-      refreshonly => true,
-    }
+      exec { $cmd:
+        refreshonly => true,
+      }
 
-    Php::Config[$title] ~> Exec[$cmd]
+      Php::Config[$title] ~> Exec[$cmd]
 
-    if $php::fpm {
-      Package[$php::fpm::package] ~> Exec[$cmd]
+      if $php::fpm {
+        Package[$php::fpm::package] ~> Exec[$cmd]
+      }
+    } else {
+      $config_root = $php::params::config_root
+      $symlinks = ["${config_root}/cli/conf.d/20-${lowercase_title}.ini"]
+      $real_symlinks = concat($symlinks, $php::fpm ? {
+        true    => ["${config_root}/fpm/conf.d/20-${lowercase_title}.ini"],
+        default => [],
+      })
+
+      file { $real_symlinks:
+        ensure => link,
+        target => $php_settings_file
+      }
+        
+      Php::Config[$title] ~> File[$real_symlinks]
     }
   }
 }
