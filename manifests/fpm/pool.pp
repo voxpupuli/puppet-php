@@ -128,10 +128,6 @@ define php::fpm::pool (
 
   include php::params
 
-  if $caller_module_name != $module_name {
-    warning('php::fpm::pool is private')
-  }
-
   $pool = $title
 
   # Hack-ish to default to user for group too
