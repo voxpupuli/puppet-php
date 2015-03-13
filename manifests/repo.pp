@@ -1,14 +1,4 @@
-# == Class: php::repo
-#
 # Configure package repository
-#
-# === Authors
-#
-# Robin Gloster <robin.gloster@mayflower.de>
-#
-# === Copyright
-#
-# See LICENSE file
 #
 class php::repo {
 

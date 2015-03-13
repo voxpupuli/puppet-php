@@ -1,5 +1,3 @@
-# == Class: php::config
-#
 # Configure php.ini settings for a PHP SAPI
 #
 # === Parameters
@@ -12,20 +10,12 @@
 #
 # === Examples
 #
-# php::config { '$unique-name':
-#   file  => '$full_path_to_ini_file'
-#   config => {
-#     {'Date/date.timezone' => 'Europe/Berlin'}
+#   php::config { '$unique-name':
+#     file  => '$full_path_to_ini_file'
+#     config => {
+#       {'Date/date.timezone' => 'Europe/Berlin'}
+#     }
 #   }
-# }
-#
-# === Authors
-#
-# Robin Gloster <robin.gloster@mayflower.de>
-#
-# === Copyright
-#
-# See LICENSE file
 #
 define php::config(
   $file,

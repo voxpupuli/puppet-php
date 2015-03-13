@@ -1,5 +1,3 @@
-# == Class: php::apache
-#
 # Configures an apache vhost for php
 #
 # === Parameters
@@ -18,15 +16,6 @@
 #
 # [*fastcgi_socket*]
 #   address of the fastcgi socket
-#
-# === Authors
-#
-# Christian "Jippi" Winther <jippignu@gmail.com>
-# Robin Gloster <robin.gloster@mayflower.de>
-#
-# === Copyright
-#
-# See LICENSE file
 #
 define php::apache_vhost(
   $vhost          = 'example.com',

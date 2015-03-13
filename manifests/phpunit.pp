@@ -1,30 +1,18 @@
-# == Class: php::phpunit
-#
 # Install phpunit, PHP testing framework
 #
 # === Parameters
 #
 # [*source*]
-# Holds URL to the phpunit source file
+#   Holds URL to the phpunit source file
 #
 # [*path*]
-# Holds path to the phpunit executable
+#   Holds path to the phpunit executable
 #
 # [*auto_update*]
-# defines if phpunit should be auto updated
+#   Defines if phpunit should be auto updated
 #
 # [*max_age*]
-# defines the time in days after which an auto-update gets executed
-#
-# === Authors
-#
-# Christian "Jippi" Winther <jippignu@gmail.com>
-# Tobias Nyholm <tobias@happyrecruiting.se>
-# Robin Gloster <robin.gloster@mayflower.de>
-#
-# === Copyright
-#
-# See LICENSE file
+#   Defines the time in days after which an auto-update gets executed
 #
 class php::phpunit (
   $source      = $php::params::phpunit_source,

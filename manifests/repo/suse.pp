@@ -1,5 +1,3 @@
-# == Class: php::repo::suse
-#
 # Configure suse repo
 #
 # === Parameters
@@ -9,14 +7,6 @@
 #
 # [*baseurl*]
 #   Base URL of the Zypper repository
-#
-# === Authors
-#
-# Robin Gloster <robin.gloster@mayflower.de>
-#
-# === Copyright
-#
-# See LICENSE file
 #
 class php::repo::suse (
   $reponame = 'mayflower-php55',

@@ -1,17 +1,15 @@
-# == Class: php::composer::auto_update
-#
 # Install composer package manager
 #
 # === Parameters
 #
 # [*max_age*]
-# Defines number of days after which Composer should be updated
+#   Defines number of days after which Composer should be updated
 #
 # [*source*]
-# Holds URL to the Composer source file
+#   Holds URL to the Composer source file
 #
 # [*path*]
-# Holds path to the Composer executable
+#   Holds path to the Composer executable
 #
 # === Examples
 #
@@ -19,15 +17,6 @@
 #  class { "php::composer::auto_update":
 #    "max_age" => 90
 #  }
-#
-# === Authors
-#
-# Christian "Jippi" Winther <jippignu@gmail.com>
-# Robin Gloster <robin.gloster@mayflower.de>
-#
-# === Copyright
-#
-# See LICENSE file
 #
 class php::composer::auto_update (
   $max_age,

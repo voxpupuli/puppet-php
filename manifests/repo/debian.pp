@@ -1,32 +1,21 @@
-# == Class: php::repo::debian
-#
 # Configure debian apt repo
 #
 # === Parameters
 #
 # [*location*]
-#   location of the apt repository
+#   Location of the apt repository
 #
 # [*release*]
-#   release of the apt repository
+#   Release of the apt repository
 #
 # [*repos*]
-#   apt repository names
+#   Apt repository names
 #
 # [*include_src*]
-#   add source source repository
+#   Add source source repository
 #
 # [*dotdeb*]
-#   enable special dotdeb handling
-#
-# === Authors
-#
-# Christian "Jippi" Winther <jippignu@gmail.com>
-# Robin Gloster <robin.gloster@mayflower.de>
-#
-# === Copyright
-#
-# See LICENSE file
+#   Enable special dotdeb handling
 #
 class php::repo::debian(
   $location     = 'http://packages.dotdeb.org',
