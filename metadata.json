@@ -5,7 +5,7 @@
   "summary": "Puppet module to manage PHP",
   "license": "MIT",
   "source": "https://github.com/Mayflower/puppet-php",
-  "project_page": "https://github.com/Mayflower/puppet-php",
+  "project_page": "http://php.puppet.mayflower.de/",
   "issues_url": "https://github.com/Mayflower/puppet-php/issues",
   "description": "Puppet module that aims to manage PHP on every linux distribution with sane defaults and easy, hiera-friendly configuration",
   "dependencies": [

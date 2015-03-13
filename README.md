@@ -1,5 +1,6 @@
 # mayflower/php Puppet Module
 
+[![GitHub version](https://badge.fury.io/gh/Mayflower%2Fpuppet-php.svg)](https://github.com/Mayflower/puppet-php)
 [![Build Status](https://travis-ci.org/Mayflower/puppet-php.svg?branch=master)](https://travis-ci.org/Mayflower/puppet-php)
 
 mayflower/php is a Puppet module for managing PHP with a strong focus
@@ -37,7 +38,7 @@ php::composer::auto_update: true
 ```
 
 There are more configuration options available. Please refer to the
-documention in the manifests for a complete overview.
+auto-generated documention at http://php.puppet.mayflower.de/.
 
 ### Defining `php.ini` settings
 
