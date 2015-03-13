@@ -1,8 +1,7 @@
-# == Class: php::fpm::config
-#
-# Configure php-fpm
+# Configure php-fpm service
 #
 # === Parameters
+#
 # [*config_file*]
 #   The path to the fpm config file
 #
@@ -46,15 +45,6 @@
 # [*log_dir_mode*]
 #   The octal mode of the directory
 #
-# === Authors
-#
-# Christian "Jippi" Winther <jippignu@gmail.com>
-# Franz Pletz <franz.pletz@mayflower.de>
-#
-# === Copyright
-#
-# See LICENSE file
-
 class php::fpm::config(
   $config_file                 = $php::params::fpm_config_file,
   $user                        = $php::params::fpm_user,

@@ -1,5 +1,3 @@
-# == Class: php::extension
-#
 # Install a PHP extension package
 #
 # === Parameters
@@ -34,16 +32,6 @@
 #
 # [*settings*]
 #   Nested hash of global config parameters for php.ini
-#
-# === Authors
-#
-# Christian "Jippi" Winther <jippignu@gmail.com>
-# Robin Gloster <robin.gloster@mayflower.de>
-# Franz Pletz <franz.pletz@mayflower.de>
-#
-# === Copyright
-#
-# See LICENSE file
 #
 define php::extension(
   $ensure            = 'installed',

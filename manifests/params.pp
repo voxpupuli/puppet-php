@@ -1,15 +1,4 @@
-# == Class: php::params
-#
 # PHP params class
-#
-# === Authors
-#
-# Christian "Jippi" Winther <jippignu@gmail.com>
-# Robin Gloster <robin.gloster@mayflower.de>
-#
-# === Copyright
-#
-# See LICENSE file
 #
 class php::params {
 

@@ -1,5 +1,3 @@
-# == Class: php::pear
-#
 # Install PEAR package manager
 #
 # === Parameters
@@ -9,15 +7,6 @@
 #
 # [*package*]
 #   The package name for PHP pear
-#
-# === Authors
-#
-# Christian "Jippi" Winther <jippignu@gmail.com>
-# Robin Gloster <robin.gloster@mayflower.de>
-#
-# === Copyright
-#
-# See LICENSE file
 #
 class php::pear (
   $ensure  = $php::pear_ensure,

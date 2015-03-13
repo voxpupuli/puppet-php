@@ -1,8 +1,4 @@
-# == Class: php::dev
-#
-# PHP dev package
-#
-# Install the development headers for PHP
+# Install the development package with headers for PHP
 #
 # === Parameters
 #
@@ -11,15 +7,6 @@
 #
 # [*package*]
 #   The package name for the PHP development files
-#
-# === Authors
-#
-# Christian "Jippi" Winther <jippignu@gmail.com>
-# Robin Gloster <robin.gloster@mayflower.de>
-#
-# === Copyright
-#
-# See LICENSE file
 #
 class php::dev(
   $ensure  = $php::ensure,

@@ -1,5 +1,3 @@
-# == Class: php::packages
-#
 # Install common PHP packages
 #
 # === Parameters
@@ -10,15 +8,10 @@
 # [*names*]
 #   List of the names of the package to install
 #
-# === Authors
+# [*names_to_prefix*]
+#   List of packages names that should be prefixed with the common
+#   package prefix `$php::package_prefix`
 #
-# Franz Pletz <franz.pletz@mayflower.de>
-#
-# === Copyright
-#
-# See LICENSE file
-#
-
 class php::packages (
   $ensure          = $php::ensure,
   $names_to_prefix = prefix(

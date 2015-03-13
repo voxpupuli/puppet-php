@@ -1,6 +1,4 @@
-# == Class: php::fpm::service
-#
-# Configure fpm service
+# Mange fpm service
 #
 # === Parameters
 #
@@ -12,15 +10,6 @@
 #
 # [*enable*]
 #   Defines if the service is enabled
-#
-# === Authors
-#
-# Christian "Jippi" Winther <jippignu@gmail.com>
-# Robin Gloster <robin.gloster@mayflower.de>
-#
-# === Copyright
-#
-# See LICENSE file
 #
 class php::fpm::service(
   $service_name = $php::params::fpm_service_name,

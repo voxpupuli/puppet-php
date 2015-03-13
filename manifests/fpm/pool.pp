@@ -1,19 +1,8 @@
-# == Class: php::fpm::pool
-#
 # Configure fpm pools
 #
 # === Parameters
 #
-# No parameters
-#
-# === Authors
-#
-# Christian "Jippi" Winther <jippignu@gmail.com>
-# Robin Gloster <robin.gloster@mayflower.de>
-#
-# === Copyright
-#
-# See LICENSE file
+# FIXME
 #
 define php::fpm::pool (
   $ensure = 'present',

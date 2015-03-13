@@ -1,5 +1,3 @@
-# == Class: php::fpm
-#
 # Install and configure mod_php for fpm
 #
 # === Parameters
@@ -8,14 +6,7 @@
 #   Hash of php::fpm::pool resources that will be created. Defaults
 #   to a single php::fpm::pool named www with default parameters.
 #
-# === Authors
-#
-# Robin Gloster <robin.gloster@mayflower.de>
-# Franz Pletz <franz.pletz@mayflower.de>
-#
-# === Copyright
-#
-# See LICENSE file
+# FIXME
 #
 class php::fpm (
   $ensure   = $php::ensure,

@@ -1,6 +1,5 @@
-# == Class: php
-#
-# PHP base class
+# Base class with global configuration parameters that pulls in all
+# enabled components.
 #
 # === Parameters
 #
@@ -33,15 +32,6 @@
 #   This is the prefix for constructing names of php packages. This defaults
 #   to a sensible default depending on your operating system, like 'php-' or
 #   'php5-'.
-#
-# === Authors
-#
-# Robin Gloster <robin.gloster@mayflower.de>
-# Franz Pletz <franz.pletz@mayflower.de>
-#
-# === Copyright
-#
-# See LICENSE file
 #
 class php (
   $ensure         = $php::params::ensure,

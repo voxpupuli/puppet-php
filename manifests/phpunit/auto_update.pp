@@ -1,33 +1,15 @@
-# == Class: php::phpunit::auto_update
-#
 # Install phpunit package manager
 #
 # === Parameters
 #
 # [*max_age*]
-# Defines number of days after which phpunit should be updated
+#   Defines number of days after which phpunit should be updated
 #
 # [*source*]
-# Holds URL to the phpunit source file
+#   Holds URL to the phpunit source file
 #
 # [*path*]
-# Holds path to the phpunit executable
-#
-# === Examples
-#
-#  include php::phpunit::auto_update
-#  class { "php::phpunit::auto_update":
-#    "max_age" => 90
-#  }
-#
-# === Authors
-#
-# Christian "Jippi" Winther <jippignu@gmail.com>
-# Robin Gloster <robin.gloster@mayflower.de>
-#
-# === Copyright
-#
-# See LICENSE file
+#   Holds path to the phpunit executable
 #
 class php::phpunit::auto_update (
   $max_age,

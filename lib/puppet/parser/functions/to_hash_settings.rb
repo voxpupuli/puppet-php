@@ -1,16 +1,17 @@
 
 module Puppet::Parser::Functions
   newfunction(:to_hash_settings, :type => :rvalue, :doc => <<-EOS
-This function converts a {key => value} hash into a nested hash and adds an id to the outer key.
+This function converts a +{key => value}+ hash into a nested hash and adds an id to the outer key.
 
 *Examples:*
 
-to_hash_settings({'a' => 1, 'b' => 2})
+  to_hash_settings({'a' => 1, 'b' => 2})
 
-Would return: {
-  'a' => {'value' => 1},
-  'b' => {'value' => 2}
-}
+Would return:
+  {
+    'a' => {'value' => 1},
+    'b' => {'value' => 2}
+  }
 EOS
   ) do |arguments|
 

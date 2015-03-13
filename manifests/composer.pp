@@ -1,29 +1,18 @@
-# == Class: php::composer
-#
 # Install composer package manager
 #
 # === Parameters
 #
 # [*source*]
-# Holds URL to the Composer source file
+#   Holds URL to the Composer source file
 #
 # [*path*]
-# Holds path to the Composer executable
+#   Holds path to the Composer executable
 #
 # [*auto_update*]
-# defines if composer should be auto updated
+#   Defines if composer should be auto updated
 #
 # [*max_age*]
-# defines the time in days after which an auto-update gets executed
-#
-# === Authors
-#
-# Christian "Jippi" Winther <jippignu@gmail.com>
-# Robin Gloster <robin.gloster@mayflower.de>
-#
-# === Copyright
-#
-# See LICENSE file
+#   Defines the time in days after which an auto-update gets executed
 #
 class php::composer (
   $source      = $php::params::composer_source,
