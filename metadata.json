@@ -9,7 +9,7 @@
   "issues_url": "https://github.com/Mayflower/puppet-php/issues",
   "description": "Puppet module that aims to manage PHP on every linux distribution with sane defaults and easy, hiera-friendly configuration",
   "dependencies": [
-    { "name": "puppetlabs/stdlib", "version_requirement": "4.x" },
+    { "name": "puppetlabs/stdlib", "version_requirement": ">= 4.2.0 < 5.0.0" },
     { "name": "puppetlabs/apt", "version_requirement": "1.x" },
     { "name": "puppetlabs/inifile", "version_requirement": "1.x" },
     { "name": "darin/zypprepo", "version_requirement": "1.x" },
