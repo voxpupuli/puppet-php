@@ -10,6 +10,7 @@ group :development, :test do
   gem 'beaker', :github => 'Mayflower/beaker', :branch => 'master'
   gem 'beaker-rspec'
   gem 'pry'
+  gem 'yard'
 end
 
 if facterversion = ENV['FACTER_GEM_VERSION']
