@@ -14,7 +14,7 @@ This originally was a fork of [jippi/puppet-php](https://github.com/jippi/puppet
 ## Usage
 
 The module aims to use sane defaults for the supported architectures. You
-must use hiera to configure most aspects of this module.
+must use hiera to configure most aspects of this module in a simple way.
 
 The recommended way is to include the `php` main class in your manifests:
 
@@ -65,7 +65,7 @@ php::fpm::settings:
 ### Installing extensions
 
 Extensions can be installed and configured by defining the hash
-`php::extensions` in hiera. They are activated for all activated components.
+`php::extensions` in hiera. They are activated for all activated SAPIs.
 
 ```
 php::extensions:
