@@ -1,7 +1,7 @@
 # mayflower/php Puppet Module
 
-[![GitHub version](https://badge.fury.io/gh/Mayflower%2Fpuppet-php.svg)](https://github.com/Mayflower/puppet-php)
-[![Build Status](https://travis-ci.org/Mayflower/puppet-php.svg?branch=master)](https://travis-ci.org/Mayflower/puppet-php)
+[![GitHub version](https://badge.fury.io/gh/mayflower%2Fpuppet-php.svg)](https://github.com/mayflower/puppet-php)
+[![Build Status](https://travis-ci.org/mayflower/puppet-php.svg?branch=master)](https://travis-ci.org/mayflower/puppet-php)
 
 mayflower/php is a Puppet module for managing PHP with a strong focus
 on php-fpm. We strive to support all recent versions of Debian, Ubuntu,
@@ -130,7 +130,7 @@ a big fat warning into this README to let you know.
 The project is released under the permissive MIT license.
 
 The source can be found at
-[github.com/Mayflower/puppet-php](https://github.com/Mayflower/puppet-php/).
+[github.com/Mayflower/puppet-php](https://github.com/mayflower/puppet-php/).
 
 This Puppet module is being actively maintained by some fellow puppeteers at
 Mayflower GmbH.
