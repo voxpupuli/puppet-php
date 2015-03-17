@@ -24,6 +24,6 @@ class php::cli(
 
   php::config { 'cli':
     file   => $inifile,
-    config => $real_settings
+    config => $real_settings,
   }
 }

@@ -59,44 +59,44 @@ class php (
   validate_hash($settings)
 
   if $manage_repos {
-    class { 'php::repo': } ->
+    class { '::php::repo': } ->
     Anchor['php::begin']
   }
 
   anchor { 'php::begin': } ->
-    class { 'php::packages': } ->
-    class { 'php::cli':
-      settings => $settings
+    class { '::php::packages': } ->
+    class { '::php::cli':
+      settings => $settings,
     } ->
   anchor { 'php::end': }
 
   if $fpm {
     Anchor['php::begin'] ->
-      class { 'php::fpm':
-        settings => $settings
+      class { '::php::fpm':
+        settings => $settings,
       } ->
     Anchor['php::end']
   }
   if $dev {
     Anchor['php::begin'] ->
-      class { 'php::dev': } ->
+      class { '::php::dev': } ->
     Anchor['php::end']
   }
   if $composer {
     Anchor['php::begin'] ->
-      class { 'php::composer': } ->
+      class { '::php::composer': } ->
     Anchor['php::end']
   }
   if $pear {
     Anchor['php::begin'] ->
-      class { 'php::pear':
+      class { '::php::pear':
         ensure => $pear_ensure,
       } ->
     Anchor['php::end']
   }
   if $phpunit {
     Anchor['php::begin'] ->
-      class { 'php::phpunit': } ->
+      class { '::php::phpunit': } ->
     Anchor['php::end']
   }
 

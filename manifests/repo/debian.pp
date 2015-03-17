@@ -35,7 +35,7 @@ class php::repo::debian(
     location    => $location,
     release     => $release,
     repos       => $repos,
-    include_src => $include_src
+    include_src => $include_src,
   }
 
   if ($dotdeb) {
@@ -46,7 +46,7 @@ class php::repo::debian(
         location    => $location,
         release     => 'wheezy',
         repos       => $repos,
-        include_src => $include_src
+        include_src => $include_src,
       }
     }
 

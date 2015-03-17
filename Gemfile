@@ -5,12 +5,21 @@ group :development, :test do
   gem 'rspec'
   gem 'rspec-puppet'
   gem 'puppetlabs_spec_helper'
-  gem 'puppet-lint'
   gem 'puppet-module'
   gem 'beaker', :github => 'Mayflower/beaker', :branch => 'master'
   gem 'beaker-rspec'
   gem 'pry'
   gem 'yard'
+  gem 'puppet-lint'
+  gem 'puppet-lint-unquoted_string-check'
+  gem 'puppet-lint-empty_string-check'
+  gem 'puppet-lint-variable_contains_upcase'
+  gem 'puppet-lint-absolute_classname-check'
+  gem 'puppet-lint-undef_in_function-check'
+  gem 'puppet-lint-leading_zero-check'
+  gem 'puppet-lint-trailing_comma-check'
+  gem 'puppet-lint-file_ensure-check'
+  gem 'metadata-json-lint'
 end
 
 if facterversion = ENV['FACTER_GEM_VERSION']

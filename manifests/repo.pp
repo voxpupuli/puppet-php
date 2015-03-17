@@ -11,10 +11,10 @@ class php::repo {
       # no anchors here because apt does that already
       case $::operatingsystem {
         'Debian': {
-          include php::repo::debian
+          include ::php::repo::debian
         }
         'Ubuntu': {
-          include php::repo::ubuntu
+          include ::php::repo::ubuntu
         }
         default: {
           fail($msg_no_repo)
@@ -22,7 +22,7 @@ class php::repo {
       }
     }
     'Suse': {
-      include php::repo::suse
+      include ::php::repo::suse
 
       Class['php::repo::suse'] ->
       Anchor['php::repo']

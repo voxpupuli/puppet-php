@@ -32,7 +32,7 @@ define php::config::setting(
 
   $split_name = split($key, '/')
   if count($split_name) == 1 {
-    $section = ''
+    $section = '' # lint:ignore:empty_string_assignment
     $setting = $split_name[0]
   } else {
     $section = $split_name[0]
@@ -43,6 +43,6 @@ define php::config::setting(
     value   => $value,
     path    => $file,
     section => $section,
-    setting => $setting
+    setting => $setting,
   }
 }

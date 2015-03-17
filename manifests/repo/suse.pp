@@ -15,7 +15,7 @@ class php::repo::suse (
   zypprepo { $reponame:
     baseurl     => $baseurl,
     enabled     => 1,
-    autorefresh => 1
+    autorefresh => 1,
   } ~>
   exec { 'zypprepo-accept-key':
     command     => 'zypper --gpg-auto-import-keys update -y',

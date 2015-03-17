@@ -1,3 +1,4 @@
+sudo: false
 language: ruby
 rvm:
 - 2.1.5
@@ -8,6 +9,7 @@ env:
   - PUPPET_VERSION=3.4.3
   - PUPPET_VERSION=3.6.2
   - PUPPET_VERSION=3.7.3
+  - PUPPET_VERSION=3.7.3 FUTURE_PARSER=yes TRUSTED_NODE_DATA=yes
   global:
   - secure: Zc0V6JqwpFTTtVE7jVFg5R6UgXZrzsBGa6ckbOnIHPCOyJsV4oWO6RxKsYI+ozzD9nrEdrT/DTcHKRz84YqrMXxvBU9HA4S/ZrNQoRiH3bEnI3UHC6jQJRX0c71gaJEMQ3S33my39vLD7EsealX3p+j8asL8e8glYR1am9ekUB8=
 matrix:

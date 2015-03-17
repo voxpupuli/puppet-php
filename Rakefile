@@ -11,7 +11,11 @@ end
 PuppetLint.configuration.relative = true
 PuppetLint.configuration.send('disable_class_inherits_from_params_class')
 
-task :default => [:spec, :lint]
+task :default => [:metadata, :lint, :spec]
+
+task :metadata do
+  sh 'metadata-json-lint metadata.json'
+end
 
 namespace :spec do
   task :acceptance do

@@ -45,10 +45,10 @@ class php::phpunit (
   }
 
   if $auto_update {
-    class { 'php::phpunit::auto_update':
+    class { '::php::phpunit::auto_update':
       max_age => $max_age,
       source  => $source,
-      path    => $path
+      path    => $path,
     }
   }
 }

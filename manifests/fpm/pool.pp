@@ -127,7 +127,7 @@ define php::fpm::pool (
   $root_group = $php::params::root_group,
 ) {
 
-  include php::params
+  include ::php::params
 
   $pool = $title
 
@@ -154,7 +154,7 @@ define php::fpm::pool (
       content => template('php/fpm/pool.conf.erb'),
       owner   => root,
       group   => $root_group,
-      mode    => '0644'
+      mode    => '0644',
     }
   }
 }
