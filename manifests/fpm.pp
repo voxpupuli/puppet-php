@@ -28,8 +28,15 @@ class php::fpm (
 
   $real_settings = deep_merge($settings, hiera_hash('php::fpm::settings', {}))
 
+  # On FreeBSD fpm is not a separate package, but included in the 'php' package.
+  # Implies that the option SET+=FPM was set when building the port.
+  $real_package = $::osfamily ? {
+    'FreeBSD' => [],
+    default   => $package,
+  }
+
   anchor { 'php::fpm::begin': } ->
-    package { $package:
+    package { $real_package:
       ensure  => $ensure,
       require => Class['php::packages'],
     } ->

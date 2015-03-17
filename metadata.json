@@ -24,6 +24,7 @@
     { "operatingsystem": "Debian" },
     { "operatingsystem": "RedHat" },
     { "operatingsystem": "CentOS" },
+    { "operatingsystem": "FreeBSD" },
     { "operatingsystem": "SLES" }
   ]
 }

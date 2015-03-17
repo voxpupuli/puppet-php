@@ -111,4 +111,14 @@ class php (
     require => Class['php::cli'],
     before  => Anchor['php::end']
   })
+
+  # On FreeBSD purge the system-wide extensions.ini. It is going
+  # to be replaced with per-module configuration files.
+  if $::osfamily == 'FreeBSD' {
+    # Purge the system-wide extensions.ini
+    file { '/usr/local/etc/php/extensions.ini':
+      ensure  => absent,
+      require => Class['php::packages'],
+    }
+  }
 }

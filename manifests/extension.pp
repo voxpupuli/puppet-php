@@ -23,7 +23,7 @@
 #   Superseded by *source*
 #
 # [*header_packages*]
-#   System packages dependecies to install for extensions (e.g. for
+#   System packages dependencies to install for extensions (e.g. for
 #   memcached libmemcached-dev on debian)
 #
 # [*zend*]
@@ -108,10 +108,21 @@ define php::extension(
   }
 
   $lowercase_title = downcase($title)
-  $real_settings = $provider ? {
-    'pecl'  => deep_merge({ "${extension_key}" => "${name}.so" }, $settings),
-    default => $settings
+
+  if $provider == 'pecl' {
+    $real_settings = deep_merge({"${extension_key}"=>"${name}.so"},$settings)
   }
+  else {
+    # On FreeBSD systems the settings file is required for every module
+    # (regardless of provider) to allow for proper module management.
+    if $::osfamily == 'FreeBSD' {
+      $real_settings = deep_merge({"${extension_key}"=>"${name}.so"},$settings)
+    }
+    else {
+      $real_settings = $settings
+    }
+  }
+
   $php_settings_file = "${php::params::config_root_ini}/${lowercase_title}.ini"
 
   php::config { $title:

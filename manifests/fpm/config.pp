@@ -60,6 +60,7 @@ class php::fpm::config(
   $log_owner                   = $php::params::fpm_user,
   $log_group                   = $php::params::fpm_group,
   $log_dir_mode                = '0770',
+  $root_group                  = $php::params::root_group,
 ) inherits php::params {
 
   validate_string($user)
@@ -95,14 +96,14 @@ class php::fpm::config(
     notify  => Class['php::fpm::service'],
     content => template('php/fpm/php-fpm.conf.erb'),
     owner   => root,
-    group   => root,
+    group   => $root_group,
     mode    => '0644',
   }
 
   file { $pool_base_dir:
     ensure => directory,
     owner  => root,
-    group  => root,
+    group  => $root_group,
     mode   => '0755',
   }
 

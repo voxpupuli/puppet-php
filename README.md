@@ -5,8 +5,8 @@
 
 mayflower/php is a Puppet module for managing PHP with a strong focus
 on php-fpm. We strive to support all recent versions of Debian, Ubuntu,
-RedHat/CentOS and openSuSE/SLES. Managing Apache with `mod_php` is not
-supported.
+RedHat/CentOS, openSUSE/SLES and FreeBSD. Managing Apache with `mod_php`
+is not supported.
 
 This originally was a fork of [jippi/puppet-php](https://github.com/jippi/puppet-php)
 (nodes-php on Puppet Forge) but has since been rewritten in large parts.
@@ -106,6 +106,14 @@ Apache with `mod_php` is not supported by this module. Please use
 We prefer using php-fpm. You can find an example Apache vhost in
 `manifests/apache_vhost.pp` that shows you how to use `mod_proxy_fcgi` to
 connect to php-fpm.
+
+### FreeBSD support
+
+On FreeBSD systems we purge the system-wide `extensions.ini` in favour of
+per-module configuration files.
+
+Please also note that support for Composer and PHPUnit on FreeBSD is untested
+and thus likely incomplete.
 
 ## Bugs & New Features
 
