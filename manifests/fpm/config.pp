@@ -92,7 +92,7 @@ class php::fpm::config(
   }
 
   file { $config_file:
-    ensure  => present,
+    ensure  => file,
     notify  => Class['php::fpm::service'],
     content => template('php/fpm/php-fpm.conf.erb'),
     owner   => root,

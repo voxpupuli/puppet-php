@@ -89,10 +89,10 @@ class php::params {
       $common_package_names    = []
       $common_package_suffixes = ['extensions']
       $cli_inifile             = "${config_root}/php-cli.ini"
-      $dev_package_suffix      = ''
+      $dev_package_suffix      = undef
       $fpm_config_file         = "${config_root}/php-fpm.conf"
       $fpm_inifile             = "${config_root}/php.ini"
-      $fpm_package_suffix      = ''
+      $fpm_package_suffix      = undef
       $fpm_pool_dir            = "${config_root}/php-fpm.d"
       $fpm_service_name        = 'php-fpm'
       $fpm_user                = 'www'

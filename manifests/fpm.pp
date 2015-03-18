@@ -40,11 +40,11 @@ class php::fpm (
       ensure  => $ensure,
       require => Class['php::packages'],
     } ->
-    class { 'php::fpm::config':
+    class { '::php::fpm::config':
       inifile  => $inifile,
       settings => $real_settings,
     } ->
-    class { 'php::fpm::service': } ->
+    class { '::php::fpm::service': } ->
   anchor { 'php::fpm::end': }
 
   $real_pools = hiera_hash('php::fpm::pools',  $pools)

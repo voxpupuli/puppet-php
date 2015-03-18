@@ -47,10 +47,10 @@ class php::composer (
   }
 
   if $auto_update {
-    class { 'php::composer::auto_update':
+    class { '::php::composer::auto_update':
       max_age => $max_age,
       source  => $source,
-      path    => $path
+      path    => $path,
     }
   }
 }
