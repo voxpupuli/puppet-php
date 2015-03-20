@@ -2,7 +2,7 @@
   "name": "mayflower-php",
   "version": "3.1.0",
   "author": "Mayflower",
-  "summary": "Generic PHP module thats supports many platforms",
+  "summary": "Generic PHP module that supports many platforms",
   "license": "MIT",
   "source": "https://github.com/mayflower/puppet-php",
   "project_page": "http://php.puppet.mayflower.de/",
