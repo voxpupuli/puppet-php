@@ -138,7 +138,7 @@ a big fat warning into this README to let you know.
 The project is released under the permissive MIT license.
 
 The source can be found at
-[github.com/Mayflower/puppet-php](https://github.com/mayflower/puppet-php/).
+[github.com/mayflower/puppet-php](https://github.com/mayflower/puppet-php/).
 
 This Puppet module is being actively maintained by some fellow puppeteers at
-Mayflower GmbH.
+[Mayflower GmbH](https://mayflower.de).
