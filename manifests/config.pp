@@ -29,7 +29,7 @@ define php::config(
   validate_absolute_path($file)
   validate_hash($config)
 
-  create_resources(config::setting, to_hash_settings($config, $file), {
+  create_resources(php::config::setting, to_hash_settings($config, $file), {
     file => $file
   })
 }
