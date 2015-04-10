@@ -28,9 +28,9 @@ class php::repo {
       Anchor['php::repo']
     }
     'RedHat': {
-      include '::yum::repo::epel'
+      include '::php::repo::redhat'
 
-      Class['::yum::repo::epel'] ->
+      Class['::php::repo::redhat'] ->
       Anchor['php::repo']
     }
     default: {
