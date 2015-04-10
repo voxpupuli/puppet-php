@@ -20,12 +20,37 @@
     { "name": "pe", "version_requirement": "3.x" }
   ],
   "operatingsystem_support": [
-    { "operatingsystem": "Ubuntu" },
-    { "operatingsystem": "Debian" },
-    { "operatingsystem": "RedHat" },
-    { "operatingsystem": "CentOS" },
+    { "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "14.10",
+        "14.04",
+        "12.04"
+      ]
+    },
+    { "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "7",
+        "8"
+      ]
+    },
+    { "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    { "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
     { "operatingsystem": "FreeBSD" },
-    { "operatingsystem": "SLES" },
+    { "operatingsystem": "SLES",
+      "operatingsystemrelease": [
+        "11"
+      ]
+    },
     { "operatingsystem": "OpenSUSE" }
   ]
 }
