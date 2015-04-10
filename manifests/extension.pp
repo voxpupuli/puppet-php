@@ -124,10 +124,8 @@ define php::extension(
     }
   }
 
-  $php_settings_file = "${::php::params::config_root_ini}/${lowercase_title}.ini"
-
   ::php::config { $title:
-    file   => $php_settings_file,
+    file   => "${::php::params::config_root_ini}/${lowercase_title}.ini",
     config => $real_settings,
   }
 
