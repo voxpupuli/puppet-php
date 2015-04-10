@@ -66,9 +66,11 @@ define php::extension(
   }
 
   if $provider != 'none' {
-    $real_package = $provider ? {
-      'pecl'  => $title,
-      default => "${package_prefix}${title}",
+    if $provider == 'pecl' {
+      $real_package = "pecl-${title}"
+    }
+    else {
+      $real_package = "${package_prefix}${title}"
     }
 
     ensure_resource('package', $header_packages)
