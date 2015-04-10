@@ -1,4 +1,4 @@
-# Mange fpm service
+# Manage fpm service
 #
 # === Parameters
 #
