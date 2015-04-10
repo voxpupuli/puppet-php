@@ -46,22 +46,22 @@
 #   The octal mode of the directory
 #
 class php::fpm::config(
-  $config_file                 = $php::params::fpm_config_file,
-  $user                        = $php::params::fpm_user,
-  $group                       = $php::params::fpm_group,
-  $inifile                     = $php::params::fpm_inifile,
+  $config_file                 = $::php::params::fpm_config_file,
+  $user                        = $::php::params::fpm_user,
+  $group                       = $::php::params::fpm_group,
+  $inifile                     = $::php::params::fpm_inifile,
   $settings                    = {},
-  $pool_base_dir               = $php::params::fpm_pool_dir,
+  $pool_base_dir               = $::php::params::fpm_pool_dir,
   $pool_purge                  = false,
   $log_level                   = 'notice',
   $emergency_restart_threshold = '0',
   $emergency_restart_interval  = '0',
   $process_control_timeout     = '0',
-  $log_owner                   = $php::params::fpm_user,
-  $log_group                   = $php::params::fpm_group,
+  $log_owner                   = $::php::params::fpm_user,
+  $log_group                   = $::php::params::fpm_group,
   $log_dir_mode                = '0770',
-  $root_group                  = $php::params::root_group,
-) inherits php::params {
+  $root_group                  = $::php::params::root_group,
+) inherits ::php::params {
 
   validate_string($user)
   validate_string($group)
@@ -93,7 +93,7 @@ class php::fpm::config(
 
   file { $config_file:
     ensure  => file,
-    notify  => Class['php::fpm::service'],
+    notify  => Class['::php::fpm::service'],
     content => template('php/fpm/php-fpm.conf.erb'),
     owner   => root,
     group   => $root_group,
@@ -114,9 +114,9 @@ class php::fpm::config(
     }
   }
 
-  php::config { 'fpm':
+  ::php::config { 'fpm':
     file   => $inifile,
     config => $settings,
-    notify => Class['php::fpm::service'],
+    notify => Class['::php::fpm::service'],
   }
 }

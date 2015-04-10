@@ -25,7 +25,7 @@ define php::apache_vhost(
   $fastcgi_socket = 'fcgi://127.0.0.1:9000/$1'
 ) {
 
-  apache::vhost { $vhost:
+  ::apache::vhost { $vhost:
     docroot         => $docroot,
     default_vhost   => $default_vhost,
     port            => $port,

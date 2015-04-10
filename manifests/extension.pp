@@ -38,9 +38,9 @@ define php::extension(
   $provider          = undef,
   $source            = undef,
   $pecl_source       = undef,
-  $package_prefix    = $php::package_prefix,
+  $package_prefix    = $::php::package_prefix,
   $header_packages   = [],
-  $compiler_packages = $php::params::compiler_packages,
+  $compiler_packages = $::php::params::compiler_packages,
   $zend              = false,
   $settings          = {},
 ) {
@@ -74,7 +74,7 @@ define php::extension(
     }
 
     ensure_resource('package', $header_packages)
-    Package[$header_packages] -> Package[$real_package] -> Php::Config[$title]
+    Package[$header_packages] -> Package[$real_package] -> ::Php::Config[$title]
 
     if $provider == 'pecl' {
       package { $real_package:
@@ -82,8 +82,8 @@ define php::extension(
         provider => $provider,
         source   => $real_source,
         require  => [
-          Class['php::pear'],
-          Class['php::dev'],
+          Class['::php::pear'],
+          Class['::php::dev'],
         ],
       }
 
@@ -124,9 +124,9 @@ define php::extension(
     }
   }
 
-  $php_settings_file = "${php::params::config_root_ini}/${lowercase_title}.ini"
+  $php_settings_file = "${::php::params::config_root_ini}/${lowercase_title}.ini"
 
-  php::config { $title:
+  ::php::config { $title:
     file   => $php_settings_file,
     config => $real_settings,
   }
@@ -140,10 +140,10 @@ define php::extension(
       refreshonly => true,
     }
 
-    Php::Config[$title] ~> Exec[$cmd]
+    ::Php::Config[$title] ~> Exec[$cmd]
 
-    if $php::fpm {
-      Package[$php::fpm::package] ~> Exec[$cmd]
+    if $::php::fpm {
+      Package[$::php::fpm::package] ~> Exec[$cmd]
     }
   }
 }

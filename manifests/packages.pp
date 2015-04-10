@@ -13,12 +13,12 @@
 #   package prefix `$php::package_prefix`
 #
 class php::packages (
-  $ensure          = $php::ensure,
+  $ensure          = $::php::ensure,
   $names_to_prefix = prefix(
-    $php::params::common_package_suffixes, $php::package_prefix
+    $::php::params::common_package_suffixes, $::php::package_prefix
   ),
-  $names           = $php::params::common_package_names,
-) inherits php::params {
+  $names           = $::php::params::common_package_names,
+) inherits ::php::params {
 
   if $caller_module_name != $module_name {
     warning('php::packages is private')

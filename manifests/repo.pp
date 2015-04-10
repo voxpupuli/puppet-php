@@ -24,7 +24,7 @@ class php::repo {
     'Suse': {
       include ::php::repo::suse
 
-      Class['php::repo::suse'] ->
+      Class['::php::repo::suse'] ->
       Anchor['php::repo']
     }
     'RedHat': {

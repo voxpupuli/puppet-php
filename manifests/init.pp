@@ -34,18 +34,18 @@
 #   'php5-'.
 #
 class php (
-  $ensure         = $php::params::ensure,
-  $manage_repos   = $php::params::manage_repos,
+  $ensure         = $::php::params::ensure,
+  $manage_repos   = $::php::params::manage_repos,
   $fpm            = true,
   $dev            = true,
   $composer       = true,
   $pear           = true,
-  $pear_ensure    = $php::params::pear_ensure,
+  $pear_ensure    = $::php::params::pear_ensure,
   $phpunit        = false,
   $extensions     = {},
   $settings       = {},
-  $package_prefix = $php::params::package_prefix,
-) inherits php::params {
+  $package_prefix = $::php::params::package_prefix,
+) inherits ::php::params {
 
   validate_string($ensure)
   validate_bool($manage_repos)
@@ -103,12 +103,12 @@ class php (
   # FIXME: for deep merging support we need a explicit hash lookup instead of
   #        automatic parameter lookup
   #        (https://tickets.puppetlabs.com/browse/HI-118)
-  $real_settings = hiera_hash('php::settings', $settings)
+  $real_settings = hiera_hash('::php::settings', $settings)
 
   $real_extensions = hiera_hash('php::extensions', $extensions)
-  create_resources('php::extension', $real_extensions, {
+  create_resources('::php::extension', $real_extensions, {
     ensure  => $ensure,
-    require => Class['php::cli'],
+    require => Class['::php::cli'],
     before  => Anchor['php::end']
   })
 
@@ -118,7 +118,7 @@ class php (
     # Purge the system-wide extensions.ini
     file { '/usr/local/etc/php/extensions.ini':
       ensure  => absent,
-      require => Class['php::packages'],
+      require => Class['::php::packages'],
     }
   }
 }

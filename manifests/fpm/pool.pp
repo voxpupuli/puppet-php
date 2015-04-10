@@ -97,8 +97,8 @@ define php::fpm::pool (
   $listen_owner = undef,
   $listen_group = undef,
   $listen_mode = undef,
-  $user = $php::fpm::config::user,
-  $group = $php::fpm::config::group,
+  $user = $::php::fpm::config::user,
+  $group = $::php::fpm::config::group,
   $pm = 'dynamic',
   $pm_max_children = '50',
   $pm_start_servers = '5',
@@ -124,7 +124,7 @@ define php::fpm::pool (
   $php_admin_value = {},
   $php_admin_flag = {},
   $php_directives = [],
-  $root_group = $php::params::root_group,
+  $root_group = $::php::params::root_group,
 ) {
 
   include ::php::params
@@ -138,18 +138,18 @@ define php::fpm::pool (
   # Implies that the option SET+=FPM was set when building the port.
   $real_package = $::osfamily ? {
     'FreeBSD' => [],
-    default   => $php::fpm::package,
+    default   => $::php::fpm::package,
   }
 
   if ($ensure == 'absent') {
-    file { "${php::params::fpm_pool_dir}/${pool}.conf":
+    file { "${::php::params::fpm_pool_dir}/${pool}.conf":
       ensure => absent,
-      notify => Class['php::fpm::service'],
+      notify => Class['::php::fpm::service'],
     }
   } else {
-    file { "${php::params::fpm_pool_dir}/${pool}.conf":
+    file { "${::php::params::fpm_pool_dir}/${pool}.conf":
       ensure  => file,
-      notify  => Class['php::fpm::service'],
+      notify  => Class['::php::fpm::service'],
       require => Package[$real_package],
       content => template('php/fpm/pool.conf.erb'),
       owner   => root,

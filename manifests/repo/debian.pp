@@ -31,7 +31,7 @@ class php::repo::debian(
 
   include '::apt'
 
-  apt::source { "source_php_${release}":
+  ::apt::source { "source_php_${release}":
     location    => $location,
     release     => $release,
     repos       => $repos,
@@ -42,7 +42,7 @@ class php::repo::debian(
     # wheezy-php55 requires both repositories to work correctly
     # See: http://www.dotdeb.org/instructions/
     if $release == 'wheezy-php55' {
-      apt::source { 'dotdeb-wheezy':
+      ::apt::source { 'dotdeb-wheezy':
         location    => $location,
         release     => 'wheezy',
         repos       => $repos,
@@ -56,6 +56,6 @@ class php::repo::debian(
       path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ];
     }
 
-    Exec['add_dotdeb_key'] -> Apt::Source["source_php_${release}"]
+    Exec['add_dotdeb_key'] -> ::Apt::Source["source_php_${release}"]
   }
 }

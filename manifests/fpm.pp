@@ -9,12 +9,12 @@
 # FIXME
 #
 class php::fpm (
-  $ensure   = $php::ensure,
-  $package  = "${php::package_prefix}${php::params::fpm_package_suffix}",
-  $inifile  = $php::params::fpm_inifile,
+  $ensure   = $::php::ensure,
+  $package  = "${::php::package_prefix}${::php::params::fpm_package_suffix}",
+  $inifile  = $::php::params::fpm_inifile,
   $settings = {},
   $pools    = { 'www' => {} },
-) inherits php::params {
+) inherits ::php::params {
 
   if $caller_module_name != $module_name {
     warning('php::fpm is private')
@@ -26,7 +26,7 @@ class php::fpm (
   validate_hash($settings)
   validate_hash($pools)
 
-  $real_settings = deep_merge($settings, hiera_hash('php::fpm::settings', {}))
+  $real_settings = deep_merge($settings, hiera_hash('::php::fpm::settings', {}))
 
   # On FreeBSD fpm is not a separate package, but included in the 'php' package.
   # Implies that the option SET+=FPM was set when building the port.
@@ -35,18 +35,18 @@ class php::fpm (
     default   => $package,
   }
 
-  anchor { 'php::fpm::begin': } ->
+  anchor { '::php::fpm::begin': } ->
     package { $real_package:
       ensure  => $ensure,
-      require => Class['php::packages'],
+      require => Class['::php::packages'],
     } ->
     class { '::php::fpm::config':
       inifile  => $inifile,
       settings => $real_settings,
     } ->
     class { '::php::fpm::service': } ->
-  anchor { 'php::fpm::end': }
+  anchor { '::php::fpm::end': }
 
   $real_pools = hiera_hash('php::fpm::pools',  $pools)
-  create_resources(php::fpm::pool, $real_pools)
+  create_resources(::php::fpm::pool, $real_pools)
 }

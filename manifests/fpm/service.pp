@@ -12,10 +12,10 @@
 #   Defines if the service is enabled
 #
 class php::fpm::service(
-  $service_name = $php::params::fpm_service_name,
+  $service_name = $::php::params::fpm_service_name,
   $ensure       = 'running',
-  $enable       = $php::params::fpm_service_enable,
-) inherits php::params {
+  $enable       = $::php::params::fpm_service_enable,
+) inherits ::php::params {
 
   if $caller_module_name != $module_name {
     warning('php::fpm::service is private')
@@ -28,5 +28,5 @@ class php::fpm::service(
     hasstatus => true,
   }
 
-  Php::Extension <| |> ~> Service[$service_name]
+  ::Php::Extension <| |> ~> Service[$service_name]
 }

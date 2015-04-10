@@ -15,12 +15,12 @@
 #   Defines the time in days after which an auto-update gets executed
 #
 class php::composer (
-  $source      = $php::params::composer_source,
-  $path        = $php::params::composer_path,
+  $source      = $::php::params::composer_source,
+  $path        = $::php::params::composer_path,
   $auto_update = true,
-  $max_age     = $php::params::composer_max_age,
-  $root_group  = $php::params::root_group,
-) inherits php::params {
+  $max_age     = $::php::params::composer_max_age,
+  $root_group  = $::php::params::root_group,
+) inherits ::php::params {
 
   if $caller_module_name != $module_name {
     warning('php::composer is private')
@@ -38,7 +38,7 @@ class php::composer (
     creates => $path,
     path    => ['/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/',
                 '/usr/local/bin', '/usr/local/sbin'],
-    require => [Class['php::cli'],Package['wget']],
+    require => [Class['::php::cli'],Package['wget']],
   } ->
   file { $path:
     mode  => '0555',

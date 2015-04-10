@@ -9,9 +9,9 @@
 #   Hash with nested hash of key => value to set in inifile
 #
 class php::cli(
-  $inifile  = $php::params::cli_inifile,
+  $inifile  = $::php::params::cli_inifile,
   $settings = {}
-) inherits php::params {
+) inherits ::php::params {
 
   if $caller_module_name != $module_name {
     warning('php::cli is private')
@@ -22,7 +22,7 @@ class php::cli(
 
   $real_settings = deep_merge($settings, hiera_hash('php::cli::settings', {}))
 
-  php::config { 'cli':
+  ::php::config { 'cli':
     file   => $inifile,
     config => $real_settings,
   }

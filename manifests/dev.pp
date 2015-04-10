@@ -9,9 +9,9 @@
 #   The package name for the PHP development files
 #
 class php::dev(
-  $ensure  = $php::ensure,
-  $package = "${php::package_prefix}${php::params::dev_package_suffix}",
-) inherits php::params {
+  $ensure  = $::php::ensure,
+  $package = "${::php::package_prefix}${::php::params::dev_package_suffix}",
+) inherits ::php::params {
 
   if $caller_module_name != $module_name {
     warning('php::dev is private')
@@ -28,6 +28,6 @@ class php::dev(
 
   package { $real_package:
     ensure  => $ensure,
-    require => Class['php::packages'],
+    require => Class['::php::packages'],
   }
 }
