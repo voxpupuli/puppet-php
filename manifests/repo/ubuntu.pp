@@ -1,7 +1,20 @@
 # Configure ubuntu ppa
 #
-class php::repo::ubuntu {
+# === Parameters
+#
+# [*oldstable*]
+#   Install 5.4 (ondrej/php5-oldstable PPA)
+#
+class php::repo::ubuntu (
+  $oldstable = false,
+) {
   include '::apt'
 
-  ::apt::ppa { 'ppa:ondrej/php5': }
+  validate_bool($oldstable)
+
+  if ($::lsbdistcodename == 'precise' or $oldstable == true) {
+    ::apt::ppa { 'ppa:ondrej/php5-oldstable': }
+  } else {
+    ::apt::ppa { 'ppa:ondrej/php5': }
+  }
 }
