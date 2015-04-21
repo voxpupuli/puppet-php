@@ -22,10 +22,13 @@
 #   The pecl source channel to install pecl package from
 #   Superseded by *source*
 #
+# [*pecl_name*]
+#   The pecl name of the package (e.g. zendopcache for opcache)
+#
 # [*header_packages*]
 #   System packages dependencies to install for extensions (e.g. for
 #   memcached libmemcached-dev on debian)
-#
+#   
 # [*zend*]
 #  Boolean parameter, whether to load extension as zend_extension.
 #  This can only be set for pecl modules. Defaults to false.
@@ -38,6 +41,7 @@ define php::extension(
   $provider          = undef,
   $source            = undef,
   $pecl_source       = undef,
+  $pecl_name         = undef,
   $package_prefix    = $::php::package_prefix,
   $header_packages   = [],
   $compiler_packages = $::php::params::compiler_packages,
@@ -51,6 +55,7 @@ define php::extension(
 
   validate_string($ensure)
   validate_string($package_prefix)
+  validate_string($pecl_name)
   validate_array($header_packages)
   validate_bool($zend)
 
@@ -67,7 +72,12 @@ define php::extension(
 
   if $provider != 'none' {
     if $provider == 'pecl' {
-      $real_package = "pecl-${title}"
+      if $pecl_name != undef {
+        $real_package = "pecl-${pecl_name}"
+      }
+      else {
+        $real_package = "pecl-${title}"
+      }
     }
     else {
       $real_package = "${package_prefix}${title}"
@@ -103,15 +113,19 @@ define php::extension(
     fail('You can only use the zend parameter for pecl PHP extensions!')
   }
 
-  $extension_key = $zend ? {
-    true  => 'zend_extension',
-    false => 'extension',
+  if $zend == true {
+    $extension_key = 'zend_extension'
+    $module_path = "/usr/lib/php5/${::php_extension_version}/"
+  }
+  else {
+    $extension_key = 'extension'
+    $module_path = ''
   }
 
   $lowercase_title = downcase($title)
 
   if $provider == 'pecl' {
-    $real_settings = deep_merge({"${extension_key}"=>"${name}.so"},$settings)
+    $real_settings = deep_merge({"${extension_key}"=>"${module_path}${name}.so"},$settings)
   }
   else {
     # On FreeBSD systems the settings file is required for every module
