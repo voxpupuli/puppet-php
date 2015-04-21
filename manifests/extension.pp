@@ -126,10 +126,8 @@ define php::extension(
 
   if $provider == 'pecl' {
     $real_settings = deep_merge({
-      "${extension_key}" => "${module_path}${name}.so"
-      },
-      $settings
-    )
+      "${extension_key}" => "${module_path}${name}.so",
+    }, $settings)
   }
   else {
     # On FreeBSD systems the settings file is required for every module
