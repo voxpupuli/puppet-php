@@ -113,6 +113,41 @@ describe 'php::extension' do
     }
   end
 
+  context 'pecl extensions support so_name' do
+    let(:title) { 'zendopcache' }
+    let(:params) {{
+      :provider        => 'pecl',
+      :zend            => true,
+      :so_name         => 'opcache',
+    }}
+
+    it {
+      should contain_php__config('zendopcache').with({
+        :file   => '/etc/php5/mods-available/opcache.ini',
+        :config => {
+          'zend_extension' => 'opcache.so'
+        },
+      })
+    }
+  end
+
+  context 'pecl extensions support php_api_version' do
+    let(:title) { 'xdebug' }
+    let(:params) {{
+      :provider        => 'pecl',
+      :zend            => true,
+      :php_api_version => '20100525',
+    }}
+
+    it {
+      should contain_php__config('xdebug').with({
+        :config => {
+          'zend_extension' => '/usr/lib/php5/20100525/xdebug.so'
+        }
+      })
+    }
+  end
+
   context 'on Debian' do
     let(:facts) { {
       :osfamily    => 'Debian',

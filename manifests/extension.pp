@@ -22,6 +22,13 @@
 #   The pecl source channel to install pecl package from
 #   Superseded by *source*
 #
+# [*so_name*]
+#   The DSO name of the package (e.g. opcache for zendopcache)
+#
+# [*php_api_version*]
+#   This parameter is used to build the full path to the extension
+#   directory for zend_extension in PHP < 5.5 (e.g. 20100525)
+#
 # [*header_packages*]
 #   System packages dependencies to install for extensions (e.g. for
 #   memcached libmemcached-dev on debian)
@@ -42,6 +49,8 @@ define php::extension(
   $provider          = undef,
   $source            = undef,
   $pecl_source       = undef,
+  $so_name           = $name,
+  $php_api_version   = undef,
   $package_prefix    = $::php::package_prefix,
   $header_packages   = [],
   $compiler_packages = $::php::params::compiler_packages,
@@ -56,6 +65,8 @@ define php::extension(
 
   validate_string($ensure)
   validate_string($package_prefix)
+  validate_string($so_name)
+  validate_string($php_api_version)
   validate_array($header_packages)
   validate_bool($zend)
 
@@ -108,12 +119,26 @@ define php::extension(
     fail('You can only use the zend parameter for pecl PHP extensions!')
   }
 
-  $extension_key = $zend ? {
-    true  => 'zend_extension',
-    false => 'extension',
+  if $zend == true {
+    $extension_key = 'zend_extension'
+    if $php_api_version != undef {
+      $module_path = "/usr/lib/php5/${php_api_version}/"
+    }
+    else {
+      $module_path = undef
+    }
+  }
+  else {
+    $extension_key = 'extension'
+    $module_path = undef
   }
 
-  $lowercase_title = downcase($title)
+  if $so_name != $name {
+    $lowercase_title = $so_name
+  }
+  else {
+    $lowercase_title = downcase($title)
+  }
 
   # Ensure "<extension>." prefix is present in setting keys if requested
   if $settings_prefix {
@@ -129,7 +154,7 @@ define php::extension(
 
   if $provider == 'pecl' {
     $final_settings = deep_merge(
-      {"${extension_key}" => "${name}.so"},
+      {"${extension_key}" => "${module_path}${so_name}.so"},
       $full_settings
     )
   }
