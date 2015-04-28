@@ -2,3 +2,5 @@ pkg/
 Gemfile.lock
 spec/fixtures/modules/
 .vagrant
+.bundle
+vendor/
