@@ -6,8 +6,6 @@ rvm:
 - 1.9.3
 env:
   matrix:
-  - PUPPET_VERSION=3.4.3
-  - PUPPET_VERSION=3.6.2
   - PUPPET_VERSION=3.7.5
   - PUPPET_VERSION=3.7.5 FUTURE_PARSER=yes TRUSTED_NODE_DATA=yes
   global:
