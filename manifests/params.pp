@@ -2,7 +2,7 @@
 #
 class php::params {
 
-  $ensure              = 'latest'
+  $ensure              = 'present'
   $fpm_service_enable  = true
   $composer_source     = 'https://getcomposer.org/composer.phar'
   $composer_path       = '/usr/local/bin/composer'
