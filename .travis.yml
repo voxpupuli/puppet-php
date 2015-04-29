@@ -1,5 +1,7 @@
 sudo: false
 language: ruby
+cache:
+  bundler: true
 rvm:
 - 2.1.6
 - 2.0.0
