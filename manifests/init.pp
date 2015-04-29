@@ -107,7 +107,6 @@ class php (
 
   $real_extensions = hiera_hash('php::extensions', $extensions)
   create_resources('::php::extension', $real_extensions, {
-    ensure  => $ensure,
     require => Class['::php::cli'],
     before  => Anchor['php::end']
   })
