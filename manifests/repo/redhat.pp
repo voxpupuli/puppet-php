@@ -7,7 +7,7 @@
 #
 
 class php::repo::redhat (
-  $yum_repo = 'remi-php56',
+  $yum_repo = 'remi_php56',
 ) {
   contain "::yum::repo::${yum_repo}"
 }
