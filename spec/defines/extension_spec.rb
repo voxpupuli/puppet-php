@@ -44,6 +44,25 @@ describe 'php::extension' do
     }
   end
 
+  context 'use specific settings prefix if requested' do
+    let(:title) {'json' }
+    let(:params) {{
+      :name            => 'json',
+      :settings_prefix => 'bar',
+      :settings        => {
+        'test' => 'foo'
+      }
+    }}
+
+    it {
+      should contain_php__config('json').with({
+        :config => {
+          'bar.test' => 'foo'
+        }
+      })
+    }
+  end
+
   context 'non-pecl extensions cannot be configured as zend' do
     let(:title) { 'xdebug' }
     let(:params) {{

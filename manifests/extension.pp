@@ -34,8 +34,8 @@
 #   Nested hash of global config parameters for php.ini
 #
 # [*settings_prefix*]
-#  Boolean parameter, whether to prefix all setting keys with
-#  the extension name. Defaults to false.
+#   Boolean/String parameter, whether to prefix all setting keys with
+#   the extension name or specified name. Defaults to false.
 #
 define php::extension(
   $ensure            = 'installed',
@@ -117,7 +117,12 @@ define php::extension(
 
   # Ensure "<extension>." prefix is present in setting keys if requested
   if $settings_prefix {
-    $full_settings = ensure_prefix($settings, "${lowercase_title}.")
+    if is_string($settings_prefix) {
+      $full_settings_prefix = $settings_prefix
+    } else {
+      $full_settings_prefix = $lowercase_title
+    }
+    $full_settings = ensure_prefix($settings, "${full_settings_prefix}.")
   } else {
     $full_settings = $settings
   }
