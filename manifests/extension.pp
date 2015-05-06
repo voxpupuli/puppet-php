@@ -117,7 +117,7 @@ define php::extension(
 
   # Ensure "<extension>." prefix is present in setting keys if requested
   if $settings_prefix {
-    $full_settings = ensure_prefix($settings, "${name}.")
+    $full_settings = ensure_prefix($settings, "${lowercase_title}.")
   } else {
     $full_settings = $settings
   }
