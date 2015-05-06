@@ -19,7 +19,7 @@ describe 'php::extension' do
       should contain_php__config('json').with({
         :file   => '/etc/php5/mods-available/json.ini',
         :config => {
-          'test' => 'foo'
+          'json.test' => 'foo'
         },
       })
     }
@@ -53,7 +53,7 @@ describe 'php::extension' do
         :file   => '/etc/php5/mods-available/json.ini',
         :config => {
           'extension' => 'nice_name.so',
-          'test'      => 'foo'
+          'nice_name.test'      => 'foo'
         },
       })
     }
