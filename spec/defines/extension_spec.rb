@@ -19,17 +19,17 @@ describe 'php::extension' do
       should contain_php__config('json').with({
         :file   => '/etc/php5/mods-available/json.ini',
         :config => {
-          'json.test' => 'foo'
+          'test' => 'foo'
         },
       })
     }
   end
 
-  context 'skip settings prefix if requested' do
+  context 'add settings prefix if requested' do
     let(:title) {'json' }
     let(:params) {{
       :name            => 'json',
-      :settings_prefix => false,
+      :settings_prefix => true,
       :settings        => {
         'test' => 'foo'
       }
@@ -38,7 +38,7 @@ describe 'php::extension' do
     it {
       should contain_php__config('json').with({
         :config => {
-          'test' => 'foo'
+          'json.test' => 'foo'
         }
       })
     }
@@ -72,7 +72,7 @@ describe 'php::extension' do
         :file   => '/etc/php5/mods-available/json.ini',
         :config => {
           'extension' => 'nice_name.so',
-          'nice_name.test'      => 'foo'
+          'test'      => 'foo'
         },
       })
     }

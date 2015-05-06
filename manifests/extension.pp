@@ -35,7 +35,7 @@
 #
 # [*settings_prefix*]
 #  Boolean parameter, whether to prefix all setting keys with
-#  the extension name. Defaults to true.
+#  the extension name. Defaults to false.
 #
 define php::extension(
   $ensure            = 'installed',
@@ -47,7 +47,7 @@ define php::extension(
   $compiler_packages = $::php::params::compiler_packages,
   $zend              = false,
   $settings          = {},
-  $settings_prefix   = true,
+  $settings_prefix   = false,
 ) {
 
   if $caller_module_name != $module_name {
