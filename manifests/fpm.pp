@@ -26,7 +26,7 @@ class php::fpm (
   validate_hash($settings)
   validate_hash($pools)
 
-  $real_settings = deep_merge($settings, hiera_hash('::php::fpm::settings', {}))
+  $real_settings = deep_merge($settings, hiera_hash('php::fpm::settings', {}))
 
   # On FreeBSD fpm is not a separate package, but included in the 'php' package.
   # Implies that the option SET+=FPM was set when building the port.

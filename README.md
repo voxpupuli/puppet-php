@@ -33,7 +33,7 @@ php::dev: true
 php::composer: true
 php::pear: true
 php::phpunit: false
-php::fpm::config:log_level: notice
+php::fpm::config::log_level: notice
 php::composer::auto_update: true
 ```
 
