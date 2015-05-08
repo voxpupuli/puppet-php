@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.2.2
+ * Fix a typo in hiera keys `php::settings` & `php::fpm::settings` (#83)
+
 ## 3.2.1
  * Fixed default `yum_repo` key in `php::repo::redhat`
  * On Ubuntu precise we now use the ondrej/php5-oldstable ppa. This can be
