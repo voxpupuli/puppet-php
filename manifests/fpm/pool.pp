@@ -10,7 +10,7 @@
 #
 # [*listen*]
 #   On what socket to listen for FastCGI connections, i.e.
-#   `'127.0.0.1:9000'' or `'unix:/var/run/php5-fpm.sock'`
+#   `'127.0.0.1:9000'' or `'/var/run/php5-fpm.sock'`
 #
 # [*listen_backlog*]
 #
