@@ -1,24 +1,22 @@
-sudo: false
+sudo: true
 language: ruby
 rvm:
-- 2.1.5
+- 2.1.6
 - 2.0.0
 - 1.9.3
 env:
   matrix:
-  - PUPPET_VERSION=3.4.3
-  - PUPPET_VERSION=3.6.2
-  - PUPPET_VERSION=3.7.3
-  - PUPPET_VERSION=3.7.3 FUTURE_PARSER=yes TRUSTED_NODE_DATA=yes
+  - PUPPET_VERSION=3.7.5
+  - PUPPET_VERSION=3.7.5 FUTURE_PARSER=yes TRUSTED_NODE_DATA=yes
   global:
   - secure: Zc0V6JqwpFTTtVE7jVFg5R6UgXZrzsBGa6ckbOnIHPCOyJsV4oWO6RxKsYI+ozzD9nrEdrT/DTcHKRz84YqrMXxvBU9HA4S/ZrNQoRiH3bEnI3UHC6jQJRX0c71gaJEMQ3S33my39vLD7EsealX3p+j8asL8e8glYR1am9ekUB8=
 matrix:
   exclude:
-  - rvm: 2.1.5
-    env: PUPPET_VERSION=3.7.3
+  - rvm: 2.1.6
+    env: PUPPET_VERSION=3.7.5
   include:
-  - rvm: 2.1.5
-    env: PUPPET_VERSION=3.7.3 DOCS=true
+  - rvm: 2.1.6
+    env: PUPPET_VERSION=3.7.5 DOCS=true
 after_success: |
   [ $TRAVIS_BRANCH = master ] &&
   [ $TRAVIS_PULL_REQUEST = false ] &&

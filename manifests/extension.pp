@@ -36,6 +36,10 @@
 # [*settings*]
 #   Nested hash of global config parameters for php.ini
 #
+# [*settings_prefix*]
+#   Boolean/String parameter, whether to prefix all setting keys with
+#   the extension name or specified name. Defaults to false.
+#
 define php::extension(
   $ensure            = 'installed',
   $provider          = undef,
@@ -47,6 +51,7 @@ define php::extension(
   $compiler_packages = $::php::params::compiler_packages,
   $zend              = false,
   $settings          = {},
+  $settings_prefix   = false,
 ) {
 
   if $caller_module_name != $module_name {
@@ -124,25 +129,41 @@ define php::extension(
 
   $lowercase_title = downcase($title)
 
+  # Ensure "<extension>." prefix is present in setting keys if requested
+  if $settings_prefix {
+    if is_string($settings_prefix) {
+      $full_settings_prefix = $settings_prefix
+    } else {
+      $full_settings_prefix = $lowercase_title
+    }
+    $full_settings = ensure_prefix($settings, "${full_settings_prefix}.")
+  } else {
+    $full_settings = $settings
+  }
+
   if $provider == 'pecl' {
-    $real_settings = deep_merge({
-      "${extension_key}" => "${module_path}${name}.so",
-    }, $settings)
+    $final_settings = deep_merge(
+      {"${extension_key}" => "${module_path}${name}.so"},
+      $full_settings
+    )
   }
   else {
     # On FreeBSD systems the settings file is required for every module
     # (regardless of provider) to allow for proper module management.
     if $::osfamily == 'FreeBSD' {
-      $real_settings = deep_merge({"${extension_key}"=>"${name}.so"},$settings)
+      $final_settings = deep_merge(
+        {"${extension_key}" => "${name}.so"},
+        $full_settings
+      )
     }
     else {
-      $real_settings = $settings
+      $final_settings = $full_settings
     }
   }
 
   ::php::config { $title:
     file   => "${::php::params::config_root_ini}/${lowercase_title}.ini",
-    config => $real_settings,
+    config => $final_settings,
   }
 
   # Ubuntu/Debian systems use the mods-available folder. We need to enable

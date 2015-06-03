@@ -2,12 +2,12 @@
 #
 class php::params {
 
-  $ensure              = 'latest'
+  $ensure              = 'present'
   $fpm_service_enable  = true
   $composer_source     = 'https://getcomposer.org/composer.phar'
   $composer_path       = '/usr/local/bin/composer'
   $composer_max_age    = 30
-  $pear_ensure         = 'latest'
+  $pear_ensure         = 'present'
   $pear_package_suffix = 'pear'
   $phpunit_source    = 'https://phar.phpunit.de/phpunit.phar'
   $phpunit_path      = '/usr/local/bin/phpunit'

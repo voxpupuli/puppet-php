@@ -10,7 +10,7 @@
 #
 # [*listen*]
 #   On what socket to listen for FastCGI connections, i.e.
-#   `'127.0.0.1:9000'' or `'unix:/var/run/php5-fpm.sock'`
+#   `'127.0.0.1:9000'' or `'/var/run/php5-fpm.sock'`
 #
 # [*listen_backlog*]
 #
@@ -93,7 +93,7 @@ define php::fpm::pool (
   $listen = '127.0.0.1:9000',
   # Puppet does not allow dots in variable names
   $listen_backlog = '-1',
-  $listen_allowed_clients = '127.0.0.1',
+  $listen_allowed_clients = undef,
   $listen_owner = undef,
   $listen_group = undef,
   $listen_mode = undef,

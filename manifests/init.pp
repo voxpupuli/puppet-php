@@ -103,11 +103,10 @@ class php (
   # FIXME: for deep merging support we need a explicit hash lookup instead of
   #        automatic parameter lookup
   #        (https://tickets.puppetlabs.com/browse/HI-118)
-  $real_settings = hiera_hash('::php::settings', $settings)
+  $real_settings = hiera_hash('php::settings', $settings)
 
   $real_extensions = hiera_hash('php::extensions', $extensions)
   create_resources('::php::extension', $real_extensions, {
-    ensure  => $ensure,
     require => Class['::php::cli'],
     before  => Anchor['php::end']
   })

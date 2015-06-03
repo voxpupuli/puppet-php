@@ -1,5 +1,19 @@
 # Changelog
 
+## 3.2.2
+ * Fix a typo in hiera keys `php::settings` & `php::fpm::settings` (#83)
+
+## 3.2.1
+ * Fixed default `yum_repo` key in `php::repo::redhat`
+ * On Ubuntu precise we now use the ondrej/php5-oldstable ppa. This can be
+   manually enabled with by setting `$php::repo::ubuntu::oldstable` to
+   `true`.
+ * `$php::ensure` now defaults to `present` instead of `latest`. Though,
+   strictly speaking, this represents a functional change, we consider this
+   to be a bugfix because automatic updates should be enabled explicitely.
+ * `$php::ensure` is not anymore passed to `php::extension` resources as
+   default ensure parameter because this doesn't make sense.
+
 ## 3.2.0
  * Support for FreeBSD added by Frank Wall
  * RedHat now uses remi-php56 yum repo by default

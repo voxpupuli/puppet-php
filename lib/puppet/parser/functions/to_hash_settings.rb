@@ -1,7 +1,8 @@
 
 module Puppet::Parser::Functions
   newfunction(:to_hash_settings, :type => :rvalue, :doc => <<-EOS
-This function converts a +{key => value}+ hash into a nested hash and adds an id to the outer key.
+This function converts a +{key => value}+ hash into a nested hash and can add an id to the outer key.
+The optional id string as second parameter is prepended to the resource name.
 
 *Examples:*
 
@@ -9,27 +10,30 @@ This function converts a +{key => value}+ hash into a nested hash and adds an id
 
 Would return:
   {
-    'a' => {'value' => 1},
-    'b' => {'value' => 2}
+    'a' => {'key' => 'a', 'value' => 1},
+    'b' => {'key' => 'b', 'value' => 2}
+  }
+
+and:
+
+  to_hash_settings({'a' => 1, 'b' => 2}, 'foo')
+
+Would return:
+  {
+    'foo: a' => {'key' => 'a', 'value' => 1},
+    'foo: b' => {'key' => 'b', 'value' => 2}
   }
 EOS
   ) do |arguments|
 
-    raise(Puppet::ParseError, "to_hash_settings(): Wrong number of arguments " +
-      "given (#{arguments.size} for 2)") if arguments.size < 2
+    hash, id = arguments
+    id = (id.nil? ? "" : "#{id}: ")
 
-    hash = arguments[0]
-    id = arguments[1]
+    raise(Puppet::ParseError, "to_hash_settings(): Requires hash to work with") unless hash.is_a?(Hash)
 
-    unless hash.is_a?(Hash)
-      raise(Puppet::ParseError, 'to_hash_settings(): Requires hash to work with')
-    end
-
-    result = hash.reduce({}) { |acc, kv|
-      acc[id + ': ' + kv[0]] = {'key' => kv[0] ,'value' => kv[1]}
+    return hash.reduce({}) do |acc, kv|
+      acc[id + kv[0]] = { "key" => kv[0], "value" => kv[1] }
       acc
-    }
-
-    return result
+    end
   end
 end
