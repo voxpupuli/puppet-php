@@ -22,13 +22,17 @@
 #   The pecl source channel to install pecl package from
 #   Superseded by *source*
 #
-# [*pecl_name*]
-#   The pecl name of the package (e.g. zendopcache for opcache)
+# [*so_name*]
+#   The DSO name of the package (e.g. opcache for zendopcache)
+#
+# [*php_api_version*]
+#   This parameter is used to build the full path to the extension
+#   directory for zend_extension in PHP < 5.5 (e.g. 20100525)
 #
 # [*header_packages*]
 #   System packages dependencies to install for extensions (e.g. for
 #   memcached libmemcached-dev on debian)
-#   
+#
 # [*zend*]
 #  Boolean parameter, whether to load extension as zend_extension.
 #  This can only be set for pecl modules. Defaults to false.
@@ -45,7 +49,8 @@ define php::extension(
   $provider          = undef,
   $source            = undef,
   $pecl_source       = undef,
-  $pecl_name         = undef,
+  $so_name           = $name,
+  $php_api_version   = undef,
   $package_prefix    = $::php::package_prefix,
   $header_packages   = [],
   $compiler_packages = $::php::params::compiler_packages,
@@ -60,7 +65,8 @@ define php::extension(
 
   validate_string($ensure)
   validate_string($package_prefix)
-  validate_string($pecl_name)
+  validate_string($so_name)
+  validate_string($php_api_version)
   validate_array($header_packages)
   validate_bool($zend)
 
@@ -77,12 +83,7 @@ define php::extension(
 
   if $provider != 'none' {
     if $provider == 'pecl' {
-      if $pecl_name != undef {
-        $real_package = "pecl-${pecl_name}"
-      }
-      else {
-        $real_package = "pecl-${title}"
-      }
+      $real_package = "pecl-${title}"
     }
     else {
       $real_package = "${package_prefix}${title}"
@@ -120,14 +121,24 @@ define php::extension(
 
   if $zend == true {
     $extension_key = 'zend_extension'
-    $module_path = "/usr/lib/php5/${::php_extension_version}/"
+    if $php_api_version != undef {
+      $module_path = "/usr/lib/php5/${php_api_version}/"
+    }
+    else {
+      $module_path = undef
+    }
   }
   else {
     $extension_key = 'extension'
     $module_path = undef
   }
 
-  $lowercase_title = downcase($title)
+  if $so_name != $name {
+    $lowercase_title = $so_name
+  }
+  else {
+    $lowercase_title = downcase($title)
+  }
 
   # Ensure "<extension>." prefix is present in setting keys if requested
   if $settings_prefix {
@@ -143,7 +154,7 @@ define php::extension(
 
   if $provider == 'pecl' {
     $final_settings = deep_merge(
-      {"${extension_key}" => "${module_path}${name}.so"},
+      {"${extension_key}" => "${module_path}${so_name}.so"},
       $full_settings
     )
   }
