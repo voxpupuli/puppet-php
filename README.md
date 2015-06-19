@@ -82,6 +82,28 @@ php::extensions:
       apc.stat_ctime: 1
 ```
 
+See [the documentation](http://php.puppet.mayflower.de/php/extension.html)
+of the `php::extension` resource for all available parmeters and default
+values.
+
+### Defining php-fpm pools
+
+If different php-fpm pools are required, you can use `php::fpm::pool`
+resources. Use the parameter `$pools` from the class `php::fpm` to define
+`php::fpm::pool` resources as a hash from hiera.
+
+If not defined in your hiera data, a single pool called `www` will be
+configured by default:
+
+```
+php::fpm::pools:
+  www:
+    listen: 127.0.0.1:9000
+```
+
+For an overview of all possible parameters for `php::fpm::pool` resources
+please see [its documention](http://php.puppet.mayflower.de/php/fpm/pool.html).
+
 ## Notes
 
 ### Debian squeeze & Ubuntu precise come with PHP 5.3
