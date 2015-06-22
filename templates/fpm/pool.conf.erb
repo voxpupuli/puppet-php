@@ -224,7 +224,7 @@ catch_workers_output = <%= @catch_workers_output %>
 env[<%= var %>] = $<%= var %>
 <% end -%>
 <% @env_value.sort_by {|key,value| key}.each do |key,value| -%>
-env[<%= key %>] = <%= value %>
+env[<%= key %>] = '<%= value %>'
 <% end -%>
 
 ; Additional php.ini defines, specific to this pool of workers. These settings
