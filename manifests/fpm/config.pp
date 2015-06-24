@@ -49,6 +49,12 @@
 # [*log_dir_mode*]
 #   The octal mode of the directory
 #
+# [*syslog_facility*]
+# Used to specify what type of program is logging the message
+#
+# [*syslog_ident*]
+# Prepended to every message
+#
 class php::fpm::config(
   $config_file                 = $::php::params::fpm_config_file,
   $user                        = $::php::params::fpm_user,
@@ -66,6 +72,8 @@ class php::fpm::config(
   $log_group                   = $::php::params::fpm_group,
   $log_dir_mode                = '0770',
   $root_group                  = $::php::params::root_group,
+  $syslog_facility             = 'daemon',
+  $syslog_ident                = 'php-fpm',
 ) inherits ::php::params {
 
   validate_string($user)
@@ -85,6 +93,8 @@ class php::fpm::config(
   validate_string($log_owner)
   validate_string($log_group)
   validate_re($log_dir_mode, $number_re)
+  validate_string($syslog_facility)
+  validate_string($syslog_ident)
 
 
   if $caller_module_name != $module_name {
