@@ -24,6 +24,10 @@
 #   Whether to purge pool config files not created
 #   by this module
 #
+# [*error_log*]
+# Path to error log file. If it's set to "syslog", log is
+# sent to syslogd instead of being written in a local file.
+#
 # [*log_level*]
 #   The php-fpm log level
 #
@@ -53,6 +57,7 @@ class php::fpm::config(
   $settings                    = {},
   $pool_base_dir               = $::php::params::fpm_pool_dir,
   $pool_purge                  = false,
+  $error_log                   = $::php::params::fpm_error_log,
   $log_level                   = 'notice',
   $emergency_restart_threshold = '0',
   $emergency_restart_interval  = '0',
@@ -72,6 +77,7 @@ class php::fpm::config(
   $interval_re = '^\d+[smhd]?$'
 
   validate_absolute_path($pool_base_dir)
+  validate_string($error_log)
   validate_string($log_level)
   validate_re($emergency_restart_threshold, $number_re)
   validate_re($emergency_restart_interval, $interval_re)
