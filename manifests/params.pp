@@ -22,6 +22,7 @@ class php::params {
       $cli_inifile             = "${config_root}/cli/php.ini"
       $dev_package_suffix      = 'dev'
       $fpm_config_file         = "${config_root}/fpm/php-fpm.conf"
+      $fpm_error_log           = '/var/log/php5-fpm.log'
       $fpm_inifile             = "${config_root}/fpm/php.ini"
       $fpm_package_suffix      = 'fpm'
       $fpm_pool_dir            = "${config_root}/fpm/pool.d"
@@ -41,6 +42,7 @@ class php::params {
       $cli_inifile             = "${config_root}/cli/php.ini"
       $dev_package_suffix      = 'devel'
       $fpm_config_file         = "${config_root}/fpm/php-fpm.conf"
+      $fpm_error_log           = '/var/log/php5-fpm.log'
       $fpm_inifile             = "${config_root}/fpm/php.ini"
       $fpm_package_suffix      = 'fpm'
       $fpm_pool_dir            = "${config_root}/fpm/pool.d"
@@ -69,6 +71,7 @@ class php::params {
       $cli_inifile             = '/etc/php-cli.ini'
       $dev_package_suffix      = 'devel'
       $fpm_config_file         = '/etc/php-fpm.conf'
+      $fpm_error_log           = '/var/log/php-fpm/error.log'
       $fpm_inifile             = '/etc/php.ini'
       $fpm_package_suffix      = 'fpm'
       $fpm_pool_dir            = '/etc/php-fpm.d'
@@ -91,6 +94,7 @@ class php::params {
       $cli_inifile             = "${config_root}/php-cli.ini"
       $dev_package_suffix      = undef
       $fpm_config_file         = "${config_root}/php-fpm.conf"
+      $fpm_error_log           = '/var/log/php-fpm.log'
       $fpm_inifile             = "${config_root}/php.ini"
       $fpm_package_suffix      = undef
       $fpm_pool_dir            = "${config_root}/php-fpm.d"
