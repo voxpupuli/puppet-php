@@ -14,6 +14,9 @@
 # [*include_src*]
 #   Add source source repository
 #
+# [*key*]
+#   Public key in apt::key format
+#
 # [*dotdeb*]
 #   Enable special dotdeb handling
 #
@@ -22,7 +25,8 @@ class php::repo::debian(
   $release      = 'wheezy-php55',
   $repos        = 'all',
   $include_src  = false,
-  $dotdeb       = true
+  $key          = { 'id' => '7E3F070089DF5277', 'source' => 'http://www.dotdeb.org/dotdeb.gpg' },
+  $dotdeb       = true,
 ) {
 
   if $caller_module_name != $module_name {
@@ -31,11 +35,14 @@ class php::repo::debian(
 
   include '::apt'
 
+  create_resources(::apt::key, { 'php::repo::debian' => $key })
+
   ::apt::source { "source_php_${release}":
     location    => $location,
     release     => $release,
     repos       => $repos,
     include_src => $include_src,
+    require     => Apt::Key['php::repo::debian'],
   }
 
   if ($dotdeb) {
@@ -49,13 +56,5 @@ class php::repo::debian(
         include_src => $include_src,
       }
     }
-
-    exec { 'add_dotdeb_key':
-      command => 'curl -L --silent "http://www.dotdeb.org/dotdeb.gpg" | apt-key add -',
-      unless  => 'apt-key list | grep -q dotdeb',
-      path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ];
-    }
-
-    Exec['add_dotdeb_key'] -> ::Apt::Source["source_php_${release}"]
   }
 }
