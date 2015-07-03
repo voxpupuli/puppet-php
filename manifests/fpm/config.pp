@@ -40,6 +40,9 @@
 # [*process_control_timeout*]
 #   The php-fpm process_control_timeout
 #
+# [*systemd_interval*]
+#   The interval between health report notification to systemd
+#
 # [*log_owner*]
 #   The php-fpm log owner
 #
@@ -68,6 +71,7 @@ class php::fpm::config(
   $emergency_restart_threshold = '0',
   $emergency_restart_interval  = '0',
   $process_control_timeout     = '0',
+  $systemd_interval            = '10',
   $log_owner                   = $::php::params::fpm_user,
   $log_group                   = $::php::params::fpm_group,
   $log_dir_mode                = '0770',
@@ -90,6 +94,7 @@ class php::fpm::config(
   validate_re($emergency_restart_threshold, $number_re)
   validate_re($emergency_restart_interval, $interval_re)
   validate_re($process_control_timeout, $interval_re)
+  validate_re($systemd_interval, $interval_re)
   validate_string($log_owner)
   validate_string($log_group)
   validate_re($log_dir_mode, $number_re)
