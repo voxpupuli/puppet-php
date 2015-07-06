@@ -58,6 +58,9 @@ class php (
   validate_hash($extensions)
   validate_hash($settings)
 
+  # Deep merge global php settings
+  $real_settings = deep_merge($settings, hiera_hash('php::settings', {}))
+
   if $manage_repos {
     class { '::php::repo': } ->
     Anchor['php::begin']
@@ -66,14 +69,14 @@ class php (
   anchor { 'php::begin': } ->
     class { '::php::packages': } ->
     class { '::php::cli':
-      settings => $settings,
+      settings => $real_settings,
     } ->
   anchor { 'php::end': }
 
   if $fpm {
     Anchor['php::begin'] ->
       class { '::php::fpm':
-        settings => $settings,
+        settings => $real_settings,
       } ->
     Anchor['php::end']
   }
@@ -99,11 +102,6 @@ class php (
       class { '::php::phpunit': } ->
     Anchor['php::end']
   }
-
-  # FIXME: for deep merging support we need a explicit hash lookup instead of
-  #        automatic parameter lookup
-  #        (https://tickets.puppetlabs.com/browse/HI-118)
-  $real_settings = hiera_hash('php::settings', $settings)
 
   $real_extensions = hiera_hash('php::extensions', $extensions)
   create_resources('::php::extension', $real_extensions, {
