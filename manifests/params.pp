@@ -31,7 +31,7 @@ class php::params {
       $fpm_group               = 'www-data'
       $package_prefix          = 'php5-'
       $compiler_packages       = 'build-essential'
-      $manage_repos            = true
+      $manage_repos            = $::lsbdistcodename == 'wheezy'
       $root_group              = 'root'
     }
     'Suse': {
