@@ -1,6 +1,6 @@
 {
   "name": "mayflower-php",
-  "version": "3.2.2",
+  "version": "3.3.0",
   "author": "mayflower",
   "summary": "Generic PHP module that supports many platforms",
   "license": "MIT",
