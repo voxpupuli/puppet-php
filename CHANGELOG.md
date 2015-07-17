@@ -1,5 +1,31 @@
 # Changelog
 
+## 3.3.0
+ * `php::extension` resources:
+   * New boolean parameter `settings_prefix`to automatically prefix all
+     settings keys with the extensions names. Defaults to false to ensurre
+     the current behaviour.
+   * New string parameter `so_name` to set the DSO name of an extension if
+     it doesn't match the package name.
+   * New string parameter `php_api_version` to set a custom api version. If
+     not `undef`, the `so_name` is prefixed with the full module path in the
+     ini file. Defaults to `undef`.
+ * The default of the parameter `listen_allowed_clients` of `php::fpm::pool`
+   resources is now `undef` instead of `'127.0.0.1'`. This way it is more
+   intuitive to change the default tcp listening socket at `127.0.0.1:9000`
+   to a unix socket by only setting the `listen` parameter instead of
+   additionally needing to unset `listen_allowed_clients`. This has no
+   security implications.
+ * New parameters for the `php::fpm::config` class:
+   * `error_log`
+   * `syslog_facility`
+   * `syslog_ident`
+   * `systemd_interval`
+ * A bug that prevented merging the global `php::settings` parameter into
+   SAPI configs for `php::cli` and `php::fpm` was fixed.
+ * The dotdeb repos are now only installed for Debian wheezy as Debian jessie
+   has a sufficiently recent PHP version.
+
 ## 3.2.2
  * Fix a typo in hiera keys `php::settings` & `php::fpm::settings` (#83)
 
