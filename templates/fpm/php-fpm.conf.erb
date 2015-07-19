@@ -119,7 +119,11 @@ process_control_timeout = <%= @process_control_timeout %>
 ; Available Units: s(econds), m(inutes), h(ours)
 ; Default Unit: seconds
 ; Default value: 10
+<% if @systemd_interval -%>
 systemd_interval = <%= @systemd_interval %>
+<% else -%>
+;systemd_interval = 10
+<% end -%>
 
 ;;;;;;;;;;;;;;;;;;;;
 ; Pool Definitions ;
