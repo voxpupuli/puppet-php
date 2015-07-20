@@ -25,8 +25,8 @@
 #   by this module
 #
 # [*error_log*]
-# Path to error log file. If it's set to "syslog", log is
-# sent to syslogd instead of being written in a local file.
+#   Path to error log file. If it's set to "syslog", log is
+#   sent to syslogd instead of being written in a local file.
 #
 # [*log_level*]
 #   The php-fpm log level
@@ -53,10 +53,10 @@
 #   The octal mode of the directory
 #
 # [*syslog_facility*]
-# Used to specify what type of program is logging the message
+#   Used to specify what type of program is logging the message
 #
 # [*syslog_ident*]
-# Prepended to every message
+#   Prepended to every message
 #
 class php::fpm::config(
   $config_file                 = $::php::params::fpm_config_file,
