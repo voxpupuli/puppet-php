@@ -1,8 +1,11 @@
 # Changelog
 
+## 3.3.1
+ * Make `systemd_interval` parameter for class `php::fpm::config` optional
+
 ## 3.3.0
  * `php::extension` resources:
-   * New boolean parameter `settings_prefix`to automatically prefix all
+   * New boolean parameter `settings_prefix` to automatically prefix all
      settings keys with the extensions names. Defaults to false to ensurre
      the current behaviour.
    * New string parameter `so_name` to set the DSO name of an extension if
