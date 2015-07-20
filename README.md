@@ -25,7 +25,7 @@ include ::php
 You can configure the module through hiera. Here are the defaults for some
 parameters as you would specify them in hiera:
 
-```
+```yaml
 php::ensure: latest
 php::manage_repos: true
 php::fpm: true
@@ -53,7 +53,7 @@ Please note that settings of extensions are always independent.
 In the following example the timezone will be set in the PHP cli application
 and all php-fpm pools.
 
-```
+```yaml
 php::settings:
   Date/date.timezone: Europe/Berlin
 php::cli::settings:
@@ -67,7 +67,7 @@ php::fpm::settings:
 Extensions can be installed and configured by defining the hash
 `php::extensions` in hiera. They are activated for all activated SAPIs.
 
-```
+```yaml
 php::extensions:
   json: {}
   mysql: {}
@@ -95,7 +95,7 @@ resources. Use the parameter `$pools` from the class `php::fpm` to define
 If not defined in your hiera data, a single pool called `www` will be
 configured by default:
 
-```
+```yaml
 php::fpm::pools:
   www:
     listen: 127.0.0.1:9000
