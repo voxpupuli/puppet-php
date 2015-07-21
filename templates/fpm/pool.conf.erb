@@ -212,6 +212,18 @@ chdir = <%= @chdir %>
 ; Default Value: no
 catch_workers_output = <%= @catch_workers_output %>
 
+; Include one or more files. If glob(3) exists, it is used to include a bunch of
+; files from a glob(3) pattern. This directive can be used everywhere in the
+; file.
+; Relative path can also be used. They will be prefixed by:
+;  - the global prefix if it's been set (-p arguement)
+;  - /usr otherwise
+<% if @include -%>
+include=<%= @include %>
+<% else -%>
+;include=/etc/php5/fpm/*.conf
+<% end -%>
+
 ; Pass environment variables like LD_LIBRARY_PATH. All $VARIABLEs are taken from
 ; the current environment.
 ; Default Value: clean env

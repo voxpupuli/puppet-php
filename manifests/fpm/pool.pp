@@ -66,6 +66,9 @@
 #
 # [*catch_workers_output*]
 #
+# [*include*]
+#   Other configuration files to include on this pool
+#
 # [*env*]
 #   List of environment variables that are passed to the php-fpm from the
 #   outside and will be available to php scripts in this pool
@@ -117,6 +120,7 @@ define php::fpm::pool (
   $chroot = undef,
   $chdir = undef,
   $catch_workers_output = 'no',
+  $include = undef,
   $env = [],
   $env_value = {},
   $php_value = {},
