@@ -137,6 +137,16 @@ per-module configuration files.
 Please also note that support for Composer and PHPUnit on FreeBSD is untested
 and thus likely incomplete.
 
+### Running the test suite
+
+To run the tests install the ruby dependencies with `bundler` and execute
+`rake`:
+
+```
+bundle install --path vendor/bundle
+bundle exec rake
+```
+
 ## Bugs & New Features
 
 If you happen to stumble upon a bug, please feel free to create a pull request
