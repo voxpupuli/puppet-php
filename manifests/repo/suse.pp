@@ -19,7 +19,7 @@ class php::repo::suse (
   } ~>
   exec { 'zypprepo-accept-key':
     command     => 'zypper --gpg-auto-import-keys update -y',
-    path        => '/usr/bin',
+    path        => '/usr/bin:/bin',
     refreshonly => true,
   }
 }
