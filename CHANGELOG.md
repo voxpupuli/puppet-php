@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.4.0
+ * New parameter `ppa` for class `php::repo::ubuntu` to specify the ppa
+   name to use. We default to `ondrej/php5-oldstable` for precise and
+   `ondrej/php5` otherwise.
+ * New parameter `include` for `php::fpm::pool` resources to specify
+   custom configuration files.
+
 ## 3.3.1
  * Make `systemd_interval` parameter for class `php::fpm::config` optional
 
