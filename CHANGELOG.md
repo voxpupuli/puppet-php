@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.4.1
+ * Fix reloading php-fpm on Ubuntu trusty & utopic (#107)
+
 ## 3.4.0
  * New parameter `ppa` for class `php::repo::ubuntu` to specify the ppa
    name to use. We default to `ondrej/php5-oldstable` for precise and
