@@ -74,7 +74,8 @@
 #   outside and will be available to php scripts in this pool
 #
 # [*env_value*]
-#   Hash of environment variables to use in php scripts in this pool
+#   Hash of environment variables and values as strings to use in php
+#   scripts in this pool
 #
 # [*php_value*]
 #   Hash of php_value directives
