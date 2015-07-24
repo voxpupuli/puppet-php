@@ -236,7 +236,9 @@ include=<%= @include %>
 env[<%= var %>] = $<%= var %>
 <% end -%>
 <% @env_value.sort_by {|key,value| key}.each do |key,value| -%>
+<% if !value.empty? -%>
 env[<%= key %>] = '<%= value %>'
+<% end -%>
 <% end -%>
 
 ; Additional php.ini defines, specific to this pool of workers. These settings
