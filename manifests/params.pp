@@ -31,9 +31,23 @@ class php::params {
       $fpm_group               = 'www-data'
       $package_prefix          = 'php5-'
       $compiler_packages       = 'build-essential'
-      $manage_repos            = $::lsbdistcodename == 'wheezy'
       $root_group              = 'root'
+
+      case $::operatingsystem {
+        'Debian': {
+          $manage_repos = $::lsbdistcodenameid == 'wheezy'
+        }
+
+        'Ubuntu': {
+          $manage_repos = true
+        }
+
+        default: {
+          $manage_repos = false
+        }
+      }
     }
+
     'Suse': {
       $config_root             = '/etc/php5'
       $config_root_ini         = "${config_root}/conf.d"
