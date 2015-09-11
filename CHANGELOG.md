@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.4.2
+ * Fix a bug that changed the default of `php::manage_repos` to `false` on
+   Debian-based operating systems except wheezy. It should be turned on by
+   default. (#116)
+ * Fix a bug that prevented reloading php-fpm on Ubuntu in some cases.
+   (#117, #107)
+
 ## 3.4.1
  * Fix reloading php-fpm on Ubuntu trusty & utopic (#107)
 
