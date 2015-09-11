@@ -49,4 +49,14 @@ class php::fpm (
 
   $real_pools = hiera_hash('php::fpm::pools',  $pools)
   create_resources(::php::fpm::pool, $real_pools)
+
+  # Create an override to use a reload signal as trusty and utopic's
+  # upstart version supports this:q
+  if $::osfamily == 'Debian' and
+    ($::lsbdistcodename == 'trusty' or $::lsbdistcodename == 'utopic') {
+    file { "/etc/init/${::php::fpm::service::service_name}.override":
+      content => 'reload signal USR2',
+      before  => Package[$real_package],
+    }
+  }
 }

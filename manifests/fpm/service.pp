@@ -26,20 +26,9 @@ class php::fpm::service(
   if $::osfamily == 'Debian' {
     # Precise upstart doesn't support reload signals, so use
     # regular service restart instead
-    if $::lsbdistcodename == 'precise' {
-      $restart = undef
-    } else {
-      $restart = $reload
-    }
-
-    # Create an override to use a reload signal as trusty and utopic's
-    # upstart version supports this
-    if ($::lsbdistcodename == 'trusty' or
-        $::lsbdistcodename == 'utopic') {
-      file { "/etc/init/${service_name}.override":
-        content => 'reload signal USR2',
-        before  => Service[$service_name],
-      }
+    $restart = $::lsbdistcodename ? {
+      'precise' => undef,
+      default   => $reload
     }
   } else {
     $restart = $reload
