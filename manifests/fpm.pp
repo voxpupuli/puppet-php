@@ -51,7 +51,7 @@ class php::fpm (
   create_resources(::php::fpm::pool, $real_pools)
 
   # Create an override to use a reload signal as trusty and utopic's
-  # upstart version supports this:q
+  # upstart version supports this
   if $::osfamily == 'Debian' and
     ($::lsbdistcodename == 'trusty' or $::lsbdistcodename == 'utopic') {
     file { "/etc/init/${::php::fpm::service::service_name}.override":
