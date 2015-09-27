@@ -61,6 +61,9 @@ class php (
   # Deep merge global php settings
   $real_settings = deep_merge($settings, hiera_hash('php::settings', {}))
 
+  # Deep merge global php extensions
+  $real_extensions = deep_merge($extensions, hiera_hash('php::extensions', {}))
+
   if $manage_repos {
     class { '::php::repo': } ->
     Anchor['php::begin']
@@ -103,7 +106,6 @@ class php (
     Anchor['php::end']
   }
 
-  $real_extensions = hiera_hash('php::extensions', $extensions)
   create_resources('::php::extension', $real_extensions, {
     require => Class['::php::cli'],
     before  => Anchor['php::end']
