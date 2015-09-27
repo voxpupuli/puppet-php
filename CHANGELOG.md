@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.5.0
+ * Fix a bug turning `manage_repos` of on wheezy
+ * Fix a deprecation warning on apt::key when using manage_repos on wheezy (#110)
+   This change requires puppetlabs/apt at >= 1.8.0
+
 ## 3.4.2
  * Fix a bug that changed the default of `php::manage_repos` to `false` on
    Debian-based operating systems except wheezy. It should be turned on by

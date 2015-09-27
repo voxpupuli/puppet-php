@@ -25,7 +25,10 @@ class php::repo::debian(
   $release      = 'wheezy-php55',
   $repos        = 'all',
   $include_src  = false,
-  $key          = { 'id' => '7E3F070089DF5277', 'source' => 'http://www.dotdeb.org/dotdeb.gpg' },
+  $key          = {
+    'id'     => '6572BBEF1B5FF28B28B706837E3F070089DF5277',
+    'source' => 'http://www.dotdeb.org/dotdeb.gpg'
+  },
   $dotdeb       = true,
 ) {
 

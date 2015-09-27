@@ -35,7 +35,7 @@ class php::params {
 
       case $::operatingsystem {
         'Debian': {
-          $manage_repos = $::lsbdistcodenameid == 'wheezy'
+          $manage_repos = $::lsbdistcodename == 'wheezy'
         }
 
         'Ubuntu': {
