@@ -129,6 +129,11 @@ We prefer using php-fpm. You can find an example Apache vhost in
 `manifests/apache_vhost.pp` that shows you how to use `mod_proxy_fcgi` to
 connect to php-fpm.
 
+### Facts
+We deliver a `phpversion` fact with this module. This is explicitly **NOT** intended 
+to be used within your puppet manifests as it will only work on your second puppet
+run. Its intention is to make querying PHP versions per server easy via PuppetDB.
+
 ### FreeBSD support
 
 On FreeBSD systems we purge the system-wide `extensions.ini` in favour of
