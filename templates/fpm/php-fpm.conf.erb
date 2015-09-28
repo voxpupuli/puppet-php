@@ -22,13 +22,7 @@
 ; Pid file
 ; Note: the default prefix is /var
 ; Default Value: none
-<% if @osfamily == "FreeBSD" %>
-pid = /var/run/php-fpm.pid
-<% elsif @osfamily == "RedHat" %>
-pid = /var/run/php-fpm/php-fpm.pid
-<% else %>
-pid = /var/run/php5-fpm.pid
-<% end %>
+pid = <%= @pid_file %>
 
 ; Error log file
 ; If it's set to "syslog", log is sent to syslogd instead of being written
