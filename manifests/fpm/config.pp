@@ -63,6 +63,7 @@ class php::fpm::config(
   $user                        = $::php::params::fpm_user,
   $group                       = $::php::params::fpm_group,
   $inifile                     = $::php::params::fpm_inifile,
+  $pid_file                    = $::php::params::fpm_pid_file,
   $settings                    = {},
   $pool_base_dir               = $::php::params::fpm_pool_dir,
   $pool_purge                  = false,
