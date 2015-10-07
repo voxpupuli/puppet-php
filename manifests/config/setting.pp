@@ -39,7 +39,14 @@ define php::config::setting(
     $setting = $split_name[1]
   }
 
+  if $value == undef {
+    $ensure = 'absent'
+  } else {
+    $ensure = 'present'
+  }
+
   ini_setting { $name:
+    ensure  => $ensure,
     value   => $value,
     path    => $file,
     section => $section,
