@@ -46,10 +46,10 @@ define php::config::setting(
   }
 
   ini_setting { $name:
+    ensure  => $ensure,
     value   => $value,
     path    => $file,
     section => $section,
-    setting => $setting,
-    ensure  => $ensure
+    setting => $setting
   }
 }
