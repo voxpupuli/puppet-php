@@ -50,6 +50,6 @@ define php::config::setting(
     value   => $value,
     path    => $file,
     section => $section,
-    setting => $setting
+    setting => $setting,
   }
 }
