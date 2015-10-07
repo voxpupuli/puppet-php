@@ -48,6 +48,7 @@ define php::config::setting(
   ini_setting { $name:
     value   => $value,
     path    => $file,
+    section => $section,
     setting => $setting,
     ensure  => $ensure
   }
