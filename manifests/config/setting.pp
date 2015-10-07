@@ -39,10 +39,10 @@ define php::config::setting(
     $setting = $split_name[1]
   }
 
-  if $value {
-    $ensure = 'present'
-  } else {
+  if $value == undef {
     $ensure = 'absent'
+  } else {
+    $ensure = 'present'
   }
 
   ini_setting { $name:
