@@ -4,6 +4,9 @@
  * Fix a bug turning `manage_repos` off on wheezy
  * Fix a deprecation warning on `apt::key` when using `manage_repos` on wheezy (#110)
    This change requires puppetlabs/apt at >= 1.8.0
+ * Allow removal of config values (#124)
+ * Add `phpversion` fact, to be used for querying through PuppetDB (#119)
+ * Allow configuring the fpm pid file (#123)
 
 ### Breaking Changes
  * Deep merge `php::extensions` the same way as `php::settings`. This technically is a
