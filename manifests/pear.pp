@@ -43,11 +43,4 @@ class php::pear (
     require => Class['::php::cli'],
   }
 
-  exec { '::php::pear::auto_discover':
-    command => 'pear config-set auto_discover 1 system',
-    unless  => 'pear config-get auto_discover system | grep -q 1',
-    path    => ['/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/',
-                '/usr/local/bin', '/usr/local/sbin'],
-    require => Package[$package_name],
-  }
 }
