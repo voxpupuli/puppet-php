@@ -37,6 +37,7 @@ class php (
   $ensure         = $::php::params::ensure,
   $manage_repos   = $::php::params::manage_repos,
   $fpm            = true,
+  $embedded       = false,
   $dev            = true,
   $composer       = true,
   $pear           = true,
@@ -50,6 +51,7 @@ class php (
   validate_string($ensure)
   validate_bool($manage_repos)
   validate_bool($fpm)
+  validate_bool($embedded)
   validate_bool($dev)
   validate_bool($composer)
   validate_bool($pear)
@@ -79,6 +81,18 @@ class php (
   if $fpm {
     Anchor['php::begin'] ->
       class { '::php::fpm':
+        settings => $real_settings,
+      } ->
+    Anchor['php::end']
+  }
+  if $embedded {
+    if $::osfamily == 'RedHat' and $fpm {
+      # Both fpm and embeded SAPIs are using same php.ini
+      fail('Enabling both cli and embedded sapis is not currently supported')
+    }
+    
+    Anchor['php::begin'] ->
+      class { '::php::embedded':
         settings => $real_settings,
       } ->
     Anchor['php::end']

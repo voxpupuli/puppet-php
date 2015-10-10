@@ -30,6 +30,8 @@ class php::params {
       $fpm_service_name        = 'php5-fpm'
       $fpm_user                = 'www-data'
       $fpm_group               = 'www-data'
+      $embedded_package_suffix = 'embed'
+      $embedded_inifile        = "${config_root}/embed/php.ini"
       $package_prefix          = 'php5-'
       $compiler_packages       = 'build-essential'
       $root_group              = 'root'
@@ -65,6 +67,8 @@ class php::params {
       $fpm_service_name        = 'php-fpm'
       $fpm_user                = 'wwwrun'
       $fpm_group               = 'www'
+      $embedded_package_suffix = 'embed'
+      $embedded_inifile        = "${config_root}/embed/php.ini"
       $package_prefix          = 'php5-'
       $manage_repos            = true
       $root_group              = 'root'
@@ -95,6 +99,8 @@ class php::params {
       $fpm_service_name        = 'php-fpm'
       $fpm_user                = 'apache'
       $fpm_group               = 'apache'
+      $embedded_package_suffix = 'embedded'
+      $embedded_inifile        = '/etc/php.ini'
       $package_prefix          = 'php-'
       $compiler_packages       = ['gcc', 'gcc-c++', 'make']
       $manage_repos            = false
@@ -119,6 +125,8 @@ class php::params {
       $fpm_service_name        = 'php-fpm'
       $fpm_user                = 'www'
       $fpm_group               = 'www'
+      $embedded_package_suffix = 'embed'
+      $embedded_inifile        = "${config_root}/php-embed.ini"
       $package_prefix          = 'php56-'
       $compiler_packages       = ['gcc']
       $manage_repos            = false
