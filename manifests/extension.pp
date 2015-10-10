@@ -59,10 +59,6 @@ define php::extension(
   $settings_prefix   = false,
 ) {
 
-  if $caller_module_name != $module_name {
-    warning('php::extension is private')
-  }
-
   validate_string($ensure)
   validate_string($package_prefix)
   validate_string($so_name)
