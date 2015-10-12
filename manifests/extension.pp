@@ -183,10 +183,9 @@ define php::extension(
     $cmd = "/usr/sbin/php5enmod ${lowercase_title}"
 
     exec { $cmd:
-      refreshonly => true,
+      unless  => "/usr/sbin/php5query -s cli -m ${lowercase_title}",
+      require =>::Php::Config[$title],
     }
-
-    ::Php::Config[$title] ~> Exec[$cmd]
 
     if $::php::fpm {
       Package[$::php::fpm::package] ~> Exec[$cmd]
