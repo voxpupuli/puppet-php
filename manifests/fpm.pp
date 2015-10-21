@@ -48,7 +48,7 @@ class php::fpm (
   anchor { '::php::fpm::end': }
 
   $real_pools = hiera_hash('php::fpm::pools',  $pools)
-  create_resources(::php::fpm::pool, $real_pools)
+  create_resources('php::fpm::pool', $real_pools)
 
   # Create an override to use a reload signal as trusty and utopic's
   # upstart version supports this
