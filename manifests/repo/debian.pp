@@ -6,7 +6,8 @@
 #   Location of the apt repository
 #
 # [*release*]
-#   Release of the apt repository
+#   Releases of the apt repository. Can be a string with the release name, or an
+#   array of strings with multiple releases.
 #
 # [*repos*]
 #   Apt repository names
@@ -42,24 +43,30 @@ class php::repo::debian(
     key => $key['id'], key_source => $key['source'],
   }})
 
-  ::apt::source { "source_php_${release}":
+  define php_apt_source($location, $repos, $include_src) {
+    ::apt::source { "source_php_${title}":
+      location    => $location,
+      release     => $title,
+      repos       => $repos,
+      include_src => $include_src,
+      require     => Apt::Key['php::repo::debian'],
+    }
+  }
+
+  php_apt_source { $release:
     location    => $location,
-    release     => $release,
     repos       => $repos,
     include_src => $include_src,
-    require     => Apt::Key['php::repo::debian'],
   }
 
   if ($dotdeb) {
-    # wheezy-php55 requires both repositories to work correctly
+    # Dotdeb requires the general 'wheezy' release as well.
     # See: http://www.dotdeb.org/instructions/
-    if $release == 'wheezy-php55' {
-      ::apt::source { 'dotdeb-wheezy':
-        location    => $location,
-        release     => 'wheezy',
-        repos       => $repos,
-        include_src => $include_src,
-      }
+    ::apt::source { 'dotdeb-wheezy':
+      location    => $location,
+      release     => 'wheezy',
+      repos       => $repos,
+      include_src => $include_src,
     }
   }
 }
