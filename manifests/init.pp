@@ -81,7 +81,7 @@ class php (
   class {'::php::global':
     settings => $real_settings,
   } ->
-  anchor { 'php::end': }
+  Anchor ['php::end':]
 
   if $fpm {
     Anchor['php::begin'] ->
