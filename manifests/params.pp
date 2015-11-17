@@ -17,6 +17,7 @@ class php::params {
     'Debian': {
       $config_root             = '/etc/php5'
       $config_root_ini         = "${::php::params::config_root}/mods-available"
+      $config_root_inifile     = "${config_root}/php.ini"
       $common_package_names    = []
       $common_package_suffixes = ['cli', 'common']
       $cli_inifile             = "${config_root}/cli/php.ini"
@@ -52,6 +53,7 @@ class php::params {
     'Suse': {
       $config_root             = '/etc/php5'
       $config_root_ini         = "${config_root}/conf.d"
+      $config_root_inifile     = "${config_root}/php.ini"
       $common_package_names    = ['php5']
       $common_package_suffixes = []
       $cli_inifile             = "${config_root}/cli/php.ini"
@@ -82,6 +84,7 @@ class php::params {
     }
     'RedHat': {
       $config_root_ini         = '/etc/php.d'
+      $config_root_inifile     = '/etc/php.ini'
       $common_package_names    = []
       $common_package_suffixes = ['cli', 'common']
       $cli_inifile             = '/etc/php-cli.ini'
@@ -89,7 +92,7 @@ class php::params {
       $fpm_pid_file            = '/var/run/php-fpm/php-fpm.pid'
       $fpm_config_file         = '/etc/php-fpm.conf'
       $fpm_error_log           = '/var/log/php-fpm/error.log'
-      $fpm_inifile             = '/etc/php.ini'
+      $fpm_inifile             = '/etc/php-fpm.ini'
       $fpm_package_suffix      = 'fpm'
       $fpm_pool_dir            = '/etc/php-fpm.d'
       $fpm_service_name        = 'php-fpm'
@@ -103,6 +106,7 @@ class php::params {
     'FreeBSD': {
       $config_root             = '/usr/local/etc'
       $config_root_ini         = "${config_root}/php"
+      $config_root_inifile     = "${config_root}/php.ini"
       # No common packages, because the required PHP base package will be
       # pulled in as a dependency. This preserves the ability to choose
       # any available PHP version by setting the 'package_prefix' parameter.
@@ -113,7 +117,7 @@ class php::params {
       $fpm_pid_file            = '/var/run/php-fpm.pid'
       $fpm_config_file         = "${config_root}/php-fpm.conf"
       $fpm_error_log           = '/var/log/php-fpm.log'
-      $fpm_inifile             = "${config_root}/php.ini"
+      $fpm_inifile             = "${config_root}/php-fpm.ini"
       $fpm_package_suffix      = undef
       $fpm_pool_dir            = "${config_root}/php-fpm.d"
       $fpm_service_name        = 'php-fpm'
