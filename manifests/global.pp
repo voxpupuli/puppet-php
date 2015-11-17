@@ -11,7 +11,7 @@
 #
 
 #
-class php::cli(
+class php::global(
   $inifile  = $::php::params::config_root_inifile,
   $settings = {}
 ) inherits ::php::params {
