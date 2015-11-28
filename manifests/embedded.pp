@@ -23,10 +23,6 @@ class php::embedded(
   validate_absolute_path($inifile)
   validate_hash($settings)
 
-  $real_settings = deep_merge(
-    $settings,
-    hiera_hash('php::embedded::settings', {})
-  )
 
   $real_package = $::osfamily ? {
     'Debian' => "lib${package}",
@@ -39,7 +35,7 @@ class php::embedded(
   }->
   ::php::config { 'embedded':
     file   => $inifile,
-    config => $real_settings,
+    config => $settings,
   }
   
 }

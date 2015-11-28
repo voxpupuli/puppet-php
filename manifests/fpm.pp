@@ -26,7 +26,6 @@ class php::fpm (
   validate_hash($settings)
   validate_hash($pools)
 
-  $real_settings = deep_merge($settings, hiera_hash('php::fpm::settings', {}))
 
   # On FreeBSD fpm is not a separate package, but included in the 'php' package.
   # Implies that the option SET+=FPM was set when building the port.
@@ -42,13 +41,12 @@ class php::fpm (
     } ->
     class { '::php::fpm::config':
       inifile  => $inifile,
-      settings => $real_settings,
+      settings => $settings,
     } ->
     class { '::php::fpm::service': } ->
   anchor { '::php::fpm::end': }
 
-  $real_pools = hiera_hash('php::fpm::pools',  $pools)
-  create_resources(::php::fpm::pool, $real_pools)
+  create_resources(::php::fpm::pool, $pools)
 
   # Create an override to use a reload signal as trusty and utopic's
   # upstart version supports this

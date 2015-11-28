@@ -60,12 +60,6 @@ class php (
   validate_hash($extensions)
   validate_hash($settings)
 
-  # Deep merge global php settings
-  $real_settings = deep_merge($settings, hiera_hash('php::settings', {}))
-
-  # Deep merge global php extensions
-  $real_extensions = deep_merge($extensions, hiera_hash('php::extensions', {}))
-
   if $manage_repos {
     class { '::php::repo': } ->
     Anchor['php::begin']
@@ -74,14 +68,14 @@ class php (
   anchor { 'php::begin': } ->
     class { '::php::packages': } ->
     class { '::php::cli':
-      settings => $real_settings,
+      settings => $settings,
     } ->
   anchor { 'php::end': }
 
   if $fpm {
     Anchor['php::begin'] ->
       class { '::php::fpm':
-        settings => $real_settings,
+        settings => $settings,
       } ->
     Anchor['php::end']
   }
@@ -93,7 +87,7 @@ class php (
     
     Anchor['php::begin'] ->
       class { '::php::embedded':
-        settings => $real_settings,
+        settings => $settings,
       } ->
     Anchor['php::end']
   }
@@ -120,7 +114,7 @@ class php (
     Anchor['php::end']
   }
 
-  create_resources('::php::extension', $real_extensions, {
+  create_resources('::php::extension', $extensions, {
     require => Class['::php::cli'],
     before  => Anchor['php::end']
   })
