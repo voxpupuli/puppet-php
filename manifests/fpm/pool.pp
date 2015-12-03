@@ -48,6 +48,12 @@
 #
 # [*ping_reponse*]
 #
+# [*access_log*]
+#   The path to the file to write access log requests to
+#
+# [*access_log_format*]
+#   The format to save the access log entries as
+#
 # [*request_terminate_timeout*]
 #
 # [*request_slowlog_timeout*]
