@@ -1,4 +1,4 @@
-sudo: true
+sudo: false
 language: ruby
 rvm:
 - 2.1.6
@@ -6,26 +6,26 @@ rvm:
 - 1.9.3
 env:
   matrix:
-  - PUPPET_VERSION=3.7.5
-  - PUPPET_VERSION=3.7.5 FUTURE_PARSER=yes TRUSTED_NODE_DATA=yes
+  - PUPPET_VERSION=3.8.4
+  - PUPPET_VERSION=3.8.4 FUTURE_PARSER=yes TRUSTED_NODE_DATA=yes
   global:
   - secure: Zc0V6JqwpFTTtVE7jVFg5R6UgXZrzsBGa6ckbOnIHPCOyJsV4oWO6RxKsYI+ozzD9nrEdrT/DTcHKRz84YqrMXxvBU9HA4S/ZrNQoRiH3bEnI3UHC6jQJRX0c71gaJEMQ3S33my39vLD7EsealX3p+j8asL8e8glYR1am9ekUB8=
 matrix:
   exclude:
   - rvm: 2.1.6
-    env: PUPPET_VERSION=3.7.5
+    env: PUPPET_VERSION=3.8.4
   include:
   - rvm: 2.1.6
-    env: PUPPET_VERSION=3.7.5 DOCS=true
+    env: PUPPET_VERSION=3.8.4 DOCS=true
 after_success: |
   [ $TRAVIS_BRANCH = master ] &&
   [ $TRAVIS_PULL_REQUEST = false ] &&
   [ -n "$DOCS" ] &&
   puppet module install puppetlabs/strings &&
   puppet strings &&
-  sudo pip install ghp-import &&
+  pip install --user ghp-import &&
   echo php.puppet.mayflower.de > doc/CNAME &&
-  ghp-import -n doc &&
+  ~/.local/bin/ghp-import -n doc &&
   git push -fq https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git gh-pages
 notifications:
   webhooks:
