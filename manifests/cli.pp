@@ -8,7 +8,7 @@
 # [*settings*]
 #   Hash with nested hash of key => value to set in inifile
 #
-class php::cli(
+class php::cli (
   $inifile  = $::php::params::cli_inifile,
   $settings = {}
 ) inherits ::php::params {
@@ -20,10 +20,8 @@ class php::cli(
   validate_absolute_path($inifile)
   validate_hash($settings)
 
-  $real_settings = deep_merge($settings, hiera_hash('php::cli::settings', {}))
-
   ::php::config { 'cli':
     file   => $inifile,
-    config => $real_settings,
+    config => $settings,
   }
 }
