@@ -45,7 +45,13 @@
         "7"
       ]
     },
-    { "operatingsystem": "FreeBSD" },
+    { "operatingsystem": "FreeBSD",
+      "operatingsystemrelease": [
+        "9",
+        "10",
+        "11"
+      ]
+    },
     { "operatingsystem": "SLES",
       "operatingsystemrelease": [
         "11"
