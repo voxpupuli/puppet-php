@@ -16,8 +16,8 @@
     { "name": "example42/yum", "version_requirement": "2.x" }
   ],
   "requirements": [
-    { "name": "puppet", "version_requirement": "3.x" },
-    { "name": "pe", "version_requirement": "3.x" }
+    { "name": "puppet", "version_requirement": ">= 3.0.0 < 5.0.0" },
+    { "name": "pe", "version_requirement": ">= 3.0.0" }
   ],
   "operatingsystem_support": [
     { "operatingsystem": "Ubuntu",
