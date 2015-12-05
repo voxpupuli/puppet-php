@@ -58,12 +58,13 @@ Puppet::Type.type(:package).provide :pecl, :parent => Puppet::Provider::Package 
     when /No packages installed from channel/i then return nil
     when /^=/ then return nil
     when /^PACKAGE/ then return nil
+    when /\[1m/ then return nil       # Newer versions of PEAR use colorized output
     when /^(\S+)\s+(\S+)\s+\S+/ then
       name = $1
       version = $2
 
       return {
-        :name => "pecl-#{name}",
+        :name => "pecl-#{name.downcase}",
         :ensure => version
       }
     else
@@ -79,7 +80,7 @@ Puppet::Type.type(:package).provide :pecl, :parent => Puppet::Provider::Package 
   end
 
   def peclname
-    self.name.sub('pecl-', '')
+    self.name.sub('pecl-', '').downcase
   end
 
   def install(useversion = true)
