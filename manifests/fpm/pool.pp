@@ -48,6 +48,12 @@
 #
 # [*ping_reponse*]
 #
+# [*access_log*]
+#   The path to the file to write access log requests to
+#
+# [*access_log_format*]
+#   The format to save the access log entries as
+#
 # [*request_terminate_timeout*]
 #
 # [*request_slowlog_timeout*]
@@ -112,6 +118,8 @@ define php::fpm::pool (
   $pm_status_path = undef,
   $ping_path = undef,
   $ping_response = 'pong',
+  $access_log = undef,
+  $access_log_format = "%R - %u %t \"%m %r\" %s",
   $request_terminate_timeout = '0',
   $request_slowlog_timeout = '0',
   $security_limit_extensions = undef,
