@@ -120,6 +120,12 @@ older though still supported distribution release. Our default is to have
 Ubuntu with packages for the current stable PHP version closely tracking
 upstream.
 
+To use an alternate PPA, Ondrej's PHP 5.6 for example, use the below hiera snippet
+```yaml
+php::repo::ubuntu::ppa: 'ondrej/php5-5.6'
+php::manage_repos: true
+```
+
 ### Apache support
 
 Apache with `mod_php` is not supported by this module. Please use
