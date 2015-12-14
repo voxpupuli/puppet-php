@@ -141,7 +141,7 @@ describe 'php::extension' do
 
             it {
               should contain_php__config('xdebug').with({
-                :file => '/etc/php5/mods-available/xdebug.ini',
+                :file => "#{etcdir}/xdebug.ini",
               })
             }
             context 'pecl installation' do
