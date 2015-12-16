@@ -8,9 +8,6 @@ PuppetLint::RakeTask.new :lint do |config|
   config.fail_on_warnings = true
 end
 
-PuppetLint.configuration.relative = true
-PuppetLint.configuration.send('disable_class_inherits_from_params_class')
-
 task :default => [:metadata, :lint, :spec]
 
 task :metadata do
