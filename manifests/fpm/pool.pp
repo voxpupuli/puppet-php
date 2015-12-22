@@ -98,6 +98,11 @@
 # [*php_directives*]
 #   List of custom directives that are appended to the pool config
 #
+# [*base_dir*]
+#   The folder that contains the php-fpm pool configs. This defaults to a 
+#   sensible default depending on your operating system, like
+#   '/etc/php5/fpm/pool.d' or '/etc/php-fpm.d'
+#
 define php::fpm::pool (
   $ensure = 'present',
   $listen = '127.0.0.1:9000',
@@ -138,9 +143,14 @@ define php::fpm::pool (
   $php_admin_flag = {},
   $php_directives = [],
   $root_group = $::php::params::root_group,
+  $base_dir = undef,
 ) {
 
   include ::php::params
+
+  if $base_dir != undef {
+    validate_absolute_path($base_dir)
+  }
 
   $pool = $title
 
@@ -154,13 +164,14 @@ define php::fpm::pool (
     default   => $::php::fpm::package,
   }
 
+  $pool_base_dir = pick_default($base_dir, $::php::fpm::config::pool_base_dir, $::php::params::fpm_pool_dir)
   if ($ensure == 'absent') {
-    file { "${::php::params::fpm_pool_dir}/${pool}.conf":
+    file { "${pool_base_dir}/${pool}.conf":
       ensure => absent,
       notify => Class['::php::fpm::service'],
     }
   } else {
-    file { "${::php::params::fpm_pool_dir}/${pool}.conf":
+    file { "${pool_base_dir}/${pool}.conf":
       ensure  => file,
       notify  => Class['::php::fpm::service'],
       require => Package[$real_package],

@@ -33,6 +33,19 @@
 #   to a sensible default depending on your operating system, like 'php-' or
 #   'php5-'.
 #
+# [*config_root_ini*]
+#   This is the path to the config .ini files of the extensions. This defaults
+#   to a sensible default depending on your operating system, like
+#   '/etc/php5/mods-available' or '/etc/php5/conf.d'.
+#
+# [*$ext_tool_enable*]
+#   Absolute path to php tool for enabling extensions in debian/ubuntu systems.
+#   This defaults to '/usr/sbin/php5enmod'.
+#
+# [*$ext_tool_query*]
+#   Absolute path to php tool for querying information about extensions in
+#   debian/ubuntu systems. This defaults to '/usr/sbin/php5query'.
+#
 class php (
   $ensure         = $::php::params::ensure,
   $manage_repos   = $::php::params::manage_repos,
@@ -46,6 +59,9 @@ class php (
   $extensions     = {},
   $settings       = {},
   $package_prefix = $::php::params::package_prefix,
+  $config_root_ini = $::php::params::config_root_ini,
+  $ext_tool_enable = $::php::params::ext_tool_enable,
+  $ext_tool_query  = $::php::params::ext_tool_query,
 ) inherits ::php::params {
 
   validate_string($ensure)
@@ -59,6 +75,15 @@ class php (
   validate_bool($phpunit)
   validate_hash($extensions)
   validate_hash($settings)
+  if $config_root_ini != undef {
+    validate_absolute_path($config_root_ini)
+  }
+  if $ext_tool_enable != undef {
+    validate_absolute_path($ext_tool_enable)
+  }
+  if $ext_tool_query != undef {
+    validate_absolute_path($ext_tool_query)
+  }
 
   # Deep merge global php settings
   $real_settings = deep_merge($settings, hiera_hash('php::settings', {}))

@@ -1,6 +1,12 @@
 # PHP params class
 #
-class php::params {
+class php::params(
+  $cfg_root = undef,
+) {
+
+  if $cfg_root != undef {
+    validate_absolute_path($cfg_root)
+  }
 
   $ensure              = 'present'
   $fpm_service_enable  = true
@@ -15,8 +21,8 @@ class php::params {
 
   case $::osfamily {
     'Debian': {
-      $config_root             = '/etc/php5'
-      $config_root_ini         = "${::php::params::config_root}/mods-available"
+      $config_root             = pick($cfg_root, '/etc/php5')
+      $config_root_ini         = "${config_root}/mods-available"
       $common_package_names    = []
       $common_package_suffixes = ['cli', 'common']
       $cli_inifile             = "${config_root}/cli/php.ini"
@@ -35,6 +41,8 @@ class php::params {
       $package_prefix          = 'php5-'
       $compiler_packages       = 'build-essential'
       $root_group              = 'root'
+      $ext_tool_enable         = '/usr/sbin/php5enmod'
+      $ext_tool_query          = '/usr/sbin/php5query'
 
       case $::operatingsystem {
         'Debian': {
@@ -52,7 +60,7 @@ class php::params {
     }
 
     'Suse': {
-      $config_root             = '/etc/php5'
+      $config_root             = pick($cfg_root, '/etc/php5')
       $config_root_ini         = "${config_root}/conf.d"
       $common_package_names    = ['php5']
       $common_package_suffixes = []
@@ -107,7 +115,7 @@ class php::params {
       $root_group              = 'root'
     }
     'FreeBSD': {
-      $config_root             = '/usr/local/etc'
+      $config_root             = pick($cfg_root, '/usr/local/etc')
       $config_root_ini         = "${config_root}/php"
       # No common packages, because the required PHP base package will be
       # pulled in as a dependency. This preserves the ability to choose
