@@ -4,7 +4,7 @@
 # === Parameters
 #
 # [*ensure*]
-#   Specify which version of PHP packages to install, defaults to 'latest'.
+#   Specify which version of PHP packages to install, defaults to 'present'.
 #   Please note that 'absent' to remove packages is not supported!
 #
 # [*manage_repos*]
