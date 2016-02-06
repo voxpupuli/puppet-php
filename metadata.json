@@ -7,7 +7,7 @@
   "source": "https://github.com/mayflower/puppet-php",
   "project_page": "http://php.puppet.mayflower.de/",
   "issues_url": "https://github.com/mayflower/puppet-php/issues",
-  "description": "Puppet module that aims to manage PHP and extensions in a generic way on many platforms with sane defaults and easy, hiera-centric configuration",
+  "description": "Puppet module that aims to manage PHP and extensions in a generic way on many platforms with sane defaults and easy configuration",
   "dependencies": [
     { "name": "puppetlabs/stdlib", "version_requirement": ">= 4.2.0 < 5.0.0" },
     { "name": "puppetlabs/apt", "version_requirement": ">= 1.8.0 < 3.0.0" },
