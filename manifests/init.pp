@@ -13,6 +13,12 @@
 # [*fpm*]
 #   Install and configure php-fpm
 #
+# [*fpm_service_enable*]
+#   Enable/disable FPM service
+#
+# [*fpm_service_ensure*]
+#   Ensure FPM service is either 'running' or 'stopped'
+#
 # [*dev*]
 #   Install php header files, needed to install pecl modules
 #
@@ -47,21 +53,23 @@
 #   debian/ubuntu systems. This defaults to '/usr/sbin/php5query'.
 #
 class php (
-  $ensure         = $::php::params::ensure,
-  $manage_repos   = $::php::params::manage_repos,
-  $fpm            = true,
-  $embedded       = false,
-  $dev            = true,
-  $composer       = true,
-  $pear           = true,
-  $pear_ensure    = $::php::params::pear_ensure,
-  $phpunit        = false,
-  $extensions     = {},
-  $settings       = {},
-  $package_prefix = $::php::params::package_prefix,
-  $config_root_ini = $::php::params::config_root_ini,
-  $ext_tool_enable = $::php::params::ext_tool_enable,
-  $ext_tool_query  = $::php::params::ext_tool_query,
+  $ensure             = $::php::params::ensure,
+  $manage_repos       = $::php::params::manage_repos,
+  $fpm                = true,
+  $fpm_service_enable = $::php::params::fpm_service_enable,
+  $fpm_service_ensure = $::php::params::fpm_service_ensure,
+  $embedded           = false,
+  $dev                = true,
+  $composer           = true,
+  $pear               = true,
+  $pear_ensure        = $::php::params::pear_ensure,
+  $phpunit            = false,
+  $extensions         = {},
+  $settings           = {},
+  $package_prefix     = $::php::params::package_prefix,
+  $config_root_ini    = $::php::params::config_root_ini,
+  $ext_tool_enable    = $::php::params::ext_tool_enable,
+  $ext_tool_query     = $::php::params::ext_tool_query,
 ) inherits ::php::params {
 
   validate_string($ensure)
@@ -106,7 +114,9 @@ class php (
   if $fpm {
     Anchor['php::begin'] ->
       class { '::php::fpm':
-        settings => $real_settings,
+        service_enable => $fpm_service_enable,
+        service_ensure => $fpm_service_ensure,
+        settings       => $real_settings,
       } ->
     Anchor['php::end']
   }
@@ -115,7 +125,7 @@ class php (
       # Both fpm and embeded SAPIs are using same php.ini
       fail('Enabling both cli and embedded sapis is not currently supported')
     }
-    
+
     Anchor['php::begin'] ->
       class { '::php::embedded':
         settings => $real_settings,
