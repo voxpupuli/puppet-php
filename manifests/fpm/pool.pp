@@ -48,6 +48,12 @@
 #
 # [*ping_reponse*]
 #
+# [*access_log*]
+#   The path to the file to write access log requests to
+#
+# [*access_log_format*]
+#   The format to save the access log entries as
+#
 # [*request_terminate_timeout*]
 #
 # [*request_slowlog_timeout*]
@@ -92,6 +98,11 @@
 # [*php_directives*]
 #   List of custom directives that are appended to the pool config
 #
+# [*base_dir*]
+#   The folder that contains the php-fpm pool configs. This defaults to a 
+#   sensible default depending on your operating system, like
+#   '/etc/php5/fpm/pool.d' or '/etc/php-fpm.d'
+#
 define php::fpm::pool (
   $ensure = 'present',
   $listen = '127.0.0.1:9000',
@@ -112,6 +123,8 @@ define php::fpm::pool (
   $pm_status_path = undef,
   $ping_path = undef,
   $ping_response = 'pong',
+  $access_log = undef,
+  $access_log_format = "%R - %u %t \"%m %r\" %s",
   $request_terminate_timeout = '0',
   $request_slowlog_timeout = '0',
   $security_limit_extensions = undef,
@@ -130,9 +143,14 @@ define php::fpm::pool (
   $php_admin_flag = {},
   $php_directives = [],
   $root_group = $::php::params::root_group,
+  $base_dir = undef,
 ) {
 
   include ::php::params
+
+  if $base_dir != undef {
+    validate_absolute_path($base_dir)
+  }
 
   $pool = $title
 
@@ -146,13 +164,14 @@ define php::fpm::pool (
     default   => $::php::fpm::package,
   }
 
+  $pool_base_dir = pick_default($base_dir, $::php::fpm::config::pool_base_dir, $::php::params::fpm_pool_dir)
   if ($ensure == 'absent') {
-    file { "${::php::params::fpm_pool_dir}/${pool}.conf":
+    file { "${pool_base_dir}/${pool}.conf":
       ensure => absent,
       notify => Class['::php::fpm::service'],
     }
   } else {
-    file { "${::php::params::fpm_pool_dir}/${pool}.conf":
+    file { "${pool_base_dir}/${pool}.conf":
       ensure  => file,
       notify  => Class['::php::fpm::service'],
       require => Package[$real_package],

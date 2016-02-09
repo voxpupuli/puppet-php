@@ -74,7 +74,7 @@ process_control_timeout = <%= @process_control_timeout %>
 ; Use it with caution.
 ; Note: A value of 0 indicates no limit
 ; Default Value: 0
-; process.max = 128
+process.max = <%= @process_max %>
 
 ; Specify the nice(2) priority to apply to the master process (only if set)
 ; The value can vary from -19 (highest priority) to 20 (lower priority)
@@ -90,7 +90,11 @@ process_control_timeout = <%= @process_control_timeout %>
 
 ; Set open file descriptor rlimit for the master process.
 ; Default Value: system defined value
+<% if @rlimit_files -%>
+rlimit_files = <%= @rlimit_files %>
+<% else -%>
 ;rlimit_files = 1024
+<% end -%>
 
 ; Set max core size rlimit for the master process.
 ; Possible Values: 'unlimited' or an integer greater or equal to 0

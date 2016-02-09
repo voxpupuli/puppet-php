@@ -1,9 +1,16 @@
 # PHP params class
 #
-class php::params {
+class php::params(
+  $cfg_root = undef,
+) {
+
+  if $cfg_root != undef {
+    validate_absolute_path($cfg_root)
+  }
 
   $ensure              = 'present'
   $fpm_service_enable  = true
+  $fpm_service_ensure  = 'running'
   $composer_source     = 'https://getcomposer.org/composer.phar'
   $composer_path       = '/usr/local/bin/composer'
   $composer_max_age    = 30
@@ -15,8 +22,8 @@ class php::params {
 
   case $::osfamily {
     'Debian': {
-      $config_root             = '/etc/php5'
-      $config_root_ini         = "${::php::params::config_root}/mods-available"
+      $config_root             = pick($cfg_root, '/etc/php5')
+      $config_root_ini         = "${config_root}/mods-available"
       $config_root_inifile     = "${config_root}/php.ini"
       $common_package_names    = []
       $common_package_suffixes = ['cli', 'common']
@@ -31,9 +38,13 @@ class php::params {
       $fpm_service_name        = 'php5-fpm'
       $fpm_user                = 'www-data'
       $fpm_group               = 'www-data'
+      $embedded_package_suffix = 'embed'
+      $embedded_inifile        = "${config_root}/embed/php.ini"
       $package_prefix          = 'php5-'
       $compiler_packages       = 'build-essential'
       $root_group              = 'root'
+      $ext_tool_enable         = '/usr/sbin/php5enmod'
+      $ext_tool_query          = '/usr/sbin/php5query'
 
       case $::operatingsystem {
         'Debian': {
@@ -51,7 +62,7 @@ class php::params {
     }
 
     'Suse': {
-      $config_root             = '/etc/php5'
+      $config_root             = pick($cfg_root, '/etc/php5')
       $config_root_ini         = "${config_root}/conf.d"
       $config_root_inifile     = "${config_root}/php.ini"
       $common_package_names    = ['php5']
@@ -67,6 +78,8 @@ class php::params {
       $fpm_service_name        = 'php-fpm'
       $fpm_user                = 'wwwrun'
       $fpm_group               = 'www'
+      $embedded_package_suffix = 'embed'
+      $embedded_inifile        = "${config_root}/embed/php.ini"
       $package_prefix          = 'php5-'
       $manage_repos            = true
       $root_group              = 'root'
@@ -98,13 +111,15 @@ class php::params {
       $fpm_service_name        = 'php-fpm'
       $fpm_user                = 'apache'
       $fpm_group               = 'apache'
+      $embedded_package_suffix = 'embedded'
+      $embedded_inifile        = '/etc/php.ini'
       $package_prefix          = 'php-'
       $compiler_packages       = ['gcc', 'gcc-c++', 'make']
       $manage_repos            = false
       $root_group              = 'root'
     }
     'FreeBSD': {
-      $config_root             = '/usr/local/etc'
+      $config_root             = pick($cfg_root, '/usr/local/etc')
       $config_root_ini         = "${config_root}/php"
       $config_root_inifile     = "${config_root}/php.ini"
       # No common packages, because the required PHP base package will be
@@ -123,6 +138,8 @@ class php::params {
       $fpm_service_name        = 'php-fpm'
       $fpm_user                = 'www'
       $fpm_group               = 'www'
+      $embedded_package_suffix = 'embed'
+      $embedded_inifile        = "${config_root}/php-embed.ini"
       $package_prefix          = 'php56-'
       $compiler_packages       = ['gcc']
       $manage_repos            = false

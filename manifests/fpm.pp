@@ -2,6 +2,12 @@
 #
 # === Parameters
 #
+# [*service_enable*]
+#   Enable/disable FPM service
+#
+# [*service_ensure*]
+#   Ensure FPM service is either 'running' or 'stopped'
+#
 # [*pools*]
 #   Hash of php::fpm::pool resources that will be created. Defaults
 #   to a single php::fpm::pool named www with default parameters.
@@ -9,11 +15,13 @@
 # FIXME
 #
 class php::fpm (
-  $ensure   = $::php::ensure,
-  $package  = "${::php::package_prefix}${::php::params::fpm_package_suffix}",
-  $inifile  = $::php::params::fpm_inifile,
-  $settings = {},
-  $pools    = { 'www' => {} },
+  $ensure         = $::php::ensure,
+  $service_ensure = $::php::params::fpm_service_ensure,
+  $service_enable = $::php::params::fpm_service_enable,
+  $package        = "${::php::package_prefix}${::php::params::fpm_package_suffix}",
+  $inifile        = $::php::params::fpm_inifile,
+  $settings       = {},
+  $pools          = { 'www' => {} },
 ) inherits ::php::params {
 
   if $caller_module_name != $module_name {
@@ -44,7 +52,10 @@ class php::fpm (
       inifile  => $inifile,
       settings => $real_settings,
     } ->
-    class { '::php::fpm::service': } ->
+    class { '::php::fpm::service':
+      ensure => $service_ensure,
+      enable => $service_enable,
+    } ->
   anchor { '::php::fpm::end': }
 
   $real_pools = hiera_hash('php::fpm::pools',  $pools)
@@ -54,8 +65,14 @@ class php::fpm (
   # upstart version supports this
   if $::osfamily == 'Debian' and
     ($::lsbdistcodename == 'trusty' or $::lsbdistcodename == 'utopic') {
+    if ($service_enable) {
+      $fpm_override = 'reload signal USR2'
+    }
+    else {
+      $fpm_override = "reload signal USR2\nmanual"
+    }
     file { "/etc/init/${::php::fpm::service::service_name}.override":
-      content => 'reload signal USR2',
+      content => $fpm_override,
       before  => Package[$real_package],
     }
   }

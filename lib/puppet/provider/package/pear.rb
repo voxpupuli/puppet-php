@@ -85,7 +85,7 @@ Puppet::Type.type(:package).provide :pear, :parent => Puppet::Provider::Package 
   end
 
   def install(useversion = true)
-    command = ["upgrade"]
+    command = ["-D", "auto_discover=1", "upgrade"]
     if @resource[:install_options]
       command << @resource[:install_options]
     else

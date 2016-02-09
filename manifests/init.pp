@@ -4,7 +4,7 @@
 # === Parameters
 #
 # [*ensure*]
-#   Specify which version of PHP packages to install, defaults to 'latest'.
+#   Specify which version of PHP packages to install, defaults to 'present'.
 #   Please note that 'absent' to remove packages is not supported!
 #
 # [*manage_repos*]
@@ -12,6 +12,12 @@
 #
 # [*fpm*]
 #   Install and configure php-fpm
+#
+# [*fpm_service_enable*]
+#   Enable/disable FPM service
+#
+# [*fpm_service_ensure*]
+#   Ensure FPM service is either 'running' or 'stopped'
 #
 # [*dev*]
 #   Install php header files, needed to install pecl modules
@@ -33,23 +39,43 @@
 #   to a sensible default depending on your operating system, like 'php-' or
 #   'php5-'.
 #
+# [*config_root_ini*]
+#   This is the path to the config .ini files of the extensions. This defaults
+#   to a sensible default depending on your operating system, like
+#   '/etc/php5/mods-available' or '/etc/php5/conf.d'.
+#
+# [*$ext_tool_enable*]
+#   Absolute path to php tool for enabling extensions in debian/ubuntu systems.
+#   This defaults to '/usr/sbin/php5enmod'.
+#
+# [*$ext_tool_query*]
+#   Absolute path to php tool for querying information about extensions in
+#   debian/ubuntu systems. This defaults to '/usr/sbin/php5query'.
+#
 class php (
-  $ensure         = $::php::params::ensure,
-  $manage_repos   = $::php::params::manage_repos,
-  $fpm            = true,
-  $dev            = true,
-  $composer       = true,
-  $pear           = true,
-  $pear_ensure    = $::php::params::pear_ensure,
-  $phpunit        = false,
-  $extensions     = {},
-  $settings       = {},
-  $package_prefix = $::php::params::package_prefix,
+  $ensure             = $::php::params::ensure,
+  $manage_repos       = $::php::params::manage_repos,
+  $fpm                = true,
+  $fpm_service_enable = $::php::params::fpm_service_enable,
+  $fpm_service_ensure = $::php::params::fpm_service_ensure,
+  $embedded           = false,
+  $dev                = true,
+  $composer           = true,
+  $pear               = true,
+  $pear_ensure        = $::php::params::pear_ensure,
+  $phpunit            = false,
+  $extensions         = {},
+  $settings           = {},
+  $package_prefix     = $::php::params::package_prefix,
+  $config_root_ini    = $::php::params::config_root_ini,
+  $ext_tool_enable    = $::php::params::ext_tool_enable,
+  $ext_tool_query     = $::php::params::ext_tool_query,
 ) inherits ::php::params {
 
   validate_string($ensure)
   validate_bool($manage_repos)
   validate_bool($fpm)
+  validate_bool($embedded)
   validate_bool($dev)
   validate_bool($composer)
   validate_bool($pear)
@@ -57,6 +83,15 @@ class php (
   validate_bool($phpunit)
   validate_hash($extensions)
   validate_hash($settings)
+  if $config_root_ini != undef {
+    validate_absolute_path($config_root_ini)
+  }
+  if $ext_tool_enable != undef {
+    validate_absolute_path($ext_tool_enable)
+  }
+  if $ext_tool_query != undef {
+    validate_absolute_path($ext_tool_query)
+  }
 
   # Deep merge global php settings
   $real_settings = deep_merge($settings, hiera_hash('php::settings', {}))
@@ -86,6 +121,20 @@ class php (
   if $fpm {
     Anchor['php::begin'] ->
       class { '::php::fpm':
+        service_enable => $fpm_service_enable,
+        service_ensure => $fpm_service_ensure,
+        settings       => $real_settings,
+      } ->
+    Anchor['php::end']
+  }
+  if $embedded {
+    if $::osfamily == 'RedHat' and $fpm {
+      # Both fpm and embeded SAPIs are using same php.ini
+      fail('Enabling both cli and embedded sapis is not currently supported')
+    }
+
+    Anchor['php::begin'] ->
+      class { '::php::embedded':
         settings => $real_settings,
       } ->
     Anchor['php::end']

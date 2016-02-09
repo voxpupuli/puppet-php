@@ -1,7 +1,10 @@
 Facter.add(:phpversion) do
   setcode do
-    Facter::Util::Resolution.exec('php -v').
-      split("\n").first.split(' ').
-      select { |x| x =~ /^(?:(\d+)\.)(?:(\d+)\.)?(\*|\d+)/ }.first
+    output = Facter::Util::Resolution.exec('php -v')
+
+    unless output.nil?
+      output.split("\n").first.split(' ').
+        select { |x| x =~ /^(?:(\d+)\.)(?:(\d+)\.)?(\*|\d+)/ }.first
+    end
   end
 end

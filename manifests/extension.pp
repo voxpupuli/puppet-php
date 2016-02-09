@@ -59,10 +59,6 @@ define php::extension(
   $settings_prefix   = false,
 ) {
 
-  if $caller_module_name != $module_name {
-    warning('php::extension is private')
-  }
-
   validate_string($ensure)
   validate_string($package_prefix)
   validate_string($so_name)
@@ -172,21 +168,23 @@ define php::extension(
     }
   }
 
+  $config_root_ini = pick_default($::php::config_root_ini, $::php::params::config_root_ini)
   ::php::config { $title:
-    file   => "${::php::params::config_root_ini}/${lowercase_title}.ini",
+    file   => "${config_root_ini}/${lowercase_title}.ini",
     config => $final_settings,
   }
 
   # Ubuntu/Debian systems use the mods-available folder. We need to enable
   # settings files ourselves with php5enmod command.
+  $ext_tool_enable = pick_default($::php::ext_tool_enable, $::php::params::ext_tool_enable)
+  $ext_tool_query  = pick_default($::php::ext_tool_query, $::php::params::ext_tool_query)
   if $::osfamily == 'Debian' {
-    $cmd = "/usr/sbin/php5enmod ${lowercase_title}"
+    $cmd = "${ext_tool_enable} ${lowercase_title}"
 
     exec { $cmd:
-      refreshonly => true,
+      unless  => "${ext_tool_query} -s cli -m ${lowercase_title}",
+      require =>::Php::Config[$title],
     }
-
-    ::Php::Config[$title] ~> Exec[$cmd]
 
     if $::php::fpm {
       Package[$::php::fpm::package] ~> Exec[$cmd]

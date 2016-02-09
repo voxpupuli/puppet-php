@@ -13,7 +13,7 @@
 #
 class php::fpm::service(
   $service_name = $::php::params::fpm_service_name,
-  $ensure       = 'running',
+  $ensure       = $::php::params::fpm_service_ensure,
   $enable       = $::php::params::fpm_service_enable,
 ) inherits ::php::params {
 

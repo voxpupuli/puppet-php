@@ -3,4 +3,5 @@ Gemfile.lock
 spec/fixtures/modules/
 .vagrant
 .bundle
+.idea
 vendor/

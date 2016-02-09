@@ -23,6 +23,11 @@ class php::pear (
       # Debian is a litte stupid: The pear package is called 'php-pear'
       # even though others are called 'php5-fpm' or 'php5-dev'
       $package_name = "php-${::php::params::pear_package_suffix}"
+    } elsif $::operatingsystem == 'Amazon' {
+      # On Amazon Linux the package name is also just 'php-pear'.
+      # This would normally not be problematic but if you specify a
+      # package_prefix other than 'php' then it will fail.
+      $package_name = "php-${::php::params::pear_package_suffix}"
     } elsif $::osfamily == 'FreeBSD' {
       # On FreeBSD the package name is just 'pear'.
       $package_name = $::php::params::pear_package_suffix
@@ -43,11 +48,4 @@ class php::pear (
     require => Class['::php::cli'],
   }
 
-  exec { '::php::pear::auto_discover':
-    command => 'pear config-set auto_discover 1 system',
-    unless  => 'pear config-get auto_discover system | grep -q 1',
-    path    => ['/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/',
-                '/usr/local/bin', '/usr/local/sbin'],
-    require => Package[$package_name],
-  }
 }
