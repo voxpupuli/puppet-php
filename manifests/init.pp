@@ -52,6 +52,13 @@
 #   Absolute path to php tool for querying information about extensions in
 #   debian/ubuntu systems. This defaults to '/usr/sbin/php5query'.
 #
+# [*log_owner*]
+#   The php-fpm log owner
+#
+# [*log_group*]
+#   The group owning php-fpm logs
+#
+#
 class php (
   $ensure             = $::php::params::ensure,
   $manage_repos       = $::php::params::manage_repos,
@@ -70,6 +77,8 @@ class php (
   $config_root_ini    = $::php::params::config_root_ini,
   $ext_tool_enable    = $::php::params::ext_tool_enable,
   $ext_tool_query     = $::php::params::ext_tool_query,
+  $log_owner          = $::php::params::fpm_user,
+  $log_group          = $::php::params::fpm_group,
 ) inherits ::php::params {
 
   validate_string($ensure)
@@ -83,6 +92,9 @@ class php (
   validate_bool($phpunit)
   validate_hash($extensions)
   validate_hash($settings)
+  validate_string($log_owner)
+  validate_string($log_group)
+
   if $config_root_ini != undef {
     validate_absolute_path($config_root_ini)
   }
@@ -117,6 +129,8 @@ class php (
         service_enable => $fpm_service_enable,
         service_ensure => $fpm_service_ensure,
         settings       => $real_settings,
+        log_owner      => $log_owner,
+        log_group      => $log_group,
       } ->
     Anchor['php::end']
   }

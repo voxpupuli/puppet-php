@@ -12,6 +12,12 @@
 #   Hash of php::fpm::pool resources that will be created. Defaults
 #   to a single php::fpm::pool named www with default parameters.
 #
+# [*log_owner*]
+#   The php-fpm log owner
+#
+# [*log_group*]
+#   The group owning php-fpm logs
+#
 # FIXME
 #
 class php::fpm (
@@ -22,6 +28,8 @@ class php::fpm (
   $inifile        = $::php::params::fpm_inifile,
   $settings       = {},
   $pools          = { 'www' => {} },
+  $log_owner      = $::php::params::fpm_user,
+  $log_group      = $::php::params::fpm_group
 ) inherits ::php::params {
 
   if $caller_module_name != $module_name {
@@ -49,8 +57,10 @@ class php::fpm (
       require => Class['::php::packages'],
     } ->
     class { '::php::fpm::config':
-      inifile  => $inifile,
-      settings => $real_settings,
+      inifile   => $inifile,
+      settings  => $real_settings,
+      log_owner => $log_owner,
+      log_group => $log_group,
     } ->
     class { '::php::fpm::service':
       ensure => $service_ensure,
