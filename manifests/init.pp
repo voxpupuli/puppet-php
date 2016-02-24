@@ -19,6 +19,10 @@
 # [*fpm_service_ensure*]
 #   Ensure FPM service is either 'running' or 'stopped'
 #
+# [*fpm_service_name*]
+#   This is the name of the php-fpm service. It defaults to reasonable OS
+#   defaults but can be different in case of using php7.0/other OS/custom fpm service
+#
 # [*dev*]
 #   Install php header files, needed to install pecl modules
 #
@@ -58,6 +62,7 @@ class php (
   $fpm                = true,
   $fpm_service_enable = $::php::params::fpm_service_enable,
   $fpm_service_ensure = $::php::params::fpm_service_ensure,
+  $fpm_service_name   = $::php::params::fpm_service_name,
   $embedded           = false,
   $dev                = true,
   $composer           = true,
@@ -116,6 +121,7 @@ class php (
       class { '::php::fpm':
         service_enable => $fpm_service_enable,
         service_ensure => $fpm_service_ensure,
+        service_name   => $fpm_service_name,
         settings       => $real_settings,
       } ->
     Anchor['php::end']

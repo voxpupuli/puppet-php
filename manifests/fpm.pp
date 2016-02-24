@@ -8,6 +8,10 @@
 # [*service_ensure*]
 #   Ensure FPM service is either 'running' or 'stopped'
 #
+# [*service_name*]
+#   This is the name of the php-fpm service. It defaults to reasonable OS
+#   defaults but can be different in case of using php7.0/other OS/custom fpm service
+#
 # [*pools*]
 #   Hash of php::fpm::pool resources that will be created. Defaults
 #   to a single php::fpm::pool named www with default parameters.
@@ -18,6 +22,7 @@ class php::fpm (
   $ensure         = $::php::ensure,
   $service_ensure = $::php::params::fpm_service_ensure,
   $service_enable = $::php::params::fpm_service_enable,
+  $service_name   = $::php::params::fpm_service_name,
   $package        = "${::php::package_prefix}${::php::params::fpm_package_suffix}",
   $inifile        = $::php::params::fpm_inifile,
   $settings       = {},
@@ -53,8 +58,9 @@ class php::fpm (
       settings => $real_settings,
     } ->
     class { '::php::fpm::service':
-      ensure => $service_ensure,
-      enable => $service_enable,
+      ensure       => $service_ensure,
+      enable       => $service_enable,
+      service_name => $service_name,
     } ->
   anchor { '::php::fpm::end': }
 
