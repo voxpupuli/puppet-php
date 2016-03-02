@@ -148,7 +148,7 @@ php::extensions:
     settings:
       'apc/stat': 1
       'apc/stat_ctime': 1
-php::fpm::pool:
+php::fpm::pools:
   www2:
     listen: '127.0.1.1:9000'
 ```
