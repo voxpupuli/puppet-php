@@ -128,6 +128,13 @@ class php (
     } ->
   anchor { 'php::end': }
 
+  # Configure global PHP settings in php.ini
+  Anchor['php::begin'] ->
+  class {'::php::global':
+    settings => $real_settings,
+  } ->
+  Anchor ['php::end']
+
   if $fpm {
     Anchor['php::begin'] ->
       class { '::php::fpm':
