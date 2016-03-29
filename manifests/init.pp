@@ -56,6 +56,10 @@
 #   Absolute path to php tool for querying information about extensions in
 #   debian/ubuntu systems. This defaults to '/usr/sbin/php5query'.
 #
+# [*$ext_tool_enabled*]
+#   Enable or disable the use of php tools on debian based systems
+#   debian/ubuntu systems. This defaults to 'true'.
+#
 # [*log_owner*]
 #   The php-fpm log owner
 #
@@ -82,6 +86,7 @@ class php (
   $config_root_ini    = $::php::params::config_root_ini,
   $ext_tool_enable    = $::php::params::ext_tool_enable,
   $ext_tool_query     = $::php::params::ext_tool_query,
+  $ext_tool_enabled   = $::php::params::ext_tool_enabled,
   $log_owner          = $::php::params::fpm_user,
   $log_group          = $::php::params::fpm_group,
 ) inherits ::php::params {
@@ -93,6 +98,7 @@ class php (
   validate_bool($dev)
   validate_bool($composer)
   validate_bool($pear)
+  validate_bool($ext_tool_enabled)
   validate_string($pear_ensure)
   validate_bool($phpunit)
   validate_hash($extensions)
