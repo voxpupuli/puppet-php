@@ -17,10 +17,10 @@ class php::repo::ubuntu (
   validate_re($version, '^\d\.\d')
 
   $version_repo = $version ? {
-    '5.4' => 'ondrej/php5-oldstable'
-    '5.5' => 'ondrej/php5'
-    '5.6' => 'ondrej/php5-5.6'
-    '7.0' => 'ondrej/php-7.0'
+    '5.4' => 'ondrej/php5-oldstable',
+    '5.5' => 'ondrej/php5',
+    '5.6' => 'ondrej/php5-5.6',
+    '7.0' => 'ondrej/php',
   }
 
   if ($ppa and $version == true) {
