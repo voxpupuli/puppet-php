@@ -176,9 +176,11 @@ define php::extension(
 
   # Ubuntu/Debian systems use the mods-available folder. We need to enable
   # settings files ourselves with php5enmod command.
-  $ext_tool_enable = pick_default($::php::ext_tool_enable, $::php::params::ext_tool_enable)
-  $ext_tool_query  = pick_default($::php::ext_tool_query, $::php::params::ext_tool_query)
-  if $::osfamily == 'Debian' {
+  $ext_tool_enable   = pick_default($::php::ext_tool_enable, $::php::params::ext_tool_enable)
+  $ext_tool_query    = pick_default($::php::ext_tool_query, $::php::params::ext_tool_query)
+  $ext_tool_enabled  = pick_default($::php::ext_tool_enabled, $::php::params::ext_tool_enabled)
+
+  if $::osfamily == 'Debian' and $ext_tool_enabled {
     $cmd = "${ext_tool_enable} ${lowercase_title}"
 
     exec { $cmd:

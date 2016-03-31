@@ -45,6 +45,7 @@ class php::params(
       $root_group              = 'root'
       $ext_tool_enable         = '/usr/sbin/php5enmod'
       $ext_tool_query          = '/usr/sbin/php5query'
+      $ext_tool_enabled        = true
 
       case $::operatingsystem {
         'Debian': {
@@ -83,6 +84,7 @@ class php::params(
       $package_prefix          = 'php5-'
       $manage_repos            = true
       $root_group              = 'root'
+      $ext_tool_enabled        = false
       case $::operatingsystem {
         'SLES': {
           $compiler_packages = []
@@ -117,6 +119,7 @@ class php::params(
       $compiler_packages       = ['gcc', 'gcc-c++', 'make']
       $manage_repos            = false
       $root_group              = 'root'
+      $ext_tool_enabled        = false
     }
     'FreeBSD': {
       $config_root             = pick($cfg_root, '/usr/local/etc')
@@ -144,6 +147,7 @@ class php::params(
       $compiler_packages       = ['gcc']
       $manage_repos            = false
       $root_group              = 'wheel'
+      $ext_tool_enabled        = false
     }
     default: {
       fail("Unsupported osfamily: ${::osfamily}")
