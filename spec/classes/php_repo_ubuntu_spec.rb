@@ -17,10 +17,10 @@ describe 'php::repo::ubuntu', :type => :class do
 
         describe 'when called with parameter oldstable on Ubuntu trusty' do
           let(:params) {{
-              :oldstable => true
+              :version => '7.0'
           }}
           it {
-            should contain_exec('add-apt-repository-ppa:ondrej/php5-oldstable')
+            should contain_exec('add-apt-repository-ppa:ondrej/php')
           }
         end
 
@@ -33,20 +33,14 @@ describe 'php::repo::ubuntu', :type => :class do
           }
         end
 
-        describe 'when call with parameter ppa and oldstable on Ubuntu trusty' do
+        describe 'when call with parameter ppa and version on Ubuntu trusty' do
           let(:params) {{
-              :oldstable => true,
-              :ppa       => 'ondrej/php5-5.6'
+              :version => '5.4',
+              :ppa     => 'ondrej/php5-5.6'
           }}
           it { expect { should raise_error(Puppet::Error) }}
         end
 
-      when 'precise'
-      describe 'when called with no parameters on Ubuntu precise' do
-        it {
-          should contain_exec('add-apt-repository-ppa:ondrej/php5-oldstable')
-        }
-      end
       end
     end
   end
