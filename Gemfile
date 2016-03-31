@@ -7,7 +7,7 @@ group :development, :test do
   gem 'rspec-puppet-facts'
   gem 'puppetlabs_spec_helper'
   gem 'puppet-module'
-  gem 'beaker', :github => 'Mayflower/beaker', :branch => 'master'
+  #gem 'beaker', :github => 'Mayflower/beaker', :branch => 'master'
   gem 'beaker-rspec'
   gem 'pry'
   gem 'yard'
