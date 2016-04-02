@@ -31,7 +31,11 @@
 #
 # [*header_packages*]
 #   System packages dependencies to install for extensions (e.g. for
-#   memcached libmemcached-dev on debian)
+#   memcached libmemcached-dev on Debian)
+#
+# [*compiler_packages*]
+#   System packages dependencies to install for compiling extensions
+#   (e.g. build-essential on Debian)
 #
 # [*zend*]
 #  Boolean parameter, whether to load extension as zend_extension.

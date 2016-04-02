@@ -48,15 +48,15 @@
 #   to a sensible default depending on your operating system, like
 #   '/etc/php5/mods-available' or '/etc/php5/conf.d'.
 #
-# [*$ext_tool_enable*]
+# [*ext_tool_enable*]
 #   Absolute path to php tool for enabling extensions in debian/ubuntu systems.
 #   This defaults to '/usr/sbin/php5enmod'.
 #
-# [*$ext_tool_query*]
+# [*ext_tool_query*]
 #   Absolute path to php tool for querying information about extensions in
 #   debian/ubuntu systems. This defaults to '/usr/sbin/php5query'.
 #
-# [*$ext_tool_enabled*]
+# [*ext_tool_enabled*]
 #   Enable or disable the use of php tools on debian based systems
 #   debian/ubuntu systems. This defaults to 'true'.
 #
@@ -66,6 +66,13 @@
 # [*log_group*]
 #   The group owning php-fpm logs
 #
+# [*embedded*]
+#   Enable embedded SAPI
+#
+# [*pear_ensure*]
+#   The package ensure of PHP pear to install and run pear auto_discover
+#
+# [*settings*]
 #
 class php (
   $ensure             = $::php::params::ensure,

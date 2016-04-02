@@ -1,7 +1,7 @@
 # PHP params class
 #
 class php::params(
-  $cfg_root = undef,
+  $cfg_root = undef, # lint:ignore:parameter_documentation
 ) {
 
   if $cfg_root != undef {

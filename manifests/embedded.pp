@@ -8,6 +8,12 @@
 # [*settings*]
 #   Hash with nested hash of key => value to set in inifile
 #
+# [*package*]
+#   Specify which package to install
+#
+# [*ensure*]
+#   Specify which version of the package to install
+#
 class php::embedded(
   $ensure   = $::php::ensure,
   $package  =
@@ -41,5 +47,5 @@ class php::embedded(
     file   => $inifile,
     config => $real_settings,
   }
-  
+
 }

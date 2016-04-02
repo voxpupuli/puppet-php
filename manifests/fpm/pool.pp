@@ -46,7 +46,7 @@
 #
 # [*ping_path*]
 #
-# [*ping_reponse*]
+# [*ping_response*]
 #
 # [*access_log*]
 #   The path to the file to write access log requests to
@@ -99,9 +99,12 @@
 #   List of custom directives that are appended to the pool config
 #
 # [*base_dir*]
-#   The folder that contains the php-fpm pool configs. This defaults to a 
+#   The folder that contains the php-fpm pool configs. This defaults to a
 #   sensible default depending on your operating system, like
 #   '/etc/php5/fpm/pool.d' or '/etc/php-fpm.d'
+#
+# [*root_group*]
+#   UNIX group of the root user
 #
 define php::fpm::pool (
   $ensure = 'present',
