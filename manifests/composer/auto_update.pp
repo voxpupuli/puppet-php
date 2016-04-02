@@ -31,7 +31,7 @@ class php::composer::auto_update (
   exec { 'update composer':
     command => "wget ${source} -O ${path}",
     onlyif  => "test `find '${path}' -mtime +${max_age}`",
-    path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
+    path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
     require => File[$path],
   }
 }
