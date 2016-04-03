@@ -2,8 +2,8 @@
 #
 # === Parameters
 #
-# [*oldstable*]
-#   Install 5.4 (ondrej/php5-oldstable PPA)
+# [*version*]
+#   PHP version to manage (e.g. 5.6)
 #
 # [*ppa*]
 #   Use a specific PPA, e.g "ondrej/php5-5.6" (without the "ppa:")

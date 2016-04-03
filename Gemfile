@@ -20,6 +20,7 @@ group :development, :test do
   gem 'puppet-lint-leading_zero-check'
   gem 'puppet-lint-trailing_comma-check'
   gem 'puppet-lint-file_ensure-check'
+  gem 'puppet-lint-param-docs'
   gem 'metadata-json-lint'
 end
 

@@ -64,6 +64,12 @@
 # [*syslog_ident*]
 #   Prepended to every message
 #
+# [*root_group*]
+#   UNIX group of the root user
+#
+# [*pid_file*]
+#   Path to fpm pid file
+#
 class php::fpm::config(
   $config_file                 = $::php::params::fpm_config_file,
   $user                        = $::php::params::fpm_user,

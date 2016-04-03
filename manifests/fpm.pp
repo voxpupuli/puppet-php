@@ -22,7 +22,17 @@
 # [*log_group*]
 #   The group owning php-fpm logs
 #
-# FIXME
+# [*package*]
+#   Specify which package to install
+#
+# [*ensure*]
+#   Specify which version of the package to install
+#
+# [*inifile*]
+#   Path to php.ini for fpm
+#
+# [*settings*]
+#   fpm settings hash
 #
 class php::fpm (
   $ensure         = $::php::ensure,

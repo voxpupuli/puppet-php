@@ -14,6 +14,9 @@
 # [*max_age*]
 #   Defines the time in days after which an auto-update gets executed
 #
+# [*root_group*]
+#   UNIX group of the root user
+#
 class php::composer (
   $source      = $::php::params::composer_source,
   $path        = $::php::params::composer_path,

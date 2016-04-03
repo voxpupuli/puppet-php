@@ -3,7 +3,7 @@
 # === Parameters
 #
 # [*ensure*]
-#   The PHP ensure of PHP pear to install and run pear auto_discover
+#   The package ensure of PHP pear to install and run pear auto_discover
 #
 # [*package*]
 #   The package name for PHP pear
