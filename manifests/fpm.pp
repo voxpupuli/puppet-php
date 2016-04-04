@@ -34,17 +34,22 @@
 # [*settings*]
 #   fpm settings hash
 #
+# [*global_pool_settings*]
+#   Hash of defaults params php::fpm::pool resources that will be created.
+#   Defaults is empty hash.
+#
 class php::fpm (
-  $ensure         = $::php::ensure,
-  $service_ensure = $::php::params::fpm_service_ensure,
-  $service_enable = $::php::params::fpm_service_enable,
-  $service_name   = $::php::params::fpm_service_name,
-  $package        = "${::php::package_prefix}${::php::params::fpm_package_suffix}",
-  $inifile        = $::php::params::fpm_inifile,
-  $settings       = {},
-  $pools          = { 'www' => {} },
-  $log_owner      = $::php::params::fpm_user,
-  $log_group      = $::php::params::fpm_group
+  $ensure               = $::php::ensure,
+  $service_ensure       = $::php::params::fpm_service_ensure,
+  $service_enable       = $::php::params::fpm_service_enable,
+  $service_name         = $::php::params::fpm_service_name,
+  $package              = "${::php::package_prefix}${::php::params::fpm_package_suffix}",
+  $inifile              = $::php::params::fpm_inifile,
+  $settings             = {},
+  $global_pool_settings = {},
+  $pools                = { 'www' => {} },
+  $log_owner            = $::php::params::fpm_user,
+  $log_group            = $::php::params::fpm_group
 ) inherits ::php::params {
 
   if $caller_module_name != $module_name {
@@ -84,8 +89,9 @@ class php::fpm (
     } ->
   anchor { '::php::fpm::end': }
 
+  $real_global_pool_settings = hiera_hash('php::fpm::global_pool_settings', $global_pool_settings)
   $real_pools = hiera_hash('php::fpm::pools',  $pools)
-  create_resources(::php::fpm::pool, $real_pools)
+  create_resources(::php::fpm::pool, $real_pools, $real_global_pool_settings)
 
   # Create an override to use a reload signal as trusty and utopic's
   # upstart version supports this
