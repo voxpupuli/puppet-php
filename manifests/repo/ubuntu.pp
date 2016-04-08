@@ -29,7 +29,7 @@ class php::repo::ubuntu (
     '7.0' => 'ondrej/php'
   }
 
-  if ($version != undef and $version != undef) {
+  if ($version != undef and $ppa != undef) {
     fail('Only one of $version and $ppa can be specified.')
   }
 
