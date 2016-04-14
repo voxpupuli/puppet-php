@@ -1,11 +1,24 @@
 # PHP params class
 #
+# === Parameters
+#
+# [*config_root_override*]
+#   The configuration root directory used in parameter calculation
+#
+# [*php_version_override*]
+#   The version of php used in parameter calculation
+#
 class php::params(
-  $cfg_root = undef, # lint:ignore:parameter_documentation
+  $config_root_override = undef,
+  $php_version_override = undef
 ) {
 
-  if $cfg_root != undef {
-    validate_absolute_path($cfg_root)
+  if $config_root_override != undef {
+    validate_absolute_path($config_root_override)
+  }
+
+  if $php_version_override != undef {
+    validate_re($php_version_override, '^[57].[0-9]')
   }
 
   $ensure              = 'present'
@@ -16,54 +29,73 @@ class php::params(
   $composer_max_age    = 30
   $pear_ensure         = 'present'
   $pear_package_suffix = 'pear'
-  $phpunit_source    = 'https://phar.phpunit.de/phpunit.phar'
-  $phpunit_path      = '/usr/local/bin/phpunit'
-  $phpunit_max_age   = 30
+  $phpunit_source      = 'https://phar.phpunit.de/phpunit.phar'
+  $phpunit_path        = '/usr/local/bin/phpunit'
+  $phpunit_max_age     = 30
 
   case $::osfamily {
+
     'Debian': {
-      $config_root             = pick($cfg_root, '/etc/php5')
+
+      if $::lsbdistcodename == 'wheezy' {
+        $manage_repos = true
+      } elsif $::operatingsystem == 'Ubuntu' {
+        $manage_repos = true
+      } else {
+        $manage_repos = false
+      }
+
+      if $::lsbdistcodename == 'stretch' or $::lsbdistcodename == 'xenial' {
+        $distro_php_version = '7.0'
+      } else {
+        $distro_php_version = '5.x'
+      }
+
+      $real_php_version = pick($php_version_override, $distro_php_version)
+
+      case $real_php_version {
+        /^7/: {
+          $calculated_config_root = "/etc/php/${real_php_version}"
+          $fpm_pid_file           = "/var/run/php/php${real_php_version}-fpm.pid"
+          $fpm_error_log          = "/var/log/php${real_php_version}-fpm.log"
+          $fpm_service_name       = "php${real_php_version}-fpm"
+          $ext_tool_enable        = '/usr/sbin/phpenmod'
+          $ext_tool_query         = '/usr/sbin/phpquery'
+          $package_prefix         = 'php-'
+        }
+        default: {
+          $calculated_config_root = '/etc/php5'
+          $fpm_pid_file           = '/var/run/php5-fpm.pid'
+          $fpm_error_log          = '/var/log/php5-fpm.log'
+          $fpm_service_name       = 'php5-fpm'
+          $ext_tool_enable        = '/usr/sbin/php5enmod'
+          $ext_tool_query         = '/usr/sbin/php5query'
+          $package_prefix         = 'php5-'
+        }
+      }
+
+      $config_root             = pick($config_root_override, $calculated_config_root)
       $config_root_ini         = "${config_root}/mods-available"
       $config_root_inifile     = "${config_root}/php.ini"
       $common_package_names    = []
       $common_package_suffixes = ['cli', 'common']
       $cli_inifile             = "${config_root}/cli/php.ini"
       $dev_package_suffix      = 'dev'
-      $fpm_pid_file            = '/var/run/php5-fpm.pid'
       $fpm_config_file         = "${config_root}/fpm/php-fpm.conf"
-      $fpm_error_log           = '/var/log/php5-fpm.log'
       $fpm_inifile             = "${config_root}/fpm/php.ini"
       $fpm_package_suffix      = 'fpm'
       $fpm_pool_dir            = "${config_root}/fpm/pool.d"
-      $fpm_service_name        = 'php5-fpm'
       $fpm_user                = 'www-data'
       $fpm_group               = 'www-data'
       $embedded_package_suffix = 'embed'
       $embedded_inifile        = "${config_root}/embed/php.ini"
-      $package_prefix          = 'php5-'
       $compiler_packages       = 'build-essential'
       $root_group              = 'root'
-      $ext_tool_enable         = '/usr/sbin/php5enmod'
-      $ext_tool_query          = '/usr/sbin/php5query'
       $ext_tool_enabled        = true
-
-      case $::operatingsystem {
-        'Debian': {
-          $manage_repos = $::lsbdistcodename == 'wheezy'
-        }
-
-        'Ubuntu': {
-          $manage_repos = true
-        }
-
-        default: {
-          $manage_repos = false
-        }
-      }
     }
 
     'Suse': {
-      $config_root             = pick($cfg_root, '/etc/php5')
+      $config_root             = pick($config_root_override, '/etc/php5')
       $config_root_ini         = "${config_root}/conf.d"
       $config_root_inifile     = "${config_root}/php.ini"
       $common_package_names    = ['php5']
@@ -122,7 +154,7 @@ class php::params(
       $ext_tool_enabled        = false
     }
     'FreeBSD': {
-      $config_root             = pick($cfg_root, '/usr/local/etc')
+      $config_root             = pick($config_root_override, '/usr/local/etc')
       $config_root_ini         = "${config_root}/php"
       $config_root_inifile     = "${config_root}/php.ini"
       # No common packages, because the required PHP base package will be
