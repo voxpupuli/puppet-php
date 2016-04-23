@@ -190,7 +190,7 @@ define php::extension(
     $cmd = "${ext_tool_enable} -s ${sapi} ${lowercase_title}"
 
     exec { $cmd:
-      unless  => "${ext_tool_query} -s ${sapi} -m ${lowercase_title}",
+      unless  => "${ext_tool_query} -s cli -m ${lowercase_title}",
       require =>::Php::Config[$title],
     }
 
