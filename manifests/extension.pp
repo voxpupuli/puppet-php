@@ -189,9 +189,16 @@ define php::extension(
   if $::osfamily == 'Debian' and $ext_tool_enabled {
     $cmd = "${ext_tool_enable} -s ${sapi} ${lowercase_title}"
 
-    exec { $cmd:
-      unless  => "${ext_tool_query} -s cli -m ${lowercase_title}",
-      require =>::Php::Config[$title],
+    if $sapi == 'ALL' {
+      exec { $cmd:
+        unless  => "${ext_tool_query} -s cli -m ${lowercase_title}",
+        require =>::Php::Config[$title],
+      }
+    } else {
+      exec { $cmd:
+        unless  => "${ext_tool_query} -s ${sapi} -m ${lowercase_title}",
+        require =>::Php::Config[$title],
+      }
     }
 
     if $::php::fpm {
