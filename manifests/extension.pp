@@ -48,6 +48,10 @@
 #   Boolean/String parameter, whether to prefix all setting keys with
 #   the extension name or specified name. Defaults to false.
 #
+# [*sapi*]
+#   String parameter, whether to specify ALL sapi or a specific sapi.
+#   Defaults to ALL.
+#
 define php::extension(
   $ensure            = 'installed',
   $provider          = undef,

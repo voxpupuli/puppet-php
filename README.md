@@ -88,6 +88,7 @@ activated for all activated SAPIs.
           'apc/stat'       => '1',
           'apc/stat_ctime' => '1',
         },
+        sapi     => 'fpm',
       },
       
     },
@@ -148,6 +149,7 @@ php::extensions:
     settings:
       'apc/stat': 1
       'apc/stat_ctime': 1
+    sapi: 'fpm'
 php::fpm::pools:
   www2:
     listen: '127.0.1.1:9000'
