@@ -48,6 +48,10 @@
 #   Boolean/String parameter, whether to prefix all setting keys with
 #   the extension name or specified name. Defaults to false.
 #
+# [*sapi*]
+#   String parameter, whether to specify ALL sapi or a specific sapi.
+#   Defaults to ALL.
+#
 define php::extension(
   $ensure            = 'installed',
   $provider          = undef,
@@ -61,12 +65,14 @@ define php::extension(
   $zend              = false,
   $settings          = {},
   $settings_prefix   = false,
+  $sapi              = 'ALL',
 ) {
 
   validate_string($ensure)
   validate_string($package_prefix)
   validate_string($so_name)
   validate_string($php_api_version)
+  validate_string($sapi)
   validate_array($header_packages)
   validate_bool($zend)
 
@@ -185,11 +191,18 @@ define php::extension(
   $ext_tool_enabled  = pick_default($::php::ext_tool_enabled, $::php::params::ext_tool_enabled)
 
   if $::osfamily == 'Debian' and $ext_tool_enabled {
-    $cmd = "${ext_tool_enable} ${lowercase_title}"
+    $cmd = "${ext_tool_enable} -s ${sapi} ${lowercase_title}"
 
-    exec { $cmd:
-      unless  => "${ext_tool_query} -s cli -m ${lowercase_title}",
-      require =>::Php::Config[$title],
+    if $sapi == 'ALL' {
+      exec { $cmd:
+        unless  => "${ext_tool_query} -s cli -m ${lowercase_title}",
+        require =>::Php::Config[$title],
+      }
+    } else {
+      exec { $cmd:
+        unless  => "${ext_tool_query} -s ${sapi} -m ${lowercase_title}",
+        require =>::Php::Config[$title],
+      }
     }
 
     if $::php::fpm {
