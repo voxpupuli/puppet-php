@@ -12,6 +12,10 @@ with `mod_php` is not supported.
 This originally was a fork of [jippi/puppet-php](https://github.com/jippi/puppet-php)
 (nodes-php on Puppet Forge) but has since been rewritten in large parts.
 
+**Current Status:** The original maintainers of `puppet-php` are not developing
+it actively anymore because they have moved on from Puppet. If you want to help
+maintain this module please see [#183](https://github.com/mayflower/puppet-php/issues/183).
+
 ## Usage
 
 Quickest way to get started is simply `include`'ing the _`php` class_.
