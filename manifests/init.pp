@@ -43,6 +43,13 @@
 #   to a sensible default depending on your operating system, like 'php-' or
 #   'php5-'.
 #
+# [*config_root_override*]
+#   The configuration root directory used in parameter calculation in params
+#   class.
+#
+# [*php_version_override*]
+#   The version of php used in parameter calculation in params class.
+#
 # [*config_root_ini*]
 #   This is the path to the config .ini files of the extensions. This defaults
 #   to a sensible default depending on your operating system, like
@@ -75,27 +82,29 @@
 # [*settings*]
 #
 class php (
-  $ensure             = $::php::params::ensure,
-  $manage_repos       = $::php::params::manage_repos,
-  $fpm                = true,
-  $fpm_service_enable = $::php::params::fpm_service_enable,
-  $fpm_service_ensure = $::php::params::fpm_service_ensure,
-  $fpm_service_name   = $::php::params::fpm_service_name,
-  $embedded           = false,
-  $dev                = true,
-  $composer           = true,
-  $pear               = true,
-  $pear_ensure        = $::php::params::pear_ensure,
-  $phpunit            = false,
-  $extensions         = {},
-  $settings           = {},
-  $package_prefix     = $::php::params::package_prefix,
-  $config_root_ini    = $::php::params::config_root_ini,
-  $ext_tool_enable    = $::php::params::ext_tool_enable,
-  $ext_tool_query     = $::php::params::ext_tool_query,
-  $ext_tool_enabled   = $::php::params::ext_tool_enabled,
-  $log_owner          = $::php::params::fpm_user,
-  $log_group          = $::php::params::fpm_group,
+  $ensure               = $::php::params::ensure,
+  $manage_repos         = $::php::params::manage_repos,
+  $fpm                  = true,
+  $fpm_service_enable   = $::php::params::fpm_service_enable,
+  $fpm_service_ensure   = $::php::params::fpm_service_ensure,
+  $fpm_service_name     = $::php::params::fpm_service_name,
+  $embedded             = false,
+  $dev                  = true,
+  $composer             = true,
+  $pear                 = true,
+  $pear_ensure          = $::php::params::pear_ensure,
+  $phpunit              = false,
+  $extensions           = {},
+  $settings             = {},
+  $package_prefix       = $::php::params::package_prefix,
+  $override_config_root = undef,
+  $override_php_version = undef,
+  $config_root_ini      = $::php::params::config_root_ini,
+  $ext_tool_enable      = $::php::params::ext_tool_enable,
+  $ext_tool_query       = $::php::params::ext_tool_query,
+  $ext_tool_enabled     = $::php::params::ext_tool_enabled,
+  $log_owner            = $::php::params::fpm_user,
+  $log_group            = $::php::params::fpm_group,
 ) inherits ::php::params {
 
   validate_string($ensure)

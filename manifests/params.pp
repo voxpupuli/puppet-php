@@ -1,24 +1,13 @@
 # PHP params class
 #
-# === Parameters
-#
-# [*config_root_override*]
-#   The configuration root directory used in parameter calculation
-#
-# [*php_version_override*]
-#   The version of php used in parameter calculation
-#
-class php::params(
-  $config_root_override = undef,
-  $php_version_override = undef
-) {
+class php::params {
 
-  if $config_root_override != undef {
-    validate_absolute_path($config_root_override)
+  if $::php::override_config_root != undef {
+    validate_absolute_path($::php::override_config_root)
   }
 
-  if $php_version_override != undef {
-    validate_re($php_version_override, '^[57].[0-9]')
+  if $::php::override_php_version != undef {
+    validate_re($::php::override_php_version, '^[57].[0-9]')
   }
 
   $ensure              = 'present'
@@ -51,7 +40,7 @@ class php::params(
         $distro_php_version = '5.x'
       }
 
-      $real_php_version = pick($php_version_override, $distro_php_version)
+      $real_php_version = pick($::php::override_php_version, $distro_php_version)
 
       case $real_php_version {
         /^7/: {
@@ -74,7 +63,7 @@ class php::params(
         }
       }
 
-      $config_root             = pick($config_root_override, $calculated_config_root)
+      $config_root             = pick($::php::override_config_root, $calculated_config_root)
       $config_root_ini         = "${config_root}/mods-available"
       $config_root_inifile     = "${config_root}/php.ini"
       $common_package_names    = []
@@ -95,7 +84,7 @@ class php::params(
     }
 
     'Suse': {
-      $config_root             = pick($config_root_override, '/etc/php5')
+      $config_root             = pick($::php::override_config_root, '/etc/php5')
       $config_root_ini         = "${config_root}/conf.d"
       $config_root_inifile     = "${config_root}/php.ini"
       $common_package_names    = ['php5']
@@ -154,7 +143,7 @@ class php::params(
       $ext_tool_enabled        = false
     }
     'FreeBSD': {
-      $config_root             = pick($config_root_override, '/usr/local/etc')
+      $config_root             = pick($::php::override_config_root, '/usr/local/etc')
       $config_root_ini         = "${config_root}/php"
       $config_root_inifile     = "${config_root}/php.ini"
       # No common packages, because the required PHP base package will be
