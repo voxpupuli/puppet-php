@@ -2,14 +2,6 @@
 #
 class php::params {
 
-  if $::php::override_config_root != undef {
-    validate_absolute_path($::php::override_config_root)
-  }
-
-  if $::php::override_php_version != undef {
-    validate_re($::php::override_php_version, '^[57].[0-9]')
-  }
-
   $ensure              = 'present'
   $fpm_service_enable  = true
   $fpm_service_ensure  = 'running'

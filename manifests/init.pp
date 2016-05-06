@@ -122,6 +122,12 @@ class php (
   validate_string($log_owner)
   validate_string($log_group)
 
+  if $override_config_root != undef {
+    validate_absolute_path($override_config_root)
+  }
+  if $override_php_version != undef {
+    validate_re($override_php_version, '^[57].[0-9]')
+  }
   if $config_root_ini != undef {
     validate_absolute_path($config_root_ini)
   }
