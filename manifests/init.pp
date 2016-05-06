@@ -43,11 +43,11 @@
 #   to a sensible default depending on your operating system, like 'php-' or
 #   'php5-'.
 #
-# [*config_root_override*]
+# [*override_config_root*]
 #   The configuration root directory used in parameter calculation in params
 #   class.
 #
-# [*php_version_override*]
+# [*override_php_version*]
 #   The version of php used in parameter calculation in params class.
 #
 # [*config_root_ini*]
