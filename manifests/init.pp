@@ -43,13 +43,6 @@
 #   to a sensible default depending on your operating system, like 'php-' or
 #   'php5-'.
 #
-# [*override_config_root*]
-#   The configuration root directory used in parameter calculation in params
-#   class.
-#
-# [*override_php_version*]
-#   The version of php used in parameter calculation in params class.
-#
 # [*config_root_ini*]
 #   This is the path to the config .ini files of the extensions. This defaults
 #   to a sensible default depending on your operating system, like
@@ -97,8 +90,6 @@ class php (
   $extensions           = {},
   $settings             = {},
   $package_prefix       = $::php::params::package_prefix,
-  $override_config_root = undef,
-  $override_php_version = undef,
   $config_root_ini      = $::php::params::config_root_ini,
   $ext_tool_enable      = $::php::params::ext_tool_enable,
   $ext_tool_query       = $::php::params::ext_tool_query,
@@ -122,12 +113,6 @@ class php (
   validate_string($log_owner)
   validate_string($log_group)
 
-  if $override_config_root != undef {
-    validate_absolute_path($override_config_root)
-  }
-  if $override_php_version != undef {
-    validate_re($override_php_version, '^[57].[0-9]')
-  }
   if $config_root_ini != undef {
     validate_absolute_path($config_root_ini)
   }
