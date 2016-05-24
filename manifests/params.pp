@@ -92,7 +92,7 @@ class php::params inherits php::globals {
       }
     }
     'RedHat': {
-      $config_root             = $php::globals::globals_config_root
+      $config_root_ini         = '/etc/php.d'
       $config_root_inifile     = '/etc/php.ini'
       $common_package_names    = []
       $common_package_suffixes = ['cli', 'common']
