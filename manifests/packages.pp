@@ -29,7 +29,14 @@ class php::packages (
   validate_array($names_to_prefix)
 
   $real_names = union($names, $names_to_prefix)
-  package { $real_names:
-    ensure => $ensure,
+  if $::operatingsystem == 'Ubuntu' {
+    package { $real_names:
+      ensure  => $ensure,
+      require => Class['::php::repo'],
+    }
+  } else {
+    package { $real_names:
+      ensure => $ensure,
+    }
   }
 }

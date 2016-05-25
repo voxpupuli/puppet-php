@@ -24,8 +24,8 @@ class php::repo::ubuntu (
 
   $version_repo = $version_real ? {
     '5.4' => 'ondrej/php5-oldstable',
-    '5.5' => 'ondrej/php5',
-    '5.6' => 'ondrej/php5-5.6',
+    '5.5' => 'ondrej/php',
+    '5.6' => 'ondrej/php',
     '7.0' => 'ondrej/php'
   }
 
@@ -34,8 +34,12 @@ class php::repo::ubuntu (
   }
 
   if ($ppa) {
-    ::apt::ppa { "ppa:${ppa}": }
+    ::apt::ppa { "ppa:${ppa}":
+      before => [Class['::php::packages'],Class['::php::pear'],Class['::php::dev']],
+    }
   } else {
-    ::apt::ppa { "ppa:${version_repo}": }
+    ::apt::ppa { "ppa:${version_repo}":
+      before => [Class['::php::packages'],Class['::php::pear'],Class['::php::dev']],
+    }
   }
 }

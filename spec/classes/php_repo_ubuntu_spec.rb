@@ -11,7 +11,7 @@ describe 'php::repo::ubuntu', :type => :class do
       when 'trusty'
         describe 'when called with no parameters on Ubuntu trusty' do
           it {
-            should contain_exec('add-apt-repository-ppa:ondrej/php5')
+            should contain_exec('add-apt-repository-ppa:ondrej/php')
           }
         end
 
@@ -26,17 +26,17 @@ describe 'php::repo::ubuntu', :type => :class do
 
         describe 'when call with parameter ppa without prefix "ppa:" on Ubuntu trusty' do
           let(:params) {{
-              :ppa => 'ondrej/php5-5.6'
+              :ppa => 'ondrej/php'
           }}
           it {
-            should contain_exec('add-apt-repository-ppa:ondrej/php5-5.6')
+            should contain_exec('add-apt-repository-ppa:ondrej/php')
           }
         end
 
         describe 'when call with parameter ppa and version on Ubuntu trusty' do
           let(:params) {{
               :version => '5.4',
-              :ppa     => 'ondrej/php5-5.6'
+              :ppa     => 'ondrej/php5-oldstable'
           }}
           it { expect { should raise_error(Puppet::Error) }}
         end

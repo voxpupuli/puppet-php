@@ -10,22 +10,42 @@ describe 'php', :type => :class do
       describe 'when called with no parameters' do
         case facts[:osfamily]
         when 'Debian'
-          it {
-            should contain_class('php::fpm')
-            should contain_package('php5-cli').with({
-              'ensure' => 'present',
-            })
-            should contain_package('php5-fpm').with({
-              'ensure' => 'present',
-            })
-            should contain_package('php5-dev').with({
-              'ensure' => 'present',
-            })
-            should contain_package('php-pear').with({
-              'ensure' => 'present',
-            })
-            should contain_class('php::composer')
-          }
+          case facts[:operatingsystem]
+          when 'Ubuntu'
+            it {
+              should contain_class('php::fpm')
+              should contain_package('php5.6-cli').with({
+                'ensure' => 'present',
+              })
+              should contain_package('php5.6-fpm').with({
+                'ensure' => 'present',
+              })
+              should contain_package('php5.6-dev').with({
+                'ensure' => 'present',
+              })
+              should contain_package('php-pear').with({
+                'ensure' => 'present',
+              })
+              should contain_class('php::composer')
+            }
+          when 'Debian'
+            it {
+              should contain_class('php::fpm')
+              should contain_package('php5-cli').with({
+                'ensure' => 'present',
+              })
+              should contain_package('php5-fpm').with({
+                'ensure' => 'present',
+              })
+              should contain_package('php5-dev').with({
+                'ensure' => 'present',
+              })
+              should contain_package('php-pear').with({
+                'ensure' => 'present',
+              })
+              should contain_class('php::composer')
+            }
+          end
         when 'Suse'
           it {
             should contain_package('php5').with({
