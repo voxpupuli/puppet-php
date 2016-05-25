@@ -7,7 +7,7 @@ mayflower/php is a Puppet module for managing PHP with a strong focus
 on php-fpm. The module aims to use sane defaults for the supported
 architectures. We strive to support all recent versions of Debian,
 Ubuntu, RedHat/CentOS, openSUSE/SLES and FreeBSD. Managing Apache
-with `mod_php` is not supported. 
+with `mod_php` is not supported.
 
 This originally was a fork of [jippi/puppet-php](https://github.com/jippi/puppet-php)
 (nodes-php on Puppet Forge) but has since been rewritten in large parts.
@@ -39,8 +39,20 @@ class { '::php':
 }
 ```
 
+Optionally the PHP version or configuration root directory can be changed also:
+
+```puppet
+class { '::php::globals':
+  php_version => '7.0',
+  config_root => '/etc/php/7.0',
+}->
+class { '::php':
+  manage_repos => true
+}
+```
+
 There are more configuration options available. Please refer to the
-auto-generated documention at http://php.puppet.mayflower.de/.
+auto-generated documentation at http://php.puppet.mayflower.de/.
 
 ### Defining `php.ini` settings
 
@@ -94,7 +106,7 @@ activated for all activated SAPIs.
         },
         sapi     => 'fpm',
       },
-      
+
     },
   }
 ```
@@ -192,7 +204,7 @@ We prefer using php-fpm. You can find an example Apache vhost in
 connect to php-fpm.
 
 ### Facts
-We deliver a `phpversion` fact with this module. This is explicitly **NOT** intended 
+We deliver a `phpversion` fact with this module. This is explicitly **NOT** intended
 to be used within your puppet manifests as it will only work on your second puppet
 run. Its intention is to make querying PHP versions per server easy via PuppetDB.
 

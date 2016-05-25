@@ -1,12 +1,6 @@
 # PHP params class
 #
-class php::params(
-  $cfg_root = undef, # lint:ignore:parameter_documentation
-) {
-
-  if $cfg_root != undef {
-    validate_absolute_path($cfg_root)
-  }
+class php::params inherits php::globals {
 
   $ensure              = 'present'
   $fpm_service_enable  = true
@@ -16,35 +10,35 @@ class php::params(
   $composer_max_age    = 30
   $pear_ensure         = 'present'
   $pear_package_suffix = 'pear'
-  $phpunit_source    = 'https://phar.phpunit.de/phpunit.phar'
-  $phpunit_path      = '/usr/local/bin/phpunit'
-  $phpunit_max_age   = 30
+  $phpunit_source      = 'https://phar.phpunit.de/phpunit.phar'
+  $phpunit_path        = '/usr/local/bin/phpunit'
+  $phpunit_max_age     = 30
 
   case $::osfamily {
     'Debian': {
-      $config_root             = pick($cfg_root, '/etc/php5')
+      $config_root             = $php::globals::globals_config_root
       $config_root_ini         = "${config_root}/mods-available"
       $config_root_inifile     = "${config_root}/php.ini"
       $common_package_names    = []
       $common_package_suffixes = ['cli', 'common']
       $cli_inifile             = "${config_root}/cli/php.ini"
       $dev_package_suffix      = 'dev'
-      $fpm_pid_file            = '/var/run/php5-fpm.pid'
+      $fpm_pid_file            = $php::globals::fpm_pid_file
       $fpm_config_file         = "${config_root}/fpm/php-fpm.conf"
-      $fpm_error_log           = '/var/log/php5-fpm.log'
+      $fpm_error_log           = $php::globals::fpm_error_log
       $fpm_inifile             = "${config_root}/fpm/php.ini"
       $fpm_package_suffix      = 'fpm'
       $fpm_pool_dir            = "${config_root}/fpm/pool.d"
-      $fpm_service_name        = 'php5-fpm'
+      $fpm_service_name        = $php::globals::fpm_service_name
       $fpm_user                = 'www-data'
       $fpm_group               = 'www-data'
       $embedded_package_suffix = 'embed'
       $embedded_inifile        = "${config_root}/embed/php.ini"
-      $package_prefix          = 'php5-'
+      $package_prefix          = $php::globals::package_prefix
       $compiler_packages       = 'build-essential'
       $root_group              = 'root'
-      $ext_tool_enable         = '/usr/sbin/php5enmod'
-      $ext_tool_query          = '/usr/sbin/php5query'
+      $ext_tool_enable         = $php::globals::ext_tool_enable
+      $ext_tool_query          = $php::globals::ext_tool_query
       $ext_tool_enabled        = true
 
       case $::operatingsystem {
@@ -63,7 +57,7 @@ class php::params(
     }
 
     'Suse': {
-      $config_root             = pick($cfg_root, '/etc/php5')
+      $config_root             = $php::globals::globals_config_root
       $config_root_ini         = "${config_root}/conf.d"
       $config_root_inifile     = "${config_root}/php.ini"
       $common_package_names    = ['php5']
@@ -122,7 +116,7 @@ class php::params(
       $ext_tool_enabled        = false
     }
     'FreeBSD': {
-      $config_root             = pick($cfg_root, '/usr/local/etc')
+      $config_root             = $php::globals::globals_config_root
       $config_root_ini         = "${config_root}/php"
       $config_root_inifile     = "${config_root}/php.ini"
       # No common packages, because the required PHP base package will be
