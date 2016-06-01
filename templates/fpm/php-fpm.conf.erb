@@ -3,14 +3,14 @@
 ;;;;;;;;;;;;;;;;;;;;;
 
 ; All relative paths in this configuration file are relative to PHP's install
-; prefix (/usr). This prefix can be dynamicaly changed by using the
+; prefix (/usr). This prefix can be dynamically changed by using the
 ; '-p' argument from the command line.
 
 ; Include one or more files. If glob(3) exists, it is used to include a bunch of
 ; files from a glob(3) pattern. This directive can be used everywhere in the
 ; file.
 ; Relative path can also be used. They will be prefixed by:
-;  - the global prefix if it's been set (-p arguement)
+;  - the global prefix if it's been set (-p argument)
 ;  - /usr otherwise
 ;include=/etc/php5/fpm/*.conf
 
@@ -109,7 +109,7 @@ rlimit_files = <%= @rlimit_files %>
 ; - /dev/poll  (Solaris >= 7)
 ; - port       (Solaris >= 10)
 ; Default Value: not set (auto detection)
-; events.mechanism = epoll
+;events.mechanism = epoll
 
 ; When FPM is build with systemd integration, specify the interval,
 ; in second, between health report notification to systemd.
