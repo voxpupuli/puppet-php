@@ -34,6 +34,9 @@
 # [*settings*]
 #   fpm settings hash
 #
+# [*pid_file*]
+#   Path to pid file for fpm
+#
 # [*global_pool_settings*]
 #   Hash of defaults params php::fpm::pool resources that will be created.
 #   Defaults is empty hash.
@@ -60,6 +63,7 @@ class php::fpm (
   validate_string($ensure)
   validate_string($package)
   validate_absolute_path($inifile)
+  validate_absolute_path($pid_file)
   validate_hash($settings)
   validate_hash($pools)
 
