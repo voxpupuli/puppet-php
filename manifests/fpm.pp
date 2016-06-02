@@ -50,6 +50,7 @@ class php::fpm (
   $pools                = { 'www' => {} },
   $log_owner            = $::php::params::fpm_user,
   $log_group            = $::php::params::fpm_group
+  $pid_file             = $::php::params::fpm_pid_file
 ) inherits ::php::params {
 
   if $caller_module_name != $module_name {
@@ -81,6 +82,7 @@ class php::fpm (
       settings  => $real_settings,
       log_owner => $log_owner,
       log_group => $log_group,
+      pid_file  => $pid_file,
     } ->
     class { '::php::fpm::service':
       ensure       => $service_ensure,
