@@ -49,7 +49,7 @@ class php::fpm (
   $global_pool_settings = {},
   $pools                = { 'www' => {} },
   $log_owner            = $::php::params::fpm_user,
-  $log_group            = $::php::params::fpm_group
+  $log_group            = $::php::params::fpm_group,
   $pid_file             = $::php::params::fpm_pid_file
 ) inherits ::php::params {
 
