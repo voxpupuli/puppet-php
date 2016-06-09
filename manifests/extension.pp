@@ -39,7 +39,7 @@
 #
 # [*zend*]
 #  Boolean parameter, whether to load extension as zend_extension.
-#  This can only be set for pecl modules. Defaults to false.
+#  Defaults to false.
 #
 # [*settings*]
 #   Nested hash of global config parameters for php.ini
@@ -121,10 +121,6 @@ define php::extension(
     }
   }
 
-  if $provider != 'pecl' and $zend {
-    fail('You can only use the zend parameter for pecl PHP extensions!')
-  }
-
   if $zend == true {
     $extension_key = 'zend_extension'
     if $php_api_version != undef {
@@ -158,25 +154,10 @@ define php::extension(
     $full_settings = $settings
   }
 
-  if $provider == 'pecl' {
-    $final_settings = deep_merge(
-      {"${extension_key}" => "${module_path}${so_name}.so"},
-      $full_settings
-    )
-  }
-  else {
-    # On FreeBSD systems the settings file is required for every module
-    # (regardless of provider) to allow for proper module management.
-    if $::osfamily == 'FreeBSD' {
-      $final_settings = deep_merge(
-        {"${extension_key}" => "${name}.so"},
-        $full_settings
-      )
-    }
-    else {
-      $final_settings = $full_settings
-    }
-  }
+  $final_settings = deep_merge(
+    {"${extension_key}" => "${module_path}${so_name}.so"},
+    $full_settings
+  )
 
   $config_root_ini = pick_default($::php::config_root_ini, $::php::params::config_root_ini)
   ::php::config { $title:
