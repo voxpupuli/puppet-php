@@ -143,7 +143,7 @@ class php (
 
   # Configure global PHP settings in php.ini
   if $::osfamily != 'Debian' {
-    Anchor['php::begin'] ->
+    Class['php::packages'] ->
     class {'::php::global':
       settings => $real_settings,
     } ->
