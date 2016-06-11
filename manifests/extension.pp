@@ -94,7 +94,7 @@ define php::extension(
     else {
       $real_package = "${package_prefix}${title}"
     }
-   
+
     unless empty($header_packages) {
       ensure_resource('package', $header_packages)
       Package[$header_packages] -> Package[$real_package]
