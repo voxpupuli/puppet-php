@@ -142,7 +142,7 @@ class php (
   anchor { 'php::end': }
 
   # Configure global PHP settings in php.ini
-  Anchor['php::begin'] ->
+  Class['php::packages'] ->
   class {'::php::global':
     settings => $real_settings,
   } ->
