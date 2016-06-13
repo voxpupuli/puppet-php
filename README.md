@@ -187,11 +187,29 @@ older though still supported distribution release. Our default is to have
 Ubuntu with packages for the current stable PHP version closely tracking
 upstream.
 
-To use an alternate PPA, Ondrej's PHP 5.6 for example, use the below hiera snippet
+To use an alternate PPA, Ondřej's PHP 5.6 for example, use the below hiera snippet
 ```yaml
-php::repo::ubuntu::ppa: 'ondrej/php5-5.6'
+php::repo::ubuntu::ppa: 'ondrej/php'
 php::manage_repos: true
 ```
+
+### Ubuntu systems and Ondřej's PPA
+
+The older Ubuntu PPAs run by Ondřej have been deprecated (ondrej/php5, ondrej/php5.6)
+in favor of a new PPA: ondrej/php which contains all 3 versions of PHP: 5.5, 5.6, and 7.0
+Here's an example in hiera of getting PHP 5.6 installed with php-fpm, pear/pecl, and composer:
+
+```
+php::globals::php_version: '5.6'
+php::fpm: true
+php::dev: true
+php::composer: true
+php::pear: true
+php::phpunit: false
+```
+
+If you do not specify a php version, in Ubuntu the default will be 7.0 if you are
+running Xenial (16.04), otherwise PHP 5.6 will be installed (for other versions)
 
 ### Apache support
 
