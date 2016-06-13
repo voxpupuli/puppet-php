@@ -6,7 +6,7 @@
 #   PHP version to manage (e.g. 5.6)
 #
 # [*ppa*]
-#   Use a specific PPA, e.g "ondrej/php5-5.6" (without the "ppa:")
+#   Use a specific PPA, e.g "ondrej/php" (without the "ppa:")
 #
 class php::repo::ubuntu (
   $version   = undef,
