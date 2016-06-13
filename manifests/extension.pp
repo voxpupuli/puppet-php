@@ -95,9 +95,11 @@ define php::extension(
       $real_package = "${package_prefix}${title}"
     }
 
-    ensure_resource('package', $header_packages)
-    Package[$header_packages] -> Package[$real_package] -> ::Php::Config[$title]
-
+    unless empty($header_packages) {
+      ensure_resource('package', $header_packages)
+      Package[$header_packages] -> Package[$real_package]
+    }
+    
     if $provider == 'pecl' {
       package { $real_package:
         ensure   => $ensure,
@@ -109,8 +111,10 @@ define php::extension(
         ],
       }
 
-      ensure_resource('package', $compiler_packages)
-      Package[$compiler_packages] -> Package[$real_package]
+      unless empty($compiler_packages) {
+        ensure_resource('package', $compiler_packages)
+        Package[$compiler_packages] -> Package[$real_package]
+      }
     }
     else {
       package { $real_package:
@@ -180,8 +184,9 @@ define php::extension(
 
   $config_root_ini = pick_default($::php::config_root_ini, $::php::params::config_root_ini)
   ::php::config { $title:
-    file   => "${config_root_ini}/${lowercase_title}.ini",
-    config => $final_settings,
+    file    => "${config_root_ini}/${lowercase_title}.ini",
+    config  => $final_settings,
+    require => Package[$real_package],
   }
 
   # Ubuntu/Debian systems use the mods-available folder. We need to enable

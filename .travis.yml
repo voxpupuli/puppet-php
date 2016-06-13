@@ -7,19 +7,21 @@ rvm:
 env:
   matrix:
   - PUPPET_VERSION=4.3.1
-  - PUPPET_VERSION=3.8.4
-  - PUPPET_VERSION=3.8.4 FUTURE_PARSER=yes TRUSTED_NODE_DATA=yes
+  - PUPPET_VERSION=3.8.7
+  - PUPPET_VERSION=3.8.7 FUTURE_PARSER=yes TRUSTED_NODE_DATA=yes
   global:
   - secure: Zc0V6JqwpFTTtVE7jVFg5R6UgXZrzsBGa6ckbOnIHPCOyJsV4oWO6RxKsYI+ozzD9nrEdrT/DTcHKRz84YqrMXxvBU9HA4S/ZrNQoRiH3bEnI3UHC6jQJRX0c71gaJEMQ3S33my39vLD7EsealX3p+j8asL8e8glYR1am9ekUB8=
 matrix:
   exclude:
   - rvm: 2.1.6
-    env: PUPPET_VERSION=3.8.4
+    env: PUPPET_VERSION=3.8.7
   include:
   - rvm: 2.1.6
-    env: PUPPET_VERSION=3.8.4 DOCS=true
+    env: PUPPET_VERSION=3.8.7 DOCS=true
   - rvm: 2.2.3
     env: PUPPET_VERSION=4.3.1
+  - rvm: 2.3.0
+    env: PUPPET_VERSION=4.5.1
 after_success: |
   [ $TRAVIS_BRANCH = master ] &&
   [ $TRAVIS_PULL_REQUEST = false ] &&

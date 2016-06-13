@@ -30,6 +30,7 @@ describe 'php', :type => :class do
             }
           when 'Debian'
             it {
+              should_not contain_class('php::global')
               should contain_class('php::fpm')
               should contain_package('php5-cli').with({
                 'ensure' => 'present',
@@ -48,6 +49,7 @@ describe 'php', :type => :class do
           end
         when 'Suse'
           it {
+            should contain_class('php::global')
             should contain_package('php5').with({
               'ensure' => 'present',
             })
