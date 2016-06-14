@@ -32,7 +32,7 @@ class php::packages (
   if $::operatingsystem == 'Ubuntu' {
     package { $real_names:
       ensure  => $ensure,
-      require => Class['::php::repo'],
+      require => Class['::apt::update'],
     }
   } else {
     package { $real_names:
