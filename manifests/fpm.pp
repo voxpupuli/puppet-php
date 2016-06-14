@@ -95,8 +95,7 @@ class php::fpm (
 
   # Create an override to use a reload signal as trusty and utopic's
   # upstart version supports this
-  if $::osfamily == 'Debian' and
-    ($::lsbdistcodename == 'trusty' or $::lsbdistcodename == 'utopic') {
+  if $::operatingsystem == 'Ubuntu' and ($::operatingsystemmajrelease == '14.04' or $::operatingsystemmajrelease == '14.10') {
     if ($service_enable) {
       $fpm_override = 'reload signal USR2'
     }

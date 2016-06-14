@@ -23,13 +23,10 @@ class php::fpm::service(
 
   $reload = "service ${service_name} reload"
 
-  if $::osfamily == 'Debian' {
+  if $::operatingsystem == 'Ubuntu' and $::operatingsystemmajrelease == '12.04' {
     # Precise upstart doesn't support reload signals, so use
     # regular service restart instead
-    $restart = $::lsbdistcodename ? {
-      'precise' => undef,
-      default   => $reload
-    }
+    $restart = undef
   } else {
     $restart = $reload
   }
