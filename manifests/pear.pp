@@ -44,13 +44,10 @@ class php::pear (
   validate_string($package_name)
 
   if $::operatingsystem == 'Ubuntu' {
-
-    if ( ! defined(Package["${php::globals::package_prefix}xml"])) {
-      package { "${php::globals::package_prefix}xml":
-        ensure  => present,
-        require => Class['::apt::update'],
-      }
-    }
+    ensure_packages(["${php::globals::package_prefix}xml"], {
+      ensure  => present,
+      require => Class['::apt::update'],
+    })
 
     package { $package_name:
       ensure  => $ensure,
