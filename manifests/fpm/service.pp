@@ -11,10 +11,14 @@
 # [*enable*]
 #   Defines if the service is enabled
 #
+# [*provider*]
+#   Defines if the service provider to use
+#
 class php::fpm::service(
   $service_name = $::php::params::fpm_service_name,
   $ensure       = $::php::params::fpm_service_ensure,
   $enable       = $::php::params::fpm_service_enable,
+  $provider     = undef,
 ) inherits ::php::params {
 
   if $caller_module_name != $module_name {
@@ -34,6 +38,7 @@ class php::fpm::service(
   service { $service_name:
     ensure     => $ensure,
     enable     => $enable,
+    provider   => $provider,
     hasrestart => true,
     restart    => $restart,
     hasstatus  => true,
