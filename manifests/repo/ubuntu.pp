@@ -34,12 +34,8 @@ class php::repo::ubuntu (
   }
 
   if ($ppa) {
-    ::apt::ppa { "ppa:${ppa}":
-      before => [Class['::php::packages'],Class['::php::pear'],Class['::php::dev']],
-    }
+    ::apt::ppa { "ppa:${ppa}": }
   } else {
-    ::apt::ppa { "ppa:${version_repo}":
-      before => [Class['::php::packages'],Class['::php::pear'],Class['::php::dev']],
-    }
+    ::apt::ppa { "ppa:${version_repo}": }
   }
 }
