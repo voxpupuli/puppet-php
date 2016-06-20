@@ -8,6 +8,10 @@
 # [*config_root*]
 #   The configuration root directory.
 #
+# [*fpm_pid_file*]
+#   Path to pid file for fpm
+#
+
 class php::globals (
   $php_version = undef,
   $config_root = undef,
