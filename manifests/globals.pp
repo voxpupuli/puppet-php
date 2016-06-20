@@ -114,8 +114,20 @@ class php::globals (
       }
     }
     'Suse': {
-      $default_config_root  = '/etc/php5'
-      $default_fpm_pid_file = '/var/run/php5-fpm.pid'
+      case $globals_php_version {
+        /^7/: {
+          $default_config_root  = '/etc/php7'
+          $package_prefix       = 'php7-'
+          $default_fpm_pid_file = '/var/run/php7-fpm.pid'
+          $fpm_error_log        = '/var/log/php7-fpm.log'
+        }
+        default: {
+          $default_config_root  = '/etc/php5'
+          $package_prefix       = 'php5-'
+          $default_fpm_pid_file = '/var/run/php5-fpm.pid'
+          $fpm_error_log        = '/var/log/php5-fpm.log'
+        }
+      }
     }
     'RedHat': {
       $default_config_root  = '/etc/php.d'

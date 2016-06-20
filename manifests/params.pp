@@ -57,16 +57,22 @@ class php::params inherits php::globals {
     }
 
     'Suse': {
+      if ($php::globals::php_version != undef) {
+        $php_version_major = $php::globals::php_version[0]
+      } else {
+        $php_version_major = 5
+      }
+
       $config_root             = $php::globals::globals_config_root
       $config_root_ini         = "${config_root}/conf.d"
       $config_root_inifile     = "${config_root}/php.ini"
-      $common_package_names    = ['php5']
+      $common_package_names    = ["php${php_version_major}"]
       $common_package_suffixes = []
       $cli_inifile             = "${config_root}/cli/php.ini"
       $dev_package_suffix      = 'devel'
       $fpm_pid_file            = $php::globals::globals_fpm_pid_file
       $fpm_config_file         = "${config_root}/fpm/php-fpm.conf"
-      $fpm_error_log           = '/var/log/php5-fpm.log'
+      $fpm_error_log           = $php::globals::fpm_error_log
       $fpm_inifile             = "${config_root}/fpm/php.ini"
       $fpm_package_suffix      = 'fpm'
       $fpm_pool_dir            = "${config_root}/fpm/pool.d"
@@ -75,7 +81,7 @@ class php::params inherits php::globals {
       $fpm_group               = 'www'
       $embedded_package_suffix = 'embed'
       $embedded_inifile        = "${config_root}/embed/php.ini"
-      $package_prefix          = 'php5-'
+      $package_prefix          = $php::globals::package_prefix
       $manage_repos            = true
       $root_group              = 'root'
       $ext_tool_enabled        = false
