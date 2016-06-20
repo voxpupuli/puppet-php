@@ -12,7 +12,7 @@
 #   This is the name of the php-fpm service. It defaults to reasonable OS
 #   defaults but can be different in case of using php7.0/other OS/custom fpm service
 #
-#   [*service_provider*]
+# [*service_provider*]
 #   This is the name of the service provider, in case there is a non
 #   OS default service provider used to start FPM.
 #   Defaults to 'undef', pick system defaults.
@@ -55,7 +55,7 @@ class php::fpm (
   $global_pool_settings = {},
   $pools                = { 'www' => {} },
   $log_owner            = $::php::params::fpm_user,
-  $log_group            = $::php::params::fpm_group
+  $log_group            = $::php::params::fpm_group,
 ) inherits ::php::params {
 
   if $caller_module_name != $module_name {
