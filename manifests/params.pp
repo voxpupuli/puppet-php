@@ -43,7 +43,7 @@ class php::params inherits php::globals {
 
       case $::operatingsystem {
         'Debian': {
-          $manage_repos = $::lsbdistcodename == 'wheezy'
+          $manage_repos = (versioncmp($::operatingsystemrelease, '8') < 0)
         }
 
         'Ubuntu': {

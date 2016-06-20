@@ -1,7 +1,12 @@
-# mayflower/php Puppet Module
-
 [![GitHub version](https://badge.fury.io/gh/mayflower%2Fpuppet-php.svg)](https://github.com/mayflower/puppet-php)
 [![Build Status](https://travis-ci.org/mayflower/puppet-php.svg?branch=master)](https://travis-ci.org/mayflower/puppet-php)
+
+## Current Status
+
+The original maintainers of `puppet-php` are not developing it actively anymore, because they moved away from Puppet.
+**If you want to help** maintaining this module please see [#183](https://github.com/mayflower/puppet-php/issues/183).
+
+# mayflower/php Puppet Module
 
 mayflower/php is a Puppet module for managing PHP with a strong focus
 on php-fpm. The module aims to use sane defaults for the supported
@@ -11,10 +16,6 @@ with `mod_php` is not supported.
 
 This originally was a fork of [jippi/puppet-php](https://github.com/jippi/puppet-php)
 (nodes-php on Puppet Forge) but has since been rewritten in large parts.
-
-**Current Status:** The original maintainers of `puppet-php` are not developing
-it actively anymore because they have moved on from Puppet. If you want to help
-maintain this module please see [#183](https://github.com/mayflower/puppet-php/issues/183).
 
 ## Usage
 
@@ -106,7 +107,6 @@ activated for all activated SAPIs.
         },
         sapi     => 'fpm',
       },
-
     },
   }
 ```
@@ -171,7 +171,6 @@ php::fpm::pools:
     listen: '127.0.1.1:9000'
 ```
 
-
 ## Notes
 
 ### Debian squeeze & Ubuntu precise come with PHP 5.3
@@ -188,11 +187,29 @@ older though still supported distribution release. Our default is to have
 Ubuntu with packages for the current stable PHP version closely tracking
 upstream.
 
-To use an alternate PPA, Ondrej's PHP 5.6 for example, use the below hiera snippet
+To use an alternate PPA, Ondřej's PHP 5.6 for example, use the below hiera snippet
 ```yaml
-php::repo::ubuntu::ppa: 'ondrej/php5-5.6'
+php::repo::ubuntu::ppa: 'ondrej/php'
 php::manage_repos: true
 ```
+
+### Ubuntu systems and Ondřej's PPA
+
+The older Ubuntu PPAs run by Ondřej have been deprecated (ondrej/php5, ondrej/php5.6)
+in favor of a new PPA: ondrej/php which contains all 3 versions of PHP: 5.5, 5.6, and 7.0
+Here's an example in hiera of getting PHP 5.6 installed with php-fpm, pear/pecl, and composer:
+
+```
+php::globals::php_version: '5.6'
+php::fpm: true
+php::dev: true
+php::composer: true
+php::pear: true
+php::phpunit: false
+```
+
+If you do not specify a php version, in Ubuntu the default will be 7.0 if you are
+running Xenial (16.04), otherwise PHP 5.6 will be installed (for other versions)
 
 ### Apache support
 
@@ -204,9 +221,10 @@ We prefer using php-fpm. You can find an example Apache vhost in
 connect to php-fpm.
 
 ### Facts
+
 We deliver a `phpversion` fact with this module. This is explicitly **NOT** intended
 to be used within your puppet manifests as it will only work on your second puppet
-run. Its intention is to make querying PHP versions per server easy via PuppetDB.
+run. Its intention is to make querying PHP versions per server easy via PuppetDB or Foreman.
 
 ### FreeBSD support
 
