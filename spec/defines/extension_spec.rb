@@ -11,7 +11,12 @@ describe 'php::extension' do
       unless (facts[:osfamily] == 'Suse' || facts[:osfamily] == 'FreeBSD') # FIXME - something is wrong on these
         case facts[:osfamily]
           when 'Debian'
-            etcdir = '/etc/php5/mods-available'
+            case facts[:operatingsystem]
+              when 'Ubuntu'
+                etcdir = '/etc/php/5.6/mods-available'
+              else
+                etcdir = '/etc/php5/mods-available'
+            end
           else
             etcdir = '/etc/php.d'
         end

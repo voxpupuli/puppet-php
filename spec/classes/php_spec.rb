@@ -10,24 +10,51 @@ describe 'php', :type => :class do
       describe 'when called with no parameters' do
         case facts[:osfamily]
         when 'Debian'
-          it {
-            should contain_class('php::fpm')
-            should contain_package('php5-cli').with({
-              'ensure' => 'present',
-            })
-            should contain_package('php5-fpm').with({
-              'ensure' => 'present',
-            })
-            should contain_package('php5-dev').with({
-              'ensure' => 'present',
-            })
-            should contain_package('php-pear').with({
-              'ensure' => 'present',
-            })
-            should contain_class('php::composer')
-          }
+          case facts[:operatingsystem]
+          when 'Ubuntu'
+            it {
+              should contain_class('php::fpm')
+              should contain_package('php5.6-cli').with({
+                'ensure' => 'present',
+              })
+              should contain_package('php5.6-fpm').with({
+                'ensure' => 'present',
+              })
+              should contain_class('php::dev')
+              should contain_package('php5.6-dev').with({
+                'ensure' => 'present',
+              })
+              # The -xml package is enforced via the dev class
+              should contain_package('php5.6-xml').with({
+                'ensure' => 'present',
+              })
+              should contain_package('php-pear').with({
+                'ensure' => 'present',
+              })
+              should contain_class('php::composer')
+            }
+          when 'Debian'
+            it {
+              should_not contain_class('php::global')
+              should contain_class('php::fpm')
+              should contain_package('php5-cli').with({
+                'ensure' => 'present',
+              })
+              should contain_package('php5-fpm').with({
+                'ensure' => 'present',
+              })
+              should contain_package('php5-dev').with({
+                'ensure' => 'present',
+              })
+              should contain_package('php-pear').with({
+                'ensure' => 'present',
+              })
+              should contain_class('php::composer')
+            }
+          end
         when 'Suse'
           it {
+            should contain_class('php::global')
             should contain_package('php5').with({
               'ensure' => 'present',
             })
@@ -39,6 +66,71 @@ describe 'php', :type => :class do
             })
             should_not contain_package('php5-cli')
             should_not contain_package('php5-dev')
+            should_not contain_package('php-pear')
+          }
+        end
+      end
+
+      describe 'when called with package_prefix parameter' do
+        let(:params) { { :package_prefix => 'myphp-', } }
+        case facts[:osfamily]
+        when 'Debian'
+          case facts[:operatingsystem]
+          when 'Ubuntu'
+            it {
+              should contain_class('php::fpm')
+              should contain_package('myphp-cli').with({
+                'ensure' => 'present',
+              })
+              should contain_package('myphp-fpm').with({
+                'ensure' => 'present',
+              })
+              should contain_class('php::dev')
+              should contain_package('myphp-dev').with({
+                'ensure' => 'present',
+              })
+              # The -xml package is enforced via the dev class
+              should contain_package('myphp-xml').with({
+                'ensure' => 'present',
+              })
+              should contain_package('php-pear').with({
+                'ensure' => 'present',
+              })
+              should contain_class('php::composer')
+            }
+          when 'Debian'
+            it {
+              should_not contain_class('php::global')
+              should contain_class('php::fpm')
+              should contain_package('myphp-cli').with({
+                'ensure' => 'present',
+              })
+              should contain_package('myphp-fpm').with({
+                'ensure' => 'present',
+              })
+              should contain_package('myphp-dev').with({
+                'ensure' => 'present',
+              })
+              should contain_package('php-pear').with({
+                'ensure' => 'present',
+              })
+              should contain_class('php::composer')
+            }
+          end
+        when 'Suse'
+          it {
+            should contain_class('php::global')
+            should contain_package('php5').with({
+              'ensure' => 'present',
+            })
+            should contain_package('myphp-devel').with({
+              'ensure' => 'present',
+            })
+            should contain_package('myphp-pear').with({
+              'ensure' => 'present',
+            })
+            should_not contain_package('myphp-cli')
+            should_not contain_package('myphp-dev')
             should_not contain_package('php-pear')
           }
         end

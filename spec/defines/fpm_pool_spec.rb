@@ -8,11 +8,21 @@ describe 'php::fpm::pool' do
       end
       case facts[:osfamily]
         when 'Debian'
-        context 'plain config' do
-          let(:title) { 'unique-name' }
-          let(:params) {{ }}
+        case facts[:operatingsystem]
+        when 'Ubuntu'
+          context 'plain config' do
+            let(:title) { 'unique-name' }
+            let(:params) {{ }}
 
-          it { should contain_file('/etc/php5/fpm/pool.d/unique-name.conf') }
+            it { should contain_file('/etc/php/5.6/fpm/pool.d/unique-name.conf') }
+           end
+        when 'Debian'
+          context 'plain config' do
+            let(:title) { 'unique-name' }
+            let(:params) {{ }}
+
+            it { should contain_file('/etc/php5/fpm/pool.d/unique-name.conf') }
+          end
         end
       end
     end

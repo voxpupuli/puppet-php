@@ -43,9 +43,20 @@ class php::pear (
   validate_string($ensure)
   validate_string($package_name)
 
-  package { $package_name:
-    ensure  => $ensure,
-    require => Class['::php::cli'],
-  }
+  if $::operatingsystem == 'Ubuntu' {
+    ensure_packages(["${php::package_prefix}xml"], {
+      ensure  => present,
+      require => Class['::apt::update'],
+    })
 
+    package { $package_name:
+      ensure  => $ensure,
+      require => [Class['::apt::update'],Class['::php::cli'],Package["${php::package_prefix}xml"]],
+    }
+  } else {
+    package { $package_name:
+      ensure  => $ensure,
+      require => Class['::php::cli'],
+    }
+  }
 }

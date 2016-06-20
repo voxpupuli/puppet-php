@@ -26,8 +26,20 @@ class php::dev(
     default   => $package,
   }
 
-  package { $real_package:
-    ensure  => $ensure,
-    require => Class['::php::packages'],
+  if $::operatingsystem == 'Ubuntu' {
+    ensure_packages(["${php::package_prefix}xml"], {
+      ensure  => present,
+      require => Class['::apt::update'],
+    })
+
+    package { $real_package:
+      ensure  => $ensure,
+      require => Class['::php::packages'],
+    }
+  } else {
+    package { $real_package:
+      ensure  => $ensure,
+      require => Class['::php::packages'],
+    }
   }
 }

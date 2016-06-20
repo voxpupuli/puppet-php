@@ -23,6 +23,11 @@
 #   This is the name of the php-fpm service. It defaults to reasonable OS
 #   defaults but can be different in case of using php7.0/other OS/custom fpm service
 #
+#   [*fpm_service_provider*]
+#   This is the name of the service provider, in case there is a non
+#   OS default service provider used to start FPM.
+#   Defaults to 'undef', pick system defaults.
+#
 # [*dev*]
 #   Install php header files, needed to install pecl modules
 #
@@ -75,27 +80,28 @@
 # [*settings*]
 #
 class php (
-  $ensure             = $::php::params::ensure,
-  $manage_repos       = $::php::params::manage_repos,
-  $fpm                = true,
-  $fpm_service_enable = $::php::params::fpm_service_enable,
-  $fpm_service_ensure = $::php::params::fpm_service_ensure,
-  $fpm_service_name   = $::php::params::fpm_service_name,
-  $embedded           = false,
-  $dev                = true,
-  $composer           = true,
-  $pear               = true,
-  $pear_ensure        = $::php::params::pear_ensure,
-  $phpunit            = false,
-  $extensions         = {},
-  $settings           = {},
-  $package_prefix     = $::php::params::package_prefix,
-  $config_root_ini    = $::php::params::config_root_ini,
-  $ext_tool_enable    = $::php::params::ext_tool_enable,
-  $ext_tool_query     = $::php::params::ext_tool_query,
-  $ext_tool_enabled   = $::php::params::ext_tool_enabled,
-  $log_owner          = $::php::params::fpm_user,
-  $log_group          = $::php::params::fpm_group,
+  $ensure               = $::php::params::ensure,
+  $manage_repos         = $::php::params::manage_repos,
+  $fpm                  = true,
+  $fpm_service_enable   = $::php::params::fpm_service_enable,
+  $fpm_service_ensure   = $::php::params::fpm_service_ensure,
+  $fpm_service_name     = $::php::params::fpm_service_name,
+  $fpm_service_provider = undef,
+  $embedded             = false,
+  $dev                  = true,
+  $composer             = true,
+  $pear                 = true,
+  $pear_ensure          = $::php::params::pear_ensure,
+  $phpunit              = false,
+  $extensions           = {},
+  $settings             = {},
+  $package_prefix       = $::php::params::package_prefix,
+  $config_root_ini      = $::php::params::config_root_ini,
+  $ext_tool_enable      = $::php::params::ext_tool_enable,
+  $ext_tool_query       = $::php::params::ext_tool_query,
+  $ext_tool_enabled     = $::php::params::ext_tool_enabled,
+  $log_owner            = $::php::params::fpm_user,
+  $log_group            = $::php::params::fpm_group,
 ) inherits ::php::params {
 
   validate_string($ensure)
@@ -142,21 +148,24 @@ class php (
   anchor { 'php::end': }
 
   # Configure global PHP settings in php.ini
-  Anchor['php::begin'] ->
-  class {'::php::global':
-    settings => $real_settings,
-  } ->
-  Anchor['php::end']
+  if $::osfamily != 'Debian' {
+    Class['php::packages'] ->
+    class {'::php::global':
+      settings => $real_settings,
+    } ->
+    Anchor['php::end']
+  }
 
   if $fpm {
     Anchor['php::begin'] ->
       class { '::php::fpm':
-        service_enable => $fpm_service_enable,
-        service_ensure => $fpm_service_ensure,
-        service_name   => $fpm_service_name,
-        settings       => $real_settings,
-        log_owner      => $log_owner,
-        log_group      => $log_group,
+        service_enable   => $fpm_service_enable,
+        service_ensure   => $fpm_service_ensure,
+        service_name     => $fpm_service_name,
+        service_provider => $fpm_service_provider,
+        settings         => $real_settings,
+        log_owner        => $log_owner,
+        log_group        => $log_group,
       } ->
     Anchor['php::end']
   }

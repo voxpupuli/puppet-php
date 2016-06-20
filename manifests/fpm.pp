@@ -12,6 +12,11 @@
 #   This is the name of the php-fpm service. It defaults to reasonable OS
 #   defaults but can be different in case of using php7.0/other OS/custom fpm service
 #
+#   [*service_provider*]
+#   This is the name of the service provider, in case there is a non
+#   OS default service provider used to start FPM.
+#   Defaults to 'undef', pick system defaults.
+#
 # [*pools*]
 #   Hash of php::fpm::pool resources that will be created. Defaults
 #   to a single php::fpm::pool named www with default parameters.
@@ -43,6 +48,7 @@ class php::fpm (
   $service_ensure       = $::php::params::fpm_service_ensure,
   $service_enable       = $::php::params::fpm_service_enable,
   $service_name         = $::php::params::fpm_service_name,
+  $service_provider     = undef,
   $package              = "${::php::package_prefix}${::php::params::fpm_package_suffix}",
   $inifile              = $::php::params::fpm_inifile,
   $settings             = {},
@@ -86,6 +92,7 @@ class php::fpm (
       ensure       => $service_ensure,
       enable       => $service_enable,
       service_name => $service_name,
+      provider     => $service_provider,
     } ->
   anchor { '::php::fpm::end': }
 
@@ -95,8 +102,7 @@ class php::fpm (
 
   # Create an override to use a reload signal as trusty and utopic's
   # upstart version supports this
-  if $::osfamily == 'Debian' and
-    ($::lsbdistcodename == 'trusty' or $::lsbdistcodename == 'utopic') {
+  if $::operatingsystem == 'Ubuntu' and ($::operatingsystemmajrelease == '14.04' or $::operatingsystemmajrelease == '14.10') {
     if ($service_enable) {
       $fpm_override = 'reload signal USR2'
     }

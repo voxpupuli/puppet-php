@@ -8,11 +8,7 @@ PuppetLint::RakeTask.new :lint do |config|
   config.fail_on_warnings = true
 end
 
-task :default => [:metadata, :lint, :spec]
-
-task :metadata do
-  sh 'metadata-json-lint metadata.json'
-end
+task :default => [:validate, :lint, :spec]
 
 namespace :spec do
   task :acceptance do
