@@ -19,6 +19,7 @@ class php::repo {
         }
       }
     }
+    'FreeBSD': {}
     'Suse': {
       contain ::php::repo::suse
     }
