@@ -25,9 +25,5 @@ class php::repo::ubuntu (
     '7.0' => 'ondrej/php'
   }
 
-  if ($version != undef) {
-    fail('$version must be specified.')
-  }
-
   ::apt::ppa { "ppa:${version_repo}": }
 }
