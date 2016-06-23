@@ -6,7 +6,7 @@ rvm:
 - 1.9.3
 env:
   matrix:
-  - PUPPET_VERSION=4.3.1
+  - PUPPET_VERSION=4.3.2
   - PUPPET_VERSION=3.8.7
   - PUPPET_VERSION=3.8.7 FUTURE_PARSER=yes TRUSTED_NODE_DATA=yes
   global:
@@ -19,9 +19,9 @@ matrix:
   - rvm: 2.1.6
     env: PUPPET_VERSION=3.8.7 DOCS=true
   - rvm: 2.2.3
-    env: PUPPET_VERSION=4.3.1
+    env: PUPPET_VERSION=4.3.2
   - rvm: 2.3.0
-    env: PUPPET_VERSION=4.5.1
+    env: PUPPET_VERSION=4.5.2
 after_success: |
   [ $TRAVIS_BRANCH = master ] &&
   [ $TRAVIS_PULL_REQUEST = false ] &&

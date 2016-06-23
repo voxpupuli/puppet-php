@@ -99,7 +99,7 @@ define php::extension(
       ensure_resource('package', $header_packages)
       Package[$header_packages] -> Package[$real_package]
     }
-    
+
     if $provider == 'pecl' {
       ensure_packages( [ $real_package ], {
         ensure   => $ensure,
