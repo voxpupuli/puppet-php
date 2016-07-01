@@ -22,7 +22,7 @@
 #
 class php::repo::debian(
   $location     = 'http://packages.dotdeb.org',
-  $release      = 'wheezy-php55',
+  $release      = 'wheezy-php56',
   $repos        = 'all',
   $include_src  = false,
   $key          = {
@@ -51,9 +51,9 @@ class php::repo::debian(
   }
 
   if ($dotdeb) {
-    # wheezy-php55 requires both repositories to work correctly
+    # both repositories are required to work correctly
     # See: http://www.dotdeb.org/instructions/
-    if $release == 'wheezy-php55' {
+    if $release == 'wheezy-php56' {
       ::apt::source { 'dotdeb-wheezy':
         location    => $location,
         release     => 'wheezy',
