@@ -58,7 +58,7 @@ class php::params inherits php::globals {
 
     'Suse': {
       if ($php::globals::php_version != undef) {
-        $php_version_major = $php::globals::php_version[0]
+        $php_version_major = regsubst($php::globals::php_version, '^(\d+)\.(\d+)$','\1')
       } else {
         $php_version_major = 5
       }
