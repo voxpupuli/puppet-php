@@ -1,4 +1,4 @@
-[![GitHub version](https://badge.fury.io/gh/mayflower%2Fpuppet-php.svg)](https://github.com/mayflower/puppet-php)
+[![Puppet Forge](http://img.shields.io/puppetforge/v/mayflower/php.svg)](https://forge.puppetlabs.com/mayflower/php)
 [![Build Status](https://travis-ci.org/mayflower/puppet-php.svg?branch=master)](https://travis-ci.org/mayflower/puppet-php)
 
 ## Current Status
