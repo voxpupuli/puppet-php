@@ -5,12 +5,19 @@
  * Fix a deprecation warning on `apt::key` when using `manage_repos` on wheezy (#110)
    This change requires puppetlabs/apt at >= 1.8.0
  * Allow removal of config values (#124)
- * Add `phpversion` fact, to be used for querying through PuppetDB (#119)
+ * Add `phpversion` fact, for querying through PuppetDB or Foreman (#119)
  * Allow configuring the fpm pid file (#123)
+ * Add embedded SAPI support (#115)
+ * Add options to fpm config and pool configs (#139)
+ * Add parameter logic for PHP 7 on Ubuntu/Debian (#180)
+ * add SLES PHP 7.0 Support (#220)
 
 ### Breaking Changes
  * Deep merge `php::extensions` the same way as `php::settings`. This technically is a
    breaking change but should not affect many people.
+ * PHP 5.6 is the default version on all systems now (except Ubuntu 16.04, where 7.0 is the default).
+ * There's a php::globals class now, where global paramters (like the PHP version) are set. (#132)
+ * Removal of php::repo::ubuntu::ppa (#218)
 
 ## 3.4.2
  * Fix a bug that changed the default of `php::manage_repos` to `false` on
