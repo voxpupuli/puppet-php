@@ -20,6 +20,7 @@ group :development, :test do
   gem 'puppet-lint-unquoted_string-check'
   gem 'puppet-lint-version_comparison-check'
   gem 'metadata-json-lint'
+  gem 'puppet-blacksmith', '>= 3.1.0'
 end
 
 if facterversion = ENV['FACTER_VERSION']
