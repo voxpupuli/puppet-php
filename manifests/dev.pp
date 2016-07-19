@@ -26,7 +26,7 @@ class php::dev(
     default   => $package,
   }
 
-  if $::operatingsystem == 'Ubuntu' {
+  if ($::operatingsystem == 'Ubuntu') and ($::php::globals::php_version != '5.5') {
     ensure_packages(["${php::package_prefix}xml"], {
       ensure  => present,
       require => Class['::apt::update'],
