@@ -99,7 +99,7 @@ define php::extension(
       ensure_resource('package', $header_packages)
       Package[$header_packages] -> Package[$real_package]
     }
-    
+
     if $provider == 'pecl' {
       ensure_packages( [ $real_package ], {
         ensure   => $ensure,
@@ -200,12 +200,12 @@ define php::extension(
 
     if $sapi == 'ALL' {
       exec { $cmd:
-        unless  => "${ext_tool_query} -s cli -m ${lowercase_title}",
+        onlyif  => "${ext_tool_query} -s cli -m ${lowercase_title} | grep 'No module matches ${lowercase_title}'",
         require =>::Php::Config[$title],
       }
     } else {
       exec { $cmd:
-        unless  => "${ext_tool_query} -s ${sapi} -m ${lowercase_title}",
+        onlyif  => "${ext_tool_query} -s ${sapi} -m ${lowercase_title} | grep 'No module matches ${lowercase_title}'",
         require =>::Php::Config[$title],
       }
     }
