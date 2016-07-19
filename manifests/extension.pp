@@ -200,12 +200,12 @@ define php::extension(
 
     if $sapi == 'ALL' {
       exec { $cmd:
-        onlyif  => "${ext_tool_query} -s cli -m ${lowercase_title} | grep 'No module matches ${lowercase_title}'",
+        onlyif  => "${ext_tool_query} -s cli -m ${lowercase_title} | /bin/grep 'No module matches ${lowercase_title}'",
         require =>::Php::Config[$title],
       }
     } else {
       exec { $cmd:
-        onlyif  => "${ext_tool_query} -s ${sapi} -m ${lowercase_title} | grep 'No module matches ${lowercase_title}'",
+        onlyif  => "${ext_tool_query} -s ${sapi} -m ${lowercase_title} | /bin/grep 'No module matches ${lowercase_title}'",
         require =>::Php::Config[$title],
       }
     }
