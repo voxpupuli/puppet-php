@@ -8,7 +8,8 @@ group :development, :test do
   gem 'puppetlabs_spec_helper'
   gem 'puppet-module'
   gem 'yard'
-  gem 'json', '< 2'
+  gem 'json', '~> 1.0', {"platforms"=>["ruby_18", "ruby_19"]}
+  gem 'json_pure', '~> 1.0', {"platforms"=>["ruby_18", "ruby_19"]}
   gem 'puppet-lint', '~> 2.0'
   gem 'puppet-lint-absolute_classname-check'
   gem 'puppet-lint-empty_string-check'
