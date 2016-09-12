@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'php::fpm', :type => :class do
+describe 'php::fpm', type: :class do
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       let :facts do
@@ -12,30 +12,30 @@ describe 'php::fpm', :type => :class do
         when 'Debian'
           case facts[:operatingsystem]
           when 'Ubuntu'
-            let(:params) { { :package => 'php5.6-fpm', :ensure => 'latest' } }
+            let(:params) { { package: 'php5.6-fpm', ensure: 'latest' } }
             it {
               should contain_package('php5.6-fpm').with({
-                'ensure' => 'latest',
+                'ensure' => 'latest'
               })
               should contain_service('php5.6-fpm').with({
-                'ensure' => 'running',
+                'ensure' => 'running'
               })
             }
           when 'Debian'
-            let(:params) { { :package => 'php5-fpm', :ensure => 'latest' } }
+            let(:params) { { package: 'php5-fpm', ensure: 'latest' } }
             it {
               should contain_package('php5-fpm').with({
-                'ensure' => 'latest',
+                'ensure' => 'latest'
               })
               should contain_service('php5-fpm').with({
-                'ensure' => 'running',
+                'ensure' => 'running'
               })
             }
           end
         else
           it {
             should contain_service('php-fpm').with({
-              'ensure' => 'running',
+              'ensure' => 'running'
             })
           }
         end

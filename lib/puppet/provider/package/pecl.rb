@@ -1,7 +1,7 @@
 require 'puppet/provider/package'
 
 Puppet::Type.type(:package).newparam(:pipe)
-Puppet::Type.type(:package).provide :pecl, :parent => Puppet::Provider::Package do
+Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
   desc "PHP pecl support. By default uses the installed channels, but you can specify the path to a pecl package via ``source``."
 
   has_feature :versionable
@@ -9,9 +9,9 @@ Puppet::Type.type(:package).provide :pecl, :parent => Puppet::Provider::Package 
 
   case Facter.value(:operatingsystem)
     when "Solaris"
-      commands :peclcmd => "/opt/coolstack/php5/bin/pecl"
+      commands peclcmd: "/opt/coolstack/php5/bin/pecl"
     else
-      commands :peclcmd => "pecl"
+      commands peclcmd: "pecl"
   end
 
   def self.pecllist(hash)
@@ -64,8 +64,8 @@ Puppet::Type.type(:package).provide :pecl, :parent => Puppet::Provider::Package 
       version = $2
 
       return {
-        :name => "pecl-#{name.downcase}",
-        :ensure => version
+        name: "pecl-#{name.downcase}",
+        ensure: version
       }
     else
       Puppet.warning "Could not match %s" % desc
@@ -74,7 +74,7 @@ Puppet::Type.type(:package).provide :pecl, :parent => Puppet::Provider::Package 
   end
 
   def self.instances
-    pecllist(:local => true).collect do |hash|
+    pecllist(local: true).collect do |hash|
       new(hash)
     end
   end
@@ -118,7 +118,7 @@ Puppet::Type.type(:package).provide :pecl, :parent => Puppet::Provider::Package 
   end
 
   def query
-    self.class.pecllist(:justme => self.peclname)
+    self.class.pecllist(justme: self.peclname)
   end
 
   def uninstall
