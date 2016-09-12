@@ -24,8 +24,8 @@ describe 'php::extension' do
         context 'installation from repository' do
           let(:title) { 'json' }
           let(:params) {{
-            :package_prefix => 'php5-',
-            :settings       => {
+            package_prefix: 'php5-',
+            settings: {
               'test' => 'foo'
             }
           }}
@@ -33,8 +33,8 @@ describe 'php::extension' do
           it {
             should contain_package('php5-json')
             should contain_php__config('json').with({
-              :file   => "#{etcdir}/json.ini",
-              :config => {
+              file: "#{etcdir}/json.ini",
+              config: {
                 'test' => 'foo'
               }
             })
@@ -44,16 +44,16 @@ describe 'php::extension' do
         context 'add settings prefix if requested' do
           let(:title) {'json' }
           let(:params) {{
-            :name            => 'json',
-            :settings_prefix => true,
-            :settings        => {
+            name: 'json',
+            settings_prefix: true,
+            settings: {
               'test' => 'foo'
             }
           }}
 
           it {
             should contain_php__config('json').with({
-              :config => {
+              config: {
                 'json.test' => 'foo'
               }
             })
@@ -63,16 +63,16 @@ describe 'php::extension' do
         context 'use specific settings prefix if requested' do
           let(:title) {'json' }
           let(:params) {{
-            :name            => 'json',
-            :settings_prefix => 'bar',
-            :settings        => {
+            name: 'json',
+            settings_prefix: 'bar',
+            settings: {
               'test' => 'foo'
             }
           }}
 
           it {
             should contain_php__config('json').with({
-              :config => {
+              config: {
                 'bar.test' => 'foo'
               }
             })
@@ -82,7 +82,7 @@ describe 'php::extension' do
         context 'non-pecl extensions cannot be configured as zend' do
           let(:title) { 'xdebug' }
           let(:params) {{
-            :zend => true
+            zend: true
           }}
 
           it { expect { should raise_error(Puppet::Error) }}
@@ -91,13 +91,13 @@ describe 'php::extension' do
         context 'pecl extensions can be configured as zend' do
           let(:title) { 'xdebug' }
           let(:params) {{
-            :provider => 'pecl',
-            :zend     => true
+            provider: 'pecl',
+            zend: true
           }}
 
           it {
             should contain_php__config('xdebug').with({
-              :config => {
+              config: {
                 'zend_extension' => 'xdebug.so'
               }
             })
@@ -107,15 +107,15 @@ describe 'php::extension' do
         context 'pecl extensions support so_name' do
           let(:title) { 'zendopcache' }
           let(:params) {{
-            :provider        => 'pecl',
-            :zend            => true,
-            :so_name         => 'opcache'
+            provider: 'pecl',
+            zend: true,
+            so_name: 'opcache'
           }}
 
           it {
             should contain_php__config('zendopcache').with({
-              :file   => "#{etcdir}/opcache.ini",
-              :config => {
+              file: "#{etcdir}/opcache.ini",
+              config: {
                 'zend_extension' => 'opcache.so'
               }
             })
@@ -125,14 +125,14 @@ describe 'php::extension' do
         context 'pecl extensions support php_api_version' do
           let(:title) { 'xdebug' }
           let(:params) {{
-            :provider        => 'pecl',
-            :zend            => true,
-            :php_api_version => '20100525'
+            provider: 'pecl',
+            zend: true,
+            php_api_version: '20100525'
           }}
 
           it {
             should contain_php__config('xdebug').with({
-              :config => {
+              config: {
                 'zend_extension' => '/usr/lib/php5/20100525/xdebug.so'
               }
             })
@@ -146,16 +146,16 @@ describe 'php::extension' do
 
             it {
               should contain_php__config('xdebug').with({
-                :file => "#{etcdir}/xdebug.ini"
+                file: "#{etcdir}/xdebug.ini"
               })
             }
             context 'pecl installation' do
               let(:title) { 'json' }
               let(:params) {{
-                  :provider        => 'pecl',
-                  :header_packages => ['libmemcached-dev'],
-                  :name            => 'nice_name',
-                  :settings        => {
+                  provider: 'pecl',
+                  header_packages: ['libmemcached-dev'],
+                  name: 'nice_name',
+                  settings: {
                       'test' => 'foo'
                   }
               }}
@@ -165,8 +165,8 @@ describe 'php::extension' do
                 should contain_package('libmemcached-dev')
                 should contain_package('build-essential')
                 should contain_php__config('json').with({
-                  :file   => "#{etcdir}/json.ini",
-                  :config => {
+                  file: "#{etcdir}/json.ini",
+                  config: {
                     'extension' => 'nice_name.so',
                     'test'      => 'foo'
                   }

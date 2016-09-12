@@ -1,6 +1,6 @@
 
 module Puppet::Parser::Functions
-  newfunction(:ensure_prefix, :type => :rvalue, :doc => <<-EOS
+  newfunction(:ensure_prefix, type: :rvalue, doc: <<-EOS
 This function ensures a prefix for all elements in an array or the keys in a hash.
 
 *Examples:*

@@ -11,22 +11,22 @@ describe 'php::fpm::config' do
       when 'Ubuntu'
         describe 'creates config file' do
           let(:params) {{
-            :inifile  => '/etc/php/5.6/conf.d/unique-name.ini',
-            :settings => {
+            inifile: '/etc/php/5.6/conf.d/unique-name.ini',
+            settings: {
               'apc.enabled' => 1
              }
           }}
 
            it { should contain_class('php::fpm::config').with({
-             :inifile  => '/etc/php/5.6/conf.d/unique-name.ini',
-             :settings => {
+             inifile: '/etc/php/5.6/conf.d/unique-name.ini',
+             settings: {
                'apc.enabled' => 1
              }
            })}
 
            it { should contain_php__config('fpm').with({
-            :file   => '/etc/php/5.6/conf.d/unique-name.ini',
-            :config => {
+            file: '/etc/php/5.6/conf.d/unique-name.ini',
+            config: {
               'apc.enabled' => 1
             }
            })}
@@ -34,22 +34,22 @@ describe 'php::fpm::config' do
        else
          describe 'creates config file' do
            let(:params) {{
-             :inifile  => '/etc/php5/conf.d/unique-name.ini',
-             :settings => {
+             inifile: '/etc/php5/conf.d/unique-name.ini',
+             settings: {
                'apc.enabled' => 1
               }
            }}
    
             it { should contain_class('php::fpm::config').with({
-              :inifile  => '/etc/php5/conf.d/unique-name.ini',
-              :settings => {
+              inifile: '/etc/php5/conf.d/unique-name.ini',
+              settings: {
                 'apc.enabled' => 1
               }
             })}
 
             it { should contain_php__config('fpm').with({
-             :file   => '/etc/php5/conf.d/unique-name.ini',
-             :config => {
+             file: '/etc/php5/conf.d/unique-name.ini',
+             config: {
                'apc.enabled' => 1
              }
            })}

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'php::repo::ubuntu', :type => :class do
+describe 'php::repo::ubuntu', type: :class do
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       let :facts do
@@ -17,7 +17,7 @@ describe 'php::repo::ubuntu', :type => :class do
 
         describe 'when called with version 7.0 on Ubuntu trusty' do
           let(:params) {{
-              :version => '7.0'
+              version: '7.0'
           }}
           it {
             should contain_exec('add-apt-repository-ppa:ondrej/php')
@@ -26,7 +26,7 @@ describe 'php::repo::ubuntu', :type => :class do
 
         describe 'when call with version 5.6 on Ubuntu trusty' do
           let(:params) {{
-              :version => '5.6'
+              version: '5.6'
           }}
           it {
             should contain_exec('add-apt-repository-ppa:ondrej/php')
@@ -35,7 +35,7 @@ describe 'php::repo::ubuntu', :type => :class do
 
         describe 'when call with version 5.4 on Ubuntu trusty' do
           let(:params) {{
-              :version => '5.4'
+              version: '5.4'
           }}
           it { expect { should raise_error(Puppet::Error) }}
         end

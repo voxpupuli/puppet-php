@@ -1,7 +1,7 @@
 require 'puppet/provider/package'
 
 # PHP PEAR support.
-Puppet::Type.type(:package).provide :pear, :parent => Puppet::Provider::Package do
+Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
   desc "PHP PEAR support. By default uses the installed channels, but you can specify the path to a pear package via ``source``."
 
   has_feature :versionable
@@ -10,9 +10,9 @@ Puppet::Type.type(:package).provide :pear, :parent => Puppet::Provider::Package 
 
   case Facter.value(:operatingsystem)
   when "Solaris"
-    commands :pearcmd => "/opt/coolstack/php5/bin/pear"
+    commands pearcmd: "/opt/coolstack/php5/bin/pear"
   else
-    commands :pearcmd => "pear"
+    commands pearcmd: "pear"
   end
 
   def self.pearlist(hash)
@@ -69,8 +69,8 @@ Puppet::Type.type(:package).provide :pear, :parent => Puppet::Provider::Package 
         version = $2
         state = $3
         return {
-          :name => "#{channel}/#{name}",
-          :ensure => state == 'stable' ? version : state
+          name: "#{channel}/#{name}",
+          ensure: state == 'stable' ? version : state
         }
     else
       Puppet.debug "Could not match '%s'" % desc
@@ -79,7 +79,7 @@ Puppet::Type.type(:package).provide :pear, :parent => Puppet::Provider::Package 
   end
 
   def self.instances
-    pearlist(:local => true).collect do |hash|
+    pearlist(local: true).collect do |hash|
       new(hash)
     end
   end
@@ -119,7 +119,7 @@ Puppet::Type.type(:package).provide :pear, :parent => Puppet::Provider::Package 
   end
 
   def query
-    self.class.pearlist(:justme => @resource[:name])
+    self.class.pearlist(justme: @resource[:name])
   end
 
   def uninstall

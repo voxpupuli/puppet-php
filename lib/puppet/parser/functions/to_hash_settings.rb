@@ -1,6 +1,6 @@
 
 module Puppet::Parser::Functions
-  newfunction(:to_hash_settings, :type => :rvalue, :doc => <<-EOS
+  newfunction(:to_hash_settings, type: :rvalue, doc: <<-EOS
 This function converts a +{key => value}+ hash into a nested hash and can add an id to the outer key.
 The optional id string as second parameter is prepended to the resource name.
 

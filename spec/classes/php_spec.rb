@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'php', :type => :class do
+describe 'php', type: :class do
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       let :facts do
@@ -72,7 +72,7 @@ describe 'php', :type => :class do
       end
 
       describe 'when called with package_prefix parameter' do
-        let(:params) { { :package_prefix => 'myphp-' } }
+        let(:params) { { package_prefix: 'myphp-' } }
         case facts[:osfamily]
         when 'Debian'
           case facts[:operatingsystem]
@@ -137,13 +137,13 @@ describe 'php', :type => :class do
       end
 
       describe 'when fpm is disabled' do
-        let(:params) { { :fpm => false } }
+        let(:params) { { fpm: false } }
         it {
           should_not contain_class('php::fpm')
         }
       end
       describe 'when composer is disabled' do
-        let(:params) { { :composer => false } }
+        let(:params) { { composer: false } }
         it {
           should_not contain_class('php::composer')
         }
