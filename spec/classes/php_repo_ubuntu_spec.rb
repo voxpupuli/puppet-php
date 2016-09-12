@@ -35,7 +35,7 @@ describe 'php::repo::ubuntu', :type => :class do
 
         describe 'when call with version 5.4 on Ubuntu trusty' do
           let(:params) {{
-              :version => '5.4',
+              :version => '5.4'
           }}
           it { expect { should raise_error(Puppet::Error) }}
         end

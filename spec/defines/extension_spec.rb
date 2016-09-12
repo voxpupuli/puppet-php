@@ -36,7 +36,7 @@ describe 'php::extension' do
               :file   => "#{etcdir}/json.ini",
               :config => {
                 'test' => 'foo'
-              },
+              }
             })
           }
         end
@@ -82,7 +82,7 @@ describe 'php::extension' do
         context 'non-pecl extensions cannot be configured as zend' do
           let(:title) { 'xdebug' }
           let(:params) {{
-            :zend => true,
+            :zend => true
           }}
 
           it { expect { should raise_error(Puppet::Error) }}
@@ -109,7 +109,7 @@ describe 'php::extension' do
           let(:params) {{
             :provider        => 'pecl',
             :zend            => true,
-            :so_name         => 'opcache',
+            :so_name         => 'opcache'
           }}
 
           it {
@@ -117,7 +117,7 @@ describe 'php::extension' do
               :file   => "#{etcdir}/opcache.ini",
               :config => {
                 'zend_extension' => 'opcache.so'
-              },
+              }
             })
           }
         end
@@ -127,7 +127,7 @@ describe 'php::extension' do
           let(:params) {{
             :provider        => 'pecl',
             :zend            => true,
-            :php_api_version => '20100525',
+            :php_api_version => '20100525'
           }}
 
           it {
@@ -146,7 +146,7 @@ describe 'php::extension' do
 
             it {
               should contain_php__config('xdebug').with({
-                :file => "#{etcdir}/xdebug.ini",
+                :file => "#{etcdir}/xdebug.ini"
               })
             }
             context 'pecl installation' do
@@ -169,7 +169,7 @@ describe 'php::extension' do
                   :config => {
                     'extension' => 'nice_name.so',
                     'test'      => 'foo'
-                  },
+                  }
                 })
               }
             end
