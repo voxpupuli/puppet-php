@@ -12,14 +12,14 @@ describe 'php::fpm::pool' do
         when 'Ubuntu'
           context 'plain config' do
             let(:title) { 'unique-name' }
-            let(:params) {{ }}
+            let(:params) { { } }
 
             it { should contain_file('/etc/php/5.6/fpm/pool.d/unique-name.conf') }
            end
         when 'Debian'
           context 'plain config' do
             let(:title) { 'unique-name' }
-            let(:params) {{ }}
+            let(:params) { { } }
 
             it { should contain_file('/etc/php5/fpm/pool.d/unique-name.conf') }
           end

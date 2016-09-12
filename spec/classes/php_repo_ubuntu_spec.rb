@@ -37,7 +37,7 @@ describe 'php::repo::ubuntu', type: :class do
           let(:params) {{
               version: '5.4'
           }}
-          it { expect { should raise_error(Puppet::Error) }}
+          it { expect { should raise_error(Puppet::Error) } }
         end
 
       end

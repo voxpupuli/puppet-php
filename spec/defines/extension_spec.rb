@@ -42,7 +42,7 @@ describe 'php::extension' do
         end
 
         context 'add settings prefix if requested' do
-          let(:title) {'json' }
+          let(:title) { 'json' }
           let(:params) {{
             name: 'json',
             settings_prefix: true,
@@ -61,7 +61,7 @@ describe 'php::extension' do
         end
 
         context 'use specific settings prefix if requested' do
-          let(:title) {'json' }
+          let(:title) { 'json' }
           let(:params) {{
             name: 'json',
             settings_prefix: 'bar',
@@ -85,7 +85,7 @@ describe 'php::extension' do
             zend: true
           }}
 
-          it { expect { should raise_error(Puppet::Error) }}
+          it { expect { should raise_error(Puppet::Error) } }
         end
 
         context 'pecl extensions can be configured as zend' do

@@ -26,7 +26,7 @@ describe 'php::config' do
             }
           }}
 
-          it { should contain_php__config('unique-name').with({'file' => '/etc/php/5.6/conf.d/unique-name.ini'})}
+          it { should contain_php__config('unique-name').with({'file' => '/etc/php/5.6/conf.d/unique-name.ini'}) }
         end
 
         context 'empty array' do
@@ -36,7 +36,7 @@ describe 'php::config' do
             config: {}
           }}
 
-          it { should contain_php__config('unique-name').with({'file' => '/etc/php/5.6/conf.d/unique-name.ini'})}
+          it { should contain_php__config('unique-name').with({'file' => '/etc/php/5.6/conf.d/unique-name.ini'}) }
         end
 
         context 'invalid config (string)' do
@@ -46,7 +46,7 @@ describe 'php::config' do
             config: 'hello world'
           }}
 
-          it { expect { should raise_error(Puppet::Error) }}
+          it { expect { should raise_error(Puppet::Error) } }
         end
       else
         context 'default config' do
@@ -66,7 +66,7 @@ describe 'php::config' do
             }
           }}
 
-          it { should contain_php__config('unique-name').with({'file' => '/etc/php5/conf.d/unique-name.ini'})}
+          it { should contain_php__config('unique-name').with({'file' => '/etc/php5/conf.d/unique-name.ini'}) }
         end
 
         context 'empty array' do
@@ -76,7 +76,7 @@ describe 'php::config' do
             config: {}
           }}
 
-          it { should contain_php__config('unique-name').with({'file' => '/etc/php5/conf.d/unique-name.ini'})}
+          it { should contain_php__config('unique-name').with({'file' => '/etc/php5/conf.d/unique-name.ini'}) }
         end
 
         context 'invalid config (string)' do
@@ -86,7 +86,7 @@ describe 'php::config' do
             config: 'hello world'
           }}
 
-          it { expect { should raise_error(Puppet::Error) }}
+          it { expect { should raise_error(Puppet::Error) } }
         end
       end
     end
