@@ -1,14 +1,13 @@
-[![Puppet Forge](http://img.shields.io/puppetforge/v/mayflower/php.svg)](https://forge.puppetlabs.com/mayflower/php)
-[![Build Status](https://travis-ci.org/mayflower/puppet-php.svg?branch=master)](https://travis-ci.org/mayflower/puppet-php)
+[![Puppet Forge](http://img.shields.io/puppetforge/v/voxpupuli/php.svg)](https://forge.puppetlabs.com/voxpupuli/php)
+[![Build Status](https://travis-ci.org/voxpupuli/puppet-php.svg?branch=master)](https://travis-ci.org/voxpupuli/puppet-php)
 
 ## Current Status
+As the original creators of `puppet-php` are no longer maintaining the module, it has been handed over into the care of Vox Pupuli.
+Please be sure to update all your links to the new location.
 
-The original maintainers of `puppet-php` are not developing it actively anymore, because they moved away from Puppet.
-**If you want to help** maintaining this module please see [#183](https://github.com/mayflower/puppet-php/issues/183).
+# voxpupuli/php Puppet Module
 
-# mayflower/php Puppet Module
-
-mayflower/php is a Puppet module for managing PHP with a strong focus
+voxpupuli/php is a Puppet module for managing PHP with a strong focus
 on php-fpm. The module aims to use sane defaults for the supported
 architectures. We strive to support all recent versions of Debian,
 Ubuntu, RedHat/CentOS, openSUSE/SLES and FreeBSD. Managing Apache
@@ -261,7 +260,8 @@ a big fat warning into this README to let you know.
 The project is released under the permissive MIT license.
 
 The source can be found at
-[github.com/mayflower/puppet-php](https://github.com/mayflower/puppet-php/).
+[github.com/voxpupuli/puppet-php](https://github.com/voxpupuli/puppet-php/).
 
-This Puppet module is being actively maintained by some fellow puppeteers at
-[Mayflower GmbH](https://mayflower.de).
+This Puppet module was originally maintained by some fellow puppeteers at
+[Mayflower GmbH](https://mayflower.de) and is now maintained by
+[Vox Pupuli](https://voxpupuli.org/).
