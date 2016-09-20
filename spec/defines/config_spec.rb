@@ -11,82 +11,100 @@ describe 'php::config' do
       when 'Ubuntu'
         context 'default config' do
           let(:title) { 'unique-name' }
-          let(:params) {{
-            file: '/etc/php/5.6/conf.d/unique-name.ini',
-            config: {}
-          }}
+          let(:params) do
+            {
+              file: '/etc/php/5.6/conf.d/unique-name.ini',
+              config: {}
+            }
+          end
+          it { is_expected.to compile }
         end
 
         context 'simple example' do
           let(:title) { 'unique-name' }
-          let(:params) {{
-            file: '/etc/php/5.6/conf.d/unique-name.ini',
-            config: {
-              'apc.enabled' => 1
+          let(:params) do
+            {
+              file: '/etc/php/5.6/conf.d/unique-name.ini',
+              config: {
+                'apc.enabled' => 1
+              }
             }
-          }}
+          end
 
-          it { should contain_php__config('unique-name').with({'file' => '/etc/php/5.6/conf.d/unique-name.ini'}) }
+          it { is_expected.to contain_php__config('unique-name').with_file('/etc/php/5.6/conf.d/unique-name.ini') }
         end
 
         context 'empty array' do
           let(:title) { 'unique-name' }
-          let(:params) {{
-            file: '/etc/php/5.6/conf.d/unique-name.ini',
-            config: {}
-          }}
+          let(:params) do
+            {
+              file: '/etc/php/5.6/conf.d/unique-name.ini',
+              config: {}
+            }
+          end
 
-          it { should contain_php__config('unique-name').with({'file' => '/etc/php/5.6/conf.d/unique-name.ini'}) }
+          it { is_expected.to contain_php__config('unique-name').with_file('/etc/php/5.6/conf.d/unique-name.ini') }
         end
 
         context 'invalid config (string)' do
           let(:title) { 'unique-name' }
-          let(:params) {{
-            file: '/etc/php/5.6/conf.d/unique-name.ini',
-            config: 'hello world'
-          }}
+          let(:params) do
+            {
+              file: '/etc/php/5.6/conf.d/unique-name.ini',
+              config: 'hello world'
+            }
+          end
 
-          it { expect { should raise_error(Puppet::Error) } }
+          it { expect { is_expected.to raise_error(Puppet::Error) } }
         end
       else
         context 'default config' do
           let(:title) { 'unique-name' }
-          let(:params) {{
-            file: '/etc/php5/conf.d/unique-name.ini',
-            config: {}
-          }}
+          let(:params) do
+            {
+              file: '/etc/php5/conf.d/unique-name.ini',
+              config: {}
+            }
+          end
+          it { is_expected.to compile }
         end
 
         context 'simple example' do
           let(:title) { 'unique-name' }
-          let(:params) {{
-            file: '/etc/php5/conf.d/unique-name.ini',
-            config: {
-              'apc.enabled' => 1
+          let(:params) do
+            {
+              file: '/etc/php5/conf.d/unique-name.ini',
+              config: {
+                'apc.enabled' => 1
+              }
             }
-          }}
+          end
 
-          it { should contain_php__config('unique-name').with({'file' => '/etc/php5/conf.d/unique-name.ini'}) }
+          it { is_expected.to contain_php__config('unique-name').with_file('/etc/php5/conf.d/unique-name.ini') }
         end
 
         context 'empty array' do
           let(:title) { 'unique-name' }
-          let(:params) {{
-            file: '/etc/php5/conf.d/unique-name.ini',
-            config: {}
-          }}
+          let(:params) do
+            {
+              file: '/etc/php5/conf.d/unique-name.ini',
+              config: {}
+            }
+          end
 
-          it { should contain_php__config('unique-name').with({'file' => '/etc/php5/conf.d/unique-name.ini'}) }
+          it { is_expected.to contain_php__config('unique-name').with_file('/etc/php5/conf.d/unique-name.ini') }
         end
 
         context 'invalid config (string)' do
           let(:title) { 'unique-name' }
-          let(:params) {{
-            file: '/etc/php5/conf.d/unique-name.ini',
-            config: 'hello world'
-          }}
+          let(:params) do
+            {
+              file: '/etc/php5/conf.d/unique-name.ini',
+              config: 'hello world'
+            }
+          end
 
-          it { expect { should raise_error(Puppet::Error) } }
+          it { expect { is_expected.to raise_error(Puppet::Error) } }
         end
       end
     end
