@@ -80,7 +80,7 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
   end
 
   def peclname
-    self.name.sub('pecl-', '').downcase
+    name.sub('pecl-', '').downcase
   end
 
   def install(useversion = true)
@@ -91,9 +91,9 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
     else
       if (! @resource.should(:ensure).is_a? Symbol) and useversion
         command << '-f'
-        command << "#{self.peclname}-#{@resource.should(:ensure)}"
+        command << "#{peclname}-#{@resource.should(:ensure)}"
       else
-        command << self.peclname
+        command << peclname
       end
     end
 
@@ -107,7 +107,7 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
 
   def latest
     version = ''
-    command = [command(:peclcmd), 'remote-info', self.peclname]
+    command = [command(:peclcmd), 'remote-info', peclname]
     list = execute(command).each_line do |set|
       if set =~ /^Latest/
         version = set.split[1]
@@ -118,11 +118,11 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
   end
 
   def query
-    self.class.pecllist(justme: self.peclname)
+    self.class.pecllist(justme: peclname)
   end
 
   def uninstall
-    output = peclcmd 'uninstall', self.peclname
+    output = peclcmd 'uninstall', peclname
     if output =~ /^uninstall ok/
     else
       raise Puppet::Error, output
@@ -130,6 +130,6 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
   end
 
   def update
-    self.install(false)
+    install(false)
   end
 end

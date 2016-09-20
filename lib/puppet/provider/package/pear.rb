@@ -131,7 +131,7 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
   end
 
   def update
-    self.install(false)
+    install(false)
   end
 
 end
