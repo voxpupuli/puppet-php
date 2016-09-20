@@ -89,7 +89,7 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
     if source = @resource[:source]
       command << source
     else
-      if (! @resource.should(:ensure).is_a? Symbol) and useversion
+      if (!@resource.should(:ensure).is_a? Symbol) and useversion
         command << '-f'
         command << "#{peclname}-#{@resource.should(:ensure)}"
       else

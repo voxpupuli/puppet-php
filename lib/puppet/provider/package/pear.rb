@@ -95,7 +95,7 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
     if source = @resource[:source]
       command << source
     else
-      if (! @resource.should(:ensure).is_a? Symbol) and useversion
+      if (!@resource.should(:ensure).is_a? Symbol) and useversion
         command << "#{@resource[:name]}-#{@resource.should(:ensure)}"
       else
         command << @resource[:name]
