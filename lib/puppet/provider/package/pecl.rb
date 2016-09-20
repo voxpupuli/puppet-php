@@ -114,7 +114,7 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
       end
     end
 
-    return version
+    version
   end
 
   def query

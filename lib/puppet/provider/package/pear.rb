@@ -115,7 +115,7 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
         version = set.split[1]
       end
     end
-    return version
+    version
   end
 
   def query
