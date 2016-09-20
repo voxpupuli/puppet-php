@@ -2,20 +2,20 @@ require 'puppet/provider/package'
 
 Puppet::Type.type(:package).newparam(:pipe)
 Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
-  desc "PHP pecl support. By default uses the installed channels, but you can specify the path to a pecl package via ``source``."
+  desc 'PHP pecl support. By default uses the installed channels, but you can specify the path to a pecl package via ``source``.'
 
   has_feature :versionable
   has_feature :upgradeable
 
   case Facter.value(:operatingsystem)
-    when "Solaris"
-      commands peclcmd: "/opt/coolstack/php5/bin/pecl"
+    when 'Solaris'
+      commands peclcmd: '/opt/coolstack/php5/bin/pecl'
     else
-      commands peclcmd: "pecl"
+      commands peclcmd: 'pecl'
   end
 
   def self.pecllist(hash)
-    command = [command(:peclcmd), "list"]
+    command = [command(:peclcmd), 'list']
 
     begin
       list = execute(command).split("\n").collect do |set|
@@ -40,7 +40,7 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
         end
       end.reject { |p| p.nil? }
     rescue Puppet::ExecutionFailure => detail
-      raise Puppet::Error, "Could not list pecls: %s" % detail
+      raise Puppet::Error, 'Could not list pecls: %s' % detail
     end
 
     if hash[:justme]
@@ -68,7 +68,7 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
         ensure: version
       }
     else
-      Puppet.warning "Could not match %s" % desc
+      Puppet.warning 'Could not match %s' % desc
       nil
     end
   end
@@ -84,7 +84,7 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
   end
 
   def install(useversion = true)
-    command = ["upgrade"]
+    command = ['upgrade']
 
     if source = @resource[:source]
       command << source
@@ -98,7 +98,7 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
     end
 
     if pipe = @resource[:pipe]
-        command << "<<<"
+        command << '<<<'
         command << @resource[:pipe]
     end
 
@@ -107,7 +107,7 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
 
   def latest
     version = ''
-    command = [command(:peclcmd), "remote-info", self.peclname]
+    command = [command(:peclcmd), 'remote-info', self.peclname]
     list = execute(command).each_line do |set|
       if set =~ /^Latest/
         version = set.split[1]
@@ -122,7 +122,7 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
   end
 
   def uninstall
-    output = peclcmd "uninstall", self.peclname
+    output = peclcmd 'uninstall', self.peclname
     if output =~ /^uninstall ok/
     else
       raise Puppet::Error, output

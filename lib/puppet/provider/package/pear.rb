@@ -2,22 +2,22 @@ require 'puppet/provider/package'
 
 # PHP PEAR support.
 Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
-  desc "PHP PEAR support. By default uses the installed channels, but you can specify the path to a pear package via ``source``."
+  desc 'PHP PEAR support. By default uses the installed channels, but you can specify the path to a pear package via ``source``.'
 
   has_feature :versionable
   has_feature :upgradeable
   has_feature :install_options
 
   case Facter.value(:operatingsystem)
-  when "Solaris"
-    commands pearcmd: "/opt/coolstack/php5/bin/pear"
+  when 'Solaris'
+    commands pearcmd: '/opt/coolstack/php5/bin/pear'
   else
-    commands pearcmd: "pear"
+    commands pearcmd: 'pear'
   end
 
   def self.pearlist(hash)
-    command = [command(:pearcmd), "list", "-a"]
-    channel = "pear"
+    command = [command(:pearcmd), 'list', '-a']
+    channel = 'pear'
 
     begin
       list = execute(command).split("\n")
@@ -45,7 +45,7 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
       end.reject { |p| p.nil? }
 
     rescue Puppet::ExecutionFailure => detail
-      raise Puppet::Error, "Could not list pears: %s" % detail
+      raise Puppet::Error, 'Could not list pears: %s' % detail
     end
 
     if hash[:justme]
@@ -85,11 +85,11 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
   end
 
   def install(useversion = true)
-    command = ["-D", "auto_discover=1", "upgrade"]
+    command = ['-D', 'auto_discover=1', 'upgrade']
     if @resource[:install_options]
       command << @resource[:install_options]
     else
-      command << "--alldeps"
+      command << '--alldeps'
     end
 
     if source = @resource[:source]
@@ -108,7 +108,7 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
   def latest
     # This always gets the latest version available.
     version = ''
-    command = [command(:pearcmd), "remote-info", @resource[:name]]
+    command = [command(:pearcmd), 'remote-info', @resource[:name]]
       list = execute(command).split("\n")
       list = list.collect do |set|
       if set =~ /^Latest/
@@ -123,7 +123,7 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
   end
 
   def uninstall
-    output = pearcmd "uninstall", @resource[:name]
+    output = pearcmd 'uninstall', @resource[:name]
     if output =~ /^uninstall ok/
     else
       raise Puppet::Error, output
