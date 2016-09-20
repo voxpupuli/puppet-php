@@ -22,12 +22,12 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
     begin
       list = execute(command).split("\n")
       list = list.collect do |set|
-        if match = /INSTALLED PACKAGES, CHANNEL (.*):/i.match(set)
+        if match = %r{INSTALLED PACKAGES, CHANNEL (.*):}i.match(set)
           channel = match[1].downcase
         end
 
         if hash[:justme]
-          if set =~ /^#{hash[:justme]}/
+          if set =~ %r{^#{hash[:justme]}}
             pearhash = pearsplit(set, channel)
             pearhash[:provider] = :pear
             pearhash
@@ -59,12 +59,12 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
     desc.strip!
 
     case desc
-      when /^$/ then return nil
-      when /^INSTALLED/i then return nil
-      when /no packages installed/i then return nil
-      when /^=/ then return nil
-      when /^PACKAGE/i then return nil
-      when /^(\S+)\s+(\S+)\s+(\S+)\s*$/ then
+      when %r{^$} then return nil
+      when %r{^INSTALLED}i then return nil
+      when %r{no packages installed}i then return nil
+      when %r{^=} then return nil
+      when %r{^PACKAGE}i then return nil
+      when %r{^(\S+)\s+(\S+)\s+(\S+)\s*$} then
         name = $1
         version = $2
         state = $3
@@ -111,7 +111,7 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
     command = [command(:pearcmd), 'remote-info', @resource[:name]]
       list = execute(command).split("\n")
       list = list.collect do |set|
-      if set =~ /^Latest/
+      if set =~ %r{^Latest}
         version = set.split[1]
       end
     end
@@ -124,7 +124,7 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
 
   def uninstall
     output = pearcmd 'uninstall', @resource[:name]
-    if output =~ /^uninstall ok/
+    if output =~ %r{^uninstall ok}
     else
       raise Puppet::Error, output
     end

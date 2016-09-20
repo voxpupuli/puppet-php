@@ -20,7 +20,7 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
     begin
       list = execute(command).split("\n").collect do |set|
         if hash[:justme]
-          if /^#{hash[:justme]}$/i.match(set)
+          if %r{^#{hash[:justme]}$}i.match(set)
             if peclhash = peclsplit(set)
               peclhash[:provider] = :peclcmd
               peclhash
@@ -54,12 +54,12 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
     desc.strip!
 
     case desc
-    when /^INSTALLED/ then return nil
-    when /No packages installed from channel/i then return nil
-    when /^=/ then return nil
-    when /^PACKAGE/ then return nil
-    when /\[1m/ then return nil       # Newer versions of PEAR use colorized output
-    when /^(\S+)\s+(\S+)\s+\S+/ then
+    when %r{^INSTALLED} then return nil
+    when %r{No packages installed from channel}i then return nil
+    when %r{^=} then return nil
+    when %r{^PACKAGE} then return nil
+    when %r{\[1m} then return nil       # Newer versions of PEAR use colorized output
+    when %r{^(\S+)\s+(\S+)\s+\S+} then
       name = $1
       version = $2
 
@@ -109,7 +109,7 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
     version = ''
     command = [command(:peclcmd), 'remote-info', peclname]
     list = execute(command).each_line do |set|
-      if set =~ /^Latest/
+      if set =~ %r{^Latest}
         version = set.split[1]
       end
     end
@@ -123,7 +123,7 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
 
   def uninstall
     output = peclcmd 'uninstall', peclname
-    if output =~ /^uninstall ok/
+    if output =~ %r{^uninstall ok}
     else
       raise Puppet::Error, output
     end
