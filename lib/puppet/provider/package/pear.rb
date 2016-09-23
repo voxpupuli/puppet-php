@@ -83,21 +83,21 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
 
   def install(useversion = true)
     command = ['-D', 'auto_discover=1', 'upgrade']
-    if @resource[:install_options]
-      command << @resource[:install_options]
-    else
-      command << '--alldeps'
-    end
+    command << if @resource[:install_options]
+                 @resource[:install_options]
+               else
+                 '--alldeps'
+               end
 
-    if source = @resource[:source]
-      command << source
-    else
-      if (!@resource.should(:ensure).is_a? Symbol) && useversion
-        command << "#{@resource[:name]}-#{@resource.should(:ensure)}"
-      else
-        command << @resource[:name]
-      end
-    end
+    command << if source = @resource[:source]
+                 source
+               else
+                 if (!@resource.should(:ensure).is_a? Symbol) && useversion
+                   "#{@resource[:name]}-#{@resource.should(:ensure)}"
+                 else
+                   @resource[:name]
+                 end
+               end
 
     pearcmd(*command)
   end

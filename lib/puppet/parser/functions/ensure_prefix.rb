@@ -38,18 +38,18 @@ EOS
       end
     end
 
-    if enumerable.is_a?(Array)
-      # Turn everything into string same as join would do ...
-      result = enumerable.map do |i|
-        i = i.to_s
-        prefix && !i.start_with?(prefix) ? prefix + i : i
-      end
-    else
-      result = Hash[enumerable.map do |k, v|
-        k = k.to_s
-        [prefix && !k.start_with?(prefix) ? prefix + k : k, v]
-      end]
-    end
+    result = if enumerable.is_a?(Array)
+               # Turn everything into string same as join would do ...
+               enumerable.map do |i|
+                 i = i.to_s
+                 prefix && !i.start_with?(prefix) ? prefix + i : i
+               end
+             else
+               Hash[enumerable.map do |k, v|
+                 k = k.to_s
+                 [prefix && !k.start_with?(prefix) ? prefix + k : k, v]
+               end]
+             end
 
     return result
   end
