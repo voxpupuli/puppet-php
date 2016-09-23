@@ -10,7 +10,7 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
   case Facter.value(:operatingsystem)
   when 'Solaris'
     commands peclcmd: '/opt/coolstack/php5/bin/pecl'
-    else
+  else
     commands peclcmd: 'pecl'
   end
 
