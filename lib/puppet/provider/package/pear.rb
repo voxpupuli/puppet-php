@@ -65,9 +65,9 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
     when %r{^=} then return nil
     when %r{^PACKAGE}i then return nil
     when %r{^(\S+)\s+(\S+)\s+(\S+)\s*$} then
-      name = $1
-      version = $2
-      state = $3
+      name = Regexp.last_match(1)
+      version = Regexp.last_match(2)
+      state = Regexp.last_match(3)
       return {
         name: "#{channel}/#{name}",
         ensure: state == 'stable' ? version : state

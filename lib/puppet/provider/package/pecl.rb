@@ -60,8 +60,8 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
     when %r{^PACKAGE} then return nil
     when %r{\[1m} then return nil # Newer versions of PEAR use colorized output
     when %r{^(\S+)\s+(\S+)\s+\S+} then
-      name = $1
-      version = $2
+      name = Regexp.last_match(1)
+      version = Regexp.last_match(2)
 
       return {
         name: "pecl-#{name.downcase}",
