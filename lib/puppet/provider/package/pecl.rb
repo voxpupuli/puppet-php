@@ -43,11 +43,8 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
       raise Puppet::Error, format('Could not list pecls: %s', detail)
     end
 
-    if hash[:justme]
-      return list.shift
-    else
-      return list
-    end
+    return list.shift if hash[:justme]
+    list
   end
 
   def self.peclsplit(desc)
@@ -123,10 +120,7 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
 
   def uninstall
     output = peclcmd 'uninstall', peclname
-    if output =~ %r{^uninstall ok}
-    else
-      raise Puppet::Error, output
-    end
+    raise Puppet::Error, output unless output =~ %r{^uninstall ok}
   end
 
   def update

@@ -48,11 +48,8 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
       raise Puppet::Error, format('Could not list pears: %s', detail)
     end
 
-    if hash[:justme]
-      return list.shift
-    else
-      return list
-    end
+    return list.shift if hash[:justme]
+    list
   end
 
   def self.pearsplit(desc, channel)
@@ -124,10 +121,7 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
 
   def uninstall
     output = pearcmd 'uninstall', @resource[:name]
-    if output =~ %r{^uninstall ok}
-    else
-      raise Puppet::Error, output
-    end
+    raise Puppet::Error, output unless output =~ %r{^uninstall ok}
   end
 
   def update
