@@ -58,7 +58,7 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
     when %r{No packages installed from channel}i then return nil
     when %r{^=} then return nil
     when %r{^PACKAGE} then return nil
-    when %r{\[1m} then return nil       # Newer versions of PEAR use colorized output
+    when %r{\[1m} then return nil # Newer versions of PEAR use colorized output
     when %r{^(\S+)\s+(\S+)\s+\S+} then
       name = $1
       version = $2
