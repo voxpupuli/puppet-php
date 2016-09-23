@@ -26,7 +26,7 @@ EOS
 
     enumerable = arguments[0]
 
-    unless enumerable.is_a?(Array) or enumerable.is_a?(Hash)
+    unless enumerable.is_a?(Array) || enumerable.is_a?(Hash)
       raise Puppet::ParseError, "ensure_prefix(): expected first argument to be an Array or a Hash, got #{enumerable.inspect}"
     end
 
