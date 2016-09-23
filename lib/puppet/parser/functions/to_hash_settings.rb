@@ -24,8 +24,7 @@ Would return:
     'foo: b' => {'key' => 'b', 'value' => 2}
   }
 EOS
-  ) do |arguments|
-
+             ) do |arguments|
     hash, id = arguments
     id = (id.nil? ? '' : "#{id}: ")
 

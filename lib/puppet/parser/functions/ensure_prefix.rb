@@ -19,14 +19,13 @@ Will return:
 Will return:
   ['p.a', 'p.b', 'p.c']
 EOS
-  ) do |arguments|
-
-    raise(Puppet::ParseError, 'ensure_prefix(): Wrong number of arguments ' +
+             ) do |arguments|
+    raise(Puppet::ParseError, 'ensure_prefix(): Wrong number of arguments ' \
       "given (#{arguments.size} for 2)") if arguments.size < 2
 
     enumerable = arguments[0]
 
-    unless enumerable.is_a?(Array) or enumerable.is_a?(Hash)
+    unless enumerable.is_a?(Array) || enumerable.is_a?(Hash)
       raise Puppet::ParseError, "ensure_prefix(): expected first argument to be an Array or a Hash, got #{enumerable.inspect}"
     end
 
@@ -38,18 +37,18 @@ EOS
       end
     end
 
-    if enumerable.is_a?(Array)
-      # Turn everything into string same as join would do ...
-      result = enumerable.collect do |i|
-        i = i.to_s
-        prefix && !i.start_with?(prefix) ? prefix + i : i
-      end
-    else
-      result = Hash[enumerable.map do |k,v|
-        k = k.to_s
-        [ prefix && !k.start_with?(prefix) ? prefix + k : k, v ]
-      end]
-    end
+    result = if enumerable.is_a?(Array)
+               # Turn everything into string same as join would do ...
+               enumerable.map do |i|
+                 i = i.to_s
+                 prefix && !i.start_with?(prefix) ? prefix + i : i
+               end
+             else
+               Hash[enumerable.map do |k, v|
+                 k = k.to_s
+                 [prefix && !k.start_with?(prefix) ? prefix + k : k, v]
+               end]
+             end
 
     return result
   end

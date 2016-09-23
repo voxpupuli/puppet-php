@@ -8,46 +8,37 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
   has_feature :upgradeable
 
   case Facter.value(:operatingsystem)
-    when 'Solaris'
-      commands peclcmd: '/opt/coolstack/php5/bin/pecl'
-    else
-      commands peclcmd: 'pecl'
+  when 'Solaris'
+    commands peclcmd: '/opt/coolstack/php5/bin/pecl'
+  else
+    commands peclcmd: 'pecl'
   end
 
   def self.pecllist(hash)
     command = [command(:peclcmd), 'list']
 
     begin
-      list = execute(command).split("\n").collect do |set|
+      list = execute(command).split("\n").map do |set|
         if hash[:justme]
           if %r{^#{hash[:justme]}$}i.match(set)
-            if peclhash = peclsplit(set)
+            if peclhash = peclsplit(set) # rubocop:disable Lint/AssignmentInCondition
               peclhash[:provider] = :peclcmd
               peclhash
-            else
-              nil
             end
-          else
-            nil
           end
         else
-          if peclhash = peclsplit(set)
+          if peclhash = peclsplit(set) # rubocop:disable Lint/AssignmentInCondition
             peclhash[:provider] = :peclcmd
             peclhash
-          else
-            nil
           end
         end
       end.reject { |p| p.nil? }
     rescue Puppet::ExecutionFailure => detail
-      raise Puppet::Error, 'Could not list pecls: %s' % detail
+      raise Puppet::Error, format('Could not list pecls: %s', detail)
     end
 
-    if hash[:justme]
-      return list.shift
-    else
-      return list
-    end
+    return list.shift if hash[:justme]
+    list
   end
 
   def self.peclsplit(desc)
@@ -58,23 +49,23 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
     when %r{No packages installed from channel}i then return nil
     when %r{^=} then return nil
     when %r{^PACKAGE} then return nil
-    when %r{\[1m} then return nil       # Newer versions of PEAR use colorized output
+    when %r{\[1m} then return nil # Newer versions of PEAR use colorized output
     when %r{^(\S+)\s+(\S+)\s+\S+} then
-      name = $1
-      version = $2
+      name = Regexp.last_match(1)
+      version = Regexp.last_match(2)
 
       return {
         name: "pecl-#{name.downcase}",
         ensure: version
       }
     else
-      Puppet.warning 'Could not match %s' % desc
+      Puppet.warning format('Could not match %s', desc)
       nil
     end
   end
 
   def self.instances
-    pecllist(local: true).collect do |hash|
+    pecllist(local: true).map do |hash|
       new(hash)
     end
   end
@@ -86,10 +77,10 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
   def install(useversion = true)
     command = ['upgrade']
 
-    if source = @resource[:source]
-      command << source
+    if @resource[:source]
+      command << @resource[:source]
     else
-      if (!@resource.should(:ensure).is_a? Symbol) and useversion
+      if (!@resource.should(:ensure).is_a? Symbol) && useversion
         command << '-f'
         command << "#{peclname}-#{@resource.should(:ensure)}"
       else
@@ -97,9 +88,9 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
       end
     end
 
-    if pipe = @resource[:pipe]
-        command << '<<<'
-        command << @resource[:pipe]
+    if pipe == @resource[:pipe]
+      command << '<<<'
+      command << @resource[:pipe]
     end
 
     peclcmd(*command)
@@ -108,10 +99,8 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
   def latest
     version = ''
     command = [command(:peclcmd), 'remote-info', peclname]
-    list = execute(command).each_line do |set|
-      if set =~ %r{^Latest}
-        version = set.split[1]
-      end
+    execute(command).each_line do |set|
+      version = set.split[1] if set =~ %r{^Latest}
     end
 
     version
@@ -123,10 +112,7 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
 
   def uninstall
     output = peclcmd 'uninstall', peclname
-    if output =~ %r{^uninstall ok}
-    else
-      raise Puppet::Error, output
-    end
+    raise Puppet::Error, output unless output =~ %r{^uninstall ok}
   end
 
   def update
