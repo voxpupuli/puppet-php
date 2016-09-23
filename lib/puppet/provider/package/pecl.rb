@@ -94,7 +94,7 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
       end
     end
 
-    if pipe = @resource[:pipe]
+    if pipe == @resource[:pipe]
       command << '<<<'
       command << @resource[:pipe]
     end
@@ -105,7 +105,7 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
   def latest
     version = ''
     command = [command(:peclcmd), 'remote-info', peclname]
-    list = execute(command).each_line do |set|
+    execute(command).each_line do |set|
       if set =~ %r{^Latest}
         version = set.split[1]
       end
