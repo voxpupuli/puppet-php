@@ -25,7 +25,6 @@ Would return:
   }
 EOS
              ) do |arguments|
-
     hash, id = arguments
     id = (id.nil? ? '' : "#{id}: ")
 
