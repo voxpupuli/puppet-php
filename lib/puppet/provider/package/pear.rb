@@ -107,9 +107,7 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
     version = ''
     command = [command(:pearcmd), 'remote-info', @resource[:name]]
     execute(command).each_line do |set|
-      if set =~ %r{^Latest}
-        version = set.split[1]
-      end
+      version = set.split[1] if set =~ %r{^Latest}
     end
 
     version
