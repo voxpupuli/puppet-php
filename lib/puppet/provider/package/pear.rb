@@ -59,19 +59,19 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
     desc.strip!
 
     case desc
-      when %r{^$} then return nil
-      when %r{^INSTALLED}i then return nil
-      when %r{no packages installed}i then return nil
-      when %r{^=} then return nil
-      when %r{^PACKAGE}i then return nil
-      when %r{^(\S+)\s+(\S+)\s+(\S+)\s*$} then
-        name = $1
-        version = $2
-        state = $3
-        return {
-          name: "#{channel}/#{name}",
-          ensure: state == 'stable' ? version : state
-        }
+    when %r{^$} then return nil
+    when %r{^INSTALLED}i then return nil
+    when %r{no packages installed}i then return nil
+    when %r{^=} then return nil
+    when %r{^PACKAGE}i then return nil
+    when %r{^(\S+)\s+(\S+)\s+(\S+)\s*$} then
+      name = $1
+      version = $2
+      state = $3
+      return {
+        name: "#{channel}/#{name}",
+        ensure: state == 'stable' ? version : state
+      }
     else
       Puppet.debug "Could not match '%s'" % desc
       nil
@@ -109,12 +109,12 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
     # This always gets the latest version available.
     version = ''
     command = [command(:pearcmd), 'remote-info', @resource[:name]]
-      list = execute(command).split("\n")
-      list = list.collect do |set|
-      if set =~ %r{^Latest}
-        version = set.split[1]
-      end
+    list = execute(command).split("\n")
+    list = list.collect do |set|
+    if set =~ %r{^Latest}
+      version = set.split[1]
     end
+  end
     version
   end
 

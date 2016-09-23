@@ -8,10 +8,10 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
   has_feature :upgradeable
 
   case Facter.value(:operatingsystem)
-    when 'Solaris'
-      commands peclcmd: '/opt/coolstack/php5/bin/pecl'
+  when 'Solaris'
+    commands peclcmd: '/opt/coolstack/php5/bin/pecl'
     else
-      commands peclcmd: 'pecl'
+    commands peclcmd: 'pecl'
   end
 
   def self.pecllist(hash)
@@ -98,8 +98,8 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
     end
 
     if pipe = @resource[:pipe]
-        command << '<<<'
-        command << @resource[:pipe]
+      command << '<<<'
+      command << @resource[:pipe]
     end
 
     peclcmd(*command)
