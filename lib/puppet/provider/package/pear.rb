@@ -133,5 +133,4 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
   def update
     install(false)
   end
-
 end
