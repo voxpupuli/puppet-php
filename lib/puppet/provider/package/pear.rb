@@ -22,7 +22,7 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
     begin
       list = execute(command).split("\n")
       list = list.map do |set|
-        if match = %r{INSTALLED PACKAGES, CHANNEL (.*):}i.match(set)
+        if match = %r{INSTALLED PACKAGES, CHANNEL (.*):}i.match(set) # rubocop:disable Lint/AssignmentInCondition
           channel = match[1].downcase
         end
 
@@ -35,7 +35,7 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
             nil
           end
         else
-          if pearhash = pearsplit(set, channel)
+          if pearhash = pearsplit(set, channel) # rubocop:disable Lint/AssignmentInCondition
             pearhash[:provider] = :pear
             pearhash
           else
@@ -89,8 +89,8 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
                  '--alldeps'
                end
 
-    command << if source = @resource[:source]
-                 source
+    command << if @resource[:source]
+                 @resource[:source]
                else
                  if (!@resource.should(:ensure).is_a? Symbol) && useversion
                    "#{@resource[:name]}-#{@resource.should(:ensure)}"

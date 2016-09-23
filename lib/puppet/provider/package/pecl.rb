@@ -21,7 +21,7 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
       list = execute(command).split("\n").map do |set|
         if hash[:justme]
           if %r{^#{hash[:justme]}$}i.match(set)
-            if peclhash = peclsplit(set)
+            if peclhash = peclsplit(set) # rubocop:disable Lint/AssignmentInCondition
               peclhash[:provider] = :peclcmd
               peclhash
             else
@@ -31,7 +31,7 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
             nil
           end
         else
-          if peclhash = peclsplit(set)
+          if peclhash = peclsplit(set) # rubocop:disable Lint/AssignmentInCondition
             peclhash[:provider] = :peclcmd
             peclhash
           else
@@ -83,8 +83,8 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
   def install(useversion = true)
     command = ['upgrade']
 
-    if source = @resource[:source]
-      command << source
+    if @resource[:source]
+      command << @resource[:source]
     else
       if (!@resource.should(:ensure).is_a? Symbol) && useversion
         command << '-f'
