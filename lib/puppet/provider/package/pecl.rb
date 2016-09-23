@@ -18,7 +18,7 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
     command = [command(:peclcmd), 'list']
 
     begin
-      list = execute(command).split("\n").collect do |set|
+      list = execute(command).split("\n").map do |set|
         if hash[:justme]
           if %r{^#{hash[:justme]}$}i.match(set)
             if peclhash = peclsplit(set)
@@ -74,7 +74,7 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
   end
 
   def self.instances
-    pecllist(local: true).collect do |hash|
+    pecllist(local: true).map do |hash|
       new(hash)
     end
   end

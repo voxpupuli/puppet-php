@@ -40,7 +40,7 @@ EOS
 
     if enumerable.is_a?(Array)
       # Turn everything into string same as join would do ...
-      result = enumerable.collect do |i|
+      result = enumerable.map do |i|
         i = i.to_s
         prefix && !i.start_with?(prefix) ? prefix + i : i
       end

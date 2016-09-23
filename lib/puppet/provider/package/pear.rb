@@ -21,7 +21,7 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
 
     begin
       list = execute(command).split("\n")
-      list = list.collect do |set|
+      list = list.map do |set|
         if match = %r{INSTALLED PACKAGES, CHANNEL (.*):}i.match(set)
           channel = match[1].downcase
         end
@@ -79,7 +79,7 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
   end
 
   def self.instances
-    pearlist(local: true).collect do |hash|
+    pearlist(local: true).map do |hash|
       new(hash)
     end
   end
@@ -110,7 +110,7 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
     version = ''
     command = [command(:pearcmd), 'remote-info', @resource[:name]]
     list = execute(command).split("\n")
-    list = list.collect do |set|
+    list = list.map do |set|
       if set =~ %r{^Latest}
         version = set.split[1]
       end
