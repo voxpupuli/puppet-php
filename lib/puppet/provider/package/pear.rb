@@ -31,15 +31,11 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
             pearhash = pearsplit(set, channel)
             pearhash[:provider] = :pear
             pearhash
-          else
-            nil
           end
         else
           if pearhash = pearsplit(set, channel) # rubocop:disable Lint/AssignmentInCondition
             pearhash[:provider] = :pear
             pearhash
-          else
-            nil
           end
         end
       end.reject { |p| p.nil? }

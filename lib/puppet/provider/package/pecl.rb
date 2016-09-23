@@ -24,18 +24,12 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
             if peclhash = peclsplit(set) # rubocop:disable Lint/AssignmentInCondition
               peclhash[:provider] = :peclcmd
               peclhash
-            else
-              nil
             end
-          else
-            nil
           end
         else
           if peclhash = peclsplit(set) # rubocop:disable Lint/AssignmentInCondition
             peclhash[:provider] = :peclcmd
             peclhash
-          else
-            nil
           end
         end
       end.reject { |p| p.nil? }
