@@ -21,7 +21,7 @@ Will return:
 EOS
              ) do |arguments|
 
-    raise(Puppet::ParseError, 'ensure_prefix(): Wrong number of arguments ' +
+    raise(Puppet::ParseError, 'ensure_prefix(): Wrong number of arguments ' \
       "given (#{arguments.size} for 2)") if arguments.size < 2
 
     enumerable = arguments[0]
