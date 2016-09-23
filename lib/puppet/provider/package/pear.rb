@@ -45,7 +45,7 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
       end.reject { |p| p.nil? }
 
     rescue Puppet::ExecutionFailure => detail
-      raise Puppet::Error, 'Could not list pears: %s' % detail
+      raise Puppet::Error, format('Could not list pears: %s', detail)
     end
 
     if hash[:justme]
@@ -73,7 +73,7 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
         ensure: state == 'stable' ? version : state
       }
     else
-      Puppet.debug "Could not match '%s'" % desc
+      Puppet.debug format("Could not match '%s'", desc)
       nil
     end
   end

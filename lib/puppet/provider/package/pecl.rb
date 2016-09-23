@@ -40,7 +40,7 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
         end
       end.reject { |p| p.nil? }
     rescue Puppet::ExecutionFailure => detail
-      raise Puppet::Error, 'Could not list pecls: %s' % detail
+      raise Puppet::Error, format('Could not list pecls: %s', detail)
     end
 
     if hash[:justme]
@@ -68,7 +68,7 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
         ensure: version
       }
     else
-      Puppet.warning 'Could not match %s' % desc
+      Puppet.warning format('Could not match %s', desc)
       nil
     end
   end
