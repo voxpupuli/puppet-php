@@ -111,10 +111,10 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
     command = [command(:pearcmd), 'remote-info', @resource[:name]]
     list = execute(command).split("\n")
     list = list.collect do |set|
-    if set =~ %r{^Latest}
-      version = set.split[1]
+      if set =~ %r{^Latest}
+        version = set.split[1]
+      end
     end
-  end
     version
   end
 
