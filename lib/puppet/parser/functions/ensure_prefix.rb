@@ -47,7 +47,7 @@ EOS
     else
       result = Hash[enumerable.map do |k,v|
         k = k.to_s
-        [ prefix && !k.start_with?(prefix) ? prefix + k : k, v ]
+        [prefix && !k.start_with?(prefix) ? prefix + k : k, v]
       end]
     end
 
