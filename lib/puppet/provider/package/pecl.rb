@@ -20,7 +20,7 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
     begin
       list = execute(command).split("\n").map do |set|
         if hash[:justme]
-          if %r{^#{hash[:justme]}$}i.match(set)
+          if %r{^#{hash[:justme]}$}i =~ set
             if peclhash = peclsplit(set) # rubocop:disable Lint/AssignmentInCondition
               peclhash[:provider] = :peclcmd
               peclhash
