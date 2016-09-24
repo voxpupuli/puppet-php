@@ -30,7 +30,7 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
           peclhash[:provider] = :peclcmd
           peclhash
         end
-      end.reject { |p| p.nil? }
+      end.reject(&:nil?)
     rescue Puppet::ExecutionFailure => detail
       raise Puppet::Error, format('Could not list pecls: %s', detail)
     end

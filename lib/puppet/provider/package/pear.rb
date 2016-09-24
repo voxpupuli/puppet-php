@@ -36,7 +36,7 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
           pearhash[:provider] = :pear
           pearhash
         end
-      end.reject { |p| p.nil? }
+      end.reject(&:nil?)
 
     rescue Puppet::ExecutionFailure => detail
       raise Puppet::Error, format('Could not list pears: %s', detail)
