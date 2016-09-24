@@ -24,17 +24,15 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
       list = list.map do |set|
         %r{INSTALLED PACKAGES, CHANNEL (.*):}i.match(set) { |m| channel = m[1].downcase }
 
-        if hash[:justme]
-          if set =~ %r{^#{hash[:justme]}}
-            pearhash = pearsplit(set, channel)
-            pearhash[:provider] = :pear
-            pearhash
-          end
-        elsif pearhash = pearsplit(set, channel) # rubocop:disable Lint/AssignmentInCondition
+        if hash[:justme] && set =~ %r{^#{hash[:justme]}}
+          pearhash = pearsplit(set, channel)
+          pearhash[:provider] = :pear
+          pearhash
+        elsif (pearhash = pearsplit(set, channel))
           pearhash[:provider] = :pear
           pearhash
         end
-      end.reject(&:nil?)
+      end.compact
 
     rescue Puppet::ExecutionFailure => detail
       raise Puppet::Error, format('Could not list pears: %s', detail)

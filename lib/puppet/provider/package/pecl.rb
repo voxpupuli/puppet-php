@@ -19,18 +19,14 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
 
     begin
       list = execute(command).split("\n").map do |set|
-        if hash[:justme]
-          if %r{^#{hash[:justme]}$}i =~ set
-            if peclhash = peclsplit(set) # rubocop:disable Lint/AssignmentInCondition
-              peclhash[:provider] = :peclcmd
-              peclhash
-            end
-          end
-        elsif peclhash = peclsplit(set) # rubocop:disable Lint/AssignmentInCondition
+        if hash[:justme] && %r{^#{hash[:justme]}$}i =~ set && (peclhash = peclsplit(set))
+          peclhash[:provider] = :peclcmd
+          peclhash
+        elsif (peclhash = peclsplit(set))
           peclhash[:provider] = :peclcmd
           peclhash
         end
-      end.reject(&:nil?)
+      end.compact
     rescue Puppet::ExecutionFailure => detail
       raise Puppet::Error, format('Could not list pecls: %s', detail)
     end
