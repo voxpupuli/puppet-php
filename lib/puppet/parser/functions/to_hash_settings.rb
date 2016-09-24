@@ -30,9 +30,8 @@ EOS
 
     raise(Puppet::ParseError, 'to_hash_settings(): Requires hash to work with') unless hash.is_a?(Hash)
 
-    return hash.reduce({}) do |acc, kv|
+    return hash.each_with_object({}) do |kv, acc|
       acc[id + kv[0]] = { 'key' => kv[0], 'value' => kv[1] }
-      acc
     end
   end
 end
