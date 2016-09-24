@@ -22,9 +22,7 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
     begin
       list = execute(command).split("\n")
       list = list.map do |set|
-        if match = %r{INSTALLED PACKAGES, CHANNEL (.*):}i.match(set) # rubocop:disable Lint/AssignmentInCondition
-          channel = match[1].downcase
-        end
+        %r{INSTALLED PACKAGES, CHANNEL (.*):}i.match(set) { |m| channel = m[1].downcase }
 
         if hash[:justme]
           if set =~ %r{^#{hash[:justme]}}
