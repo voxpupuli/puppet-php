@@ -26,11 +26,9 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
               peclhash
             end
           end
-        else
-          if peclhash = peclsplit(set) # rubocop:disable Lint/AssignmentInCondition
-            peclhash[:provider] = :peclcmd
-            peclhash
-          end
+        elsif peclhash = peclsplit(set) # rubocop:disable Lint/AssignmentInCondition
+          peclhash[:provider] = :peclcmd
+          peclhash
         end
       end.reject { |p| p.nil? }
     rescue Puppet::ExecutionFailure => detail
@@ -79,13 +77,11 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
 
     if @resource[:source]
       command << @resource[:source]
+    elsif (!@resource.should(:ensure).is_a? Symbol) && useversion
+      command << '-f'
+      command << "#{peclname}-#{@resource.should(:ensure)}"
     else
-      if (!@resource.should(:ensure).is_a? Symbol) && useversion
-        command << '-f'
-        command << "#{peclname}-#{@resource.should(:ensure)}"
-      else
-        command << peclname
-      end
+      command << peclname
     end
 
     if pipe == @resource[:pipe]

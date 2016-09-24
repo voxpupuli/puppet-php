@@ -32,11 +32,9 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
             pearhash[:provider] = :pear
             pearhash
           end
-        else
-          if pearhash = pearsplit(set, channel) # rubocop:disable Lint/AssignmentInCondition
-            pearhash[:provider] = :pear
-            pearhash
-          end
+        elsif pearhash = pearsplit(set, channel) # rubocop:disable Lint/AssignmentInCondition
+          pearhash[:provider] = :pear
+          pearhash
         end
       end.reject { |p| p.nil? }
 
@@ -87,12 +85,10 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
 
     command << if @resource[:source]
                  @resource[:source]
+               elsif (!@resource.should(:ensure).is_a? Symbol) && useversion
+                 "#{@resource[:name]}-#{@resource.should(:ensure)}"
                else
-                 if (!@resource.should(:ensure).is_a? Symbol) && useversion
-                   "#{@resource[:name]}-#{@resource.should(:ensure)}"
-                 else
-                   @resource[:name]
-                 end
+                 @resource[:name]
                end
 
     pearcmd(*command)
