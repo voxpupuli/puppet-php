@@ -131,7 +131,6 @@ class php::fpm::config(
 
   file { $config_file:
     ensure  => file,
-    notify  => Class['::php::fpm::service'],
     content => template('php/fpm/php-fpm.conf.erb'),
     owner   => root,
     group   => $root_group,
@@ -155,6 +154,5 @@ class php::fpm::config(
   ::php::config { 'fpm':
     file   => $inifile,
     config => $settings,
-    notify => Class['::php::fpm::service'],
   }
 }

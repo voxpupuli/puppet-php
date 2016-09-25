@@ -156,7 +156,10 @@ define php::fpm::pool (
   $base_dir                  = undef,
 ) {
 
-  include ::php::params
+  # The base class must be included first because it is used by parameter defaults
+  if ! defined(Class['php']) {
+    warning('You must include the php base class before using any php defined resources')
+  }
 
   if $base_dir != undef {
     validate_absolute_path($base_dir)
