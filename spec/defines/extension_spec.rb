@@ -8,7 +8,7 @@ describe 'php::extension' do
       end
       
       let(:pre_condition) do
-        'include php::params'
+        'include ::php'
       end
 
       unless facts[:osfamily] == 'Suse' || facts[:osfamily] == 'FreeBSD' # FIXME: something is wrong on these
