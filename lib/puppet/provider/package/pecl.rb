@@ -88,7 +88,7 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
       end
     end
 
-    if pipe == @resource[:pipe]
+    if @resource[:pipe]
       command << '<<<'
       command << @resource[:pipe]
     end
