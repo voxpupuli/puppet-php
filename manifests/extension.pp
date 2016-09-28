@@ -88,6 +88,7 @@ define php::extension(
   }
 
   if $provider != 'none' {
+
     if $provider == 'pecl' {
       $real_package = "pecl-${title}"
     }
@@ -123,6 +124,10 @@ define php::extension(
         source   => $real_source,
       })
     }
+
+    $package_depends = "Package[${real_package}]"
+  } else {
+    $package_depends = undef
   }
 
   if $provider != 'pecl' and $zend {
@@ -186,7 +191,7 @@ define php::extension(
   ::php::config { $title:
     file    => "${config_root_ini}/${lowercase_title}.ini",
     config  => $final_settings,
-    require => Package[$real_package],
+    require => $package_depends,
   }
 
   # Ubuntu/Debian systems use the mods-available folder. We need to enable
