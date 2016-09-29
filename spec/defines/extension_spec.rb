@@ -6,17 +6,15 @@ describe 'php::extension' do
       let :facts do
         facts
       end
-      let(:pre_condition) { 'include php::params' }
+      let(:pre_condition) { '
+        include php
+        include php::params
+      ' }
 
       unless facts[:osfamily] == 'Suse' || facts[:osfamily] == 'FreeBSD' # FIXME: something is wrong on these
         etcdir = case facts[:osfamily]
                  when 'Debian'
-                   case facts[:operatingsystem]
-                   when 'Ubuntu'
-                     '/etc/php/5.6/mods-available'
-                   else
-                     '/etc/php5/mods-available'
-                   end
+                   '/etc/php5/mods-available'
                  else
                    '/etc/php.d'
                  end
