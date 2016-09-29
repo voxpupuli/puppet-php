@@ -29,7 +29,7 @@ class php::packages (
   validate_array($names_to_prefix)
 
   $real_names = union($names, $names_to_prefix)
-  if $osfamily == 'debian' {
+  if $::osfamily == 'debian' {
     include ::apt
     package { $real_names:
       ensure  => $ensure,
