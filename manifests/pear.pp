@@ -44,7 +44,7 @@ class php::pear (
   validate_string($package_name)
 
   # Default PHP come with xml module and no seperate package for it
-  if $::operatingsystem == 'Ubuntu' and $::operatingsystemrelease >= '16.04' {
+  if $::operatingsystem == 'Ubuntu' and versioncmp($::operatingsystemrelease, '16.04') >= 0 {
     ensure_packages(["${php::package_prefix}xml"], {
       ensure  => present,
       require => Class['::apt::update'],
