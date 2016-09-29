@@ -32,26 +32,13 @@ describe 'php', type: :class do
         let(:params) { { package_prefix: 'myphp-' } }
         case facts[:osfamily]
         when 'Debian'
-          case facts[:operatingsystem]
-          when 'Ubuntu'
-            it { is_expected.to contain_class('php::fpm') }
-            it { is_expected.to contain_package('myphp-cli').with_ensure('present') }
-            it { is_expected.to contain_package('myphp-fpm').with_ensure('present') }
-            it { is_expected.to contain_class('php::dev') }
-            it { is_expected.to contain_package('myphp-dev').with_ensure('present') }
-            # The -xml package is enforced via the dev class
-            it { is_expected.to contain_package('myphp-xml').with_ensure('present') }
-            it { is_expected.to contain_package('php-pear').with_ensure('present') }
-            it { is_expected.to contain_class('php::composer') }
-          when 'Debian'
-            it { is_expected.not_to contain_class('php::global') }
-            it { is_expected.to contain_class('php::fpm') }
-            it { is_expected.to contain_package('myphp-cli').with_ensure('present') }
-            it { is_expected.to contain_package('myphp-fpm').with_ensure('present') }
-            it { is_expected.to contain_package('myphp-dev').with_ensure('present') }
-            it { is_expected.to contain_package('php-pear').with_ensure('present') }
-            it { is_expected.to contain_class('php::composer') }
-          end
+          it { is_expected.not_to contain_class('php::global') }
+          it { is_expected.to contain_class('php::fpm') }
+          it { is_expected.to contain_package('myphp-cli').with_ensure('present') }
+          it { is_expected.to contain_package('myphp-fpm').with_ensure('present') }
+          it { is_expected.to contain_package('myphp-dev').with_ensure('present') }
+          it { is_expected.to contain_package('php-pear').with_ensure('present') }
+          it { is_expected.to contain_class('php::composer') }
         when 'Suse'
           it { is_expected.to contain_class('php::global') }
           it { is_expected.to contain_package('php5').with_ensure('present') }
