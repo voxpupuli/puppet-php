@@ -30,7 +30,6 @@ class php::packages (
 
   $real_names = union($names, $names_to_prefix)
   if $osfamily == 'debian' {
-#  if $::operatingsystem == 'Ubuntu' {
     include ::apt
     package { $real_names:
       ensure  => $ensure,
