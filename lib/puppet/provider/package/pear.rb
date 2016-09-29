@@ -22,23 +22,17 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
     begin
       list = execute(command).split("\n")
       list = list.map do |set|
-        if match = %r{INSTALLED PACKAGES, CHANNEL (.*):}i.match(set) # rubocop:disable Lint/AssignmentInCondition
-          channel = match[1].downcase
-        end
+        %r{INSTALLED PACKAGES, CHANNEL (.*):}i.match(set) { |m| channel = m[1].downcase }
 
-        if hash[:justme]
-          if set =~ %r{^#{hash[:justme]}}
-            pearhash = pearsplit(set, channel)
-            pearhash[:provider] = :pear
-            pearhash
-          end
-        else
-          if pearhash = pearsplit(set, channel) # rubocop:disable Lint/AssignmentInCondition
-            pearhash[:provider] = :pear
-            pearhash
-          end
+        if hash[:justme] && set =~ %r{^#{hash[:justme]}}
+          pearhash = pearsplit(set, channel)
+          pearhash[:provider] = :pear
+          pearhash
+        elsif (pearhash = pearsplit(set, channel))
+          pearhash[:provider] = :pear
+          pearhash
         end
-      end.reject { |p| p.nil? }
+      end.compact
 
     rescue Puppet::ExecutionFailure => detail
       raise Puppet::Error, format('Could not list pears: %s', detail)
@@ -87,12 +81,10 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
 
     command << if @resource[:source]
                  @resource[:source]
+               elsif (!@resource.should(:ensure).is_a? Symbol) && useversion
+                 "#{@resource[:name]}-#{@resource.should(:ensure)}"
                else
-                 if (!@resource.should(:ensure).is_a? Symbol) && useversion
-                   "#{@resource[:name]}-#{@resource.should(:ensure)}"
-                 else
-                   @resource[:name]
-                 end
+                 @resource[:name]
                end
 
     pearcmd(*command)

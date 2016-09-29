@@ -19,20 +19,14 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
 
     begin
       list = execute(command).split("\n").map do |set|
-        if hash[:justme]
-          if %r{^#{hash[:justme]}$}i.match(set)
-            if peclhash = peclsplit(set) # rubocop:disable Lint/AssignmentInCondition
-              peclhash[:provider] = :peclcmd
-              peclhash
-            end
-          end
-        else
-          if peclhash = peclsplit(set) # rubocop:disable Lint/AssignmentInCondition
-            peclhash[:provider] = :peclcmd
-            peclhash
-          end
+        if hash[:justme] && %r{^#{hash[:justme]}$}i =~ set && (peclhash = peclsplit(set))
+          peclhash[:provider] = :peclcmd
+          peclhash
+        elsif (peclhash = peclsplit(set))
+          peclhash[:provider] = :peclcmd
+          peclhash
         end
-      end.reject { |p| p.nil? }
+      end.compact
     rescue Puppet::ExecutionFailure => detail
       raise Puppet::Error, format('Could not list pecls: %s', detail)
     end
@@ -79,13 +73,11 @@ Puppet::Type.type(:package).provide :pecl, parent: Puppet::Provider::Package do
 
     if @resource[:source]
       command << @resource[:source]
+    elsif (!@resource.should(:ensure).is_a? Symbol) && useversion
+      command << '-f'
+      command << "#{peclname}-#{@resource.should(:ensure)}"
     else
-      if (!@resource.should(:ensure).is_a? Symbol) && useversion
-        command << '-f'
-        command << "#{peclname}-#{@resource.should(:ensure)}"
-      else
-        command << peclname
-      end
+      command << peclname
     end
 
     if @resource[:pipe]
