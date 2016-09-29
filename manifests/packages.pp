@@ -29,7 +29,9 @@ class php::packages (
   validate_array($names_to_prefix)
 
   $real_names = union($names, $names_to_prefix)
-  if $::operatingsystem == 'Ubuntu' {
+  if $osfamily == 'debian' {
+#  if $::operatingsystem == 'Ubuntu' {
+    include ::apt
     package { $real_names:
       ensure  => $ensure,
       require => Class['::apt::update'],
