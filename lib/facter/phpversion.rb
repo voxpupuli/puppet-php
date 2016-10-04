@@ -4,7 +4,7 @@ Facter.add(:phpversion) do
 
     unless output.nil?
       output.split("\n").first.split(' ').
-        select { |x| x =~ /^(?:(\d+)\.)(?:(\d+)\.)?(\*|\d+)/ }.first
+        select { |x| x =~ %r{^(?:(\d+)\.)(?:(\d+)\.)?(\*|\d+)} }.first
     end
   end
 end

@@ -31,7 +31,7 @@ class php::globals (
     'Debian' => $::operatingsystem ? {
       'Ubuntu' => $::operatingsystemrelease ? {
         /^(16.04)$/ => '7.0',
-        default => '5.6',
+        default => '5.x',
       },
       default => '5.x',
     },
@@ -44,7 +44,7 @@ class php::globals (
     'Debian': {
       if $::operatingsystem == 'Ubuntu' {
         case $globals_php_version {
-          /^5\.4/: {
+          /^5\.[45]/: {
             $default_config_root  = '/etc/php5'
             $default_fpm_pid_file = "/var/run/php/php${globals_php_version}-fpm.pid"
             $fpm_error_log        = '/var/log/php5-fpm.log'
@@ -53,41 +53,25 @@ class php::globals (
             $ext_tool_query       = '/usr/sbin/php5query'
             $package_prefix       = 'php5-'
           }
-          /^5\.5/: {
+          /^[57].[0-9]/: {
             $default_config_root  = "/etc/php/${globals_php_version}"
             $default_fpm_pid_file = "/var/run/php/php${globals_php_version}-fpm.pid"
             $fpm_error_log        = "/var/log/php${globals_php_version}-fpm.log"
+            $fpm_service_name     = "php${globals_php_version}-fpm"
+            $ext_tool_enable      = "/usr/sbin/phpenmod -v ${globals_php_version}"
+            $ext_tool_query       = "/usr/sbin/phpquery -v ${globals_php_version}"
+            $package_prefix       = "php${globals_php_version}-"
+          }
+          default: {
+            # Default php installation from Ubuntu official repository use the following paths until 16.04
+            # For PPA please use the $php_version to override it.
+            $default_config_root  = '/etc/php5'
+            $default_fpm_pid_file = '/var/run/php5-fpm.pid'
+            $fpm_error_log        = '/var/log/php5-fpm.log'
             $fpm_service_name     = 'php5-fpm'
             $ext_tool_enable      = '/usr/sbin/php5enmod'
             $ext_tool_query       = '/usr/sbin/php5query'
-            $package_prefix       = 'php5.5-'
-          }
-          /^5\.6/: {
-            $default_config_root  = "/etc/php/${globals_php_version}"
-            $default_fpm_pid_file = "/var/run/php/php${globals_php_version}-fpm.pid"
-            $fpm_error_log        = "/var/log/php${globals_php_version}-fpm.log"
-            $fpm_service_name     = "php${globals_php_version}-fpm"
-            $ext_tool_enable      = "/usr/sbin/phpenmod -v ${globals_php_version}"
-            $ext_tool_query       = "/usr/sbin/phpquery -v ${globals_php_version}"
-            $package_prefix       = 'php5.6-'
-          }
-          /^7/: {
-            $default_config_root  = "/etc/php/${globals_php_version}"
-            $default_fpm_pid_file = "/var/run/php/php${globals_php_version}-fpm.pid"
-            $fpm_error_log        = "/var/log/php${globals_php_version}-fpm.log"
-            $fpm_service_name     = "php${globals_php_version}-fpm"
-            $ext_tool_enable      = "/usr/sbin/phpenmod -v ${globals_php_version}"
-            $ext_tool_query       = "/usr/sbin/phpquery -v ${globals_php_version}"
-            $package_prefix       = 'php7.0-'
-          }
-          default: {
-            $default_config_root  = "/etc/php/${globals_php_version}"
-            $default_fpm_pid_file = "/var/run/php/php${globals_php_version}-fpm.pid"
-            $fpm_error_log        = "/var/log/php${globals_php_version}-fpm.log"
-            $fpm_service_name     = "php${globals_php_version}-fpm"
-            $ext_tool_enable      = "/usr/sbin/phpenmod -v ${globals_php_version}"
-            $ext_tool_query       = "/usr/sbin/phpquery -v ${globals_php_version}"
-            $package_prefix       = 'php-'
+            $package_prefix       = 'php5-'
           }
         }
       } else {

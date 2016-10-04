@@ -47,7 +47,7 @@ class php::params inherits php::globals {
         }
 
         'Ubuntu': {
-          $manage_repos = true
+          $manage_repos = false
         }
 
         default: {

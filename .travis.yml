@@ -6,34 +6,14 @@ rvm:
 - 1.9.3
 env:
   matrix:
-  - PUPPET_VERSION=4.3.2
-  - PUPPET_VERSION=3.8.7
-  - PUPPET_VERSION=3.8.7 FUTURE_PARSER=yes TRUSTED_NODE_DATA=yes
-  global:
-  - secure: Zc0V6JqwpFTTtVE7jVFg5R6UgXZrzsBGa6ckbOnIHPCOyJsV4oWO6RxKsYI+ozzD9nrEdrT/DTcHKRz84YqrMXxvBU9HA4S/ZrNQoRiH3bEnI3UHC6jQJRX0c71gaJEMQ3S33my39vLD7EsealX3p+j8asL8e8glYR1am9ekUB8=
+  - PUPPET_VERSION=4.3.2 STRICT_VARIABLES=no
+  - PUPPET_VERSION=3.8.7 STRICT_VARIABLES=no
+  - PUPPET_VERSION=3.8.7 FUTURE_PARSER=yes TRUSTED_NODE_DATA=yes STRICT_VARIABLES=no
 matrix:
-  exclude:
-  - rvm: 2.1.6
-    env: PUPPET_VERSION=3.8.7
   include:
   - rvm: 2.1.6
-    env: PUPPET_VERSION=3.8.7 DOCS=true
+    env: PUPPET_VERSION=3.8.7 STRICT_VARIABLES=no
   - rvm: 2.2.3
-    env: PUPPET_VERSION=4.3.2
+    env: PUPPET_VERSION=4.3.2 STRICT_VARIABLES=no
   - rvm: 2.3.0
-    env: PUPPET_VERSION=4.5.2
-after_success: |
-  [ $TRAVIS_BRANCH = master ] &&
-  [ $TRAVIS_PULL_REQUEST = false ] &&
-  [ -n "$DOCS" ] &&
-  puppet module install puppetlabs/strings &&
-  puppet strings &&
-  pip install --user ghp-import &&
-  echo php.puppet.mayflower.de > doc/CNAME &&
-  ~/.local/bin/ghp-import -n doc &&
-  git push -fq https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git gh-pages
-notifications:
-  webhooks:
-    urls:
-    - http://travis-notify.mayflower.de/opensource
-    on_start: true
+    env: PUPPET_VERSION=4.6.1 STRICT_VARIABLES=no

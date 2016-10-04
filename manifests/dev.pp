@@ -26,7 +26,8 @@ class php::dev(
     default   => $package,
   }
 
-  if ($::operatingsystem == 'Ubuntu') and ($::php::globals::php_version != '5.5') {
+  # Default PHP come with xml module and no seperate package for it
+  if $::operatingsystem == 'Ubuntu' and versioncmp($::operatingsystemrelease, '16.04') >= 0  {
     ensure_packages(["${php::package_prefix}xml"], {
       ensure  => present,
       require => Class['::apt::update'],
