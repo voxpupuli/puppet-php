@@ -44,7 +44,7 @@ class php::globals (
     'Debian': {
       if $::operatingsystem == 'Ubuntu' {
         case $globals_php_version {
-          /^5\.4/: {
+          /^5\.[45]/: {
             $default_config_root  = '/etc/php5'
             $default_fpm_pid_file = "/var/run/php/php${globals_php_version}-fpm.pid"
             $fpm_error_log        = '/var/log/php5-fpm.log'
