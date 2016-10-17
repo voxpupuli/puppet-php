@@ -41,6 +41,28 @@ describe 'php::extension' do
           end
         end
 
+        context 'configure extension without installing a package' do
+          let(:title) { 'json' }
+          let(:params) do
+            {
+              provider: 'none',
+              settings: {
+                'test' => 'foo'
+              }
+            }
+          end
+
+          it do
+            is_expected.to contain_php__config('json').with(
+              file: "#{etcdir}/json.ini",
+              require: nil,
+              config: {
+                'test' => 'foo'
+              }
+            )
+          end
+        end
+
         context 'add settings prefix if requested' do
           let(:title) { 'json' }
           let(:params) do
