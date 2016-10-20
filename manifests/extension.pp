@@ -221,6 +221,6 @@ define php::extension(
       Package[$::php::fpm::package] ~> Exec[$cmd]
     }
 
-    Package[$real_package] ~> File_line["Set_prio ${lowercase_title}"] ~> Exec[$cmd]
+    File_line["Set_prio ${lowercase_title}"] ~> Exec[$cmd]
   }
 }
