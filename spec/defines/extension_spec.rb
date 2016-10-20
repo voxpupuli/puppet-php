@@ -6,7 +6,7 @@ describe 'php::extension' do
       let :facts do
         facts
       end
-      
+
       let(:pre_condition) do
         'include php::params'
       end
@@ -35,7 +35,8 @@ describe 'php::extension' do
             is_expected.to contain_php__config('json').with(
               file: "#{etcdir}/json.ini",
               config: {
-                'test' => 'foo'
+                'extension' => 'json.so',
+                'test'      => 'foo'
               }
             )
           end
@@ -57,7 +58,8 @@ describe 'php::extension' do
               file: "#{etcdir}/json.ini",
               require: nil,
               config: {
-                'test' => 'foo'
+                'extension' => 'json.so',
+                'test'      => 'foo'
               }
             )
           end
@@ -85,7 +87,8 @@ describe 'php::extension' do
               name: 'json',
               settings_prefix: 'bar',
               settings: {
-                'test' => 'foo'
+                'extension' => 'json.so',
+                'test'      => 'foo'
               }
             }
           end
@@ -93,22 +96,10 @@ describe 'php::extension' do
           it { is_expected.to contain_php__config('json').with_config('bar.test' => 'foo') }
         end
 
-        context 'non-pecl extensions cannot be configured as zend' do
+        context 'extensions can be configured as zend' do
           let(:title) { 'xdebug' }
           let(:params) do
             {
-              zend: true
-            }
-          end
-
-          it { expect { is_expected.to raise_error(Puppet::Error) } }
-        end
-
-        context 'pecl extensions can be configured as zend' do
-          let(:title) { 'xdebug' }
-          let(:params) do
-            {
-              provider: 'pecl',
               zend: true
             }
           end
