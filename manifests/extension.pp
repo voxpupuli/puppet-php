@@ -66,6 +66,7 @@ define php::extension(
   $settings          = {},
   $settings_prefix   = false,
   $sapi              = 'ALL',
+  $priority          = '50'
 ) {
 
   validate_string($ensure)
@@ -210,8 +211,13 @@ define php::extension(
       }
     }
 
+    file_line { "Set_prio ${lowercase_title}":
+      path => "${config_root_ini}/${lowercase_title}.ini",
+      line => "; priority=${priority}",
+    }
+
     if $::php::fpm {
-      Package[$::php::fpm::package] ~> Exec[$cmd]
+      Package[$::php::fpm::package] ~> File_line["Set_prio ${lowercase_title}"] ~> Exec[$cmd]
     }
   }
 }
