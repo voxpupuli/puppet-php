@@ -220,7 +220,7 @@ define php::extension(
     if $::php::fpm {
       Package[$::php::fpm::package] ~> Exec[$cmd]
     }
-    
-    Package[$real_package] -> File_line["Set_prio ${lowercase_title}"] ~> Exec[$cmd]
+
+    Package[$real_package] ~> File_line["Set_prio ${lowercase_title}"] ~> Exec[$cmd]
   }
 }
