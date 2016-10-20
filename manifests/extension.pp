@@ -212,9 +212,12 @@ define php::extension(
     }
 
     file_line { "Set_prio ${lowercase_title}":
-      path    => "${config_root_ini}/${lowercase_title}.ini",
-      line    => "; priority=${priority}",
-      require => Package[$real_package],
+      path              => "${config_root_ini}/${lowercase_title}.ini",
+      line              => "; priority=${priority}",
+      require           => Package[$real_package],
+      match             => '^; priority\=',
+      match_for_absence => true,
+      multiple          => false,
     }
 
     if $::php::fpm {
