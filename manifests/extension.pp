@@ -66,7 +66,7 @@ define php::extension(
   $settings          = {},
   $settings_prefix   = false,
   $sapi              = 'ALL',
-  $priority          = '50'
+  $priority          = '20'
 ) {
 
   validate_string($ensure)
