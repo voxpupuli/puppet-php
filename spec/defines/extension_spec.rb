@@ -77,7 +77,14 @@ describe 'php::extension' do
             }
           end
 
-          it { is_expected.to contain_php__config('json').with_config('json.test' => 'foo') }
+          it do
+            is_expected.to contain_php__config('json').with(
+              config: {
+                'extension' => 'json.so',
+                'json.test' => 'foo'
+              }
+            )
+          end
         end
 
         context 'use specific settings prefix if requested' do
@@ -87,13 +94,19 @@ describe 'php::extension' do
               name: 'json',
               settings_prefix: 'bar',
               settings: {
-                'extension' => 'json.so',
-                'test'      => 'foo'
+                'test' => 'foo'
               }
             }
           end
 
-          it { is_expected.to contain_php__config('json').with_config('bar.test' => 'foo') }
+          it do
+            is_expected.to contain_php__config('json').with(
+              config: {
+                'extension' => 'json.so',
+                'bar.test'  => 'foo',
+              }
+            )
+          end
         end
 
         context 'extensions can be configured as zend' do
