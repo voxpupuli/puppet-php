@@ -103,7 +103,7 @@ describe 'php::extension' do
             is_expected.to contain_php__config('json').with(
               config: {
                 'extension' => 'json.so',
-                'bar.test'  => 'foo',
+                'bar.test'  => 'foo'
               }
             )
           end
