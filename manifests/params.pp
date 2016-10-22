@@ -84,6 +84,8 @@ class php::params inherits php::globals {
       $package_prefix          = $php::globals::package_prefix
       $manage_repos            = true
       $root_group              = 'root'
+      $ext_tool_enable         = undef
+      $ext_tool_query          = undef
       $ext_tool_enabled        = false
       case $::operatingsystem {
         'SLES': {
@@ -119,6 +121,8 @@ class php::params inherits php::globals {
       $compiler_packages       = ['gcc', 'gcc-c++', 'make']
       $manage_repos            = false
       $root_group              = 'root'
+      $ext_tool_enable         = undef
+      $ext_tool_query          = undef
       $ext_tool_enabled        = false
     }
     'FreeBSD': {
@@ -147,6 +151,8 @@ class php::params inherits php::globals {
       $compiler_packages       = ['gcc']
       $manage_repos            = false
       $root_group              = 'wheel'
+      $ext_tool_enable         = undef
+      $ext_tool_query          = undef
       $ext_tool_enabled        = false
     }
     default: {
