@@ -7,9 +7,7 @@ describe 'php::extension' do
         facts
       end
 
-      let(:pre_condition) do
-        'include php::params'
-      end
+      let(:pre_condition) { 'include php' }
 
       unless facts[:osfamily] == 'Suse' || facts[:osfamily] == 'FreeBSD' # FIXME: something is wrong on these
         etcdir = case facts[:osfamily]
