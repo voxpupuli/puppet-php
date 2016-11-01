@@ -11,6 +11,9 @@
 # [*path*]
 #   Holds path to the Composer executable
 #
+# [*environment*]
+#   Environment variables for settings such as http_proxy, https_proxy, or ftp_proxy
+#
 # === Examples
 #
 #  include php::composer::auto_update
@@ -22,6 +25,7 @@ class php::composer::auto_update (
   $max_age,
   $source,
   $path,
+  $environment = undef,
 ) {
 
   if $caller_module_name != $module_name {
@@ -29,9 +33,10 @@ class php::composer::auto_update (
   }
 
   exec { 'update composer':
-    command => "wget ${source} -O ${path}",
-    onlyif  => "test `find '${path}' -mtime +${max_age}`",
-    path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
-    require => File[$path],
+    command     => "curl -L ${source} -o ${path}",
+    environment => $environment,
+    onlyif      => "test `find '${path}' -mtime +${max_age}`",
+    path        => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
+    require     => File[$path],
   }
 }

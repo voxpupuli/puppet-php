@@ -40,6 +40,11 @@
 # [*phpunit*]
 #   Install phpunit
 #
+# [*environment*]
+#   Environment variables for settings such as http_proxy, https_proxy, or ftp_proxy.
+#   These are passed through to the underlying exec(s), so it follows the same format
+#   of the exec type `environment`
+#
 # [*extensions*]
 #   Install PHP extensions, this is overwritten by hiera hash `php::extensions`
 #
@@ -93,6 +98,7 @@ class php (
   $pear                 = true,
   $pear_ensure          = $::php::params::pear_ensure,
   $phpunit              = false,
+  $environment          = undef,
   $extensions           = {},
   $settings             = {},
   $package_prefix       = $::php::params::package_prefix,
@@ -188,7 +194,9 @@ class php (
   }
   if $composer {
     Anchor['php::begin'] ->
-      class { '::php::composer': } ->
+      class { '::php::composer':
+        environment => $environment,
+      } ->
     Anchor['php::end']
   }
   if $pear {
