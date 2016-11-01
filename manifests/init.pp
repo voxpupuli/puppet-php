@@ -159,6 +159,7 @@ class php (
   if $fpm {
     Anchor['php::begin'] ->
       class { '::php::fpm':
+        ensure           => $ensure,
         service_enable   => $fpm_service_enable,
         service_ensure   => $fpm_service_ensure,
         service_name     => $fpm_service_name,
@@ -166,6 +167,7 @@ class php (
         settings         => $real_settings,
         log_owner        => $log_owner,
         log_group        => $log_group,
+        package          => "${package_prefix}${::php::params::fpm_package_suffix}",
       } ->
     Anchor['php::end']
   }

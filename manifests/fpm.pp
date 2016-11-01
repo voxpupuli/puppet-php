@@ -44,12 +44,12 @@
 #   Defaults is empty hash.
 #
 class php::fpm (
-  $ensure               = $::php::ensure,
+  $ensure               = $::php::params::ensure,
   $service_ensure       = $::php::params::fpm_service_ensure,
   $service_enable       = $::php::params::fpm_service_enable,
   $service_name         = $::php::params::fpm_service_name,
   $service_provider     = undef,
-  $package              = "${::php::package_prefix}${::php::params::fpm_package_suffix}",
+  $package              = "${::php::params::package_prefix}${::php::params::fpm_package_suffix}",
   $inifile              = $::php::params::fpm_inifile,
   $settings             = {},
   $global_pool_settings = {},
