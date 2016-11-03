@@ -8,6 +8,9 @@
 # [*path*]
 #   Holds path to the Composer executable
 #
+# [*environment*]
+#   Environment variables for settings such as http_proxy, https_proxy, or ftp_proxy
+#
 # [*auto_update*]
 #   Defines if composer should be auto updated
 #
@@ -20,6 +23,7 @@
 class php::composer (
   $source      = $::php::params::composer_source,
   $path        = $::php::params::composer_path,
+  $environment = undef,
   $auto_update = true,
   $max_age     = $::php::params::composer_max_age,
   $root_group  = $::php::params::root_group,
@@ -34,14 +38,15 @@ class php::composer (
   validate_bool($auto_update)
   validate_re("x${max_age}", '^x\d+$')
 
-  ensure_packages(['wget'])
+  ensure_packages(['curl'])
 
   exec { 'download composer':
-    command => "wget ${source} -O ${path}",
-    creates => $path,
-    path    => ['/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/',
-                '/usr/local/bin', '/usr/local/sbin'],
-    require => [Class['::php::cli'],Package['wget']],
+    command     => "curl -L ${source} -o ${path}",
+    environment => $environment,
+    creates     => $path,
+    path        => ['/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/',
+                    '/usr/local/bin', '/usr/local/sbin'],
+    require     => [Class['::php::cli'],Package['curl']],
   } ->
   file { $path:
     mode  => '0555',
@@ -51,9 +56,10 @@ class php::composer (
 
   if $auto_update {
     class { '::php::composer::auto_update':
-      max_age => $max_age,
-      source  => $source,
-      path    => $path,
+      max_age     => $max_age,
+      source      => $source,
+      path        => $path,
+      environment => $environment,
     }
   }
 }
