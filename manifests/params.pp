@@ -39,6 +39,7 @@ class php::params inherits php::globals {
       $compiler_packages       = 'build-essential'
       $root_group              = 'root'
       $ext_tool_enable         = $php::globals::ext_tool_enable
+      $ext_tool_disable        = $php::globals::ext_tool_disable
       $ext_tool_query          = $php::globals::ext_tool_query
       $ext_tool_enabled        = true
 
@@ -86,6 +87,7 @@ class php::params inherits php::globals {
       $manage_repos            = true
       $root_group              = 'root'
       $ext_tool_enable         = undef
+      $ext_tool_disable        = undef
       $ext_tool_query          = undef
       $ext_tool_enabled        = false
       case $facts['os']['name'] {
@@ -125,6 +127,7 @@ class php::params inherits php::globals {
       $manage_repos            = false
       $root_group              = 'root'
       $ext_tool_enable         = undef
+      $ext_tool_disable        = undef
       $ext_tool_query          = undef
       $ext_tool_enabled        = false
     }
@@ -155,6 +158,7 @@ class php::params inherits php::globals {
       $manage_repos            = false
       $root_group              = 'wheel'
       $ext_tool_enable         = undef
+      $ext_tool_disable        = undef
       $ext_tool_query          = undef
       $ext_tool_enabled        = false
     }
@@ -182,6 +186,7 @@ class php::params inherits php::globals {
       $manage_repos            = false
       $root_group              = 'root'
       $ext_tool_enable         = undef
+      $ext_tool_disable        = undef
       $ext_tool_query          = undef
       $ext_tool_enabled        = false
     }

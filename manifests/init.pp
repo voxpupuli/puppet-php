@@ -90,6 +90,10 @@
 #   Absolute path to php tool for enabling extensions in debian/ubuntu systems.
 #   This defaults to '/usr/sbin/php5enmod'.
 #
+# [*ext_tool_disable*]
+#   Absolute path to php tool for disabling extensions in debian/ubuntu systems.
+#   This defaults to '/usr/sbin/php5dismod'.
+#
 # [*ext_tool_query*]
 #   Absolute path to php tool for querying information about extensions in
 #   debian/ubuntu systems. This defaults to '/usr/sbin/php5query'.
@@ -113,38 +117,39 @@
 # [*settings*]
 #
 class php (
-  String $ensure                                  = $::php::params::ensure,
-  Boolean $manage_repos                           = $::php::params::manage_repos,
-  Boolean $fpm                                    = true,
-  $fpm_service_enable                             = $::php::params::fpm_service_enable,
-  $fpm_service_ensure                             = $::php::params::fpm_service_ensure,
-  $fpm_service_name                               = $::php::params::fpm_service_name,
-  $fpm_service_provider                           = undef,
-  Hash $fpm_pools                                 = { 'www' => {} },
-  Hash $fpm_global_pool_settings                  = {},
-  $fpm_inifile                                    = $::php::params::fpm_inifile,
-  $fpm_package                                    = undef,
-  $fpm_user                                       = $::php::params::fpm_user,
-  $fpm_group                                      = $::php::params::fpm_group,
-  Boolean $embedded                               = false,
-  Boolean $dev                                    = true,
-  Boolean $composer                               = true,
-  Boolean $pear                                   = true,
-  String $pear_ensure                             = $::php::params::pear_ensure,
-  Boolean $phpunit                                = false,
-  Boolean $apache_config                          = false,
-  $proxy_type                                     = undef,
-  $proxy_server                                   = undef,
-  Hash $extensions                                = {},
-  Hash $settings                                  = {},
-  $package_prefix                                 = $::php::params::package_prefix,
-  Stdlib::Absolutepath $config_root_ini           = $::php::params::config_root_ini,
-  Stdlib::Absolutepath $config_root_inifile       = $::php::params::config_root_inifile,
-  Optional[Stdlib::Absolutepath] $ext_tool_enable = $::php::params::ext_tool_enable,
-  Optional[Stdlib::Absolutepath] $ext_tool_query  = $::php::params::ext_tool_query,
-  Boolean $ext_tool_enabled                       = $::php::params::ext_tool_enabled,
-  String $log_owner                               = $::php::params::fpm_user,
-  String $log_group                               = $::php::params::fpm_group,
+  String $ensure                                   = $::php::params::ensure,
+  Boolean $manage_repos                            = $::php::params::manage_repos,
+  Boolean $fpm                                     = true,
+  $fpm_service_enable                              = $::php::params::fpm_service_enable,
+  $fpm_service_ensure                              = $::php::params::fpm_service_ensure,
+  $fpm_service_name                                = $::php::params::fpm_service_name,
+  $fpm_service_provider                            = undef,
+  Hash $fpm_pools                                  = { 'www'  => {} },
+  Hash $fpm_global_pool_settings                   = {},
+  $fpm_inifile                                     = $::php::params::fpm_inifile,
+  $fpm_package                                     = undef,
+  $fpm_user                                        = $::php::params::fpm_user,
+  $fpm_group                                       = $::php::params::fpm_group,
+  Boolean $embedded                                = false,
+  Boolean $dev                                     = true,
+  Boolean $composer                                = true,
+  Boolean $pear                                    = true,
+  String $pear_ensure                              = $::php::params::pear_ensure,
+  Boolean $phpunit                                 = false,
+  Boolean $apache_config                           = false,
+  $proxy_type                                      = undef,
+  $proxy_server                                    = undef,
+  Hash $extensions                                 = {},
+  Hash $settings                                   = {},
+  $package_prefix                                  = $::php::params::package_prefix,
+  Stdlib::Absolutepath $config_root_ini            = $::php::params::config_root_ini,
+  Stdlib::Absolutepath $config_root_inifile        = $::php::params::config_root_inifile,
+  Optional[Stdlib::Absolutepath] $ext_tool_enable  = $::php::params::ext_tool_enable,
+  Optional[Stdlib::Absolutepath] $ext_tool_disable = $::php::params::ext_tool_disable,
+  Optional[Stdlib::Absolutepath] $ext_tool_query   = $::php::params::ext_tool_query,
+  Boolean $ext_tool_enabled                        = $::php::params::ext_tool_enabled,
+  String $log_owner                                = $::php::params::fpm_user,
+  String $log_group                                = $::php::params::fpm_group,
 ) inherits ::php::params {
 
   $real_fpm_package = pick($fpm_package, "${package_prefix}${::php::params::fpm_package_suffix}")

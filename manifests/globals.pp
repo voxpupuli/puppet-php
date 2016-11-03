@@ -40,6 +40,7 @@ class php::globals (
             $fpm_error_log        = '/var/log/php5-fpm.log'
             $fpm_service_name     = 'php5-fpm'
             $ext_tool_enable      = '/usr/sbin/php5enmod'
+            $ext_tool_disable     = '/usr/sbin/php5dismod'
             $ext_tool_query       = '/usr/sbin/php5query'
             $package_prefix       = 'php5-'
           }
@@ -49,6 +50,7 @@ class php::globals (
             $fpm_error_log        = "/var/log/php${globals_php_version}-fpm.log"
             $fpm_service_name     = "php${globals_php_version}-fpm"
             $ext_tool_enable      = "/usr/sbin/phpenmod -v ${globals_php_version}"
+            $ext_tool_disable     = "/usr/sbin/phpdismod -v ${globals_php_version}"
             $ext_tool_query       = "/usr/sbin/phpquery -v ${globals_php_version}"
             $package_prefix       = "php${globals_php_version}-"
           }
@@ -60,6 +62,7 @@ class php::globals (
             $fpm_error_log        = '/var/log/php5-fpm.log'
             $fpm_service_name     = 'php5-fpm'
             $ext_tool_enable      = '/usr/sbin/php5enmod'
+            $ext_tool_disable     = '/usr/sbin/php5dismod'
             $ext_tool_query       = '/usr/sbin/php5query'
             $package_prefix       = 'php5-'
           }
@@ -72,6 +75,7 @@ class php::globals (
             $fpm_error_log        = "/var/log/php${globals_php_version}-fpm.log"
             $fpm_service_name     = "php${globals_php_version}-fpm"
             $ext_tool_enable      = "/usr/sbin/phpenmod -v ${globals_php_version}"
+            $ext_tool_disable     = "/usr/sbin/phpdismod -v ${globals_php_version}"
             $ext_tool_query       = "/usr/sbin/phpquery -v ${globals_php_version}"
             $package_prefix       = "php${globals_php_version}-"
           }
@@ -81,6 +85,7 @@ class php::globals (
             $fpm_error_log        = '/var/log/php5-fpm.log'
             $fpm_service_name     = 'php5-fpm'
             $ext_tool_enable      = '/usr/sbin/php5enmod'
+            $ext_tool_disable     = '/usr/sbin/php5dismod'
             $ext_tool_query       = '/usr/sbin/php5query'
             $package_prefix       = 'php5-'
           }

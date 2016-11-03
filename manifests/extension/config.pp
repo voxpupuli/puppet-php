@@ -98,23 +98,33 @@ define php::extension::config (
   # Ubuntu/Debian systems use the mods-available folder. We need to enable
   # settings files ourselves with php5enmod command.
   $ext_tool_enable   = pick_default($::php::ext_tool_enable, $::php::params::ext_tool_enable)
+  $ext_tool_disable  = pick_default($::php::ext_tool_disable, $::php::params::ext_tool_disable)
   $ext_tool_query    = pick_default($::php::ext_tool_query, $::php::params::ext_tool_query)
   $ext_tool_enabled  = pick_default($::php::ext_tool_enabled, $::php::params::ext_tool_enabled)
 
   if $facts['os']['family'] == 'Debian' and $ext_tool_enabled {
-    $cmd = "${ext_tool_enable} -s ${sapi} ${so_name}"
-
     $_sapi = $sapi? {
-      'ALL' => 'cli',
+      'ALL'   => 'cli',
       default => $sapi,
     }
-    exec { $cmd:
-      onlyif  => "${ext_tool_query} -s ${_sapi} -m ${so_name} | /bin/grep 'No module matches ${so_name}'",
-      require => ::Php::Config[$title],
+
+    if $ensure == 'absent' {
+      exec { 'ext_tool':
+        command => "${ext_tool_disable} -s ${sapi} ${so_name}",
+        unless  => "${ext_tool_query} -s ${_sapi} -m ${so_name} | /bin/grep 'No module matches ${so_name}'",
+        require => ::Php::Config[$title],
+      }
+    } else {
+      exec { 'ext_tool':
+        command => "${ext_tool_enable} -s ${sapi} ${so_name}",
+        onlyif  => "${ext_tool_query} -s ${_sapi} -m ${so_name} | /bin/grep 'No module matches ${so_name}'",
+        require => ::Php::Config[$title],
+      }
     }
 
+
     if $::php::fpm {
-      Package[$::php::fpm::package] ~> Exec[$cmd]
+      Package[$::php::fpm::package] ~> Exec['ext_tool']
     }
   }
 }

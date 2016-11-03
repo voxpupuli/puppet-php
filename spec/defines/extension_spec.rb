@@ -179,6 +179,29 @@ describe 'php::extension' do
           it { is_expected.to contain_php__config('xdebug').with_config('zend_extension' => '/usr/lib/php5/20100525/xdebug.so') }
         end
 
+        context 'enable extension' do
+          let(:title) { 'xdebug' }
+          let(:params) do
+            {
+              zend: true
+            }
+          end
+
+          it { is_expected.to contain_exec('/usr/sbin/php5enmod -s ALL xdebug') }
+        end
+
+        context 'disable extension' do
+          let(:title) { 'xdebug' }
+          let(:params) do
+            {
+              ensure: 'absent',
+              zend: true
+            }
+          end
+
+          it { is_expected.to contain_exec('/usr/sbin/php5dismod -s ALL xdebug') }
+        end
+
         case facts[:osfamily]
         when 'Debian'
           context 'on Debian' do
