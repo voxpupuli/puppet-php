@@ -45,6 +45,9 @@
 #   These are passed through to the underlying exec(s), so it follows the same format
 #   of the exec type `environment`
 #
+# [*manage_curl*]
+#   Should we ensure curl is installed or do you want to manage that?
+#
 # [*extensions*]
 #   Install PHP extensions, this is overwritten by hiera hash `php::extensions`
 #
@@ -99,6 +102,7 @@ class php (
   $pear_ensure          = $::php::params::pear_ensure,
   $phpunit              = false,
   $environment          = undef,
+  $manage_curl          = true,
   $extensions           = {},
   $settings             = {},
   $package_prefix       = $::php::params::package_prefix,
@@ -120,6 +124,7 @@ class php (
   validate_bool($ext_tool_enabled)
   validate_string($pear_ensure)
   validate_bool($phpunit)
+  validate_bool($manage_curl)
   validate_hash($extensions)
   validate_hash($settings)
   validate_string($log_owner)
@@ -196,6 +201,7 @@ class php (
     Anchor['php::begin'] ->
       class { '::php::composer':
         environment => $environment,
+        manage_curl => $manage_curl,
       } ->
     Anchor['php::end']
   }
