@@ -52,7 +52,7 @@
 #   String parameter, whether to specify ALL sapi or a specific sapi.
 #   Defaults to ALL.
 #
-define php::extension(
+define php::extension (
   $ensure            = 'installed',
   $provider          = undef,
   $source            = undef,
@@ -67,6 +67,10 @@ define php::extension(
   $settings_prefix   = false,
   $sapi              = 'ALL',
 ) {
+
+  if ! defined(Class['php']) {
+    warning('php::extension is private')
+  }
 
   validate_string($ensure)
   validate_string($package_prefix)

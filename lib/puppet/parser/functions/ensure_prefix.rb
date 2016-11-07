@@ -20,8 +20,10 @@ Will return:
   ['p.a', 'p.b', 'p.c']
 EOS
              ) do |arguments|
-    raise(Puppet::ParseError, 'ensure_prefix(): Wrong number of arguments ' \
-      "given (#{arguments.size} for 2)") if arguments.size < 2
+    if arguments.size < 2
+      raise(Puppet::ParseError, 'ensure_prefix(): Wrong number of arguments ' \
+        "given (#{arguments.size} for 2)")
+    end
 
     enumerable = arguments[0]
 

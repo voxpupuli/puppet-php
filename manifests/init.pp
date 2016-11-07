@@ -23,10 +23,24 @@
 #   This is the name of the php-fpm service. It defaults to reasonable OS
 #   defaults but can be different in case of using php7.0/other OS/custom fpm service
 #
-#   [*fpm_service_provider*]
+# [*fpm_service_provider*]
 #   This is the name of the service provider, in case there is a non
 #   OS default service provider used to start FPM.
 #   Defaults to 'undef', pick system defaults.
+#
+# [*fpm_pools*]
+#   Hash of php::fpm::pool resources that will be created. Defaults
+#   to a single php::fpm::pool named www with default parameters.
+#
+# [*fpm_global_pool_settings*]
+#   Hash of defaults params php::fpm::pool resources that will be created.
+#   Defaults to empty hash.
+#
+# [*fpm_inifile*]
+#   Path to php.ini for fpm
+#
+# [*fpm_package*]
+#   Name of fpm package to install
 #
 # [*dev*]
 #   Install php header files, needed to install pecl modules
@@ -88,30 +102,34 @@
 # [*settings*]
 #
 class php (
-  $ensure               = $::php::params::ensure,
-  $manage_repos         = $::php::params::manage_repos,
-  $fpm                  = true,
-  $fpm_service_enable   = $::php::params::fpm_service_enable,
-  $fpm_service_ensure   = $::php::params::fpm_service_ensure,
-  $fpm_service_name     = $::php::params::fpm_service_name,
-  $fpm_service_provider = undef,
-  $embedded             = false,
-  $dev                  = true,
-  $composer             = true,
-  $pear                 = true,
-  $pear_ensure          = $::php::params::pear_ensure,
-  $phpunit              = false,
-  $environment          = undef,
-  $manage_curl          = true,
-  $extensions           = {},
-  $settings             = {},
-  $package_prefix       = $::php::params::package_prefix,
-  $config_root_ini      = $::php::params::config_root_ini,
-  $ext_tool_enable      = $::php::params::ext_tool_enable,
-  $ext_tool_query       = $::php::params::ext_tool_query,
-  $ext_tool_enabled     = $::php::params::ext_tool_enabled,
-  $log_owner            = $::php::params::fpm_user,
-  $log_group            = $::php::params::fpm_group,
+  $ensure                   = $::php::params::ensure,
+  $manage_repos             = $::php::params::manage_repos,
+  $fpm                      = true,
+  $fpm_service_enable       = $::php::params::fpm_service_enable,
+  $fpm_service_ensure       = $::php::params::fpm_service_ensure,
+  $fpm_service_name         = $::php::params::fpm_service_name,
+  $fpm_service_provider     = undef,
+  $fpm_pools                = { 'www' => {} },
+  $fpm_global_pool_settings = {},
+  $fpm_inifile              = $::php::params::fpm_inifile,
+  $fpm_package              = undef,
+  $embedded                 = false,
+  $dev                      = true,
+  $composer                 = true,
+  $pear                     = true,
+  $pear_ensure              = $::php::params::pear_ensure,
+  $phpunit                  = false,
+  $environment              = undef,
+  $manage_curl              = true,
+  $extensions               = {},
+  $settings                 = {},
+  $package_prefix           = $::php::params::package_prefix,
+  $config_root_ini          = $::php::params::config_root_ini,
+  $ext_tool_enable          = $::php::params::ext_tool_enable,
+  $ext_tool_query           = $::php::params::ext_tool_query,
+  $ext_tool_enabled         = $::php::params::ext_tool_enabled,
+  $log_owner                = $::php::params::fpm_user,
+  $log_group                = $::php::params::fpm_group,
 ) inherits ::php::params {
 
   validate_string($ensure)
@@ -127,6 +145,8 @@ class php (
   validate_bool($manage_curl)
   validate_hash($extensions)
   validate_hash($settings)
+  validate_hash($fpm_pools)
+  validate_hash($fpm_global_pool_settings)
   validate_string($log_owner)
   validate_string($log_group)
 
@@ -140,11 +160,19 @@ class php (
     validate_absolute_path($ext_tool_query)
   }
 
+  $real_fpm_package = pick($fpm_package, "${package_prefix}${::php::params::fpm_package_suffix}")
+
   # Deep merge global php settings
   $real_settings = deep_merge($settings, hiera_hash('php::settings', {}))
 
   # Deep merge global php extensions
   $real_extensions = deep_merge($extensions, hiera_hash('php::extensions', {}))
+
+  # Deep merge fpm_pools
+  $real_fpm_pools = deep_merge($fpm_pools, hiera_hash('php::fpm_pools', {}))
+
+  # Deep merge fpm_global_pool_settings
+  $real_fpm_global_pool_settings = deep_merge($fpm_global_pool_settings, hiera_hash('php::fpm_global_pool_settings', {}))
 
   if $manage_repos {
     class { '::php::repo': } ->
@@ -167,19 +195,7 @@ class php (
     Anchor['php::end']
   }
 
-  if $fpm {
-    Anchor['php::begin'] ->
-      class { '::php::fpm':
-        service_enable   => $fpm_service_enable,
-        service_ensure   => $fpm_service_ensure,
-        service_name     => $fpm_service_name,
-        service_provider => $fpm_service_provider,
-        settings         => $real_settings,
-        log_owner        => $log_owner,
-        log_group        => $log_group,
-      } ->
-    Anchor['php::end']
-  }
+  if $fpm { contain '::php::fpm' }
   if $embedded {
     if $::osfamily == 'RedHat' and $fpm {
       # Both fpm and embeded SAPIs are using same php.ini
