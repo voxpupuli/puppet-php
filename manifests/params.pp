@@ -32,6 +32,7 @@ class php::params inherits php::globals {
       $fpm_service_name        = $php::globals::fpm_service_name
       $fpm_user                = 'www-data'
       $fpm_group               = 'www-data'
+      $apache_inifile          = "${config_root}/apache2/php.ini"
       $embedded_package_suffix = 'embed'
       $embedded_inifile        = "${config_root}/embed/php.ini"
       $package_prefix          = $php::globals::package_prefix
@@ -115,6 +116,7 @@ class php::params inherits php::globals {
       $fpm_service_name        = 'php-fpm'
       $fpm_user                = 'apache'
       $fpm_group               = 'apache'
+      $apache_inifile          = '/etc/php.ini'
       $embedded_package_suffix = 'embedded'
       $embedded_inifile        = '/etc/php.ini'
       $package_prefix          = 'php-'

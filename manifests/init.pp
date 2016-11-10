@@ -54,6 +54,9 @@
 # [*phpunit*]
 #   Install phpunit
 #
+# [*apache_config*]
+#   Manage apache's mod_php configuration
+#
 # [*environment*]
 #   Environment variables for settings such as http_proxy, https_proxy, or ftp_proxy.
 #   These are passed through to the underlying exec(s), so it follows the same format
@@ -119,6 +122,7 @@ class php (
   $pear                     = true,
   $pear_ensure              = $::php::params::pear_ensure,
   $phpunit                  = false,
+  $apache_config            = false,
   $environment              = undef,
   $manage_curl              = true,
   $extensions               = {},
@@ -142,6 +146,7 @@ class php (
   validate_bool($ext_tool_enabled)
   validate_string($pear_ensure)
   validate_bool($phpunit)
+  validate_bool($apache_config)
   validate_bool($manage_curl)
   validate_hash($extensions)
   validate_hash($settings)
@@ -231,6 +236,13 @@ class php (
   if $phpunit {
     Anchor['php::begin'] ->
       class { '::php::phpunit': } ->
+    Anchor['php::end']
+  }
+  if $apache_config {
+    Anchor['php::begin'] ->
+      class { '::php::apache_config':
+        settings => $real_settings,
+      } ->
     Anchor['php::end']
   }
 
