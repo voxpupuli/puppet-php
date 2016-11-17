@@ -12,9 +12,9 @@
 
 #
 class php::global(
-  $inifile  = $::php::params::config_root_inifile,
+  $inifile  = $::php::config_root_inifile,
   $settings = {}
-) inherits ::php::params {
+) inherits ::php {
 
   if $caller_module_name != $module_name {
     warning('php::global is private')
