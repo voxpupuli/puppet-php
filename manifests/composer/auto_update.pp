@@ -11,8 +11,12 @@
 # [*path*]
 #   Holds path to the Composer executable
 #
-# [*environment*]
-#   Environment variables for settings such as http_proxy, https_proxy, or ftp_proxy
+# [*proxy_type*]
+#    proxy server type (none|http|https|ftp)
+#
+# [*proxy_server*]
+#   specify a proxy server, with port number if needed. ie: https://example.com:8080.
+#
 #
 # === Examples
 #
@@ -25,18 +29,25 @@ class php::composer::auto_update (
   $max_age,
   $source,
   $path,
-  $environment = undef,
+  $proxy_type   = undef,
+  $proxy_server = undef,
 ) {
 
   if $caller_module_name != $module_name {
     warning('php::composer::auto_update is private')
   }
 
+  if $proxy_type and $proxy_server {
+    $env = {"${proxy_type}_proxy" => $proxy_server}
+  } else {
+    $env = {}
+  }
+
   exec { 'update composer':
-    command     => "curl -L ${source} -o ${path}",
-    environment => $environment,
+    command     => "${path} self-update",
+    environment => $env,
     onlyif      => "test `find '${path}' -mtime +${max_age}`",
     path        => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
-    require     => File[$path],
+    require     => [File[$path], Class['::php::cli']],
   }
 }
