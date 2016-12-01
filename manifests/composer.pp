@@ -43,8 +43,8 @@ class php::composer (
   validate_re("x${max_age}", '^x\d+$')
 
   archive { 'download composer':
+    path         => $path,
     source       => $source,
-    creates      => $path,
     proxy_type   => $proxy_type,
     proxy_server => $proxy_server,
   } ->
