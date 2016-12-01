@@ -57,13 +57,11 @@
 # [*apache_config*]
 #   Manage apache's mod_php configuration
 #
-# [*environment*]
-#   Environment variables for settings such as http_proxy, https_proxy, or ftp_proxy.
-#   These are passed through to the underlying exec(s), so it follows the same format
-#   of the exec type `environment`
+# [*proxy_type*]
+#    proxy server type (none|http|https|ftp)
 #
-# [*manage_curl*]
-#   Should we ensure curl is installed or do you want to manage that?
+# [*proxy_server*]
+#   specify a proxy server, with port number if needed. ie: https://example.com:8080.
 #
 # [*extensions*]
 #   Install PHP extensions, this is overwritten by hiera hash `php::extensions`
@@ -123,8 +121,8 @@ class php (
   $pear_ensure              = $::php::params::pear_ensure,
   $phpunit                  = false,
   $apache_config            = false,
-  $environment              = undef,
-  $manage_curl              = true,
+  $proxy_type               = undef,
+  $proxy_server             = undef,
   $extensions               = {},
   $settings                 = {},
   $package_prefix           = $::php::params::package_prefix,
@@ -147,7 +145,6 @@ class php (
   validate_string($pear_ensure)
   validate_bool($phpunit)
   validate_bool($apache_config)
-  validate_bool($manage_curl)
   validate_hash($extensions)
   validate_hash($settings)
   validate_hash($fpm_pools)
@@ -221,8 +218,8 @@ class php (
   if $composer {
     Anchor['php::begin'] ->
       class { '::php::composer':
-        environment => $environment,
-        manage_curl => $manage_curl,
+        proxy_type   => $proxy_type,
+        proxy_server => $proxy_server,
       } ->
     Anchor['php::end']
   }
