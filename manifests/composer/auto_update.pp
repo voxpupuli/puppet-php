@@ -40,11 +40,11 @@ class php::composer::auto_update (
   if $proxy_type and $proxy_server {
     $env = {"${proxy_type}_proxy" => $proxy_server}
   } else {
-    $env = {}
+    $env = undef
   }
 
   exec { 'update composer':
-    command     => "${path} self-update",
+    command     => "${path} --no-interaction --quiet self-update",
     environment => $env,
     onlyif      => "test `find '${path}' -mtime +${max_age}`",
     path        => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
