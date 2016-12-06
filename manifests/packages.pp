@@ -14,6 +14,7 @@
 #
 class php::packages (
   $ensure          = $::php::ensure,
+  $manage_repos    = $::php::manage_repos,
   $names_to_prefix = prefix(
     $::php::params::common_package_suffixes, $::php::package_prefix # lint:ignore:parameter_documentation
   ),
@@ -30,7 +31,9 @@ class php::packages (
 
   $real_names = union($names, $names_to_prefix)
   if $::osfamily == 'debian' {
-    include ::apt
+    if $manage_repos {
+      include ::apt
+    }
     package { $real_names:
       ensure  => $ensure,
       require => Class['::apt::update'],
