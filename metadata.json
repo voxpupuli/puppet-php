@@ -9,16 +9,15 @@
   "issues_url": "https://github.com/mayflower/puppet-php/issues",
   "description": "Puppet module that aims to manage PHP and extensions in a generic way on many platforms with sane defaults and easy configuration",
   "dependencies": [
-    { "name": "puppetlabs/stdlib", "version_requirement": ">= 4.2.0 < 5.0.0" },
-    { "name": "puppetlabs/apt", "version_requirement": ">= 1.8.0 < 3.0.0" },
-    { "name": "puppetlabs/inifile", "version_requirement": "1.x" },
-    { "name": "darin/zypprepo", "version_requirement": "1.x" },
-    { "name": "puppet/archive", "version_requirement": "1.x" },
-    { "name": "example42/yum", "version_requirement": "2.x" }
+    { "name": "puppetlabs/stdlib", "version_requirement": ">= 4.6.0 < 5.0.0" },
+    { "name": "puppetlabs/apt", "version_requirement": ">= 2.1.0 < 3.0.0" },
+    { "name": "puppetlabs/inifile", "version_requirement": ">=1.4.1 < 2.0.0" },
+    { "name": "darin/zypprepo", "version_requirement": ">=1.0.2 < 2.0.0" },
+    { "name": "puppet/archive", "version_requirement": ">= 1.0.0 < 2.0.0" },
+    { "name": "example42/yum", "version_requirement": ">= 2.1.28 < 3.0.0" }
   ],
   "requirements": [
-    { "name": "puppet", "version_requirement": ">= 3.3.0 < 5.0.0" },
-    { "name": "pe", "version_requirement": ">= 3.3.0" }
+    { "name": "puppet", "version_requirement": ">= 3.8.7 < 5.0.0" }
   ],
   "operatingsystem_support": [
     { "operatingsystem": "Ubuntu",
