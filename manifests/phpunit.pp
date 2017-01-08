@@ -28,7 +28,7 @@ class php::phpunit (
   exec { 'download phpunit':
     command => "wget ${source} -O ${path}",
     creates => $path,
-    path    => ['/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/'],
+    path    => ['/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin'],
     require => [Class['php::cli'],Package['wget']],
   }
   -> file { $path:
