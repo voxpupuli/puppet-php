@@ -52,6 +52,10 @@
 #   String parameter, whether to specify ALL sapi or a specific sapi.
 #   Defaults to ALL.
 #
+# [*pipe*]
+#   String parameter to input answers during extension setup. Supported
+#   *provider*: pecl.
+#
 define php::extension (
   $ensure            = 'installed',
   $provider          = undef,
@@ -66,6 +70,7 @@ define php::extension (
   $settings          = {},
   $settings_prefix   = false,
   $sapi              = 'ALL',
+  $pipe              = undef,
 ) {
 
   if ! defined(Class['php']) {
@@ -110,6 +115,7 @@ define php::extension (
         ensure   => $ensure,
         provider => $provider,
         source   => $real_source,
+        pipe     => $pipe,
         require  => [
           Class['::php::pear'],
           Class['::php::dev'],
@@ -122,6 +128,10 @@ define php::extension (
       }
     }
     else {
+      if $pipe != undef {
+        warning("pipe param is not supported by php::extension provider ${provider}")
+      }
+
       ensure_packages( [ $real_package ], {
         ensure   => $ensure,
         provider => $provider,
