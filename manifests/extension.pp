@@ -66,6 +66,7 @@ define php::extension (
   $settings          = {},
   $settings_prefix   = false,
   $sapi              = 'ALL',
+  $priority          = '20'
 ) {
 
   if ! defined(Class['php']) {
@@ -200,8 +201,16 @@ define php::extension (
       }
     }
 
+    file_line { "Set_prio ${lowercase_title}":
+      path    => "${config_root_ini}/${lowercase_title}.ini",
+      line    => "; priority=${priority}",
+      require => Package[$real_package],
+    }
+
     if $::php::fpm {
       Package[$::php::fpm::package] ~> Exec[$cmd]
     }
+
+    File_line["Set_prio ${lowercase_title}"] ~> Exec[$cmd]
   }
 }
