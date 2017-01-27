@@ -170,7 +170,7 @@ describe 'php::extension' do
                 }
               end
 
-              it { is_expected.to contain_package('pecl-json') }
+              it { is_expected.to contain_package('json') }
               it { is_expected.to contain_package('libmemcached-dev') }
               it { is_expected.to contain_package('build-essential') }
               it do
