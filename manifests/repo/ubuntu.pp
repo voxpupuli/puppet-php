@@ -22,7 +22,8 @@ class php::repo::ubuntu (
     '5.4' => 'ondrej/php5-oldstable',
     '5.5' => 'ondrej/php',
     '5.6' => 'ondrej/php',
-    '7.0' => 'ondrej/php'
+    '7.0' => 'ondrej/php',
+    '7.1' => 'ondrej/php'
   }
 
   ::apt::ppa { "ppa:${version_repo}": }

@@ -60,6 +60,24 @@ class php::globals (
             $fpm_service_name     = "php${globals_php_version}-fpm"
             $ext_tool_enable      = "/usr/sbin/phpenmod -v ${globals_php_version}"
             $ext_tool_query       = "/usr/sbin/phpquery -v ${globals_php_version}"
+            $package_prefix       = 'php5.5-'
+          }
+          /^5\.6/: {
+            $default_config_root  = "/etc/php/${globals_php_version}"
+            $default_fpm_pid_file = "/var/run/php/php${globals_php_version}-fpm.pid"
+            $fpm_error_log        = "/var/log/php${globals_php_version}-fpm.log"
+            $fpm_service_name     = "php${globals_php_version}-fpm"
+            $ext_tool_enable      = "/usr/sbin/phpenmod -v ${globals_php_version}"
+            $ext_tool_query       = "/usr/sbin/phpquery -v ${globals_php_version}"
+            $package_prefix       = 'php5.6-'
+          }
+          /^7\.[0-9]/: {
+            $default_config_root  = "/etc/php/${globals_php_version}"
+            $default_fpm_pid_file = "/var/run/php/php${globals_php_version}-fpm.pid"
+            $fpm_error_log        = "/var/log/php${globals_php_version}-fpm.log"
+            $fpm_service_name     = "php${globals_php_version}-fpm"
+            $ext_tool_enable      = "/usr/sbin/phpenmod -v ${globals_php_version}"
+            $ext_tool_query       = "/usr/sbin/phpquery -v ${globals_php_version}"
             $package_prefix       = "php${globals_php_version}-"
           }
           default: {
