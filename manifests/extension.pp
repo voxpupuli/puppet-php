@@ -52,9 +52,9 @@
 #   String parameter, whether to specify ALL sapi or a specific sapi.
 #   Defaults to ALL.
 #
-# [*pipe*]
-#   String parameter to input answers during extension setup. Supported
-#   *provider*: pecl.
+# [*responsefile*]
+#   File containing answers for interactive extension setup. Supported
+#   *providers*: pear, pecl.
 #
 define php::extension (
   $ensure            = 'installed',
@@ -70,7 +70,7 @@ define php::extension (
   $settings          = {},
   $settings_prefix   = false,
   $sapi              = 'ALL',
-  $pipe              = undef,
+  $responsefile      = undef,
 ) {
 
   if ! defined(Class['php']) {
@@ -97,12 +97,10 @@ define php::extension (
   }
 
   if $provider != 'none' {
-
-    if $provider == 'pecl' {
-      $real_package = "pecl-${title}"
-    }
-    else {
-      $real_package = "${package_prefix}${title}"
+    case $provider {
+      'pecl': { $real_package = $title }
+      'pear': { $real_package = $title }
+      default: { $real_package = "${package_prefix}${title}" }
     }
 
     unless empty($header_packages) {
@@ -110,13 +108,13 @@ define php::extension (
       Package[$header_packages] -> Package[$real_package]
     }
 
-    if $provider == 'pecl' {
+    if $provider == 'pecl' or $provider == 'pear' {
       ensure_packages( [ $real_package ], {
-        ensure   => $ensure,
-        provider => $provider,
-        source   => $real_source,
-        pipe     => $pipe,
-        require  => [
+        ensure       => $ensure,
+        provider     => $provider,
+        source       => $real_source,
+        responsefile => $responsefile,
+        require      => [
           Class['::php::pear'],
           Class['::php::dev'],
         ],
@@ -128,8 +126,8 @@ define php::extension (
       }
     }
     else {
-      if $pipe != undef {
-        warning("pipe param is not supported by php::extension provider ${provider}")
+      if $responsefile != undef {
+        warning("responsefile param is not supported by php::extension provider ${provider}")
       }
 
       ensure_packages( [ $real_package ], {
