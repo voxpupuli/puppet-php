@@ -38,9 +38,9 @@ class php::composer::auto_update (
   }
 
   if $proxy_type and $proxy_server {
-    $env = {"${proxy_type}_proxy" => $proxy_server}
+    $env = [ 'HOME=/root', "${proxy_type}_proxy=${proxy_server}" ]
   } else {
-    $env = undef
+    $env = [ 'HOME=/root' ]
   }
 
   exec { 'update composer':
