@@ -1,6 +1,6 @@
 {
   "name": "puppet-php",
-  "version": "4.0.0",
+  "version": "4.0.1-rc0",
   "author": "Vox Pupuli",
   "summary": "Generic PHP module that supports many platforms",
   "license": "MIT",
@@ -41,41 +41,49 @@
     }
   ],
   "operatingsystem_support": [
-    { "operatingsystem": "Ubuntu",
+    {
+      "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
         "14.04"
       ]
     },
-    { "operatingsystem": "Debian",
+    {
+      "operatingsystem": "Debian",
       "operatingsystemrelease": [
         "7",
         "8"
       ]
     },
-    { "operatingsystem": "RedHat",
+    {
+      "operatingsystem": "RedHat",
       "operatingsystemrelease": [
         "6",
         "7"
       ]
     },
-    { "operatingsystem": "CentOS",
+    {
+      "operatingsystem": "CentOS",
       "operatingsystemrelease": [
         "6",
         "7"
       ]
     },
-    { "operatingsystem": "FreeBSD",
+    {
+      "operatingsystem": "FreeBSD",
       "operatingsystemrelease": [
         "9",
         "10",
         "11"
       ]
     },
-    { "operatingsystem": "SLES",
+    {
+      "operatingsystem": "SLES",
       "operatingsystemrelease": [
         "11"
       ]
     },
-    { "operatingsystem": "OpenSUSE" }
+    {
+      "operatingsystem": "OpenSUSE"
+    }
   ]
 }
