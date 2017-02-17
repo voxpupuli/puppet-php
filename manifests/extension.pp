@@ -142,74 +142,76 @@ define php::extension (
     $package_depends = undef
   }
 
-  if $zend == true {
-    $extension_key = 'zend_extension'
-    if $php_api_version != undef {
-      $module_path = "/usr/lib/php5/${php_api_version}/"
+  if $provider != 'pear' { # PEAR packages don't require antu further configuration, they just need to "be there".
+    if $zend == true {
+      $extension_key = 'zend_extension'
+      if $php_api_version != undef {
+        $module_path = "/usr/lib/php5/${php_api_version}/"
+      }
+      else {
+        $module_path = undef
+      }
     }
     else {
+      $extension_key = 'extension'
       $module_path = undef
     }
-  }
-  else {
-    $extension_key = 'extension'
-    $module_path = undef
-  }
 
-  if $so_name != $name {
-    $lowercase_title = $so_name
-  }
-  else {
-    $lowercase_title = downcase($title)
-  }
-
-  # Ensure "<extension>." prefix is present in setting keys if requested
-  if $settings_prefix {
-    if is_string($settings_prefix) {
-      $full_settings_prefix = $settings_prefix
-    } else {
-      $full_settings_prefix = $lowercase_title
+    if $so_name != $name {
+      $lowercase_title = $so_name
     }
-    $full_settings = ensure_prefix($settings, "${full_settings_prefix}.")
-  } else {
-    $full_settings = $settings
-  }
-
-  $final_settings = deep_merge(
-    {"${extension_key}" => "${module_path}${so_name}.so"},
-    $full_settings
-  )
-
-  $config_root_ini = pick_default($::php::config_root_ini, $::php::params::config_root_ini)
-  ::php::config { $title:
-    file    => "${config_root_ini}/${lowercase_title}.ini",
-    config  => $final_settings,
-    require => $package_depends,
-  }
-
-  # Ubuntu/Debian systems use the mods-available folder. We need to enable
-  # settings files ourselves with php5enmod command.
-  $ext_tool_enable   = pick_default($::php::ext_tool_enable, $::php::params::ext_tool_enable)
-  $ext_tool_query    = pick_default($::php::ext_tool_query, $::php::params::ext_tool_query)
-  $ext_tool_enabled  = pick_default($::php::ext_tool_enabled, $::php::params::ext_tool_enabled)
-
-  if $::osfamily == 'Debian' and $ext_tool_enabled {
-    $cmd = "${ext_tool_enable} -s ${sapi} ${lowercase_title}"
-
-    if $sapi == 'ALL' {
-      exec { $cmd:
-        onlyif  => "${ext_tool_query} -s cli -m ${lowercase_title} | /bin/grep 'No module matches ${lowercase_title}'",
-        require =>::Php::Config[$title],
-      }
-    } else {
-      exec { $cmd:
-        onlyif  => "${ext_tool_query} -s ${sapi} -m ${lowercase_title} | /bin/grep 'No module matches ${lowercase_title}'",
-        require =>::Php::Config[$title],
-      }
+    else {
+      $lowercase_title = downcase($title)
     }
 
-    if $::php::fpm {
-      Package[$::php::fpm::package] ~> Exec[$cmd]
+    # Ensure "<extension>." prefix is present in setting keys if requested
+    if $settings_prefix {
+      if is_string($settings_prefix) {
+        $full_settings_prefix = $settings_prefix
+      } else {
+        $full_settings_prefix = $lowercase_title
+      }
+      $full_settings = ensure_prefix($settings, "${full_settings_prefix}.")
+    } else {
+      $full_settings = $settings
+    }
+
+    $final_settings = deep_merge(
+      {"${extension_key}" => "${module_path}${so_name}.so"},
+      $full_settings
+    )
+
+    $config_root_ini = pick_default($::php::config_root_ini, $::php::params::config_root_ini)
+    ::php::config { $title:
+      file    => "${config_root_ini}/${lowercase_title}.ini",
+      config  => $final_settings,
+      require => $package_depends,
+    }
+
+    # Ubuntu/Debian systems use the mods-available folder. We need to enable
+    # settings files ourselves with php5enmod command.
+    $ext_tool_enable   = pick_default($::php::ext_tool_enable, $::php::params::ext_tool_enable)
+    $ext_tool_query    = pick_default($::php::ext_tool_query, $::php::params::ext_tool_query)
+    $ext_tool_enabled  = pick_default($::php::ext_tool_enabled, $::php::params::ext_tool_enabled)
+
+    if $::osfamily == 'Debian' and $ext_tool_enabled {
+      $cmd = "${ext_tool_enable} -s ${sapi} ${lowercase_title}"
+
+      if $sapi == 'ALL' {
+        exec { $cmd:
+          onlyif  => "${ext_tool_query} -s cli -m ${lowercase_title} | /bin/grep 'No module matches ${lowercase_title}'",
+          require =>::Php::Config[$title],
+        }
+      } else {
+        exec { $cmd:
+          onlyif  => "${ext_tool_query} -s ${sapi} -m ${lowercase_title} | /bin/grep 'No module matches ${lowercase_title}'",
+          require =>::Php::Config[$title],
+        }
+      }
+
+      if $::php::fpm {
+        Package[$::php::fpm::package] ~> Exec[$cmd]
+      }
     }
   }
 }
