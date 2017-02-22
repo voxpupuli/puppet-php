@@ -109,7 +109,7 @@ define php::extension (
     }
 
     if $provider == 'pecl' or $provider == 'pear' {
-      ensure_packages( [ $real_package ], {
+      package { $real_package:
         ensure       => $ensure,
         provider     => $provider,
         source       => $real_source,
@@ -118,7 +118,7 @@ define php::extension (
           Class['::php::pear'],
           Class['::php::dev'],
         ],
-      })
+      }
 
       unless empty($compiler_packages) {
         ensure_resource('package', $compiler_packages)
@@ -130,11 +130,11 @@ define php::extension (
         warning("responsefile param is not supported by php::extension provider ${provider}")
       }
 
-      ensure_packages( [ $real_package ], {
+      package { $real_package:
         ensure   => $ensure,
         provider => $provider,
         source   => $real_source,
-      })
+      }
     }
 
     $package_depends = "Package[${real_package}]"
