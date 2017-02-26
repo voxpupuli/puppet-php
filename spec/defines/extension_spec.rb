@@ -175,7 +175,7 @@ describe 'php::extension' do
               it { is_expected.to contain_package('build-essential') }
               it do
                 is_expected.to contain_php__config('json').with(
-                  file: "#{etcdir}/json.ini",
+                  file: "#{etcdir}/nice_name.ini",
                   config: {
                     'extension' => 'nice_name.so',
                     'test'      => 'foo'
