@@ -57,17 +57,17 @@ define php::extension::config (
   }
 
   if $zend == true {
-    $ini_name = downcase($so_name)
     $extension_key = 'zend_extension'
     $module_path = $php_api_version? {
       undef   => undef,
       default => "/usr/lib/php5/${php_api_version}/",
     }
   } else {
-    $ini_name = downcase($title)
     $extension_key = 'extension'
     $module_path = undef
   }
+
+  $ini_name = downcase($so_name)
 
   # Ensure "<extension>." prefix is present in setting keys if requested
   $full_settings = $settings_prefix? {
