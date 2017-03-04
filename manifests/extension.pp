@@ -56,6 +56,13 @@
 #   File containing answers for interactive extension setup. Supported
 #   *providers*: pear, pecl.
 #
+# [*install_options*]
+#   An array of additional options to pass when installing an extension package
+#   These options should be specified as a string (e.g. ‘–flag’), a hash (e.g.
+#   {‘–flag’ => ‘value’}), or an array where each element is either a string
+#   or a hash
+#   *providers*: apt, yum, rpm. (not available for pkg)
+#
 define php::extension (
   $ensure            = 'installed',
   $provider          = undef,
@@ -71,6 +78,7 @@ define php::extension (
   $settings_prefix   = false,
   $sapi              = 'ALL',
   $responsefile      = undef,
+  $install_options   = undef,
 ) {
 
   if ! defined(Class['php']) {
@@ -131,9 +139,10 @@ define php::extension (
       }
 
       ensure_packages( [ $real_package ], {
-        ensure   => $ensure,
-        provider => $provider,
-        source   => $real_source,
+        ensure          => $ensure,
+        provider        => $provider,
+        source          => $real_source,
+        install_options => $install_options,
       })
     }
 
