@@ -19,10 +19,8 @@ class php::repo::ubuntu (
   validate_re($version_real, '^\d\.\d')
 
   $version_repo = $version_real ? {
-    '5.4' => 'ondrej/php5-oldstable',
-    '5.5' => 'ondrej/php',
-    '5.6' => 'ondrej/php',
-    '7.0' => 'ondrej/php'
+    '5.4'   => 'ondrej/php5-oldstable',
+    default => 'ondrej/php',
   }
 
   ::apt::ppa { "ppa:${version_repo}": }
