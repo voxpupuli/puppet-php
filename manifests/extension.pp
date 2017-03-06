@@ -58,8 +58,8 @@
 #
 # [*install_options*]
 #   An array of additional options to pass when installing an extension package
-#   These options should be specified as a string (e.g. ‘–flag’), a hash (e.g.
-#   {‘–flag’ => ‘value’}), or an array where each element is either a string
+#   These options should be specified as a string (e.g. '--flag'), a hash (e.g.
+#   {'--flag' => 'value'}), or an array where each element is either a string
 #   or a hash
 #   *providers*: apt, yum, rpm. (not available for pkg)
 #
