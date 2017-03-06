@@ -52,21 +52,29 @@
 #   File containing answers for interactive extension setup. Supported
 #   *providers*: pear, pecl.
 #
+# [*install_options*]
+#   An array of additional options to pass when installing an extension package
+#   These options should be specified as a string (e.g. '--flag'), a hash (e.g.
+#   {'--flag' => 'value'}), or an array where each element is either a string
+#   or a hash
+#   *providers*: apt, yum, rpm. (not available for pkg)
+#
 define php::extension (
-  String           $ensure            = 'installed',
-  Optional[Php::Provider] $provider   = undef,
-  Optional[String] $source            = undef,
-  Optional[String] $so_name           = downcase($name),
-  Optional[String] $php_api_version   = undef,
-  String           $package_prefix    = $::php::package_prefix,
-  Boolean          $zend              = false,
-  Hash             $settings          = {},
-  Php::Sapi        $sapi              = 'ALL',
-  Variant[Boolean, String]       $settings_prefix   = false,
-  Optional[Stdlib::AbsolutePath] $responsefile      = undef,
-  Variant[String, Array[String]] $header_packages   = [],
-  Variant[String, Array[String]] $compiler_packages = $::php::params::compiler_packages,
-) {
+  String                                                   $ensure            = 'installed',
+  Optional[Php::Provider]                                  $provider          = undef,
+  Optional[String]                                         $source            = undef,
+  Optional[String]                                         $so_name           = downcase($name),
+  Optional[String]                                         $php_api_version   = undef,
+  String                                                   $package_prefix    = $::php::package_prefix,
+  Boolean                                                  $zend              = false,
+  Hash                                                     $settings          = {},
+  Php::Sapi                                                $sapi              = 'ALL',
+  Variant[Boolean, String]                                 $settings_prefix   = false,
+  Optional[Stdlib::AbsolutePath]                           $responsefile      = undef,
+  Variant[String, Array[String]]                           $header_packages   = [],
+  Variant[String, Array[String]]                           $compiler_packages = $::php::params::compiler_packages,
+  Variant[String, Hash, Array[String], Array[Hash], Undef] $install_options   = undef,
+  ) {
 
   if ! defined(Class['php']) {
     warning('php::extension is private')
@@ -78,6 +86,7 @@ define php::extension (
     source            => $source,
     responsefile      => $responsefile,
     package_prefix    => $package_prefix,
+    install_options   => $install_options,
     header_packages   => $header_packages,
     compiler_packages => $compiler_packages,
   }

@@ -32,20 +32,20 @@
 #
 # [*install_options*]
 #   An array of additional options to pass when installing an extension package
-#   These options should be specified as a string (e.g. ‘–flag’), a hash (e.g.
-#   {‘–flag’ => ‘value’}), or an array where each element is either a string
+#   These options should be specified as a string (e.g. '--flag'), a hash (e.g.
+#   {'--flag' => 'value'}), or an array where each element is either a string
 #   or a hash
 #   *providers*: apt, yum, rpm. (not available for pkg)
 #
 define php::extension::install (
-  String                         $ensure            = 'installed',
-  Optional[Php::Provider]        $provider          = undef,
-  Optional[String]               $source            = undef,
-  String                         $package_prefix    = $::php::package_prefix,
-  Optional[Stdlib::AbsolutePath] $responsefile      = undef,
-  Variant[String, Array[String]] $header_packages   = [],
-  Variant[String, Array[String]] $compiler_packages = $::php::params::compiler_packages,
-  Variant[String, Hash, Array[String], Array[Hash], Undef] $install_options = undef,
+  String                                                   $ensure            = 'installed',
+  Optional[Php::Provider]                                  $provider          = undef,
+  Optional[String]                                         $source            = undef,
+  String                                                   $package_prefix    = $::php::package_prefix,
+  Optional[Stdlib::AbsolutePath]                           $responsefile      = undef,
+  Variant[String, Array[String]]                           $header_packages   = [],
+  Variant[String, Array[String]]                           $compiler_packages = $::php::params::compiler_packages,
+  Variant[String, Hash, Array[String], Array[Hash], Undef] $install_options   = undef,
 ) {
 
   if ! defined(Class['php']) {
