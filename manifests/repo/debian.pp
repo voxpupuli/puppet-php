@@ -22,7 +22,7 @@
 #
 class php::repo::debian(
   $location     = 'http://packages.dotdeb.org',
-  $release      = 'wheezy-php56',
+  $version      = '5.6',
   $repos        = 'all',
   $include_src  = false,
   $key          = {
@@ -36,6 +36,12 @@ class php::repo::debian(
     warning('php::repo::debian is private')
   }
 
+  if $::php::params::php_version {
+    $php_version = $::php::params::php_version
+  } else {
+    $php_version = $version
+  }
+
   include '::apt'
 
   create_resources(::apt::key, { 'php::repo::debian' => {
@@ -43,23 +49,45 @@ class php::repo::debian(
     source => $key['source'],
   }})
 
-  ::apt::source { "source_php_${release}":
-    location    => $location,
-    release     => $release,
-    repos       => $repos,
-    include_src => $include_src,
-    require     => Apt::Key['php::repo::debian'],
-  }
-
-  if ($dotdeb) {
-    # both repositories are required to work correctly
-    # See: http://www.dotdeb.org/instructions/
-    if $release == 'wheezy-php56' {
-      ::apt::source { 'dotdeb-wheezy':
-        location    => $location,
-        release     => 'wheezy',
-        repos       => $repos,
-        include_src => $include_src,
+  case $::lsbdistcodename {
+    'wheezy': {
+      case $php_version {
+        /^7\.[0-9]$/: {
+          fail("PHP version ${php_version} is not supported on ${::operatingsystem} (${::lsbdistcodename})")
+        }
+        default, '5.4': {} # 5.4 is the default bundled PHP in Wheezy
+        '5.5': {
+          ::apt::source { "source_php_${::lsbdistcodename}-php55":
+            location    => $location,
+            release     => "${::lsbdistcodename}-php55",
+            repos       => $repos,
+            include_src => $include_src,
+            require     => Apt::Key['php::repo::debian'],
+          }
+        }
+        '5.6': {
+          ::apt::source { "source_php_${::lsbdistcodename}-php56":
+            location    => $location,
+            release     => "${::lsbdistcodename}-php56",
+            repos       => $repos,
+            include_src => $include_src,
+            require     => Apt::Key['php::repo::debian'],
+          }
+        }
+      }
+    }
+    default: {
+      case $php_version {
+        /^7\.[0-9]$/: {
+          ::apt::source { "source_php_${::lsbdistcodename}":
+            location    => $location,
+            release     => $::lsbdistcodename,
+            repos       => $repos,
+            include_src => $include_src,
+            require     => Apt::Key['php::repo::debian'],
+          }
+        }
+        default, '5.6': {} # 5.6 is the default bundled PHP in Jessie
       }
     }
   }
