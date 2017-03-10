@@ -67,46 +67,60 @@ define php::extension::config (
     $module_path = undef
   }
 
-  $ini_name = downcase($so_name)
+  if $::operatingsystem == 'Ubuntu' and $zend != true and $name == 'mysql' {
+    # Do not manage the .ini file if it's mysql. PHp 7.0 and 7.1 do not have mysql.so
+    # If mysql.ini exists and version is 7.0 or 7.1, then remove it
+    if $php::globals::php_version == '7.0' or $php::globals::php_version == '7.1' {
+      exec { 'Remove_php_mysql_ini':
+        command => "phpdismod mysql; rm -f /etc/php/${php::globals::php_version}/mods-available/mysql.ini",
+        onlyif  => "test -f /etc/php/${php::globals::php_version}/mods-available/mysql.ini",
+      }
+      if $::php::fpm {
+        Package[$::php::fpm::package] ~> Exec['Remove_php_mysql_ini']
+      }
+    }    
+  } else {
+    $ini_name = downcase($so_name)
 
-  # Ensure "<extension>." prefix is present in setting keys if requested
-  $full_settings = $settings_prefix? {
-    true   => ensure_prefix($settings, "${so_name}."),
-    false  => $settings,
-    String => ensure_prefix($settings, "${settings_prefix}."),
-  }
-
-  $final_settings = deep_merge(
-    {"${extension_key}" => "${module_path}${so_name}.so"},
-    $full_settings
-  )
-
-  $config_root_ini = pick_default($::php::config_root_ini, $::php::params::config_root_ini)
-  ::php::config { $title:
-    file   => "${config_root_ini}/${ini_name}.ini",
-    config => $final_settings,
-  }
-
-  # Ubuntu/Debian systems use the mods-available folder. We need to enable
-  # settings files ourselves with php5enmod command.
-  $ext_tool_enable   = pick_default($::php::ext_tool_enable, $::php::params::ext_tool_enable)
-  $ext_tool_query    = pick_default($::php::ext_tool_query, $::php::params::ext_tool_query)
-  $ext_tool_enabled  = pick_default($::php::ext_tool_enabled, $::php::params::ext_tool_enabled)
-
-  if $::osfamily == 'Debian' and $ext_tool_enabled {
-    $cmd = "${ext_tool_enable} -s ${sapi} ${so_name}"
-
-    $_sapi = $sapi? {
-      'ALL' => 'cli',
-      default => $sapi,
-    }
-    exec { $cmd:
-      onlyif  => "${ext_tool_query} -s ${_sapi} -m ${so_name} | /bin/grep 'No module matches ${so_name}'",
-      require => ::Php::Config[$title],
+    # Ensure "<extension>." prefix is present in setting keys if requested
+    $full_settings = $settings_prefix? {
+      true   => ensure_prefix($settings, "${so_name}."),
+      false  => $settings,
+      String => ensure_prefix($settings, "${settings_prefix}."),
     }
 
-    if $::php::fpm {
-      Package[$::php::fpm::package] ~> Exec[$cmd]
+    $final_settings = deep_merge(
+      {"${extension_key}" => "${module_path}${so_name}.so"},
+      $full_settings
+    )
+
+    $config_root_ini = pick_default($::php::config_root_ini, $::php::params::config_root_ini)
+    ::php::config { $title:
+      file   => "${config_root_ini}/${ini_name}.ini",
+      config => $final_settings,
+    }
+
+    # Ubuntu/Debian systems use the mods-available folder. We need to enable
+    # settings files ourselves with php5enmod command.
+    $ext_tool_enable   = pick_default($::php::ext_tool_enable, $::php::params::ext_tool_enable)
+    $ext_tool_query    = pick_default($::php::ext_tool_query, $::php::params::ext_tool_query)
+    $ext_tool_enabled  = pick_default($::php::ext_tool_enabled, $::php::params::ext_tool_enabled)
+
+    if $::osfamily == 'Debian' and $ext_tool_enabled {
+      $cmd = "${ext_tool_enable} -s ${sapi} ${so_name}"
+
+      $_sapi = $sapi? {
+        'ALL' => 'cli',
+        default => $sapi,
+      }
+      exec { $cmd:
+        onlyif  => "${ext_tool_query} -s ${_sapi} -m ${so_name} | /bin/grep 'No module matches ${so_name}'",
+        require => ::Php::Config[$title],
+      }
+
+      if $::php::fpm {
+        Package[$::php::fpm::package] ~> Exec[$cmd]
+      }
     }
   }
 }
