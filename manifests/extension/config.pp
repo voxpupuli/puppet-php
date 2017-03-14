@@ -68,7 +68,17 @@ define php::extension::config (
   }
 
   if $::lsbdistid == 'Ubuntu' and $zend != true and $name == 'mysql' {
-    # Do nothing because the Ubuntu PHP repo takes care of the module packaging
+    # Do not manage the .ini file if it's mysql. PHp 7.0 and 7.1 do not have mysql.so
+    # If mysql.ini exists and version is 7.0 or 7.1, then remove it
+    if $php::globals::php_version == '7.0' or $php::globals::php_version == '7.1' {
+      exec { 'Remove_php_mysql_ini':
+        command => "phpdismod mysql; rm -f /etc/php/${php::globals::php_version}/mods-available/mysql.ini",
+        onlyif  => "test -f /etc/php/${php::globals::php_version}/mods-available/mysql.ini",
+      }
+      if $::php::fpm {
+        Package[$::php::fpm::package] ~> Exec['Remove_php_mysql_ini']
+      }
+    }    
   } else {
     $ini_name = downcase($so_name)
 
