@@ -67,7 +67,7 @@ define php::extension::config (
     $module_path = undef
   }
 
-  if $::lsbdistid == 'Ubuntu' and $zend != true {
+  if $::lsbdistid == 'Ubuntu' and $zend != true and $ini_name == 'mysql' {
     # Do nothing because the Ubuntu PHP repo takes care of the module packaging
   } else {
     $ini_name = downcase($so_name)
