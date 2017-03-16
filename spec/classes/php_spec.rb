@@ -50,6 +50,42 @@ describe 'php', type: :class do
         end
       end
 
+      describe 'when called with fpm_user parameter' do
+        let(:params) { { fpm_user: 'nginx' } }
+        it { is_expected.to contain_class('php::fpm').with(user: 'nginx') }
+        it { is_expected.to contain_php__fpm__pool('www').with(user: 'nginx') }
+
+        dstfile = case facts[:osfamily]
+                  when 'Debian'
+                    '/etc/php5/fpm/pool.d/www.conf'
+                  when 'Suse'
+                    '/etc/php5/fpm/pool.d/www.conf'
+                  when 'RedHat'
+                    '/etc/php-fpm.d/www.conf'
+                  when 'FreeBSD'
+                    '/usr/local/etc/php-fpm.d/www.conf'
+                  end
+
+        it { is_expected.to contain_file(dstfile).with_content(%r{user = nginx}) }
+      end
+      describe 'when called with fpm_group parameter' do
+        let(:params) { { fpm_group: 'nginx' } }
+        it { is_expected.to contain_class('php::fpm').with(group: 'nginx') }
+        it { is_expected.to contain_php__fpm__pool('www').with(group: 'nginx') }
+        dstfile = case facts[:osfamily]
+                  when 'Debian'
+                    '/etc/php5/fpm/pool.d/www.conf'
+                  when 'Suse'
+                    '/etc/php5/fpm/pool.d/www.conf'
+                  when 'RedHat'
+                    '/etc/php-fpm.d/www.conf'
+                  when 'FreeBSD'
+                    '/usr/local/etc/php-fpm.d/www.conf'
+                  end
+
+        it { is_expected.to contain_file(dstfile).with_content(%r{group = nginx}) }
+      end
+
       describe 'when fpm is disabled' do
         let(:params) { { fpm: false } }
         it { is_expected.not_to contain_class('php::fpm') }

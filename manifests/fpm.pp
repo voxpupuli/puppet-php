@@ -45,6 +45,8 @@
 #
 class php::fpm (
   $ensure               = $::php::ensure,
+  $user                 = $::php::fpm_user,
+  $group                = $::php::fpm_group,
   $service_ensure       = $::php::fpm_service_ensure,
   $service_enable       = $::php::fpm_service_enable,
   $service_name         = $::php::fpm_service_name,
@@ -83,6 +85,8 @@ class php::fpm (
   }
 
   class { '::php::fpm::config':
+    user      => $user,
+    group     => $group,
     inifile   => $inifile,
     settings  => $real_settings,
     log_owner => $log_owner,

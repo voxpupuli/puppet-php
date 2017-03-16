@@ -118,6 +118,8 @@ class php (
   $fpm_global_pool_settings = {},
   $fpm_inifile              = $::php::params::fpm_inifile,
   $fpm_package              = undef,
+  $fpm_user                 = $::php::params::fpm_user,
+  $fpm_group                = $::php::params::fpm_group,
   $embedded                 = false,
   $dev                      = true,
   $composer                 = true,
