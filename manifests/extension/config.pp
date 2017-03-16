@@ -67,7 +67,7 @@ define php::extension::config (
     $module_path = undef
   }
 
-  if $::lsbdistid == 'Ubuntu' and $zend != true and $name == 'mysql' {
+  if $::operatingsystem == 'Ubuntu' and $zend != true and $name == 'mysql' {
     # Do not manage the .ini file if it's mysql. PHp 7.0 and 7.1 do not have mysql.so
     # If mysql.ini exists and version is 7.0 or 7.1, then remove it
     if $php::globals::php_version == '7.0' or $php::globals::php_version == '7.1' {
