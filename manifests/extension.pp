@@ -21,6 +21,9 @@
 # [*so_name*]
 #   The DSO name of the package (e.g. opcache for zendopcache)
 #
+# [*ini_prefix*]
+#   An optional filename prefix for the settings file of the extension
+#
 # [*php_api_version*]
 #   This parameter is used to build the full path to the extension
 #   directory for zend_extension in PHP < 5.5 (e.g. 20100525)
@@ -57,6 +60,7 @@ define php::extension (
   Optional[Php::Provider] $provider   = undef,
   Optional[String] $source            = undef,
   Optional[String] $so_name           = downcase($name),
+  Optional[String] $ini_prefix        = undef,
   Optional[String] $php_api_version   = undef,
   String           $package_prefix    = $::php::package_prefix,
   Boolean          $zend              = false,
@@ -88,6 +92,7 @@ define php::extension (
       ensure          => $ensure,
       provider        => $provider,
       so_name         => $so_name,
+      ini_prefix      => $ini_prefix,
       php_api_version => $php_api_version,
       zend            => $zend,
       settings        => $settings,
