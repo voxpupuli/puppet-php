@@ -1,5 +1,5 @@
 require 'puppet/provider/package'
-require 'puppet/provider/package/pear'
+require_relative './pear'
 
 Puppet::Type.type(:package).provide :pecl, parent: :pear do
   desc 'Package management via `pecl`.'
