@@ -154,9 +154,9 @@ describe 'php::extension' do
           let(:title) { 'tideways-php' }
           let(:params) do
             {
-                package_prefix: '',
-                so_name: 'tideways',
-                priority: 50
+              package_prefix: '',
+              so_name: 'tideways',
+              priority: 50
             }
           end
 
