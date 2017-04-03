@@ -45,20 +45,22 @@
 #
 class php::fpm (
   $ensure               = $::php::ensure,
-  $service_ensure       = $::php::params::fpm_service_ensure,
-  $service_enable       = $::php::params::fpm_service_enable,
-  $service_name         = $::php::params::fpm_service_name,
-  $service_provider     = undef,
-  $package              = "${::php::package_prefix}${::php::params::fpm_package_suffix}",
-  $inifile              = $::php::params::fpm_inifile,
-  $settings             = {},
-  $global_pool_settings = {},
-  $pools                = { 'www' => {} },
-  $log_owner            = $::php::params::fpm_user,
-  $log_group            = $::php::params::fpm_group,
-) inherits ::php::params {
+  $user                 = $::php::fpm_user,
+  $group                = $::php::fpm_group,
+  $service_ensure       = $::php::fpm_service_ensure,
+  $service_enable       = $::php::fpm_service_enable,
+  $service_name         = $::php::fpm_service_name,
+  $service_provider     = $::php::fpm_service_provider,
+  $package              = $::php::real_fpm_package,
+  $inifile              = $::php::fpm_inifile,
+  $settings             = $::php::real_settings,
+  $global_pool_settings = $::php::real_fpm_global_pool_settings,
+  $pools                = $::php::real_fpm_pools,
+  $log_owner            = $::php::log_owner,
+  $log_group            = $::php::log_group,
+) {
 
-  if $caller_module_name != $module_name {
+  if ! defined(Class['php']) {
     warning('php::fpm is private')
   }
 
@@ -77,27 +79,27 @@ class php::fpm (
     default   => $package,
   }
 
-  anchor { '::php::fpm::begin': } ->
-    package { $real_package:
-      ensure  => $ensure,
-      require => Class['::php::packages'],
-    } ->
-    class { '::php::fpm::config':
-      inifile   => $inifile,
-      settings  => $real_settings,
-      log_owner => $log_owner,
-      log_group => $log_group,
-    } ->
-    class { '::php::fpm::service':
-      ensure       => $service_ensure,
-      enable       => $service_enable,
-      service_name => $service_name,
-      provider     => $service_provider,
-    } ->
-  anchor { '::php::fpm::end': }
+  package { $real_package:
+    ensure  => $ensure,
+    require => Class['::php::packages'],
+  }
+
+  class { '::php::fpm::config':
+    user      => $user,
+    group     => $group,
+    inifile   => $inifile,
+    settings  => $real_settings,
+    log_owner => $log_owner,
+    log_group => $log_group,
+    require   => Package[$real_package],
+  }
+  contain '::php::fpm::config'
+  contain '::php::fpm::service'
+
+  Class['php::fpm::config'] ~> Class['php::fpm::service']
 
   $real_global_pool_settings = hiera_hash('php::fpm::global_pool_settings', $global_pool_settings)
-  $real_pools = hiera_hash('php::fpm::pools',  $pools)
+  $real_pools = hiera_hash('php::fpm::pools', $pools)
   create_resources(::php::fpm::pool, $real_pools, $real_global_pool_settings)
 
   # Create an override to use a reload signal as trusty and utopic's

@@ -1,16 +1,31 @@
 # Changelog
 
-## 4.0.0
- * Fix a bug turning `manage_repos` off on wheezy
- * Fix a deprecation warning on `apt::key` when using `manage_repos` on wheezy (#110)
-   This change requires puppetlabs/apt at >= 1.8.0
- * Allow removal of config values (#124)
- * Add `phpversion` fact, for querying through PuppetDB or Foreman (#119)
- * Allow configuring the fpm pid file (#123)
- * Add embedded SAPI support (#115)
- * Add options to fpm config and pool configs (#139)
- * Add parameter logic for PHP 7 on Ubuntu/Debian (#180)
- * add SLES PHP 7.0 Support (#220)
+## 2017-02-11 Release 4.0.0
+
+This is the last release with Puppet3 support!
+* Fix a bug turning `manage_repos` off on wheezy
+* Fix a deprecation warning on `apt::key` when using `manage_repos` on wheezy (#110). This change requires puppetlabs/apt at >= 1.8.0
+* Allow removal of config values (#124)
+* Add `phpversion` fact, for querying through PuppetDB or Foreman (#119)
+* Allow configuring the fpm pid file (#123)
+* Add embedded SAPI support (#115)
+* Add options to fpm config and pool configs (#139)
+* Add parameter logic for PHP 7 on Ubuntu/Debian (#180)
+* add SLES PHP 7.0 Support (#220)
+* allow packaged extensions to be loaded as zend extensions
+* Fix command to enable php extensions (#226)
+* Fix many rucocop warnings
+* Update module Ubuntu 14.04 default to official repository setup
+* Fix dependency for extentions with no package source
+* Allow packaged extensions to be loaded as Zend extensions
+* Support using an http proxy for downloading composer
+* Refactor classes php::fpm and php::fpm:service
+* Manage apache/PHP configurations on Debian and RHEL systems
+* use voxpupuli/archive to download composer
+* respect $manage_repos, do not include ::apt if set to false
+* Bump min version_requirement for Puppet + deps
+* allow pipe param for pecl extensions
+* Fix: composer auto_update: exec's environment must be array
 
 ### Breaking Changes
  * Deep merge `php::extensions` the same way as `php::settings`. This technically is a

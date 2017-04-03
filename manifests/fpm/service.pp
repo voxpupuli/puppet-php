@@ -15,13 +15,13 @@
 #   Defines if the service provider to use
 #
 class php::fpm::service(
-  $service_name = $::php::params::fpm_service_name,
-  $ensure       = $::php::params::fpm_service_ensure,
-  $enable       = $::php::params::fpm_service_enable,
-  $provider     = undef,
-) inherits ::php::params {
+  $service_name = $::php::fpm::service_name,
+  $ensure       = $::php::fpm::service_ensure,
+  $enable       = $::php::fpm::service_enable,
+  $provider     = $::php::fpm::service_provider,
+) {
 
-  if $caller_module_name != $module_name {
+  if ! defined(Class['php::fpm']) {
     warning('php::fpm::service is private')
   }
 

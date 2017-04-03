@@ -6,6 +6,7 @@ describe 'php::fpm::pool' do
       let :facts do
         facts
       end
+      let(:pre_condition) { 'include php' }
       case facts[:osfamily]
       when 'Debian'
         case facts[:operatingsystem]
@@ -14,7 +15,7 @@ describe 'php::fpm::pool' do
             let(:title) { 'unique-name' }
             let(:params) { {} }
 
-            it { is_expected.to contain_file('/etc/php/5.6/fpm/pool.d/unique-name.conf') }
+            it { is_expected.to contain_file('/etc/php5/fpm/pool.d/unique-name.conf') }
           end
         when 'Debian'
           context 'plain config' do

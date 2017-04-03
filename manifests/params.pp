@@ -32,6 +32,7 @@ class php::params inherits php::globals {
       $fpm_service_name        = $php::globals::fpm_service_name
       $fpm_user                = 'www-data'
       $fpm_group               = 'www-data'
+      $apache_inifile          = "${config_root}/apache2/php.ini"
       $embedded_package_suffix = 'embed'
       $embedded_inifile        = "${config_root}/embed/php.ini"
       $package_prefix          = $php::globals::package_prefix
@@ -47,7 +48,7 @@ class php::params inherits php::globals {
         }
 
         'Ubuntu': {
-          $manage_repos = true
+          $manage_repos = false
         }
 
         default: {
@@ -84,6 +85,8 @@ class php::params inherits php::globals {
       $package_prefix          = $php::globals::package_prefix
       $manage_repos            = true
       $root_group              = 'root'
+      $ext_tool_enable         = undef
+      $ext_tool_query          = undef
       $ext_tool_enabled        = false
       case $::operatingsystem {
         'SLES': {
@@ -113,12 +116,15 @@ class php::params inherits php::globals {
       $fpm_service_name        = 'php-fpm'
       $fpm_user                = 'apache'
       $fpm_group               = 'apache'
+      $apache_inifile          = '/etc/php.ini'
       $embedded_package_suffix = 'embedded'
       $embedded_inifile        = '/etc/php.ini'
       $package_prefix          = 'php-'
       $compiler_packages       = ['gcc', 'gcc-c++', 'make']
       $manage_repos            = false
       $root_group              = 'root'
+      $ext_tool_enable         = undef
+      $ext_tool_query          = undef
       $ext_tool_enabled        = false
     }
     'FreeBSD': {
@@ -147,6 +153,8 @@ class php::params inherits php::globals {
       $compiler_packages       = ['gcc']
       $manage_repos            = false
       $root_group              = 'wheel'
+      $ext_tool_enable         = undef
+      $ext_tool_query          = undef
       $ext_tool_enabled        = false
     }
     default: {

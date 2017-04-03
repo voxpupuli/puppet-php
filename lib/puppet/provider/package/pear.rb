@@ -1,120 +1,105 @@
 require 'puppet/provider/package'
 
-# PHP PEAR support.
 Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
-  desc 'PHP PEAR support. By default uses the installed channels, but you can specify the path to a pear package via ``source``.'
+  desc 'Package management via `pear`.'
 
   has_feature :versionable
   has_feature :upgradeable
   has_feature :install_options
 
-  case Facter.value(:operatingsystem)
-  when 'Solaris'
-    commands pearcmd: '/opt/coolstack/php5/bin/pear'
-  else
-    commands pearcmd: 'pear'
-  end
+  commands pear: 'pear'
 
-  def self.pearlist(hash)
-    command = [command(:pearcmd), 'list', '-a']
-    channel = 'pear'
+  ENV['TERM'] = 'dumb' # remove colors
 
-    begin
-      list = execute(command).split("\n")
-      list = list.map do |set|
-        if match = %r{INSTALLED PACKAGES, CHANNEL (.*):}i.match(set) # rubocop:disable Lint/AssignmentInCondition
-          channel = match[1].downcase
-        end
+  def self.pearlist(only = nil)
+    channel = nil
 
-        if hash[:justme]
-          if set =~ %r{^#{hash[:justme]}}
-            pearhash = pearsplit(set, channel)
-            pearhash[:provider] = :pear
-            pearhash
-          end
-        else
-          if pearhash = pearsplit(set, channel) # rubocop:disable Lint/AssignmentInCondition
-            pearhash[:provider] = :pear
-            pearhash
-          end
-        end
-      end.reject { |p| p.nil? }
+    packages = pear('list', '-a').split("\n").map do |line|
+      # current channel
+      %r{INSTALLED PACKAGES, CHANNEL (.*):}i.match(line) { |m| channel = m[1].downcase }
 
-    rescue Puppet::ExecutionFailure => detail
-      raise Puppet::Error, format('Could not list pears: %s', detail)
+      # parse one package
+      pearsplit(line, channel)
+    end.compact
+
+    return packages unless only
+
+    packages.find do |pkg|
+      pkg[:name].casecmp(only[:name].downcase).zero?
     end
-
-    return list.shift if hash[:justme]
-    list
   end
 
   def self.pearsplit(desc, channel)
     desc.strip!
 
     case desc
-    when %r{^$} then return nil
-    when %r{^INSTALLED}i then return nil
-    when %r{no packages installed}i then return nil
-    when %r{^=} then return nil
-    when %r{^PACKAGE}i then return nil
+    when '' then nil
+    when %r{^installed}i then nil
+    when %r{no packages installed}i then nil
+    when %r{^=} then nil
+    when %r{^package}i then nil
     when %r{^(\S+)\s+(\S+)\s+(\S+)\s*$} then
       name = Regexp.last_match(1)
       version = Regexp.last_match(2)
       state = Regexp.last_match(3)
-      return {
-        name: "#{channel}/#{name}",
-        ensure: state == 'stable' ? version : state
+
+      {
+        name: name,
+        vendor: channel,
+        ensure: state == 'stable' ? version : state,
+        provider: self.name
       }
     else
-      Puppet.debug format("Could not match '%s'", desc)
+      Puppet.warning format('Could not match %s', desc)
       nil
     end
   end
 
   def self.instances
-    pearlist(local: true).map do |hash|
+    pearlist.map do |hash|
       new(hash)
     end
   end
 
   def install(useversion = true)
     command = ['-D', 'auto_discover=1', 'upgrade']
-    command << if @resource[:install_options]
-                 @resource[:install_options]
-               else
-                 '--alldeps'
-               end
 
-    command << if @resource[:source]
-                 @resource[:source]
-               else
-                 if (!@resource.should(:ensure).is_a? Symbol) && useversion
-                   "#{@resource[:name]}-#{@resource.should(:ensure)}"
-                 else
-                   @resource[:name]
-                 end
-               end
+    if @resource[:install_options]
+      command += join_options(@resource[:install_options])
+    else
+      command << '--alldeps'
+    end
 
-    pearcmd(*command)
+    pear_pkg = @resource[:source] || @resource[:name]
+    if !@resource[:ensure].is_a?(Symbol) && useversion
+      command << '-f'
+      pear_pkg << "-#{@resource[:ensure]}"
+    end
+    command << pear_pkg
+
+    if @resource[:responsefile]
+      Puppet::Util::Execution.execute(
+        [command(:pear)] + command,
+        stdinfile: @resource[:responsefile]
+      )
+    else
+      pear(*command)
+    end
   end
 
   def latest
-    # This always gets the latest version available.
-    version = ''
-    command = [command(:pearcmd), 'remote-info', @resource[:name]]
-    execute(command).each_line do |set|
-      version = set.split[1] if set =~ %r{^Latest}
-    end
-
-    version
+    target = @resource[:source] || @resource[:name]
+    pear('remote-info', target).lines.find do |set|
+      set =~ %r{^Latest}
+    end.split[1]
   end
 
   def query
-    self.class.pearlist(justme: @resource[:name])
+    self.class.pearlist(@resource)
   end
 
   def uninstall
-    output = pearcmd 'uninstall', @resource[:name]
+    output = pear 'uninstall', @resource[:name]
     raise Puppet::Error, output unless output =~ %r{^uninstall ok}
   end
 
