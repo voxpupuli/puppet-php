@@ -50,6 +50,7 @@ define php::extension::config (
   Hash                     $settings        = {},
   Variant[Boolean, String] $settings_prefix = false,
   Php::Sapi                $sapi            = 'ALL',
+  Integer                  $priority        = 20
 ) {
 
   if ! defined(Class['php']) {
@@ -82,8 +83,18 @@ define php::extension::config (
   )
 
   $config_root_ini = pick_default($::php::config_root_ini, $::php::params::config_root_ini)
+  $config_path     = "${config_root_ini}/${ini_name}.ini"
+
+  file_line {"Set priority for ${so_name}":
+    path              => $config_path,
+    line              => "; priority=${priority}",
+    match             => '^; priority\=',
+    match_for_absence => true,
+    multiple          => false,
+  }
+
   ::php::config { $title:
-    file   => "${config_root_ini}/${ini_name}.ini",
+    file   => $config_path,
     config => $final_settings,
   }
 
