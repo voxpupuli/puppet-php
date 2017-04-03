@@ -183,24 +183,24 @@ class php (
   $real_fpm_global_pool_settings = deep_merge($fpm_global_pool_settings, hiera_hash('php::fpm_global_pool_settings', {}))
 
   if $manage_repos {
-    class { '::php::repo': } ->
-    Anchor['php::begin']
+    class { '::php::repo': }
+    -> Anchor['php::begin']
   }
 
-  anchor { 'php::begin': } ->
-    class { '::php::packages': } ->
-    class { '::php::cli':
+  anchor { 'php::begin': }
+    -> class { '::php::packages': }
+    -> class { '::php::cli':
       settings => $real_settings,
-    } ->
-  anchor { 'php::end': }
+    }
+  -> anchor { 'php::end': }
 
   # Configure global PHP settings in php.ini
   if $::osfamily != 'Debian' {
-    Class['php::packages'] ->
-    class {'::php::global':
+    Class['php::packages']
+    -> class {'::php::global':
       settings => $real_settings,
-    } ->
-    Anchor['php::end']
+    }
+    -> Anchor['php::end']
   }
 
   if $fpm { contain '::php::fpm' }
@@ -210,43 +210,43 @@ class php (
       fail('Enabling both cli and embedded sapis is not currently supported')
     }
 
-    Anchor['php::begin'] ->
-      class { '::php::embedded':
+    Anchor['php::begin']
+      -> class { '::php::embedded':
         settings => $real_settings,
-      } ->
-    Anchor['php::end']
+      }
+    -> Anchor['php::end']
   }
   if $dev {
-    Anchor['php::begin'] ->
-      class { '::php::dev': } ->
-    Anchor['php::end']
+    Anchor['php::begin']
+      -> class { '::php::dev': }
+    -> Anchor['php::end']
   }
   if $composer {
-    Anchor['php::begin'] ->
-      class { '::php::composer':
+    Anchor['php::begin']
+      -> class { '::php::composer':
         proxy_type   => $proxy_type,
         proxy_server => $proxy_server,
-      } ->
-    Anchor['php::end']
+      }
+    -> Anchor['php::end']
   }
   if $pear {
-    Anchor['php::begin'] ->
-      class { '::php::pear':
+    Anchor['php::begin']
+      -> class { '::php::pear':
         ensure => $pear_ensure,
-      } ->
-    Anchor['php::end']
+      }
+    -> Anchor['php::end']
   }
   if $phpunit {
-    Anchor['php::begin'] ->
-      class { '::php::phpunit': } ->
-    Anchor['php::end']
+    Anchor['php::begin']
+      -> class { '::php::phpunit': }
+    -> Anchor['php::end']
   }
   if $apache_config {
-    Anchor['php::begin'] ->
-      class { '::php::apache_config':
+    Anchor['php::begin']
+      -> class { '::php::apache_config':
         settings => $real_settings,
-      } ->
-    Anchor['php::end']
+      }
+    -> Anchor['php::end']
   }
 
   create_resources('::php::extension', $real_extensions, {

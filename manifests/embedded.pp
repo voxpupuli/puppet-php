@@ -42,8 +42,8 @@ class php::embedded(
   package { $real_package:
     ensure  => $ensure,
     require => Class['::php::packages'],
-  }->
-  ::php::config { 'embedded':
+  }
+  -> ::php::config { 'embedded':
     file   => $inifile,
     config => $real_settings,
   }

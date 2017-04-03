@@ -47,8 +47,8 @@ class php::composer (
     source       => $source,
     proxy_type   => $proxy_type,
     proxy_server => $proxy_server,
-  } ->
-  file { $path:
+  }
+  -> file { $path:
     mode  => '0555',
     owner => root,
     group => $root_group,
