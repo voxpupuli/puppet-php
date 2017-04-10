@@ -76,6 +76,10 @@
 #   to a sensible default depending on your operating system, like
 #   '/etc/php5/mods-available' or '/etc/php5/conf.d'.
 #
+# [*config_root_inifile*]
+#   The path to the global php.ini file. This defaults to a sensible default
+#   depending on your operating system.
+#
 # [*ext_tool_enable*]
 #   Absolute path to php tool for enabling extensions in debian/ubuntu systems.
 #   This defaults to '/usr/sbin/php5enmod'.
@@ -114,6 +118,8 @@ class php (
   $fpm_global_pool_settings = {},
   $fpm_inifile              = $::php::params::fpm_inifile,
   $fpm_package              = undef,
+  $fpm_user                 = $::php::params::fpm_user,
+  $fpm_group                = $::php::params::fpm_group,
   $embedded                 = false,
   $dev                      = true,
   $composer                 = true,
@@ -127,6 +133,7 @@ class php (
   $settings                 = {},
   $package_prefix           = $::php::params::package_prefix,
   $config_root_ini          = $::php::params::config_root_ini,
+  $config_root_inifile      = $::php::params::config_root_inifile,
   $ext_tool_enable          = $::php::params::ext_tool_enable,
   $ext_tool_query           = $::php::params::ext_tool_query,
   $ext_tool_enabled         = $::php::params::ext_tool_enabled,
@@ -151,10 +158,9 @@ class php (
   validate_hash($fpm_global_pool_settings)
   validate_string($log_owner)
   validate_string($log_group)
+  validate_absolute_path($config_root_ini)
+  validate_absolute_path($config_root_inifile)
 
-  if $config_root_ini != undef {
-    validate_absolute_path($config_root_ini)
-  }
   if $ext_tool_enable != undef {
     validate_absolute_path($ext_tool_enable)
   }

@@ -39,7 +39,8 @@ class php::repo::debian(
   include '::apt'
 
   create_resources(::apt::key, { 'php::repo::debian' => {
-    key => $key['id'], key_source => $key['source'],
+    id     => $key['id'],
+    source => $key['source'],
   }})
 
   ::apt::source { "source_php_${release}":

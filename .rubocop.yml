@@ -74,7 +74,7 @@ Style/WhileUntilModifier:
 Lint/AmbiguousRegexpLiteral:
   Enabled: True
 
-Lint/Eval:
+Security/Eval:
   Enabled: True
 
 Lint/BlockAlignment:
@@ -302,7 +302,7 @@ Style/EmptyLiteral:
 Metrics/LineLength:
   Enabled: False
 
-Style/MethodCallParentheses:
+Style/MethodCallWithoutArgsParentheses:
   Enabled: True
 
 Style/MethodDefParentheses:
@@ -510,3 +510,15 @@ RSpec/ExampleLength:
 
 RSpec/NamedSubject:
   Enabled: False
+
+# disabled for now since they cause a lot of issues
+# these issues aren't easy to fix
+RSpec/RepeatedDescription:
+  Enabled: False
+
+RSpec/NestedGroups:
+  Enabled: False
+
+# disable Yaml safe_load. This is needed to support ruby2.0.0 development envs
+Security/YAMLLoad:
+  Enabled: false
