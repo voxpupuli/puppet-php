@@ -7,6 +7,7 @@ describe 'php::fpm', type: :class do
         facts
       end
       let(:pre_condition) { 'class {"php": fpm => false}' }
+
       describe 'when called with no parameters' do
         # rubocop:disable RSpec/RepeatedExample
         case facts[:osfamily]

@@ -30,6 +30,7 @@ describe 'php', type: :class do
 
       describe 'when called with package_prefix parameter' do
         let(:params) { { package_prefix: 'myphp-' } }
+
         case facts[:osfamily]
         when 'Debian'
           it { is_expected.not_to contain_class('php::global') }
@@ -52,6 +53,7 @@ describe 'php', type: :class do
 
       describe 'when called with fpm_user parameter' do
         let(:params) { { fpm_user: 'nginx' } }
+
         it { is_expected.to contain_class('php::fpm').with(user: 'nginx') }
         it { is_expected.to contain_php__fpm__pool('www').with(user: 'nginx') }
 
@@ -70,6 +72,7 @@ describe 'php', type: :class do
       end
       describe 'when called with fpm_group parameter' do
         let(:params) { { fpm_group: 'nginx' } }
+
         it { is_expected.to contain_class('php::fpm').with(group: 'nginx') }
         it { is_expected.to contain_php__fpm__pool('www').with(group: 'nginx') }
         dstfile = case facts[:osfamily]
@@ -88,10 +91,12 @@ describe 'php', type: :class do
 
       describe 'when fpm is disabled' do
         let(:params) { { fpm: false } }
+
         it { is_expected.not_to contain_class('php::fpm') }
       end
       describe 'when composer is disabled' do
         let(:params) { { composer: false } }
+
         it { is_expected.not_to contain_class('php::composer') }
       end
     end
