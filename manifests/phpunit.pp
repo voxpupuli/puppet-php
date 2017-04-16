@@ -37,8 +37,8 @@ class php::phpunit (
     creates => $path,
     path    => ['/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/'],
     require => [Class['::php::cli'],Package['wget']],
-  } ->
-  file { $path:
+  }
+  -> file { $path:
     mode  => '0555',
     owner => root,
     group => root,
