@@ -33,10 +33,10 @@ class php::packages (
   if $::osfamily == 'debian' {
     if $manage_repos {
       include ::apt
+      Class['::apt::update'] -> Package[$real_names]
     }
     package { $real_names:
-      ensure  => $ensure,
-      require => Class['::apt::update'],
+      ensure => $ensure,
     }
   } else {
     package { $real_names:
