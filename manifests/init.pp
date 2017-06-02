@@ -42,6 +42,12 @@
 # [*fpm_package*]
 #   Name of fpm package to install
 #
+# [*fpm_user*]
+#   The user that runs php-fpm
+#
+# [*fpm_group*]
+#   The group that runs php-fpm
+#
 # [*dev*]
 #   Install php header files, needed to install pecl modules
 #
