@@ -107,66 +107,39 @@
 # [*settings*]
 #
 class php (
-  $ensure                   = $::php::params::ensure,
-  $manage_repos             = $::php::params::manage_repos,
-  $fpm                      = true,
-  $fpm_service_enable       = $::php::params::fpm_service_enable,
-  $fpm_service_ensure       = $::php::params::fpm_service_ensure,
-  $fpm_service_name         = $::php::params::fpm_service_name,
-  $fpm_service_provider     = undef,
-  $fpm_pools                = { 'www' => {} },
-  $fpm_global_pool_settings = {},
-  $fpm_inifile              = $::php::params::fpm_inifile,
-  $fpm_package              = undef,
-  $fpm_user                 = $::php::params::fpm_user,
-  $fpm_group                = $::php::params::fpm_group,
-  $embedded                 = false,
-  $dev                      = true,
-  $composer                 = true,
-  $pear                     = true,
-  $pear_ensure              = $::php::params::pear_ensure,
-  $phpunit                  = false,
-  $apache_config            = false,
-  $proxy_type               = undef,
-  $proxy_server             = undef,
-  $extensions               = {},
-  $settings                 = {},
-  $package_prefix           = $::php::params::package_prefix,
-  $config_root_ini          = $::php::params::config_root_ini,
-  $config_root_inifile      = $::php::params::config_root_inifile,
-  $ext_tool_enable          = $::php::params::ext_tool_enable,
-  $ext_tool_query           = $::php::params::ext_tool_query,
-  $ext_tool_enabled         = $::php::params::ext_tool_enabled,
-  $log_owner                = $::php::params::fpm_user,
-  $log_group                = $::php::params::fpm_group,
+  String $ensure                                  = $::php::params::ensure,
+  Boolean $manage_repos                           = $::php::params::manage_repos,
+  Boolean $fpm                                    = true,
+  $fpm_service_enable                             = $::php::params::fpm_service_enable,
+  $fpm_service_ensure                             = $::php::params::fpm_service_ensure,
+  $fpm_service_name                               = $::php::params::fpm_service_name,
+  $fpm_service_provider                           = undef,
+  Hash $fpm_pools                                 = { 'www' => {} },
+  Hash $fpm_global_pool_settings                  = {},
+  $fpm_inifile                                    = $::php::params::fpm_inifile,
+  $fpm_package                                    = undef,
+  $fpm_user                                       = $::php::params::fpm_user,
+  $fpm_group                                      = $::php::params::fpm_group,
+  Boolean $embedded                               = false,
+  Boolean $dev                                    = true,
+  Boolean $composer                               = true,
+  Boolean $pear                                   = true,
+  String $pear_ensure                             = $::php::params::pear_ensure,
+  Boolean $phpunit                                = false,
+  Boolean $apache_config                          = false,
+  $proxy_type                                     = undef,
+  $proxy_server                                   = undef,
+  Hash $extensions                                = {},
+  Hash $settings                                  = {},
+  $package_prefix                                 = $::php::params::package_prefix,
+  Stdlib::Absolutepath $config_root_ini           = $::php::params::config_root_ini,
+  Stdlib::Absolutepath $config_root_inifile       = $::php::params::config_root_inifile,
+  Optional[Stdlib::Absolutepath] $ext_tool_enable = $::php::params::ext_tool_enable,
+  Optional[Stdlib::Absolutepath] $ext_tool_query  = $::php::params::ext_tool_query,
+  Boolean $ext_tool_enabled                       = $::php::params::ext_tool_enabled,
+  String $log_owner                               = $::php::params::fpm_user,
+  String $log_group                               = $::php::params::fpm_group,
 ) inherits ::php::params {
-
-  validate_string($ensure)
-  validate_bool($manage_repos)
-  validate_bool($fpm)
-  validate_bool($embedded)
-  validate_bool($dev)
-  validate_bool($composer)
-  validate_bool($pear)
-  validate_bool($ext_tool_enabled)
-  validate_string($pear_ensure)
-  validate_bool($phpunit)
-  validate_bool($apache_config)
-  validate_hash($extensions)
-  validate_hash($settings)
-  validate_hash($fpm_pools)
-  validate_hash($fpm_global_pool_settings)
-  validate_string($log_owner)
-  validate_string($log_group)
-  validate_absolute_path($config_root_ini)
-  validate_absolute_path($config_root_inifile)
-
-  if $ext_tool_enable != undef {
-    validate_absolute_path($ext_tool_enable)
-  }
-  if $ext_tool_query != undef {
-    validate_absolute_path($ext_tool_query)
-  }
 
   $real_fpm_package = pick($fpm_package, "${package_prefix}${::php::params::fpm_package_suffix}")
 
