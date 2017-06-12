@@ -15,20 +15,15 @@
 #   Defines the time in days after which an auto-update gets executed
 #
 class php::phpunit (
-  $source      = $::php::params::phpunit_source,
-  $path        = $::php::params::phpunit_path,
-  $auto_update = true,
-  $max_age     = $::php::params::phpunit_max_age,
+  String $source             = $::php::params::phpunit_source,
+  Stdlib::Absolutepath $path = $::php::params::phpunit_path,
+  Boolean $auto_update       = true,
+  Integer $max_age           = $::php::params::phpunit_max_age,
 ) inherits ::php::params {
 
   if $caller_module_name != $module_name {
     warning('php::phpunit is private')
   }
-
-  validate_string($source)
-  validate_absolute_path($path)
-  validate_bool($auto_update)
-  validate_re("x${max_age}", '^x\d+$')
 
   ensure_packages(['wget'])
 

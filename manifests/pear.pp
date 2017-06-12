@@ -9,8 +9,8 @@
 #   The package name for PHP pear
 #
 class php::pear (
-  $ensure  = $::php::pear_ensure,
-  $package = undef,
+  String $ensure            = $::php::pear_ensure,
+  Optional[String] $package = undef,
 ) inherits ::php::params {
 
   if $caller_module_name != $module_name {
@@ -39,9 +39,6 @@ class php::pear (
   } else {
     $package_name = $package
   }
-
-  validate_string($ensure)
-  validate_string($package_name)
 
   # Default PHP come with xml module and no seperate package for it
   if $::operatingsystem == 'Ubuntu' and versioncmp($::operatingsystemrelease, '16.04') >= 0 {
