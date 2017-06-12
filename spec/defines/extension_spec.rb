@@ -150,6 +150,20 @@ describe 'php::extension' do
 
           it { is_expected.to contain_php__config('xdebug').with_config('zend_extension' => '/usr/lib/php5/20100525/xdebug.so') }
         end
+        context 'Set priority for php extension' do
+          let(:title) { 'tideways-php' }
+          let(:params) do
+            {
+              package_prefix: '',
+              so_name: 'tideways',
+              priority: 50
+            }
+          end
+
+          it do
+            is_expected.to contain_file_line('Set priority for tideways').with_line('; priority=50')
+          end
+        end
 
         case facts[:osfamily]
         when 'Debian'

@@ -62,6 +62,7 @@ define php::extension (
   Boolean          $zend              = false,
   Hash             $settings          = {},
   Php::Sapi        $sapi              = 'ALL',
+  Integer          $priority          = 20,
   Variant[Boolean, String]       $settings_prefix   = false,
   Optional[Stdlib::AbsolutePath] $responsefile      = undef,
   Variant[String, Array[String]] $header_packages   = [],
@@ -93,6 +94,7 @@ define php::extension (
       settings        => $settings,
       settings_prefix => $settings_prefix,
       sapi            => $sapi,
+      priority        => $priority,
       subscribe       => Php::Extension::Install[$title],
     }
   }
