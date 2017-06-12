@@ -15,9 +15,7 @@
 class php::packages (
   String $ensure         = $::php::ensure,
   Boolean $manage_repos  = $::php::manage_repos,
-  Array $names_to_prefix = prefix(
-    $::php::params::common_package_suffixes, $::php::package_prefix # lint:ignore:parameter_documentation
-  ),
+  Array $names_to_prefix = prefix($::php::params::common_package_suffixes, $::php::package_prefix),
   Array $names           = $::php::params::common_package_names,
 ) inherits ::php::params {
 
