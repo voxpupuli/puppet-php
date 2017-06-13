@@ -12,20 +12,10 @@
 #   Path to pid file for fpm
 
 class php::globals (
-  $php_version  = undef,
-  $config_root  = undef,
-  $fpm_pid_file = undef,
+  Optional[Pattern[/^[57].[0-9]/]] $php_version = undef,
+  Optional[Stdlib::Absolutepath] $config_root   = undef,
+  Optional[Stdlib::Absolutepath] $fpm_pid_file  = undef,
 ) {
-  if $php_version != undef {
-    validate_re($php_version, '^[57].[0-9]')
-  }
-  if $config_root != undef {
-    validate_absolute_path($config_root)
-  }
-
-  if $fpm_pid_file != undef {
-    validate_absolute_path($fpm_pid_file)
-  }
 
   $default_php_version = $::osfamily ? {
     'Debian' => $::operatingsystem ? {

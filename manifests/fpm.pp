@@ -50,31 +50,25 @@
 #   Defaults is empty hash.
 #
 class php::fpm (
-  $ensure               = $::php::ensure,
-  $user                 = $::php::fpm_user,
-  $group                = $::php::fpm_group,
-  $service_ensure       = $::php::fpm_service_ensure,
-  $service_enable       = $::php::fpm_service_enable,
-  $service_name         = $::php::fpm_service_name,
-  $service_provider     = $::php::fpm_service_provider,
-  $package              = $::php::real_fpm_package,
-  $inifile              = $::php::fpm_inifile,
-  $settings             = $::php::real_settings,
-  $global_pool_settings = $::php::real_fpm_global_pool_settings,
-  $pools                = $::php::real_fpm_pools,
-  $log_owner            = $::php::log_owner,
-  $log_group            = $::php::log_group,
+  String $ensure                = $::php::ensure,
+  $user                         = $::php::fpm_user,
+  $group                        = $::php::fpm_group,
+  $service_ensure               = $::php::fpm_service_ensure,
+  $service_enable               = $::php::fpm_service_enable,
+  $service_name                 = $::php::fpm_service_name,
+  $service_provider             = $::php::fpm_service_provider,
+  String $package               = $::php::real_fpm_package,
+  Stdlib::Absolutepath $inifile = $::php::fpm_inifile,
+  Hash $settings                = $::php::real_settings,
+  $global_pool_settings         = $::php::real_fpm_global_pool_settings,
+  Hash $pools                   = $::php::real_fpm_pools,
+  $log_owner                    = $::php::log_owner,
+  $log_group                    = $::php::log_group,
 ) {
 
   if ! defined(Class['php']) {
     warning('php::fpm is private')
   }
-
-  validate_string($ensure)
-  validate_string($package)
-  validate_absolute_path($inifile)
-  validate_hash($settings)
-  validate_hash($pools)
 
   $real_settings = deep_merge($settings, hiera_hash('php::fpm::settings', {}))
 
