@@ -13,6 +13,8 @@ describe 'php::extension' do
         etcdir = case facts[:osfamily]
                  when 'Debian'
                    '/etc/php5/mods-available'
+                 when 'Archlinux'
+                   '/etc/php/conf.d'
                  else
                    '/etc/php.d'
                  end

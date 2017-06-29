@@ -80,6 +80,9 @@
     },
     {
       "operatingsystem": "OpenSUSE"
+    },
+    {
+      "operatingsystem": "Archlinux"
     }
   ]
 }

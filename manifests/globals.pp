@@ -111,6 +111,10 @@ class php::globals (
       $default_config_root  = '/usr/local/etc'
       $default_fpm_pid_file = '/var/run/php-fpm.pid'
     }
+    'Archlinux': {
+      $default_config_root  =  '/etc/php'
+      $default_fpm_pid_file = '/run/php-fpm/php-fpm.pid'
+    }
     default: {
       fail("Unsupported osfamily: ${facts['os']['family']}")
     }
