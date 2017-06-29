@@ -60,6 +60,8 @@ describe 'php', type: :class do
         dstfile = case facts[:osfamily]
                   when 'Debian'
                     '/etc/php5/fpm/pool.d/www.conf'
+                  when 'Archlinux'
+                    '/etc/php/php-fpm.d/www.conf'
                   when 'Suse'
                     '/etc/php5/fpm/pool.d/www.conf'
                   when 'RedHat'
@@ -78,6 +80,8 @@ describe 'php', type: :class do
         dstfile = case facts[:osfamily]
                   when 'Debian'
                     '/etc/php5/fpm/pool.d/www.conf'
+                  when 'Archlinux'
+                    '/etc/php/php-fpm.d/www.conf'
                   when 'Suse'
                     '/etc/php5/fpm/pool.d/www.conf'
                   when 'RedHat'

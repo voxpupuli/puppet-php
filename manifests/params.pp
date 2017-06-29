@@ -157,6 +157,33 @@ class php::params inherits php::globals {
       $ext_tool_query          = undef
       $ext_tool_enabled        = false
     }
+    'Archlinux': {
+      $config_root_ini         = '/etc/php/conf.d'
+      $config_root_inifile     = '/etc/php/php.ini'
+      $common_package_names    = []
+      $common_package_suffixes = ['cli', 'common']
+      $cli_inifile             = '/etc/php/php.ini'
+      $dev_package_suffix      = undef
+      $fpm_pid_file            = '/run/php-fpm/php-fpm.pid'
+      $fpm_config_file         = '/etc/php/php-fpm.conf'
+      $fpm_error_log           = '/var/log/php-fpm/error.log'
+      $fpm_inifile             = '/etc/php/php.ini'
+      $fpm_package_suffix      = 'fpm'
+      $fpm_pool_dir            = '/etc/php/php-fpm.d'
+      $fpm_service_name        = 'php-fpm'
+      $fpm_user                = 'root'
+      $fpm_group               = 'root'
+      $apache_inifile          = '/etc/php/php.ini'
+      $embedded_package_suffix = 'embedded'
+      $embedded_inifile        = '/etc/php/php.ini'
+      $package_prefix          = 'php-'
+      $compiler_packages       = ['gcc', 'make']
+      $manage_repos            = false
+      $root_group              = 'root'
+      $ext_tool_enable         = undef
+      $ext_tool_query          = undef
+      $ext_tool_enabled        = false
+    }
     default: {
       fail("Unsupported osfamily: ${facts['os']['family']}")
     }
