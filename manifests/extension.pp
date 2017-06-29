@@ -52,6 +52,9 @@
 #   File containing answers for interactive extension setup. Supported
 #   *providers*: pear, pecl.
 #
+# [*install_options*]
+#   Array of String or Hash options to pass to the provider.
+#
 define php::extension (
   String           $ensure                          = 'installed',
   Optional[Php::Provider] $provider                 = undef,
@@ -66,6 +69,7 @@ define php::extension (
   Optional[Stdlib::AbsolutePath] $responsefile      = undef,
   Variant[String, Array[String]] $header_packages   = [],
   Variant[String, Array[String]] $compiler_packages = $::php::params::compiler_packages,
+  Php::InstallOptions $install_options              = undef,
 ) {
 
   if ! defined(Class['php']) {
@@ -80,6 +84,7 @@ define php::extension (
     package_prefix    => $package_prefix,
     header_packages   => $header_packages,
     compiler_packages => $compiler_packages,
+    install_options   => $install_options,
   }
 
   # PEAR packages don't require any further configuration, they just need to "be there".
