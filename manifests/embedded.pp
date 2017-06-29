@@ -30,7 +30,7 @@ class php::embedded(
     hiera_hash('php::embedded::settings', {})
   )
 
-  $real_package = $::osfamily ? {
+  $real_package = $facts['os']['family'] ? {
     'Debian' => "lib${package}",
     default   => $package,
   }

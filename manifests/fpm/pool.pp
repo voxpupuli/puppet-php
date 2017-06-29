@@ -174,7 +174,7 @@ define php::fpm::pool (
 
   # On FreeBSD fpm is not a separate package, but included in the 'php' package.
   # Implies that the option SET+=FPM was set when building the port.
-  $real_package = $::osfamily ? {
+  $real_package = $facts['os']['name'] ? {
     'FreeBSD' => [],
     default   => $::php::fpm::package,
   }

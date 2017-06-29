@@ -168,7 +168,7 @@ class php (
   -> anchor { 'php::end': }
 
   # Configure global PHP settings in php.ini
-  if $::osfamily != 'Debian' {
+  if $facts['os']['family'] != 'Debian' {
     Class['php::packages']
     -> class {'::php::global':
       settings => $real_settings,
@@ -178,7 +178,7 @@ class php (
 
   if $fpm { contain '::php::fpm' }
   if $embedded {
-    if $::osfamily == 'RedHat' and $fpm {
+    if $facts['os']['family'] == 'RedHat' and $fpm {
       # Both fpm and embeded SAPIs are using same php.ini
       fail('Enabling both cli and embedded sapis is not currently supported')
     }

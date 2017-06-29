@@ -14,7 +14,7 @@ class php::params inherits php::globals {
   $phpunit_path        = '/usr/local/bin/phpunit'
   $phpunit_max_age     = 30
 
-  case $::osfamily {
+  case $facts['os']['family'] {
     'Debian': {
       $config_root             = $php::globals::globals_config_root
       $config_root_ini         = "${config_root}/mods-available"
@@ -42,9 +42,9 @@ class php::params inherits php::globals {
       $ext_tool_query          = $php::globals::ext_tool_query
       $ext_tool_enabled        = true
 
-      case $::operatingsystem {
+      case $facts['os']['name'] {
         'Debian': {
-          $manage_repos = (versioncmp($::operatingsystemrelease, '8') < 0)
+          $manage_repos = (versioncmp($facts['os']['release']['major'], '8') < 0)
         }
 
         'Ubuntu': {
@@ -88,7 +88,7 @@ class php::params inherits php::globals {
       $ext_tool_enable         = undef
       $ext_tool_query          = undef
       $ext_tool_enabled        = false
-      case $::operatingsystem {
+      case $facts['os']['name'] {
         'SLES': {
           $compiler_packages = []
         }
@@ -96,7 +96,7 @@ class php::params inherits php::globals {
           $compiler_packages = 'devel_basis'
         }
         default: {
-          fail("Unsupported operating system ${::operatingsystem}")
+          fail("Unsupported operating system ${facts['os']['name']}")
         }
       }
     }
@@ -158,7 +158,7 @@ class php::params inherits php::globals {
       $ext_tool_enabled        = false
     }
     default: {
-      fail("Unsupported osfamily: ${::osfamily}")
+      fail("Unsupported osfamily: ${facts['os']['family']}")
     }
   }
 }

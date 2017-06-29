@@ -68,7 +68,7 @@ class php::fpm (
 
   # On FreeBSD fpm is not a separate package, but included in the 'php' package.
   # Implies that the option SET+=FPM was set when building the port.
-  $real_package = $::osfamily ? {
+  $real_package = $facts['os']['family'] ? {
     'FreeBSD' => [],
     default   => $package,
   }
@@ -98,7 +98,7 @@ class php::fpm (
 
   # Create an override to use a reload signal as trusty and utopic's
   # upstart version supports this
-  if $::operatingsystem == 'Ubuntu' and ($::operatingsystemmajrelease == '14.04' or $::operatingsystemmajrelease == '14.10') {
+  if $facts['os']['name'] == 'Ubuntu' and ($facts['os']['release']['major'] == '14') {
     if ($service_enable) {
       $fpm_override = 'reload signal USR2'
     }

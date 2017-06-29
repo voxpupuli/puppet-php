@@ -17,9 +17,9 @@ class php::globals (
   Optional[Stdlib::Absolutepath] $fpm_pid_file  = undef,
 ) {
 
-  $default_php_version = $::osfamily ? {
-    'Debian' => $::operatingsystem ? {
-      'Ubuntu' => $::operatingsystemrelease ? {
+  $default_php_version = $facts['os']['family'] ? {
+    'Debian' => $facts['os']['name'] ? {
+      'Ubuntu' => $facts['os']['release']['full'] ? {
         /^(16.04)$/ => '7.0',
         default => '5.x',
       },
@@ -30,9 +30,9 @@ class php::globals (
 
   $globals_php_version = pick($php_version, $default_php_version)
 
-  case $::osfamily {
+  case $facts['os']['family'] {
     'Debian': {
-      if $::operatingsystem == 'Ubuntu' {
+      if $facts['os']['name'] == 'Ubuntu' {
         case $globals_php_version {
           /^5\.4/: {
             $default_config_root  = '/etc/php5'
@@ -112,7 +112,7 @@ class php::globals (
       $default_fpm_pid_file = '/var/run/php-fpm.pid'
     }
     default: {
-      fail("Unsupported osfamily: ${::osfamily}")
+      fail("Unsupported osfamily: ${facts['os']['family']}")
     }
   }
 
