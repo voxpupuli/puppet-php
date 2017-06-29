@@ -71,6 +71,7 @@ define php::extension (
   $settings_prefix   = false,
   $sapi              = 'ALL',
   $responsefile      = undef,
+  $install_options   = undef,
 ) {
 
   if ! defined(Class['php']) {
@@ -110,11 +111,12 @@ define php::extension (
 
     if $provider == 'pecl' or $provider == 'pear' {
       ensure_packages( [ $real_package ], {
-        ensure       => $ensure,
-        provider     => $provider,
-        source       => $real_source,
-        responsefile => $responsefile,
-        require      => [
+        ensure          => $ensure,
+        provider        => $provider,
+        source          => $real_source,
+        responsefile    => $responsefile,
+        install_options => $install_options,
+        require         => [
           Class['::php::pear'],
           Class['::php::dev'],
         ],
