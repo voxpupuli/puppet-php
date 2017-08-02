@@ -14,7 +14,7 @@ class php::params inherits php::globals {
   $phpunit_path        = '/usr/local/bin/phpunit'
   $phpunit_max_age     = 30
 
-  case $::osfamily {
+  case $facts['os']['family'] {
     'Debian': {
       $config_root             = $php::globals::globals_config_root
       $config_root_ini         = "${config_root}/mods-available"
@@ -42,9 +42,9 @@ class php::params inherits php::globals {
       $ext_tool_query          = $php::globals::ext_tool_query
       $ext_tool_enabled        = true
 
-      case $::operatingsystem {
+      case $facts['os']['name'] {
         'Debian': {
-          $manage_repos = (versioncmp($::operatingsystemrelease, '8') < 0)
+          $manage_repos = (versioncmp($facts['os']['release']['major'], '8') < 0)
         }
 
         'Ubuntu': {
@@ -88,7 +88,7 @@ class php::params inherits php::globals {
       $ext_tool_enable         = undef
       $ext_tool_query          = undef
       $ext_tool_enabled        = false
-      case $::operatingsystem {
+      case $facts['os']['name'] {
         'SLES': {
           $compiler_packages = []
         }
@@ -96,7 +96,7 @@ class php::params inherits php::globals {
           $compiler_packages = 'devel_basis'
         }
         default: {
-          fail("Unsupported operating system ${::operatingsystem}")
+          fail("Unsupported operating system ${facts['os']['name']}")
         }
       }
     }
@@ -157,8 +157,35 @@ class php::params inherits php::globals {
       $ext_tool_query          = undef
       $ext_tool_enabled        = false
     }
+    'Archlinux': {
+      $config_root_ini         = '/etc/php/conf.d'
+      $config_root_inifile     = '/etc/php/php.ini'
+      $common_package_names    = []
+      $common_package_suffixes = ['cli', 'common']
+      $cli_inifile             = '/etc/php/php.ini'
+      $dev_package_suffix      = undef
+      $fpm_pid_file            = '/run/php-fpm/php-fpm.pid'
+      $fpm_config_file         = '/etc/php/php-fpm.conf'
+      $fpm_error_log           = '/var/log/php-fpm/error.log'
+      $fpm_inifile             = '/etc/php/php.ini'
+      $fpm_package_suffix      = 'fpm'
+      $fpm_pool_dir            = '/etc/php/php-fpm.d'
+      $fpm_service_name        = 'php-fpm'
+      $fpm_user                = 'root'
+      $fpm_group               = 'root'
+      $apache_inifile          = '/etc/php/php.ini'
+      $embedded_package_suffix = 'embedded'
+      $embedded_inifile        = '/etc/php/php.ini'
+      $package_prefix          = 'php-'
+      $compiler_packages       = ['gcc', 'make']
+      $manage_repos            = false
+      $root_group              = 'root'
+      $ext_tool_enable         = undef
+      $ext_tool_query          = undef
+      $ext_tool_enabled        = false
+    }
     default: {
-      fail("Unsupported osfamily: ${::osfamily}")
+      fail("Unsupported osfamily: ${facts['os']['family']}")
     }
   }
 }
