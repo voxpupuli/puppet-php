@@ -140,6 +140,27 @@ describe 'php::extension' do
           end
         end
 
+        context 'add ini file prefix if requested' do
+          let(:title) { 'zendopcache' }
+          let(:params) do
+            {
+              provider: 'pecl',
+              zend: true,
+              ini_prefix: '10-',
+              so_name: 'opcache'
+            }
+          end
+
+          it do
+            is_expected.to contain_php__config('zendopcache').with(
+              file: "#{etcdir}/10-opcache.ini",
+              config: {
+                'zend_extension' => 'opcache.so'
+              }
+            )
+          end
+        end
+
         context 'pecl extensions support php_api_version' do
           let(:title) { 'xdebug' }
           let(:params) do

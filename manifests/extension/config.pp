@@ -14,6 +14,9 @@
 # [*so_name*]
 #   The DSO name of the package (e.g. opcache for zendopcache)
 #
+# [*ini_prefix*]
+#   An optional filename prefix for the settings file of the extension
+#
 # [*php_api_version*]
 #   This parameter is used to build the full path to the extension
 #   directory for zend_extension in PHP < 5.5 (e.g. 20100525)
@@ -45,6 +48,7 @@ define php::extension::config (
   String                   $ensure          = 'installed',
   Optional[Php::Provider]  $provider        = undef,
   Optional[String]         $so_name         = downcase($name),
+  Optional[String]         $ini_prefix      = undef,
   Optional[String]         $php_api_version = undef,
   Boolean                  $zend            = false,
   Hash                     $settings        = {},
@@ -83,7 +87,7 @@ define php::extension::config (
 
   $config_root_ini = pick_default($::php::config_root_ini, $::php::params::config_root_ini)
   ::php::config { $title:
-    file   => "${config_root_ini}/${ini_name}.ini",
+    file   => "${config_root_ini}/${ini_prefix}${ini_name}.ini",
     config => $final_settings,
   }
 
