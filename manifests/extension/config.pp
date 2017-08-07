@@ -80,10 +80,14 @@ define php::extension::config (
     String => ensure_prefix($settings, "${settings_prefix}."),
   }
 
-  $final_settings = deep_merge(
-    {"${extension_key}" => "${module_path}${so_name}.so"},
-    $full_settings
-  )
+  if $provider != 'pear' {
+    $final_settings = deep_merge(
+      {"${extension_key}" => "${module_path}${so_name}.so"},
+      $full_settings
+    )
+  } else {
+    $final_settings = $full_settings
+  }
 
   $config_root_ini = pick_default($::php::config_root_ini, $::php::params::config_root_ini)
   ::php::config { $title:

@@ -1,6 +1,35 @@
 # Changelog
 
-## 2017-02-11 Release 4.0.0
+## 2017-08-02 Release [5.0.0]
+### Summary
+This backwards-incompatible release drops puppet 3, PHP 5.5 on Ubuntu, and the deprecated `php::extension` parameter `pecl_source`. It improves much of the internal code quality, and adds several useful features the most interesting of which is probably the `php::extension` parameter `ini_prefix`.
+
+### Changed
+- Drop puppet 3 compatibility.
+- Bumped puppetlabs-apt lower bound to 4.1.0
+- Bumped puppetlabs-stdlib lower bound to 4.13.1
+
+### Removed
+- Deprecated `php::extension` define parameters `pecl_source`. Use `source` instead.
+- PHP 5.5 support on ubuntu.
+
+### Added
+- `php` class parameters `fpm_user` and `fpm_group` to customize php-fpm user/group.
+- `php::fpm` class parameters `user` and `group`.
+- `php::fpm::pool` define parameter `pm_process_idle_timeout` and pool.conf `pm.process_idle_timeout` directive.
+- `php::extension` class parameters `ini_prefix` and `install_options`.
+- Archlinux compatibility.
+- Bumped puppetlabs-apt upper bound to 5.0.0
+
+### Fixed
+- Replaced validate functions with data types.
+- Linting issues.
+- Replace legacy facts with facts hash.
+- Simplify `php::extension`
+- Only apt dependency when `manage_repos => true`
+- No more example42/yum dependency
+
+## 2017-02-11 Release [4.0.0]
 
 This is the last release with Puppet3 support!
 * Fix a bug turning `manage_repos` off on wheezy
@@ -191,3 +220,5 @@ This is the last release with Puppet3 support!
 ## 1.0.0
 Initial release
 
+[4.1.0]: https://github.com/olivierlacan/keep-a-changelog/compare/v4.0.0...v4.1.0
+[4.0.0]: https://github.com/olivierlacan/keep-a-changelog/compare/v3.4.2...v4.0.0
