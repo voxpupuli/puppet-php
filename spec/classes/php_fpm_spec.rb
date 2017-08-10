@@ -14,6 +14,13 @@ describe 'php::fpm', type: :class do
         when 'Debian'
           it { is_expected.to contain_package('php5-fpm').with_ensure('present') }
           it { is_expected.to contain_service('php5-fpm').with_ensure('running') }
+          if facts[:operatingsystem] == 'Ubuntu'
+            if facts[:operatingsystemrelease] == '14.04'
+              it { is_expected.to contain_file('/etc/init/php5-fpm.override').with_content('reload signal USR2') }
+            else
+              it { is_expected.to contain_file('/etc/init/php5-fpm.override').with_content("reload signal USR2\nmanual") }
+            end
+          end
         when 'Suse'
           it { is_expected.to contain_package('php5-fpm').with_ensure('present') }
           it { is_expected.to contain_service('php-fpm').with_ensure('running') }
