@@ -7,7 +7,7 @@ class php::repo {
   case $facts['os']['family'] {
     'Debian': {
       # no contain here because apt does that already
-      case $facts['os']['family'] {
+      case $facts['os']['name'] {
         'Debian': {
           include ::php::repo::debian
         }
