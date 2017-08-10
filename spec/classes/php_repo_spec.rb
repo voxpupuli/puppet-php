@@ -22,7 +22,6 @@ describe 'php::repo', type: :class do
           it { is_expected.to contain_class('php::repo::redhat') }
         end
       end
-
     end
   end
 end
