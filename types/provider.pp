@@ -24,5 +24,5 @@ type Php::Provider = Enum[
   'freebsd',
   'pkgng',
   'ports',
-  'portupgrade',
+  'portupgrade'
 ]
