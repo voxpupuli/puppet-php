@@ -20,7 +20,7 @@ class php::globals (
   $default_php_version = $facts['os']['family'] ? {
     'Debian' => $facts['os']['name'] ? {
       'Ubuntu' => $facts['os']['release']['full'] ? {
-        /^(16.04)$/ => '7.0',
+        /^(1[67].04)$/ => '7.0',
         default => '5.x',
       },
       default => '5.x',
