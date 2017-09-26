@@ -32,4 +32,13 @@ class php::repo::redhat (
     gpgkey     => 'https://rpms.remirepo.net/RPM-GPG-KEY-remi',
     priority   => 1,
   }
+
+  yumrepo { 'remi-php71':
+    descr      => 'Remi\'s PHP 7.1 RPM repository for Enterprise Linux 7 - $basearch',
+    mirrorlist => "http://rpms.remirepo.net/enterprise/7/php71/mirror",
+    enabled    => 1,
+    gpgcheck   => 1,
+    gpgkey     => 'https://rpms.remirepo.net/RPM-GPG-KEY-remi',
+    priority   => 1,
+  }
 }
