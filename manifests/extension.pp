@@ -72,6 +72,7 @@ define php::extension (
   $sapi              = 'ALL',
   $responsefile      = undef,
   $install_options   = undef,
+  $php_version = $::php::globals::php_version,
 ) {
 
   if ! defined(Class['php']) {
@@ -204,12 +205,12 @@ define php::extension (
 
     if $sapi == 'ALL' {
       exec { $cmd:
-        onlyif  => "${ext_tool_query} -s cli -m ${lowercase_title} | /bin/grep 'No module matches ${lowercase_title}'",
+        onlyif  => "${ext_tool_query} -s cli -m ${lowercase_title} -v ${php_version} | /bin/grep 'No module matches ${lowercase_title}'",
         require =>::Php::Config[$title],
       }
     } else {
       exec { $cmd:
-        onlyif  => "${ext_tool_query} -s ${sapi} -m ${lowercase_title} | /bin/grep 'No module matches ${lowercase_title}'",
+        onlyif  => "${ext_tool_query} -s ${sapi} -m ${lowercase_title} -v ${php_version} | /bin/grep 'No module matches ${lowercase_title}'",
         require =>::Php::Config[$title],
       }
     }
