@@ -25,10 +25,10 @@
 # [*listen_mode*]
 #
 # [*user*]
-#   Which user the php-fpm process to run as
+#   The user that php-fpm should run as
 #
 # [*group*]
-#   Which group the php-fpm process to run as
+#   The group that php-fpm should run as
 #
 # [*pm*]
 #

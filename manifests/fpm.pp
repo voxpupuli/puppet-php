@@ -2,6 +2,12 @@
 #
 # === Parameters
 #
+# [*user*]
+#   The user that php-fpm should run as
+#
+# [*group*]
+#   The group that php-fpm should run as
+#
 # [*service_enable*]
 #   Enable/disable FPM service
 #
