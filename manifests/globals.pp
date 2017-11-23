@@ -104,7 +104,7 @@ class php::globals (
       }
     }
     'RedHat': {
-      $default_config_root  = '/etc/php.d'
+      $default_config_root  = '/etc'
       $default_fpm_pid_file = '/var/run/php-fpm/php-fpm.pid'
     }
     'FreeBSD': {
