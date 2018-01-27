@@ -44,7 +44,7 @@ class php::composer::auto_update (
   }
 
   exec { 'update composer':
-    command     => "${path} --no-interaction --quiet self-update",
+    command     => "${path} --no-interaction --quiet self-update; touch ${path}",
     environment => $env,
     onlyif      => "test `find '${path}' -mtime +${max_age}`",
     path        => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
