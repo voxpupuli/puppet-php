@@ -278,4 +278,3 @@ The source can be found at
 This Puppet module was originally maintained by some fellow puppeteers at
 [Mayflower GmbH](https://mayflower.de) and is now maintained by
 [Vox Pupuli](https://voxpupuli.org/).
-
