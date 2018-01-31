@@ -1,16 +1,99 @@
 # Changelog
 
-## 4.0.0
- * Fix a bug turning `manage_repos` off on wheezy
- * Fix a deprecation warning on `apt::key` when using `manage_repos` on wheezy (#110)
-   This change requires puppetlabs/apt at >= 1.8.0
- * Allow removal of config values (#124)
- * Add `phpversion` fact, to be used for querying through PuppetDB (#119)
- * Allow configuring the fpm pid file (#123)
+All notable changes to this project will be documented in this file.
+Each new release typically also includes the latest modulesync defaults.
+These should not affect the functionality of the module.
+
+## [v5.1.0](https://github.com/voxpupuli/puppet-php/tree/v5.1.0) (2017-11-10)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v5.0.0...v5.1.0)
+
+**Fixed bugs:**
+
+- Fix syntax issues with data types [\#385](https://github.com/voxpupuli/puppet-php/pull/385) ([craigwatson](https://github.com/craigwatson))
+- fix ubuntu 17.04 version for php7 [\#383](https://github.com/voxpupuli/puppet-php/pull/383) ([arudat](https://github.com/arudat))
+- Fix OS fact comparison for Ubuntu 12 and 14 [\#375](https://github.com/voxpupuli/puppet-php/pull/375) ([dbeckham](https://github.com/dbeckham))
+- Fix OS facts usage when selecting repo class for Ubuntu systems [\#374](https://github.com/voxpupuli/puppet-php/pull/374) ([dbeckham](https://github.com/dbeckham))
+- Confine pecl provider to where pear command is available [\#364](https://github.com/voxpupuli/puppet-php/pull/364) ([walkamongus](https://github.com/walkamongus))
+- fix default value of php::fpm::pool::access\_log\_format [\#361](https://github.com/voxpupuli/puppet-php/pull/361) ([lesinigo](https://github.com/lesinigo))
+
+**Closed issues:**
+
+- Debian repository classes are being selected on Ubuntu systems [\#373](https://github.com/voxpupuli/puppet-php/issues/373)
+- Changes in \#357 break Ubuntu version dependent resources [\#372](https://github.com/voxpupuli/puppet-php/issues/372)
+
+**Merged pull requests:**
+
+- Proposed fix for failing parallel spec tests [\#386](https://github.com/voxpupuli/puppet-php/pull/386) ([wyardley](https://github.com/wyardley))
+- update dependencies in metadata [\#379](https://github.com/voxpupuli/puppet-php/pull/379) ([mmoll](https://github.com/mmoll))
+- Bump metadata.json version to 5.0.1-rc [\#377](https://github.com/voxpupuli/puppet-php/pull/377) ([dhollinger](https://github.com/dhollinger))
+- bump dep on puppet/archive to '\< 3.0.0' [\#376](https://github.com/voxpupuli/puppet-php/pull/376) ([costela](https://github.com/costela))
+- Release 5.0.0 [\#371](https://github.com/voxpupuli/puppet-php/pull/371) ([hunner](https://github.com/hunner))
+- Backport of \#355  remove example42/yum dependency on puppet3 branch [\#366](https://github.com/voxpupuli/puppet-php/pull/366) ([LEDfan](https://github.com/LEDfan))
+- Add missing php-fpm user and group class param docs [\#346](https://github.com/voxpupuli/puppet-php/pull/346) ([dbeckham](https://github.com/dbeckham))
+
+## [v5.0.0](https://github.com/voxpupuli/puppet-php/tree/v5.0.0) (2017-08-07)
+### Summary
+This backwards-incompatible release drops puppet 3, PHP 5.5 on Ubuntu, and the deprecated `php::extension` parameter `pecl_source`. It improves much of the internal code quality, and adds several useful features the most interesting of which is probably the `php::extension` parameter `ini_prefix`.
+
+### Changed
+- Drop puppet 3 compatibility.
+- Bumped puppetlabs-apt lower bound to 4.1.0
+- Bumped puppetlabs-stdlib lower bound to 4.13.1
+
+### Removed
+- Deprecated `php::extension` define parameters `pecl_source`. Use `source` instead.
+- PHP 5.5 support on ubuntu.
+
+### Added
+- `php` class parameters `fpm_user` and `fpm_group` to customize php-fpm user/group.
+- `php::fpm` class parameters `user` and `group`.
+- `php::fpm::pool` define parameter `pm_process_idle_timeout` and pool.conf `pm.process_idle_timeout` directive.
+- `php::extension` class parameters `ini_prefix` and `install_options`.
+- Archlinux compatibility.
+- Bumped puppetlabs-apt upper bound to 5.0.0
+
+### Fixed
+- Replaced validate functions with data types.
+- Linting issues.
+- Replace legacy facts with facts hash.
+- Simplify `php::extension`
+- Only apt dependency when `manage_repos => true`
+- No more example42/yum dependency
+
+## 2017-02-11 Release [4.0.0]
+
+This is the last release with Puppet3 support!
+* Fix a bug turning `manage_repos` off on wheezy
+* Fix a deprecation warning on `apt::key` when using `manage_repos` on wheezy (#110). This change requires puppetlabs/apt at >= 1.8.0
+* Allow removal of config values (#124)
+* Add `phpversion` fact, for querying through PuppetDB or Foreman (#119)
+* Allow configuring the fpm pid file (#123)
+* Add embedded SAPI support (#115)
+* Add options to fpm config and pool configs (#139)
+* Add parameter logic for PHP 7 on Ubuntu/Debian (#180)
+* add SLES PHP 7.0 Support (#220)
+* allow packaged extensions to be loaded as zend extensions
+* Fix command to enable php extensions (#226)
+* Fix many rucocop warnings
+* Update module Ubuntu 14.04 default to official repository setup
+* Fix dependency for extentions with no package source
+* Allow packaged extensions to be loaded as Zend extensions
+* Support using an http proxy for downloading composer
+* Refactor classes php::fpm and php::fpm:service
+* Manage apache/PHP configurations on Debian and RHEL systems
+* use voxpupuli/archive to download composer
+* respect $manage_repos, do not include ::apt if set to false
+* Bump min version_requirement for Puppet + deps
+* allow pipe param for pecl extensions
+* Fix: composer auto_update: exec's environment must be array
 
 ### Breaking Changes
  * Deep merge `php::extensions` the same way as `php::settings`. This technically is a
    breaking change but should not affect many people.
+ * PHP 5.6 is the default version on all systems now (except Ubuntu 16.04, where 7.0 is the default).
+ * There's a php::globals class now, where global paramters (like the PHP version) are set. (#132)
+ * Removal of php::repo::ubuntu::ppa (#218)
 
 ## 3.4.2
  * Fix a bug that changed the default of `php::manage_repos` to `false` on
@@ -169,3 +252,8 @@
 ## 1.0.0
 Initial release
 
+[4.1.0]: https://github.com/olivierlacan/keep-a-changelog/compare/v4.0.0...v4.1.0
+[4.0.0]: https://github.com/olivierlacan/keep-a-changelog/compare/v3.4.2...v4.0.0
+
+
+\* *This Change Log was automatically generated by [github_changelog_generator](https://github.com/skywinder/Github-Changelog-Generator)*

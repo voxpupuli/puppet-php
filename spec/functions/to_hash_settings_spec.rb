@@ -14,11 +14,11 @@ describe 'to_hash_settings' do
   ]
 
   describe 'when first parameter is not a hash' do
-    it { should run.with_params('baz', input).and_raise_error(Puppet::ParseError)}
+    it { is_expected.to run.with_params('baz', input).and_raise_error(Puppet::ParseError) }
   end
 
   describe 'when used with proper parameters' do
-    it { should run.with_params(input).and_return(results[0]) }
-    it { should run.with_params(input, 'foo').and_return(results[1]) }
+    it { is_expected.to run.with_params(input).and_return(results[0]) }
+    it { is_expected.to run.with_params(input, 'foo').and_return(results[1]) }
   end
 end

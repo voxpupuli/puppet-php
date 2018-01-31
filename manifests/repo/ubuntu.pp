@@ -2,29 +2,30 @@
 #
 # === Parameters
 #
-# [*oldstable*]
-#   Install 5.4 (ondrej/php5-oldstable PPA)
-#
-# [*ppa*]
-#   Use a specific PPA, e.g "ondrej/php5-5.6" (without the "ppa:")
+# [*version*]
+#   PHP version to manage (e.g. 5.6)
 #
 class php::repo::ubuntu (
-  $oldstable = false,
-  $ppa       = undef,
+  $version   = undef,
 ) {
   include '::apt'
 
-  validate_bool($oldstable)
-
-  if ($ppa and $oldstable == true) {
-    fail('Only one of $oldstable and $ppa can be specified.')
-  }
-
-  if ($ppa) {
-    ::apt::ppa { "ppa:${ppa}": }
-  } elsif ($::lsbdistcodename == 'precise' or $oldstable == true) {
-    ::apt::ppa { 'ppa:ondrej/php5-oldstable': }
+  if($version == undef) {
+    $version_real = '5.6'
   } else {
-    ::apt::ppa { 'ppa:ondrej/php5': }
+    $version_real = $version
   }
+
+  if ($version_real == '5.5') {
+    fail('PHP 5.5 is no longer available for download')
+  }
+  assert_type(Pattern[/^\d\.\d/], $version_real)
+
+  $version_repo = $version_real ? {
+    '5.4' => 'ondrej/php5-oldstable',
+    '5.6' => 'ondrej/php',
+    '7.0' => 'ondrej/php'
+  }
+
+  ::apt::ppa { "ppa:${version_repo}": }
 }

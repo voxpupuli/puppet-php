@@ -1,34 +1,46 @@
-sudo: true
+---
+sudo: false
+dist: trusty
 language: ruby
-rvm:
-- 2.1.6
-- 2.0.0
-- 1.9.3
-env:
-  matrix:
-  - PUPPET_VERSION=3.7.5
-  - PUPPET_VERSION=3.7.5 FUTURE_PARSER=yes TRUSTED_NODE_DATA=yes
-  global:
-  - secure: Zc0V6JqwpFTTtVE7jVFg5R6UgXZrzsBGa6ckbOnIHPCOyJsV4oWO6RxKsYI+ozzD9nrEdrT/DTcHKRz84YqrMXxvBU9HA4S/ZrNQoRiH3bEnI3UHC6jQJRX0c71gaJEMQ3S33my39vLD7EsealX3p+j8asL8e8glYR1am9ekUB8=
+cache: bundler
+before_install:
+  - rm -f Gemfile.lock
+script:
+  - 'bundle exec rake $CHECK'
 matrix:
-  exclude:
-  - rvm: 2.1.6
-    env: PUPPET_VERSION=3.7.5
+  fast_finish: true
   include:
-  - rvm: 2.1.6
-    env: PUPPET_VERSION=3.7.5 DOCS=true
-after_success: |
-  [ $TRAVIS_BRANCH = master ] &&
-  [ $TRAVIS_PULL_REQUEST = false ] &&
-  [ -n "$DOCS" ] &&
-  puppet module install puppetlabs/strings &&
-  puppet strings &&
-  sudo pip install ghp-import &&
-  echo php.puppet.mayflower.de > doc/CNAME &&
-  ghp-import -n doc &&
-  git push -fq https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git gh-pages
+  - rvm: 2.1.9
+    bundler_args: --without system_tests development release
+    env: PUPPET_VERSION="~> 4.0" CHECK=test PARALLEL_TEST_PROCESSORS=16
+  - rvm: 2.4.2
+    bundler_args: --without system_tests development release
+    env: PUPPET_VERSION="~> 5.0" CHECK=test_with_coveralls
+  - rvm: 2.4.2
+    bundler_args: --without system_tests development release
+    env: PUPPET_VERSION="~> 5.0" CHECK=rubocop
+  - rvm: 2.4.2
+    bundler_args: --without system_tests development release
+    env: PUPPET_VERSION="~> 5.0" CHECK=build DEPLOY_TO_FORGE=yes
+branches:
+  only:
+  - master
+  - /^v\d/
 notifications:
-  webhooks:
-    urls:
-    - http://travis-notify.mayflower.de/opensource
-    on_start: true
+  email: false
+  irc:
+    on_success: always
+    on_failure: always
+    channels:
+      - "chat.freenode.org#voxpupuli-notifications"
+deploy:
+  provider: puppetforge
+  user: puppet
+  password:
+    secure: "GOhttACuJt+3s38m4WnW5RuTgwqaAoeEQnNT+X1Ukn7KdcIk4KV8NzYU/CC0VIm8lUOnBWYJKEC4ixX/J/4Wbxox2RAoKMQrO++L0DB1zTCJnq9SfoUBMaQhXvLu+PbxAR0p3P47ozra0C+pOWDpOaxT9ecufrPQt9W9Z4aY/bs="
+  on:
+    tags: true
+    # all_branches is required to use tags
+    all_branches: true
+    # Only publish the build marked with "DEPLOY_TO_FORGE"
+    condition: "$DEPLOY_TO_FORGE = yes"

@@ -1,108 +1,187 @@
-# mayflower/php Puppet Module
+[![Puppet Forge](http://img.shields.io/puppetforge/v/puppet/php.svg)](https://forge.puppetlabs.com/puppet/php)
+[![Build Status](https://travis-ci.org/voxpupuli/puppet-php.svg?branch=master)](https://travis-ci.org/voxpupuli/puppet-php)
 
-[![GitHub version](https://badge.fury.io/gh/mayflower%2Fpuppet-php.svg)](https://github.com/mayflower/puppet-php)
-[![Build Status](https://travis-ci.org/mayflower/puppet-php.svg?branch=master)](https://travis-ci.org/mayflower/puppet-php)
+## Current Status
+As the original creators of `puppet-php` are no longer maintaining the module, it has been handed over into the care of Vox Pupuli.
+Please be sure to update all your links to the new location.
 
-mayflower/php is a Puppet module for managing PHP with a strong focus
-on php-fpm. We strive to support all recent versions of Debian, Ubuntu,
-RedHat/CentOS, openSUSE/SLES and FreeBSD. Managing Apache with `mod_php`
-is not supported.
+# voxpupuli/php Puppet Module
+
+voxpupuli/php is a Puppet module for managing PHP with a strong focus
+on php-fpm. The module aims to use sane defaults for the supported
+architectures. We strive to support all recent versions of Debian,
+Ubuntu, RedHat/CentOS, openSUSE/SLES and FreeBSD. Managing Apache
+with `mod_php` is not supported.
 
 This originally was a fork of [jippi/puppet-php](https://github.com/jippi/puppet-php)
 (nodes-php on Puppet Forge) but has since been rewritten in large parts.
 
 ## Usage
 
-The module aims to use sane defaults for the supported architectures. You
-must use hiera to configure most aspects of this module in a simple way.
-
-The recommended way is to include the `php` main class in your manifests:
+Quickest way to get started is simply `include`'ing the _`php` class_.
 
 ```puppet
-include ::php
+include '::php'
 ```
 
-You can configure the module through hiera. Here are the defaults for some
-parameters as you would specify them in hiera:
+Or, you can override defaults and specify additional custom
+configurations by declaring `class { '::php': }` with parameters:
 
-```yaml
-php::ensure: latest
-php::manage_repos: true
-php::fpm: true
-php::dev: true
-php::composer: true
-php::pear: true
-php::phpunit: false
-php::fpm::config::log_level: notice
-php::composer::auto_update: true
+```puppet
+class { '::php':
+  ensure       => latest,
+  manage_repos => true,
+  fpm          => true,
+  dev          => true,
+  composer     => true,
+  pear         => true,
+  phpunit      => false,
+}
+```
+
+Optionally the PHP version or configuration root directory can be changed also:
+
+```puppet
+class { '::php::globals':
+  php_version => '7.0',
+  config_root => '/etc/php/7.0',
+}->
+class { '::php':
+  manage_repos => true
+}
 ```
 
 There are more configuration options available. Please refer to the
-auto-generated documention at http://php.puppet.mayflower.de/.
+auto-generated documentation at http://php.puppet.mayflower.de/.
 
 ### Defining `php.ini` settings
 
-PHP configuration parmaters in `php.ini` files can be defined as parameter
-`settings` on the `php`, `php::fpm` and `php::cli` classes or
-`php::extension` resources for each component independently.
+PHP configuration parameters in `php.ini` files can be defined as parameter
+`settings` on the main `php` class, or `php::fpm` / `php::cli` classes,
+or `php::extension` resources for each component independently.
 
 These settings are written into their respective `php.ini` file. Global
 settings in `php::settings` are merged with the settings of all components.
 Please note that settings of extensions are always independent.
 
-In the following example the timezone will be set in the PHP cli application
-and all php-fpm pools.
+In the following example the PHP options and timezone will be set in
+all PHP configurations, i.e. the PHP cli application and all php-fpm pools.
 
-```yaml
-php::settings:
-  Date/date.timezone: Europe/Berlin
-php::cli::settings:
-  PHP/memory_limit: 512M
-php::fpm::settings:
-  PHP/short_open_tag: 'On'
+```puppet
+  class { '::php':
+    settings   => {
+      'PHP/max_execution_time'  => '90',
+      'PHP/max_input_time'      => '300',
+      'PHP/memory_limit'        => '64M',
+      'PHP/post_max_size'       => '32M',
+      'PHP/upload_max_filesize' => '32M',
+      'Date/date.timezone'      => 'Europe/Berlin',
+    },
+  }
 ```
 
 ### Installing extensions
 
-Extensions can be installed and configured by defining the hash
-`php::extensions` in hiera. They are activated for all activated SAPIs.
+PHP configuration parameters in `php.ini` files can be defined
+as parameter `extensions` on the main `php` class. They are
+activated for all activated SAPIs.
 
-```yaml
-php::extensions:
-  json: {}
-  mysql: {}
-  memcached:
-    provider: pecl
-    header_packages:
-      - libmemcached-dev
-  apc:
-    package_prefix: php-
-    settings:
-      apc.stat: 1
-      apc.stat_ctime: 1
+```puppet
+  class { '::php':
+    extensions => {
+      bcmath    => { },
+      imagick   => {
+        provider => pecl,
+      },
+      xmlrpc    => { },
+      memcached => {
+        provider        => 'pecl',
+        header_packages => [ 'libmemcached-devel', ],
+      },
+      apc       => {
+        provider => 'pecl',
+        settings => {
+          'apc/stat'       => '1',
+          'apc/stat_ctime' => '1',
+        },
+        sapi     => 'fpm',
+      },
+    },
+  }
 ```
 
 See [the documentation](http://php.puppet.mayflower.de/php/extension.html)
-of the `php::extension` resource for all available parmeters and default
+of the `php::extension` resource for all available parameters and default
 values.
 
 ### Defining php-fpm pools
 
 If different php-fpm pools are required, you can use `php::fpm::pool`
-resources. Use the parameter `$pools` from the class `php::fpm` to define
-`php::fpm::pool` resources as a hash from hiera.
+defined resource type. A single pool called `www` will be configured
+by default. Specify additional pools like so:
 
-If not defined in your hiera data, a single pool called `www` will be
-configured by default:
-
-```yaml
-php::fpm::pools:
-  www:
-    listen: 127.0.0.1:9000
+```puppet
+  php::fpm::pool { 'www2':
+    listen => '127.0.1.1:9000',
+  }
 ```
 
 For an overview of all possible parameters for `php::fpm::pool` resources
 please see [its documention](http://php.puppet.mayflower.de/php/fpm/pool.html).
+
+### Overriding php-fpm user
+
+By default, php-fpm is set up to run as Apache. If you need to customize that user, you can do that like so:
+
+```puppet
+  class { '::php':
+    fpm_user  => 'nginx',
+    fpm_group => 'nginx',
+  }
+```
+
+### Alternative examples using Hiera
+Alternative to the Puppet DSL code examples above, you may optionally define your PHP configuration using Hiera.
+
+Below are all the examples you see above, but defined in YAML format for use with Hiera.
+
+```yaml
+---
+php::ensure: latest
+php::manage_repos: true
+php::fpm: true
+php::fpm_user: 'nginx'
+php::fpm_group: 'nginx'
+php::dev: true
+php::composer: true
+php::pear: true
+php::phpunit: false
+php::settings:
+  'PHP/max_execution_time': '90'
+  'PHP/max_input_time': '300'
+  'PHP/memory_limit': '64M'
+  'PHP/post_max_size': '32M'
+  'PHP/upload_max_filesize': '32M'
+  'Date/date.timezone': 'Europe/Berlin'
+php::extensions:
+  bcmath: {}
+  xmlrpc: {}
+  imagick:
+    provider: pecl
+  memcached:
+    provider: pecl
+    header_packages:
+      - libmemcached-dev
+  apc:
+    provider: pecl
+    settings:
+      'apc/stat': 1
+      'apc/stat_ctime': 1
+    sapi: 'fpm'
+php::fpm::pools:
+  www2:
+    listen: '127.0.1.1:9000'
+```
 
 ## Notes
 
@@ -120,6 +199,24 @@ older though still supported distribution release. Our default is to have
 Ubuntu with packages for the current stable PHP version closely tracking
 upstream.
 
+### Ubuntu systems and Ondřej's PPA
+
+The older Ubuntu PPAs run by Ondřej have been deprecated (ondrej/php5, ondrej/php5.6)
+in favor of a new PPA: ondrej/php which contains all 3 versions of PHP: 5.5, 5.6, and 7.0
+Here's an example in hiera of getting PHP 5.6 installed with php-fpm, pear/pecl, and composer:
+
+```
+php::globals::php_version: '5.6'
+php::fpm: true
+php::dev: true
+php::composer: true
+php::pear: true
+php::phpunit: false
+```
+
+If you do not specify a php version, in Ubuntu the default will be 7.0 if you are
+running Xenial (16.04), otherwise PHP 5.6 will be installed (for other versions)
+
 ### Apache support
 
 Apache with `mod_php` is not supported by this module. Please use
@@ -130,9 +227,10 @@ We prefer using php-fpm. You can find an example Apache vhost in
 connect to php-fpm.
 
 ### Facts
-We deliver a `phpversion` fact with this module. This is explicitly **NOT** intended 
+
+We deliver a `phpversion` fact with this module. This is explicitly **NOT** intended
 to be used within your puppet manifests as it will only work on your second puppet
-run. Its intention is to make querying PHP versions per server easy via PuppetDB.
+run. Its intention is to make querying PHP versions per server easy via PuppetDB or Foreman.
 
 ### FreeBSD support
 
@@ -175,7 +273,8 @@ a big fat warning into this README to let you know.
 The project is released under the permissive MIT license.
 
 The source can be found at
-[github.com/mayflower/puppet-php](https://github.com/mayflower/puppet-php/).
+[github.com/voxpupuli/puppet-php](https://github.com/voxpupuli/puppet-php/).
 
-This Puppet module is being actively maintained by some fellow puppeteers at
-[Mayflower GmbH](https://mayflower.de).
+This Puppet module was originally maintained by some fellow puppeteers at
+[Mayflower GmbH](https://mayflower.de) and is now maintained by
+[Vox Pupuli](https://voxpupuli.org/).
