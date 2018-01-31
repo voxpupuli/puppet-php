@@ -4,7 +4,7 @@
 #
 # [*ensure*]
 #   The ensure of the package to install
-#   Could be "latest", "installed" or a pinned version
+#   Could be "latest", "installed" or a pinned version. "purged" or "absent" to remove.
 #
 # [*package_prefix*]
 #   Prefix to prepend to the package name for the package provider
