@@ -26,7 +26,14 @@ define php::config(
     warning('php::config is private')
   }
 
-  create_resources(::php::config::setting, to_hash_settings($config, $file), {
-    file => $file
-  })
+  if (undef != $config) {
+    create_resources(::php::config::setting, to_hash_settings($config, $file), {
+      file => $file
+    })
+  }
+  else {
+    create_resources(::php::config::setting, to_hash_settings($file), {
+      file => $file
+    })    
+  }
 }
