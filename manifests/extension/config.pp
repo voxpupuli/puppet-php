@@ -91,7 +91,7 @@ define php::extension::config (
 
   $config_root_ini = pick_default($::php::config_root_ini, $::php::params::config_root_ini)
   
-  if ('absent' == $ensure || 'purged' == $ensure) {
+  if ('absent' == $ensure or 'purged' == $ensure) {
     ::php::config { $title:
       file   => "${config_root_ini}/${ini_prefix}${ini_name}.ini",
       config => undef,
