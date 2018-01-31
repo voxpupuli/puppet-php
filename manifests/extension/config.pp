@@ -90,9 +90,18 @@ define php::extension::config (
   }
 
   $config_root_ini = pick_default($::php::config_root_ini, $::php::params::config_root_ini)
-  ::php::config { $title:
-    file   => "${config_root_ini}/${ini_prefix}${ini_name}.ini",
-    config => $final_settings,
+  
+  if ('absent' == $ensure || 'purged' == $ensure) {
+    ::php::config { $title:
+      file   => "${config_root_ini}/${ini_prefix}${ini_name}.ini",
+      config => undef,
+    }  
+  }
+  else {
+    ::php::config { $title:
+      file   => "${config_root_ini}/${ini_prefix}${ini_name}.ini",
+      config => $final_settings,
+    }
   }
 
   # Ubuntu/Debian systems use the mods-available folder. We need to enable
