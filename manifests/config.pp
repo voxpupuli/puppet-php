@@ -32,7 +32,7 @@ define php::config(
     })
   }
   else {
-    create_resources(::php::config::setting, to_hash_settings($file), {
+    create_resources(::php::config::setting, to_hash_settings({config => undef}, $file), {
       file => $file
     })    
   }
