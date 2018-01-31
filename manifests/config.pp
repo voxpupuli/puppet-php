@@ -19,7 +19,7 @@
 #
 define php::config(
   Stdlib::Absolutepath $file,
-  Hash $config
+  Optional[Hash] $config
 ) {
 
   if $caller_module_name != $module_name {
