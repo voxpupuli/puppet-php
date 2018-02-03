@@ -7,6 +7,10 @@ describe 'php::repo', type: :class do
         facts
       end
 
+      let :pre_condition do
+        'include php'
+      end
+
       describe 'when configuring a package repo' do
         case facts[:osfamily]
         when 'Debian'

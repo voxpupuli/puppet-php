@@ -69,4 +69,26 @@ class php::repo::debian(
       }
     }
   }
+
+  if ($php::globals::php_version == '7.1') {
+    # Required packages for PHP 7.1 repository
+    ensure_packages(['lsb-release', 'ca-certificates'], {'ensure' => 'present'})
+
+    # Add PHP 7.1 key + repository
+    apt::key { 'php::repo::debian-php71':
+      key        => 'DF3D585DB8F0EB658690A554AC0E47584A7A714D',
+      key_source => 'https://packages.sury.org/php/apt.gpg',
+    }
+
+    ::apt::source { 'source_php_71':
+      location    => 'https://packages.sury.org/php/',
+      release     => $::lsbdistcodename,
+      repos       => 'main',
+      include_src => false,
+      require     => [
+        Apt::Key['php::repo::debian-php71'],
+        Package['apt-transport-https', 'lsb-release', 'ca-certificates']
+      ],
+    }
+  }
 }
