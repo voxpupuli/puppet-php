@@ -17,5 +17,9 @@ describe 'php' do
     describe package('php5-fpm') do
       it { is_expected.to be_installed }
     end
+  when %(7)
+    describe package('php-fpm') do
+      it { is_expected.to be_installed }
+    end
   end
 end
