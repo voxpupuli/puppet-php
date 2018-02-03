@@ -13,13 +13,13 @@ describe 'php::fpm::service', type: :class do
         # rubocop:disable RSpec/RepeatedExample
         case facts[:osfamily]
         when 'Debian'
-          it { is_expected.to contain_service('php5-fpm').with_ensure('running') }
-          if facts[:operatingsystem] == 'Ubuntu'
-            if facts[:operatingsystemrelease] == '12.04'
-              it { is_expected.to contain_service('php5-fpm').without_restart }
-            else
-              it { is_expected.to contain_service('php5-fpm').with_restart('service php5-fpm reload') }
-            end
+          case facts[:operatingsystemrelease]
+          when '12.04'
+            it { is_expected.to contain_service('php5-fpm').with_ensure('running').without_restart }
+          when '14.04'
+            it { is_expected.to contain_service('php5-fpm').with_restart('service php5-fpm reload').with_ensure('running') }
+          when '16.04'
+            it { is_expected.to contain_service('php7.0-fpm').with_ensure('running') }
           end
         when 'Suse'
           it { is_expected.to contain_service('php-fpm').with_ensure('running') }

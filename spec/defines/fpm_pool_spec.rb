@@ -16,7 +16,12 @@ describe 'php::fpm::pool' do
             let(:title) { 'unique-name' }
             let(:params) { {} }
 
-            it { is_expected.to contain_file('/etc/php5/fpm/pool.d/unique-name.conf') }
+            case facts[:os]['release']['major']
+            when '14.04'
+              it { is_expected.to contain_file('/etc/php5/fpm/pool.d/unique-name.conf') }
+            when '16.04'
+              it { is_expected.to contain_file('/etc/php/7.0/fpm/pool.d/unique-name.conf') }
+            end
           end
         when 'Debian'
           context 'plain config' do
