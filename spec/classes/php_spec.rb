@@ -12,11 +12,18 @@ describe 'php', type: :class do
         when 'Debian'
           it { is_expected.not_to contain_class('php::global') }
           it { is_expected.to contain_class('php::fpm') }
-          it { is_expected.to contain_package('php5-cli').with_ensure('present') }
-          it { is_expected.to contain_package('php5-fpm').with_ensure('present') }
-          it { is_expected.to contain_package('php5-dev').with_ensure('present') }
           it { is_expected.to contain_package('php-pear').with_ensure('present') }
           it { is_expected.to contain_class('php::composer') }
+          case facts[:os]['release']['major']
+          when '14.04'
+            it { is_expected.to contain_package('php5-cli').with_ensure('present') }
+            it { is_expected.to contain_package('php5-fpm').with_ensure('present') }
+            it { is_expected.to contain_package('php5-dev').with_ensure('present') }
+          when '16.04'
+            it { is_expected.to contain_package('php7.0-cli').with_ensure('present') }
+            it { is_expected.to contain_package('php7.0-fpm').with_ensure('present') }
+            it { is_expected.to contain_package('php7.0-dev').with_ensure('present') }
+          end
         when 'Suse'
           it { is_expected.to contain_class('php::global') }
           it { is_expected.to contain_package('php5').with_ensure('present') }
@@ -59,7 +66,12 @@ describe 'php', type: :class do
 
         dstfile = case facts[:osfamily]
                   when 'Debian'
-                    '/etc/php5/fpm/pool.d/www.conf'
+                    case facts[:os]['release']['major']
+                    when '16.04'
+                      '/etc/php/7.0/fpm/pool.d/www.conf'
+                    else
+                      '/etc/php5/fpm/pool.d/www.conf'
+                    end
                   when 'Archlinux'
                     '/etc/php/php-fpm.d/www.conf'
                   when 'Suse'
@@ -79,7 +91,12 @@ describe 'php', type: :class do
         it { is_expected.to contain_php__fpm__pool('www').with(group: 'nginx') }
         dstfile = case facts[:osfamily]
                   when 'Debian'
-                    '/etc/php5/fpm/pool.d/www.conf'
+                    case facts[:os]['release']['major']
+                    when '16.04'
+                      '/etc/php/7.0/fpm/pool.d/www.conf'
+                    else
+                      '/etc/php5/fpm/pool.d/www.conf'
+                    end
                   when 'Archlinux'
                     '/etc/php/php-fpm.d/www.conf'
                   when 'Suse'
