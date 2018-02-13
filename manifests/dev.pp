@@ -40,15 +40,9 @@ class php::dev(
       ensure  => present,
       require => $require,
     })
-
-    package { $real_package:
-      ensure  => $ensure,
-      require => $require,
-    }
-  } else {
-    package { $real_package:
-      ensure  => $ensure,
-      require => $require,
-    }
+  }
+  package { $real_package:
+    ensure  => $ensure,
+    require => Class['::php::packages'],
   }
 }
