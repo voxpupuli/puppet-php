@@ -27,5 +27,7 @@ class php::repo::ubuntu (
     '7.0' => 'ondrej/php'
   }
 
-  ::apt::ppa { "ppa:${version_repo}": }
+  ::apt::ppa { "ppa:${version_repo}":
+    package_manage => true,
+  }
 }
