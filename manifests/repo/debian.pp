@@ -20,6 +20,9 @@
 # [*dotdeb*]
 #   Enable special dotdeb handling
 #
+# [*sury*]
+#   Enable special sury handling
+#
 class php::repo::debian(
   $location     = 'http://packages.dotdeb.org',
   $release      = 'wheezy-php56',
@@ -30,6 +33,7 @@ class php::repo::debian(
     'source' => 'http://www.dotdeb.org/dotdeb.gpg',
   },
   $dotdeb       = true,
+  $sury         = true,
 ) {
 
   if $caller_module_name != $module_name {
@@ -70,7 +74,7 @@ class php::repo::debian(
     }
   }
 
-  if ($php::globals::php_version == '7.1') {
+  if ($sury and $php::globals::php_version == '7.1') {
     # Required packages for PHP 7.1 repository
     ensure_packages(['lsb-release', 'ca-certificates'], {'ensure' => 'present'})
 
