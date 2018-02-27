@@ -1,60 +1,28 @@
 ---
 .travis.yml:
-  extras:
-  - rvm: 2.4.3
-    bundler_args: --without development release
-    dist: trusty
-    env: PUPPET_INSTALL_TYPE=agent BEAKER_debug=true BEAKER_set=docker/ubuntu-16.04
-    script: 'bundle exec rspec spec/acceptance/php56_spec.rb'
-    services: docker
-    sudo: require
-  - rvm: 2.4.3
-    bundler_args: --without development release
-    dist: trusty
-    env: PUPPET_INSTALL_TYPE=agent BEAKER_debug=true BEAKER_set=docker/ubuntu-14.04
-    script: 'bundle exec rspec spec/acceptance/php56_spec.rb'
-    services: docker
-    sudo: require
-  - rvm: 2.4.3
-    bundler_args: --without development release
-    dist: trusty
-    env: PUPPET_INSTALL_TYPE=agent BEAKER_debug=true BEAKER_set=docker/centos-7
-    script: 'bundle exec rspec spec/acceptance/php56_spec.rb'
-    services: docker
-    sudo: require
-  - rvm: 2.4.3
-    bundler_args: --without development release
-    dist: trusty
-    env: PUPPET_INSTALL_TYPE=agent BEAKER_debug=true BEAKER_set=docker/debian-8
-    script: 'bundle exec rspec spec/acceptance/php56_spec.rb'
-    services: docker
-    sudo: require
-  - rvm: 2.4.3
-    bundler_args: --without development release
-    dist: trusty
-    env: PUPPET_INSTALL_TYPE=agent BEAKER_debug=true BEAKER_set=docker/ubuntu-16.04
-    script: 'bundle exec rspec spec/acceptance/php_spec.rb'
-    services: docker
-    sudo: require
-  - rvm: 2.4.3
-    bundler_args: --without development release
-    dist: trusty
-    env: PUPPET_INSTALL_TYPE=agent BEAKER_debug=true BEAKER_set=docker/ubuntu-14.04
-    script: 'bundle exec rspec spec/acceptance/php_spec.rb'
-    services: docker
-    sudo: require
-  - rvm: 2.4.3
-    bundler_args: --without development release
-    dist: trusty
-    env: PUPPET_INSTALL_TYPE=agent BEAKER_debug=true BEAKER_set=docker/centos-7
-    script: 'bundle exec rspec spec/acceptance/php_spec.rb'
-    services: docker
-    sudo: require
-  - rvm: 2.4.3
-    bundler_args: --without development release
-    dist: trusty
-    env: PUPPET_INSTALL_TYPE=agent BEAKER_debug=true BEAKER_set=docker/debian-8
-    script: 'bundle exec rspec spec/acceptance/php_spec.rb'
-    services: docker
-    sudo: require
+  docker_sets:
+    - set: docker/ubuntu-16.04
+      options:
+        script: 'bundle exec rspec spec/acceptance/php56_spec.rb'
+    - set: docker/ubuntu-14.04
+      options:
+        script: 'bundle exec rspec spec/acceptance/php56_spec.rb'
+    - set: docker/centos-7
+      options:
+        script: 'bundle exec rspec spec/acceptance/php56_spec.rb'
+    - set: docker/debian-8
+      options:
+        script: 'bundle exec rspec spec/acceptance/php56_spec.rb'
+    - set: docker/ubuntu-16.04
+      options:
+        script: 'bundle exec rspec spec/acceptance/php_spec.rb'
+    - set: docker/ubuntu-14.04
+      options:
+        script: 'bundle exec rspec spec/acceptance/php_spec.rb'
+    - set: docker/centos-7
+      options:
+        script: 'bundle exec rspec spec/acceptance/php_spec.rb'
+    - set: docker/debian-8
+      options:
+        script: 'bundle exec rspec spec/acceptance/php_spec.rb'
   secure: "GOhttACuJt+3s38m4WnW5RuTgwqaAoeEQnNT+X1Ukn7KdcIk4KV8NzYU/CC0VIm8lUOnBWYJKEC4ixX/J/4Wbxox2RAoKMQrO++L0DB1zTCJnq9SfoUBMaQhXvLu+PbxAR0p3P47ozra0C+pOWDpOaxT9ecufrPQt9W9Z4aY/bs="
