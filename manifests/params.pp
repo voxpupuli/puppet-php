@@ -162,7 +162,7 @@ class php::params inherits php::globals {
       $config_root_ini         = '/etc/php/conf.d'
       $config_root_inifile     = '/etc/php/php.ini'
       $common_package_names    = []
-      $common_package_suffixes = ['cli', 'common']
+      $common_package_suffixes = []
       $cli_inifile             = '/etc/php/php.ini'
       $dev_package_suffix      = undef
       $fpm_pid_file            = '/run/php-fpm/php-fpm.pid'
