@@ -167,7 +167,7 @@ class php::params inherits php::globals {
       $dev_package_suffix      = undef
       $fpm_pid_file            = '/run/php-fpm/php-fpm.pid'
       $fpm_config_file         = '/etc/php/php-fpm.conf'
-      $fpm_error_log           = '/var/log/php-fpm/error.log'
+      $fpm_error_log           = 'syslog'
       $fpm_inifile             = '/etc/php/php.ini'
       $fpm_package_suffix      = 'fpm'
       $fpm_pool_dir            = '/etc/php/php-fpm.d'
