@@ -140,6 +140,60 @@ By default, php-fpm is set up to run as Apache. If you need to customize that us
   }
 ```
 
+### PHP with one FPM pool per user
+
+This will create one vhost. $users is an array of people having php files at
+$fqdn/$user. This codesnipped uses voxpupuli/php and voxpupuli/nginx to create
+the vhost and one php fpm pool per user. This was tested on Archlinux with
+nginx 1.13 and PHP 7.2.3.
+
+```puppet
+$users = ['bob', 'alice']
+
+class { 'php':
+   ensure       => 'present',
+   manage_repos => false,
+   fpm          => true,
+   dev          => false,
+   composer     => false,
+   pear         => true,
+   phpunit      => false,
+   fpm_pools    => {},
+}
+
+include nginx
+
+nginx::resource::server{$facts['fqdn']:
+  www_root  => '/var/www',
+  autoindex => 'on',
+}
+nginx::resource::location{'dontexportprivatedata':
+  server        => $facts['fqdn'],
+  location      => '~ /\.',
+  location_deny => ['all'],
+}
+$users.each |$user| {
+  # create one fpm pool. will be owned by the specific user
+  # fpm socket will be owned by the nginx user 'http'
+  php::fpm::pool{$user:
+    user         => $user,
+    group        => $user,
+    listen_owner => 'http',
+    listen_group => 'http',
+    listen_mode  => '0660',
+    listen       => "/var/run/php-fpm/${user}-fpm.sock",
+  }
+  nginx::resource::location { "${name}_root":
+    ensure      => 'present',
+    server      => $facts['fqdn'],
+    location    => "~ .*${user}\/.*\.php$",
+    index_files => ['index.php'],
+    fastcgi     => "unix:/var/run/php-fpm/${user}-fpm.sock",
+    include     => ['fastcgi.conf'],
+  }
+}
+```
+
 ### Alternative examples using Hiera
 Alternative to the Puppet DSL code examples above, you may optionally define your PHP configuration using Hiera.
 
