@@ -104,12 +104,15 @@ define php::extension::config (
   if $facts['os']['family'] == 'Debian' and $ext_tool_enabled {
     $cmd = "${ext_tool_enable} -s ${sapi} ${so_name}"
 
-    $_sapi = $sapi? {
-      'ALL' => 'cli',
-      default => $sapi,
+    # If enabling for all SAPIs, use phpquery to generate a list of installed SAPIs
+    # Which is then iterated using xargs to check if the module is enabled for that SAPI
+    $sapi_list_cmd = $sapi ? {
+      'ALL'   => "${ext_tool_query} -S",
+      default => "${ext_tool_query} -s ${sapi}",
     }
+
     exec { $cmd:
-      onlyif  => "${ext_tool_query} -s ${_sapi} -m ${so_name} | /bin/grep 'No module matches ${so_name}'",
+      onlyif  => "${sapi_list_cmd} | xargs -d'\\n' -n1 ${ext_tool_query} -m ${so_name} -s | /bin/grep 'No module matches ${so_name}'",
       require => ::Php::Config[$title],
     }
 
