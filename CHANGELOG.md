@@ -4,6 +4,27 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v5.3.0](https://github.com/voxpupuli/puppet-php/tree/v5.3.0) (2018-03-06)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v5.2.0...v5.3.0)
+
+**Implemented enhancements:**
+
+- mark Ubuntu 16.04 as supported and fix its tests [\#221](https://github.com/voxpupuli/puppet-php/issues/221)
+- Using the new facts hash instead of the global var in repo/debian.pp [\#425](https://github.com/voxpupuli/puppet-php/pull/425) ([c33s](https://github.com/c33s))
+- Add Acceptance tests [\#414](https://github.com/voxpupuli/puppet-php/pull/414) ([bastelfreak](https://github.com/bastelfreak))
+
+**Fixed bugs:**
+
+- Fix Archlinux support [\#423](https://github.com/voxpupuli/puppet-php/pull/423) ([bastelfreak](https://github.com/bastelfreak))
+- Fix wrongly named parameters for apt::source/key [\#420](https://github.com/voxpupuli/puppet-php/pull/420) ([bitcrush](https://github.com/bitcrush))
+- manage software-properties-common on ubuntu [\#419](https://github.com/voxpupuli/puppet-php/pull/419) ([bastelfreak](https://github.com/bastelfreak))
+
+**Merged pull requests:**
+
+- add examples for php-fpm/nginx [\#424](https://github.com/voxpupuli/puppet-php/pull/424) ([bastelfreak](https://github.com/bastelfreak))
+- add tests for php5.6 [\#418](https://github.com/voxpupuli/puppet-php/pull/418) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v5.2.0](https://github.com/voxpupuli/puppet-php/tree/v5.2.0) (2018-02-14)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v5.1.0...v5.2.0)
@@ -52,7 +73,6 @@ These should not affect the functionality of the module.
 
 **Merged pull requests:**
 
-- release 5.1.0 [\#394](https://github.com/voxpupuli/puppet-php/pull/394) ([bastelfreak](https://github.com/bastelfreak))
 - Proposed fix for failing parallel spec tests [\#386](https://github.com/voxpupuli/puppet-php/pull/386) ([wyardley](https://github.com/wyardley))
 - update dependencies in metadata [\#379](https://github.com/voxpupuli/puppet-php/pull/379) ([mmoll](https://github.com/mmoll))
 - Bump metadata.json version to 5.0.1-rc [\#377](https://github.com/voxpupuli/puppet-php/pull/377) ([dhollinger](https://github.com/dhollinger))
