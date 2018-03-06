@@ -101,26 +101,54 @@ class php::params inherits php::globals {
       }
     }
     'RedHat': {
-      $config_root             = $php::globals::globals_config_root
-      $config_root_ini         = "${config_root}/php.d"
-      $config_root_inifile     = "${config_root}/php.ini"
+      $config_root      = $php::globals::globals_config_root
+
+      case $php::globals::rhscl_mode {
+        'remi': {
+          $config_root_ini         = "${config_root}/php.d"
+          $config_root_inifile     = "${config_root}/php.ini"
+          $cli_inifile             = $config_root_inifile
+          $fpm_inifile             = $config_root_inifile
+          $fpm_config_file         = "${config_root}/php-fpm.conf"
+          $fpm_pool_dir            = "${config_root}/php-fpm.d"
+          $php_bin_dir             = "${php::globals::rhscl_root}/bin"
+        }
+        'rhscl': {
+          $config_root_ini         = "${config_root}/php.d"
+          $config_root_inifile     = "${config_root}/php.ini"
+          $cli_inifile             = "${config_root}/php-cli.ini"
+          $fpm_inifile             = "${config_root}/php-fpm.ini"
+          $fpm_config_file         = "${config_root}/php-fpm.conf"
+          $fpm_pool_dir            = "${config_root}/php-fpm.d"
+          $php_bin_dir             = "${php::globals::rhscl_root}/bin"
+        }
+        undef: {
+          # no rhscl
+          $config_root_ini         = $config_root
+          $config_root_inifile     = '/etc/php.ini'
+          $cli_inifile             = '/etc/php-cli.ini'
+          $fpm_inifile             = '/etc/php-fpm.ini'
+          $fpm_config_file         = '/etc/php-fpm.conf'
+          $fpm_pool_dir            = '/etc/php-fpm.d'
+        }
+        default: {
+          fail("Unsupported rhscl_mode '${php::globals::rhscl_mode}'")
+        }
+      }
+
+      $apache_inifile          = $config_root_inifile
+      $embedded_inifile        = $config_root_inifile
       $common_package_names    = []
       $common_package_suffixes = ['cli', 'common']
-      $cli_inifile             = "${config_root}/php-cli.ini"
       $dev_package_suffix      = 'devel'
       $fpm_pid_file            = $php::globals::globals_fpm_pid_file
-      $fpm_config_file         = "${config_root}/php-fpm.conf"
       $fpm_error_log           = '/var/log/php-fpm/error.log'
-      $fpm_inifile             = "${config_root}/php-fpm.ini"
       $fpm_package_suffix      = 'fpm'
-      $fpm_pool_dir            = "${config_root}/php-fpm.d"
-      $fpm_service_name        = 'php-fpm'
+      $fpm_service_name        = pick($php::globals::fpm_service_name, 'php-fpm')
       $fpm_user                = 'apache'
       $fpm_group               = 'apache'
-      $apache_inifile          = "${config_root}/php.ini"
       $embedded_package_suffix = 'embedded'
-      $embedded_inifile        = "${config_root}/php.ini"
-      $package_prefix          = 'php-'
+      $package_prefix          = pick($php::globals::package_prefix, 'php-')
       $compiler_packages       = ['gcc', 'gcc-c++', 'make']
       $manage_repos            = false
       $root_group              = 'root'

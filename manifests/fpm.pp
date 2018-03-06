@@ -93,6 +93,7 @@ class php::fpm (
     log_group => $log_group,
     require   => Package[$real_package],
   }
+
   contain '::php::fpm::config'
   contain '::php::fpm::service'
 

@@ -6,7 +6,6 @@ describe 'php::extension' do
       let :facts do
         facts
       end
-
       let(:pre_condition) { 'include php' }
 
       unless facts[:osfamily] == 'Suse' || facts[:osfamily] == 'FreeBSD' # FIXME: something is wrong on these
@@ -185,6 +184,9 @@ describe 'php::extension' do
             let(:title) { 'xdebug' }
 
             it { is_expected.to contain_php__config('xdebug').with_file("#{etcdir}/xdebug.ini") }
+
+            # note to consider: As of PHP 5.2.0, the JSON extension is bundled and compiled into PHP by default
+            # http://php.net/manual/en/json.installation.php
             context 'pecl installation' do
               let(:title) { 'json' }
               let(:params) do

@@ -113,6 +113,12 @@ class php::fpm::config(
     mode    => '0644',
   }
 
+  ensure_resource('file', ['/var/run/php-fpm/', '/var/log/php-fpm/'], {
+    ensure => directory,
+    owner => $user,
+    group => $group,
+  })
+
   file { $pool_base_dir:
     ensure => directory,
     owner  => root,
@@ -127,8 +133,10 @@ class php::fpm::config(
     }
   }
 
-  ::php::config { 'fpm':
-    file   => $inifile,
-    config => $settings,
+  if $inifile != $php::params::config_root_inifile {
+    ::php::config { 'fpm':
+      file   => $inifile,
+      config => $settings,
+    }
   }
 }
