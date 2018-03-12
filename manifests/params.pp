@@ -25,7 +25,7 @@ class php::params inherits php::globals {
       $dev_package_suffix      = 'dev'
       $fpm_pid_file            = $php::globals::globals_fpm_pid_file
       $fpm_config_file         = "${config_root}/fpm/php-fpm.conf"
-      $fpm_error_log           = $php::globals::fpm_error_log
+      $fpm_error_log           = $php::globals::globals_fpm_error_log
       $fpm_inifile             = "${config_root}/fpm/php.ini"
       $fpm_package_suffix      = 'fpm'
       $fpm_pool_dir            = "${config_root}/fpm/pool.d"
@@ -73,7 +73,7 @@ class php::params inherits php::globals {
       $dev_package_suffix      = 'devel'
       $fpm_pid_file            = $php::globals::globals_fpm_pid_file
       $fpm_config_file         = "${config_root}/fpm/php-fpm.conf"
-      $fpm_error_log           = $php::globals::fpm_error_log
+      $fpm_error_log           = $php::globals::globals_fpm_error_log
       $fpm_inifile             = "${config_root}/fpm/php.ini"
       $fpm_package_suffix      = 'fpm'
       $fpm_pool_dir            = "${config_root}/fpm/pool.d"
@@ -110,7 +110,7 @@ class php::params inherits php::globals {
       $dev_package_suffix      = 'devel'
       $fpm_pid_file            = $php::globals::globals_fpm_pid_file
       $fpm_config_file         = "${config_root}/php-fpm.conf"
-      $fpm_error_log           = '/var/log/php-fpm/error.log'
+      $fpm_error_log           = $php::globals::globals_fpm_error_log
       $fpm_inifile             = "${config_root}/php-fpm.ini"
       $fpm_package_suffix      = 'fpm'
       $fpm_pool_dir            = "${config_root}/php-fpm.d"
@@ -141,7 +141,7 @@ class php::params inherits php::globals {
       $dev_package_suffix      = undef
       $fpm_pid_file            = $php::globals::globals_fpm_pid_file
       $fpm_config_file         = "${config_root}/php-fpm.conf"
-      $fpm_error_log           = '/var/log/php-fpm.log'
+      $fpm_error_log           = $php::globals::globals_fpm_error_log
       $fpm_inifile             = "${config_root}/php-fpm.ini"
       $fpm_package_suffix      = undef
       $fpm_pool_dir            = "${config_root}/php-fpm.d"
@@ -167,7 +167,7 @@ class php::params inherits php::globals {
       $dev_package_suffix      = undef
       $fpm_pid_file            = '/run/php-fpm/php-fpm.pid'
       $fpm_config_file         = '/etc/php/php-fpm.conf'
-      $fpm_error_log           = 'syslog'
+      $fpm_error_log           = $php::globals::globals_fpm_error_log
       $fpm_inifile             = '/etc/php/php.ini'
       $fpm_package_suffix      = 'fpm'
       $fpm_pool_dir            = '/etc/php/php-fpm.d'
