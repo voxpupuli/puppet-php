@@ -189,6 +189,19 @@ describe 'php::extension' do
           it { is_expected.to contain_php__config('xdebug').with_config('zend_extension' => '/usr/lib/php5/20100525/xdebug.so') }
         end
 
+        context 'absent extension' do
+          let(:title) { 'mcrypt' }
+          let(:params) do
+            {
+              package_prefix: 'php5-',
+              ensure: 'absent'
+            }
+          end
+
+          it { is_expected.to contain_package('php5-mcrypt').with_ensure('absent') }
+          it { is_expected.not_to contain_php__config('mcrypt') }
+        end
+
         case facts[:os]['name']
         when 'Debian'
           context 'on Debian' do
