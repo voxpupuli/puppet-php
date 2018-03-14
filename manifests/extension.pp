@@ -107,7 +107,7 @@ define php::extension (
   }
 
   # PEAR packages don't require any further configuration, they just need to "be there".
-  if $provider != 'pear' {
+  if $provider != 'pear' and $ensure != 'absent' {
     $_settings = $multifile_settings ? {
       true  => $settings,
       false => { downcase($title) => $settings } # emulate a hash if no multifile settings
