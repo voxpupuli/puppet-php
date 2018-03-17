@@ -24,7 +24,7 @@
 #   Enable special sury handling
 #
 class php::repo::debian(
-  $location     = 'http://packages.dotdeb.org',
+  $location     = 'https://packages.dotdeb.org',
   $release      = 'wheezy-php56',
   $repos        = 'all',
   $include_src  = false,
