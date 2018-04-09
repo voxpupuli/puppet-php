@@ -41,7 +41,6 @@ class php::repo::debian(
         fail('invalid $source and $sury combination')
       }
       $_source = 'sury'
-      warning("setting sury source")
     }
   }
   if $dotdeb != undef {
@@ -52,7 +51,6 @@ class php::repo::debian(
         fail('invalid $source and $dotdeb combination')
       }
       $_source = 'dotdeb'
-      warning("setting dotdeb source")
     }
   }
 
@@ -94,6 +92,6 @@ class php::repo::debian(
     # 'sury':   { class { 'php::repo::debian::sury': }-> Anchor['php::begin'] }
     # 'dotdeb': { class { 'php::repo::debian::dotdeb': }-> Anchor['php::begin'] }
     # 'custom': { class { 'php::repo::debian::custom': apt_source => $_apt_source }-> Anchor['php::begin'] }
-    default:  { fail("invalid source '$source'") }
+    default:  { fail("invalid source '${source}'") }
   }
 }

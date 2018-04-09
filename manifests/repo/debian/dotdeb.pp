@@ -17,11 +17,11 @@ class php::repo::debian::dotdeb(
   Hash    $wheezy_apt_source,
 ) {
   if $caller_module_name != $module_name {
-    warning('php::repo::debian is private')
+    warning('php::repo::debian::dotdeb is private')
   }
 
   if ! ($php::globals::globals_php_version in $version_matrix[$facts['os']['release']['major']]) {
-    $available_versions = join($version_matrix[$facts['os']['release']['major']], ", ")
+    $available_versions = join($version_matrix[$facts['os']['release']['major']], ', ')
     fail("invalid version php '${php::globals::globals_php_version}' with \$php::repo::debian::source 'dotdeb' for current operation system version
       (debian${facts['os']['release']['major']}). valid versions are '${$available_versions}'")
   }

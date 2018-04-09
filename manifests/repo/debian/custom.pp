@@ -12,7 +12,7 @@ class php::repo::debian::custom(
   String  $apt_list_name = 'php_custom',
 ) {
   if $caller_module_name != $module_name {
-    warning('php::repo::debian is private')
+    warning('php::repo::debian::custom is private')
   }
   apt::source { $apt_list_name:
     * => $apt_source,

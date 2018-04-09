@@ -11,16 +11,22 @@
 class php::repo::debian::sury(
   Hash    $apt_source,
   String  $apt_list_name,
-  Hash    $version_matrix,
+  Hash[Integer, Array[Variant[Enum['-1'], Pattern[/^[57].[0-9]/]]]] $version_matrix
+
 ) {
   if $caller_module_name != $module_name {
-    warning('php::repo::debian is private')
+    warning('php::repo::debian::sury is private')
   }
 
-  if ! ($php::globals::globals_php_version in $version_matrix[$facts['os']['release']['major']]) {
-    $available_versions = join($version_matrix[$facts['os']['release']['major']], ", ")
+  $debian_major_version_number = Integer($facts['os']['release']['major'])
+
+  warning($version_matrix)
+  warning($php::globals::globals_php_version)
+
+  if ! ($php::globals::globals_php_version in $version_matrix[$debian_major_version_number]) {
+    $php_available_versions = join($version_matrix[$debian_major_version_number], ', ')
     fail("invalid version php '${php::globals::globals_php_version}' with \$php::repo::debian::source 'sury' for current operation system version
-      (debian${facts['os']['release']['major']}). valid versions are '${$available_versions}'")
+      (debian${facts['os']['release']['major']}). valid versions are '${$php_available_versions}'")
   }
 
   apt::source { $apt_list_name:
