@@ -1,0 +1,60 @@
+---
+php::repo::debian::source: auto
+
+php::repo::debian::native::version_matrix:
+  '7': '5.4'
+  '8': '5.6'
+  '9': '7.0'
+php::repo::debian::sury::version_matrix:
+  '7': ['-1']
+  '8': ['5.6', '7.0', '7.1', '7.2']
+  '9': ['5.6', '7.0', '7.1', '7.2']
+php::repo::debian::dotdeb::version_matrix:
+  '7': ['5.5', '5.6']
+  '8': ['5.6', '7.0']
+  '9': ['-1']
+
+php::repo::debian::custom::apt_list_name: 'php_custom'
+
+php::repo::debian::sury::apt_list_name: 'sury_php'
+php::repo::debian::sury::apt_source:
+  comment:      added by puppet/php
+  location:     'https://packages.sury.org/php'
+  release:      "%{::facts.os.distro.codename}"
+  repos:        main
+  include_src:  false
+  key:
+    id:         DF3D585DB8F0EB658690A554AC0E47584A7A714D
+    source:     'https://packages.sury.org/php/apt.gpg'
+
+php::repo::debian::dotdeb::apt_list_name: 'dotdeb'
+php::repo::debian::dotdeb::apt_source:
+  comment:      added by puppet/php
+  location:     'http://packages.dotdeb.org'
+  release:      "%{::facts.os.distro.codename}"
+  repos:        all
+  include_src:  false
+  key:
+    id:         6572BBEF1B5FF28B28B706837E3F070089DF5277
+    source:     'http://www.dotdeb.org/dotdeb.gpg'
+
+
+
+
+# apt::source { 'debian_unstable':
+#   comment  => 'This is the iWeb Debian unstable mirror',
+#   location => 'http://debian.mirror.iweb.ca/debian/',
+#   release  => 'unstable',
+#   repos    => 'main contrib non-free',
+#   pin      => '-10',
+#   key      => {
+#     'id'     => 'A1BD8E9D78F7FE5C3E65D8AF8B48AD6246925553',
+#     'server' => 'subkeys.pgp.net',
+#   },
+#   include  => {
+#     'src' => true,
+#     'deb' => true,
+#   },
+# }
+
+

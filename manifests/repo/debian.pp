@@ -2,98 +2,99 @@
 #
 # === Parameters
 #
-# [*location*]
-#   Location of the apt repository
+# [*source*]
+#   Mode of Repo Handling 'auto', 'native', 'sury', 'dotdeb', 'custom'
 #
-# [*release*]
-#   Release of the apt repository
-#
-# [*repos*]
-#   Apt repository names
-#
-# [*include_src*]
-#   Add source source repository
-#
-# [*key*]
-#   Public key in apt::key format
-#
-# [*dotdeb*]
-#   Enable special dotdeb handling
-#
-# [*sury*]
-#   Enable special sury handling
-#
+# [*apt_source*]
+#   full Apt Source Hash defined in apt::source
+
 class php::repo::debian(
-  $location     = 'https://packages.dotdeb.org',
-  $release      = 'wheezy-php56',
-  $repos        = 'all',
-  $include_src  = false,
-  $key          = {
-    'id'     => '6572BBEF1B5FF28B28B706837E3F070089DF5277',
-    'source' => 'http://www.dotdeb.org/dotdeb.gpg',
-  },
-  $dotdeb       = true,
-  $sury         = true,
+  Enum['auto', 'native', 'sury', 'dotdeb', 'custom'] $source,
+  Optional[Hash] $apt_source = undef,
+  ### deprecated parameters below
+  $location     = undef,
+  $release      = undef,
+  $repos        = undef,
+  $include_src  = undef,
+  $key          = undef,
+  $dotdeb       = undef,
+  $sury         = undef,
 ) {
+
+  warning("we are here in repo setup")
+  warning($sury)
+  warning($dotdeb)
+  warning($source)
 
   assert_private()
 
-  include '::apt'
-
-  create_resources(::apt::key, { 'php::repo::debian' => {
-    id     => $key['id'],
-    source => $key['source'],
-  }})
-
-  ::apt::source { "source_php_${release}":
-    location => $location,
-    release  => $release,
-    repos    => $repos,
-    include  => {
-      'src' => $include_src,
-      'deb' => true,
-    },
-    require  => Apt::Key['php::repo::debian'],
+  # deprecation code start
+  if ($sury and $dotdeb) {
+    fail('invalid setting, you cannot set both $sury and $dotdeb to true.')
   }
 
-  if ($dotdeb) {
-    # both repositories are required to work correctly
-    # See: http://www.dotdeb.org/instructions/
-    if $release == 'wheezy-php56' {
-      ::apt::source { 'dotdeb-wheezy':
-        location => $location,
-        release  => 'wheezy',
-        repos    => $repos,
-        include  => {
+  if $sury != undef {
+    deprecation('php::repo::debian sury', '$sury is deprecated and will be removed in the next major release. Please use $source instead.')
+    warning('$sury is deprecated and will be removed in the next major release. Please use $source instead.') # TODO: remove
+    if $sury {
+      if ($source != 'auto' or $source != 'sury') {
+        fail('invalid $source and $sury combination')
+      }
+      $_source = 'sury'
+      warning("setting sury source")
+    }
+  }
+  if $dotdeb != undef {
+    deprecation('php::repo::debian dotdeb', '$dotdeb is deprecated and will be removed in the next major release. Please use $source instead.')
+    warning('$dotdeb is deprecated and will be removed in the next major release. Please use $source instead.')
+    if $dotdeb {
+      if ($source != 'auto' or $source != 'dotdeb') {
+        fail('invalid $source and $dotdeb combination')
+      }
+      $_source = 'dotdeb'
+      warning("setting dotdeb source")
+    }
+  }
+
+  ## besseren check für undefined wenn deprecated stuff not used
+  if  ($sury == undef or $sury == false) and ($dotdeb == undef or $dotdeb == false) {
+    $_source = $source
+  }
+
+  if $location != undef or $release != undef or $repos != undef or $include_src != undef or $key != undef {
+    deprecation('php::repo::debian $apt', '$location, $release, $repos, $include_src and $key are deprecated and will be removed in the next major release. Please use $repo hash instead.')
+    warning('php::repo::debian $apt', '$location, $release, $repos, $include_src and $key are deprecated and will be removed in the next major release. Please use $repo hash instead.')
+
+    $_apt_source = {
+      location     => $location,
+      release      => $release,
+      repos        => $repos,
+      include      => {
           'src' => $include_src,
           'deb' => true,
-        },
-      }
+      },
+      key          => $key,
     }
+  } else {
+    $_apt_source = $apt_source
   }
 
-  if ($sury and $php::globals::php_version == '7.1') {
-    # Required packages for PHP 7.1 repository
-    ensure_packages(['lsb-release', 'ca-certificates'], {'ensure' => 'present'})
+  # deprecation code end
 
-    # Add PHP 7.1 key + repository
-    apt::key { 'php::repo::debian-php71':
-      id     => 'DF3D585DB8F0EB658690A554AC0E47584A7A714D',
-      source => 'https://packages.sury.org/php/apt.gpg',
-    }
+  #if () apt_source defined and source is not custom show warning
 
-    ::apt::source { 'source_php_71':
-      location => 'https://packages.sury.org/php/',
-      release  => $facts['os']['distro']['codename'],
-      repos    => 'main',
-      include  => {
-        'src' => $include_src,
-        'deb' => true,
-      },
-      require  => [
-        Apt::Key['php::repo::debian-php71'],
-        Package['apt-transport-https', 'lsb-release', 'ca-certificates']
-      ],
-    }
+  include '::apt'
+  case $_source {
+    'native': { class { 'php::repo::debian::native': } }
+    'auto':   { class { 'php::repo::debian::auto': } }
+    'sury':   { class { 'php::repo::debian::sury': } }
+    'dotdeb': { class { 'php::repo::debian::dotdeb': } }
+    'custom': { class { 'php::repo::debian::custom': apt_source => $_apt_source } }
+    # 'native': { class { 'php::repo::debian::native': }-> Anchor['php::begin'] }
+    # 'auto':   { class { 'php::repo::debian::auto': }-> Anchor['php::begin'] }
+    # 'sury':   { class { 'php::repo::debian::sury': }-> Anchor['php::begin'] }
+    # 'dotdeb': { class { 'php::repo::debian::dotdeb': }-> Anchor['php::begin'] }
+    # 'custom': { class { 'php::repo::debian::custom': apt_source => $_apt_source }-> Anchor['php::begin'] }
+    default:  { fail("invalid source '$source'") }
   }
 }
