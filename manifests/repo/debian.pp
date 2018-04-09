@@ -28,7 +28,7 @@ class php::repo::debian(
 
   assert_private()
 
-  # deprecation code start
+  ### deprecation code start ###########################################################################################
   if ($sury and $dotdeb) {
     fail('invalid setting, you cannot set both $sury and $dotdeb to true.')
   }
@@ -78,8 +78,7 @@ class php::repo::debian(
   } else {
     $_apt_source = $apt_source
   }
-
-  # deprecation code end
+  ### deprecation code end ###########################################################################################
 
   #if () apt_source defined and source is not custom show warning
 

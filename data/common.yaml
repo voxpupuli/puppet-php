@@ -38,6 +38,30 @@ php::repo::debian::dotdeb::apt_source:
     id:         6572BBEF1B5FF28B28B706837E3F070089DF5277
     source:     'http://www.dotdeb.org/dotdeb.gpg'
 
+php::repo::debian::dotdeb::wheezy_zts: false
+php::repo::debian::dotdeb::wheezy_apt_source:
+  '5.6_zts':
+    comment:      added by puppet/php
+    location:     'http://packages.dotdeb.org'
+    release:      "wheezy-php56-zts"
+    repos:        all
+    include_src:  false
+  '5.6':
+    comment:      added by puppet/php
+    location:     'http://packages.dotdeb.org'
+    release:      "wheezy-php56"
+    repos:        all
+    include_src:  false
+  '5.5':
+    comment:      added by puppet/php
+    location:     'http://packages.dotdeb.org'
+    release:      "wheezy-php55"
+    repos:        all
+    include_src:  false
+
+  # deb http://packages.dotdeb.org wheezy-php56 all
+  # deb http://packages.dotdeb.org wheezy-php56-zts all
+  # deb http://packages.dotdeb.org wheezy-php55 all
 
 
 
