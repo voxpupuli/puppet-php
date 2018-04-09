@@ -30,14 +30,7 @@ class php::globals (
     default => '5.x',
   }
 
-  # if ($facts['os']['distro']['id'] == 'Debian') {
-  #   $matrix = lookup('php::repo::debian::native::version_matrix', Hash[Integer, Pattern[/^[57].[0-9]/]])
-  #   warning($matrix)
-  #   $native_php_version = $matrix[$facts['os']['release']['major']]
-  # } else {
-    $native_php_version = undef
-  # }
-  $globals_php_version = pick($php_version, $native_php_version, $default_php_version)
+  $globals_php_version = pick($php_version, $default_php_version)
 
   case $facts['os']['family'] {
     'Debian': {

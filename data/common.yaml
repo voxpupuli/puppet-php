@@ -1,5 +1,5 @@
 ---
-php::repo::debian::source: auto
+php::repo::debian::source: sury
 
 php::repo::debian::native::version_matrix:
   7: '5.4'

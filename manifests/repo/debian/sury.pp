@@ -25,9 +25,13 @@ class php::repo::debian::sury(
 
   if ! ($php::globals::globals_php_version in $version_matrix[$debian_major_version_number]) {
     $php_available_versions = join($version_matrix[$debian_major_version_number], ', ')
+    warning($version_matrix[$debian_major_version_number])
+    warning($php_available_versions)
     fail("invalid version php '${php::globals::globals_php_version}' with \$php::repo::debian::source 'sury' for current operation system version
       (debian${facts['os']['release']['major']}). valid versions are '${$php_available_versions}'")
   }
+
+
 
   apt::source { $apt_list_name:
     * => $apt_source,

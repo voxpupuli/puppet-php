@@ -54,7 +54,6 @@ class php::repo::debian(
     }
   }
 
-  ## besseren check für undefined wenn deprecated stuff not used
   if  ($sury == undef or $sury == false) and ($dotdeb == undef or $dotdeb == false) {
     $_source = $source
   }
@@ -78,20 +77,33 @@ class php::repo::debian(
   }
   ### deprecation code end ###########################################################################################
 
-  #if () apt_source defined and source is not custom show warning
+  if ($apt_source != undef and $source != 'custom') {
+    warning("\$apt_source defined as '${apt_source}' but \$source is not 'custom'")
+  }
 
   include '::apt'
+
+  # if ($facts['os']['distro']['id'] == 'Debian') {
+  #   $matrix = lookup('php::repo::debian::native::version_matrix', Hash[Integer, Pattern[/^[57].[0-9]/]])
+  #   warning($matrix)
+  #   $native_php_version = $matrix[$facts['os']['release']['major']]
+  # } else {
+  # $native_php_version = undef
+  # }
+  warning('core php version')
+  warning($php::globals::globals_php_version)
+
+  case $php::globals::globals_php_version {
+    /^[57].[0-9]/: { $debian_php_version = $php::globals::globals_php_version }
+    default:  { $debian_php_version = lookup('php::repo::debian::native::version_matrix', Hash[Integer, Pattern[/^[57].[0-9]/]]) }
+  }
+
   case $_source {
     'native': { class { 'php::repo::debian::native': } }
     'auto':   { class { 'php::repo::debian::auto': } }
     'sury':   { class { 'php::repo::debian::sury': } }
     'dotdeb': { class { 'php::repo::debian::dotdeb': } }
     'custom': { class { 'php::repo::debian::custom': apt_source => $_apt_source } }
-    # 'native': { class { 'php::repo::debian::native': }-> Anchor['php::begin'] }
-    # 'auto':   { class { 'php::repo::debian::auto': }-> Anchor['php::begin'] }
-    # 'sury':   { class { 'php::repo::debian::sury': }-> Anchor['php::begin'] }
-    # 'dotdeb': { class { 'php::repo::debian::dotdeb': }-> Anchor['php::begin'] }
-    # 'custom': { class { 'php::repo::debian::custom': apt_source => $_apt_source }-> Anchor['php::begin'] }
     default:  { fail("invalid source '${source}'") }
   }
 }
