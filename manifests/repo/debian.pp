@@ -83,19 +83,14 @@ class php::repo::debian(
 
   include '::apt'
 
-  # if ($facts['os']['distro']['id'] == 'Debian') {
-  #   $matrix = lookup('php::repo::debian::native::version_matrix', Hash[Integer, Pattern[/^[57].[0-9]/]])
-  #   warning($matrix)
-  #   $native_php_version = $matrix[$facts['os']['release']['major']]
-  # } else {
-  # $native_php_version = undef
-  # }
-  warning('core php version')
-  warning($php::globals::globals_php_version)
-
   case $php::globals::globals_php_version {
     /^[57].[0-9]/: { $debian_php_version = $php::globals::globals_php_version }
-    default:  { $debian_php_version = lookup('php::repo::debian::native::version_matrix', Hash[Integer, Pattern[/^[57].[0-9]/]]) }
+    default:  { # default == `5.x`
+      # would prefer to auto lookup a valid version but this won't work, as data $php::globals sets paths according
+      # the invalid version number `5.x` which uses a default version.
+      #$debian_php_version = lookup('php::repo::debian::native::version_matrix', Hash[Integer, Pattern[/^[57].[0-9]/]])
+      fail('you have to set $php::globals::php_version to a valid php version. cannot use default version')
+    }
   }
 
   case $_source {
