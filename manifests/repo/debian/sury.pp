@@ -21,9 +21,8 @@ class php::repo::debian::sury(
   $debian_major_version_number = Integer($facts['os']['release']['major'])
 
   warning($version_matrix)
-  warning($php::globals::globals_php_version)
 
-  if ! ($php::globals::globals_php_version in $version_matrix[$debian_major_version_number]) {
+  if ! ($php::repo::debian::debian_php_version in $version_matrix[$debian_major_version_number]) {
     $php_available_versions = join($version_matrix[$debian_major_version_number], ', ')
     warning($version_matrix[$debian_major_version_number])
     warning($php_available_versions)
