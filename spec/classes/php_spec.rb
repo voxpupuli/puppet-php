@@ -7,6 +7,40 @@ describe 'php', type: :class do
         facts
       end
 
+      php_cli_package = case facts[:osfamily]
+                        when 'Debian'
+                          case facts[:os]['release']['major']
+                          when '16.04'
+                            'php7.0-cli'
+                          when '9'
+                            'php7.0-cli'
+                          else
+                            'php5-cli'
+                          end
+                        end
+      php_fpm_ackage = case facts[:osfamily]
+                       when 'Debian'
+                         case facts[:os]['release']['major']
+                         when '16.04'
+                           'php7.0-fpm'
+                         when '9'
+                           'php7.0-fpm'
+                         else
+                           'php5-fpm'
+                         end
+                       end
+      php_dev_ackage = case facts[:osfamily]
+                       when 'Debian'
+                         case facts[:os]['release']['major']
+                         when '16.04'
+                           'php7.0-dev'
+                         when '9'
+                           'php7.0-dev'
+                         else
+                           'php5-dev'
+                         end
+                       end
+
       describe 'when called with no parameters' do
         case facts[:osfamily]
         when 'Debian'
@@ -14,20 +48,9 @@ describe 'php', type: :class do
           it { is_expected.to contain_class('php::fpm') }
           it { is_expected.to contain_package('php-pear').with_ensure('present') }
           it { is_expected.to contain_class('php::composer') }
-          case facts[:os]['release']['major']
-          when '14.04'
-            it { is_expected.to contain_package('php5-cli').with_ensure('present') }
-            it { is_expected.to contain_package('php5-fpm').with_ensure('present') }
-            it { is_expected.to contain_package('php5-dev').with_ensure('present') }
-          when '16.04'
-            it { is_expected.to contain_package('php7.0-cli').with_ensure('present') }
-            it { is_expected.to contain_package('php7.0-fpm').with_ensure('present') }
-            it { is_expected.to contain_package('php7.0-dev').with_ensure('present') }
-          when '9'
-            it { is_expected.to contain_package('php7.0-cli').with_ensure('present') }
-            it { is_expected.to contain_package('php7.0-fpm').with_ensure('present') }
-            it { is_expected.to contain_package('php7.0-dev').with_ensure('present') }
-          end
+          it { is_expected.to contain_package(php_cli_package).with_ensure('present') }
+          it { is_expected.to contain_package(php_fpm_ackage).with_ensure('present') }
+          it { is_expected.to contain_package(php_dev_ackage).with_ensure('present') }
         when 'Suse'
           it { is_expected.to contain_class('php::global') }
           it { is_expected.to contain_package('php5').with_ensure('present') }

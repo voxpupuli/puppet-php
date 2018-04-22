@@ -27,11 +27,12 @@ describe 'php::fpm::pool' do
           context 'plain config' do
             let(:title) { 'unique-name' }
             let(:params) { {} }
+
             case facts[:os]['release']['major']
             when '9'
               it { is_expected.to contain_file('/etc/php/7.0/fpm/pool.d/unique-name.conf') }
             else
-            it { is_expected.to contain_file('/etc/php5/fpm/pool.d/unique-name.conf') }
+              it { is_expected.to contain_file('/etc/php5/fpm/pool.d/unique-name.conf') }
             end
           end
         end
