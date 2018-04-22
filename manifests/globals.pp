@@ -23,6 +23,10 @@ class php::globals (
         /^(1[67].04)$/ => '7.0',
         default => '5.x',
       },
+      'Debian' => $facts['os']['release']['major'] ? {
+        '9' => '7.0',
+        default => '5.x',
+      },
       default => '5.x',
     },
     default => '5.x',

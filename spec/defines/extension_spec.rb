@@ -15,6 +15,8 @@ describe 'php::extension' do
                    case facts[:os]['release']['major']
                    when '16.04'
                      '/etc/php/7.0/mods-available'
+                   when '9'
+                     '/etc/php/7.0/mods-available'
                    else
                      '/etc/php5/mods-available'
                    end

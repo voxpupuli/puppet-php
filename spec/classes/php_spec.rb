@@ -23,6 +23,10 @@ describe 'php', type: :class do
             it { is_expected.to contain_package('php7.0-cli').with_ensure('present') }
             it { is_expected.to contain_package('php7.0-fpm').with_ensure('present') }
             it { is_expected.to contain_package('php7.0-dev').with_ensure('present') }
+          when '9'
+            it { is_expected.to contain_package('php7.0-cli').with_ensure('present') }
+            it { is_expected.to contain_package('php7.0-fpm').with_ensure('present') }
+            it { is_expected.to contain_package('php7.0-dev').with_ensure('present') }
           end
         when 'Suse'
           it { is_expected.to contain_class('php::global') }
@@ -69,6 +73,8 @@ describe 'php', type: :class do
                     case facts[:os]['release']['major']
                     when '16.04'
                       '/etc/php/7.0/fpm/pool.d/www.conf'
+                    when '9'
+                      '/etc/php/7.0/fpm/pool.d/www.conf'
                     else
                       '/etc/php5/fpm/pool.d/www.conf'
                     end
@@ -93,6 +99,8 @@ describe 'php', type: :class do
                   when 'Debian'
                     case facts[:os]['release']['major']
                     when '16.04'
+                      '/etc/php/7.0/fpm/pool.d/www.conf'
+                    when '9'
                       '/etc/php/7.0/fpm/pool.d/www.conf'
                     else
                       '/etc/php5/fpm/pool.d/www.conf'
