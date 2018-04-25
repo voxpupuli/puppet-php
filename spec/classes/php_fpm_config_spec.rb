@@ -1,3 +1,4 @@
+require 'rspec'
 require 'spec_helper'
 
 describe 'php::fpm::config' do
