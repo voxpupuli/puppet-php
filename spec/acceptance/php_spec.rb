@@ -16,8 +16,10 @@ describe 'php with default settings' do
       packagename = 'php5-fpm'
     when %r{el}
       packagename = 'php-fpm'
-    when %r{debian}
+    when %r{debian-8}
       packagename = 'php5-fpm'
+    when %r{debian-9}
+      packagename = 'php7.0-fpm'
     end
     describe package(packagename) do
       it { is_expected.to be_installed }
