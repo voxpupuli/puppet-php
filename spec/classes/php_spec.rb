@@ -7,34 +7,55 @@ describe 'php', type: :class do
         facts
       end
 
-      php_cli_package = case facts[:osfamily]
+      php_cli_package = case facts[:os]['name']
                         when 'Debian'
                           case facts[:os]['release']['major']
-                          when '16.04'
-                            'php7.0-cli'
                           when '9'
                             'php7.0-cli'
                           else
                             'php5-cli'
                           end
+                        when 'Ubuntu'
+                          case facts[:os]['release']['major']
+                          when '18.04'
+                            'php7.2-cli'
+                          when '16.04'
+                            'php7.0-cli'
+                          else
+                            'php5-cli'
+                          end
                         end
-      php_fpm_ackage = case facts[:osfamily]
+      php_fpm_ackage = case facts[:os]['name']
                        when 'Debian'
                          case facts[:os]['release']['major']
-                         when '16.04'
-                           'php7.0-fpm'
                          when '9'
                            'php7.0-fpm'
                          else
                            'php5-fpm'
                          end
+                       when 'Ubuntu'
+                         case facts[:os]['release']['major']
+                         when '18.04'
+                           'php7.2-fpm'
+                         when '16.04'
+                           'php7.0-fpm'
+                         else
+                           'php5-fpm'
+                         end
                        end
-      php_dev_ackage = case facts[:osfamily]
+      php_dev_ackage = case facts[:os]['name']
                        when 'Debian'
                          case facts[:os]['release']['major']
-                         when '16.04'
-                           'php7.0-dev'
                          when '9'
+                           'php7.0-dev'
+                         else
+                           'php5-dev'
+                         end
+                       when 'Ubuntu'
+                         case facts[:os]['release']['major']
+                         when '18.04'
+                           'php7.2-dev'
+                         when '16.04'
                            'php7.0-dev'
                          else
                            'php5-dev'
@@ -93,13 +114,23 @@ describe 'php', type: :class do
 
         dstfile = case facts[:osfamily]
                   when 'Debian'
-                    case facts[:os]['release']['major']
-                    when '16.04'
-                      '/etc/php/7.0/fpm/pool.d/www.conf'
-                    when '9'
-                      '/etc/php/7.0/fpm/pool.d/www.conf'
-                    else
-                      '/etc/php5/fpm/pool.d/www.conf'
+                    case facts[:os]['name']
+                    when 'Debian'
+                      case facts[:os]['release']['major']
+                      when '9'
+                        '/etc/php/7.0/fpm/pool.d/www.conf'
+                      else
+                        '/etc/php5/fpm/pool.d/www.conf'
+                      end
+                    when 'Ubuntu'
+                      case facts[:os]['release']['major']
+                      when '18.04'
+                        '/etc/php/7.2/fpm/pool.d/www.conf'
+                      when '16.04'
+                        '/etc/php/7.0/fpm/pool.d/www.conf'
+                      else
+                        '/etc/php5/fpm/pool.d/www.conf'
+                      end
                     end
                   when 'Archlinux'
                     '/etc/php/php-fpm.d/www.conf'
@@ -118,15 +149,26 @@ describe 'php', type: :class do
 
         it { is_expected.to contain_class('php::fpm').with(group: 'nginx') }
         it { is_expected.to contain_php__fpm__pool('www').with(group: 'nginx') }
+
         dstfile = case facts[:osfamily]
                   when 'Debian'
-                    case facts[:os]['release']['major']
-                    when '16.04'
-                      '/etc/php/7.0/fpm/pool.d/www.conf'
-                    when '9'
-                      '/etc/php/7.0/fpm/pool.d/www.conf'
-                    else
-                      '/etc/php5/fpm/pool.d/www.conf'
+                    case facts[:os]['name']
+                    when 'Debian'
+                      case facts[:os]['release']['major']
+                      when '9'
+                        '/etc/php/7.0/fpm/pool.d/www.conf'
+                      else
+                        '/etc/php5/fpm/pool.d/www.conf'
+                      end
+                    when 'Ubuntu'
+                      case facts[:os]['release']['major']
+                      when '18.04'
+                        '/etc/php/7.2/fpm/pool.d/www.conf'
+                      when '16.04'
+                        '/etc/php/7.0/fpm/pool.d/www.conf'
+                      else
+                        '/etc/php5/fpm/pool.d/www.conf'
+                      end
                     end
                   when 'Archlinux'
                     '/etc/php/php-fpm.d/www.conf'
