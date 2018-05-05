@@ -56,6 +56,13 @@ matrix:
   - rvm: 2.4.3
     bundler_args: --without development release
     dist: trusty
+    env: PUPPET_INSTALL_TYPE=agent BEAKER_debug=true BEAKER_set=docker/ubuntu-18.04
+    script: 'bundle exec rspec spec/acceptance/php_spec.rb'
+    services: docker
+    sudo: require
+  - rvm: 2.4.3
+    bundler_args: --without development release
+    dist: trusty
     env: PUPPET_INSTALL_TYPE=agent BEAKER_debug=true BEAKER_set=docker/ubuntu-16.04
     script: 'bundle exec rspec spec/acceptance/php_spec.rb'
     services: docker
