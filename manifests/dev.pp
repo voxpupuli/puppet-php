@@ -14,9 +14,7 @@ class php::dev(
   Boolean $manage_repos = $php::manage_repos,
 ) inherits php::params {
 
-  if $caller_module_name != $module_name {
-    warning('php::dev is private')
-  }
+  assert_private()
 
   # On FreeBSD there is no 'devel' package.
   $real_package = $facts['os']['family'] ? {

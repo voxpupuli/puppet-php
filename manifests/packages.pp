@@ -19,9 +19,7 @@ class php::packages (
   Array $names           = $php::params::common_package_names,
 ) inherits php::params {
 
-  if $caller_module_name != $module_name {
-    warning('php::packages is private')
-  }
+  assert_private()
 
   $real_names = union($names, $names_to_prefix)
   if $facts['os']['family'] == 'debian' {

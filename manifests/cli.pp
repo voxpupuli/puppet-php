@@ -13,9 +13,7 @@ class php::cli(
   Hash $settings                = {}
 ) inherits php::params {
 
-  if $caller_module_name != $module_name {
-    warning('php::cli is private')
-  }
+  assert_private()
 
   $real_settings = deep_merge($settings, hiera_hash('php::cli::settings', {}))
 

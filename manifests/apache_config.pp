@@ -13,9 +13,7 @@ class php::apache_config(
   Hash $settings                = {}
 ) inherits php::params {
 
-  if $caller_module_name != $module_name {
-    warning('php::apache_config is private')
-  }
+  assert_private()
 
   $real_settings = deep_merge($settings, hiera_hash('php::apache::settings', {}))
 

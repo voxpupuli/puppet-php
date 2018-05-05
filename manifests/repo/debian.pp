@@ -36,9 +36,7 @@ class php::repo::debian(
   $sury         = true,
 ) {
 
-  if $caller_module_name != $module_name {
-    warning('php::repo::debian is private')
-  }
+  assert_private()
 
   include '::apt'
 

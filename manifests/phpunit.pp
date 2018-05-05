@@ -21,9 +21,7 @@ class php::phpunit (
   Integer $max_age           = $php::params::phpunit_max_age,
 ) inherits php::params {
 
-  if $caller_module_name != $module_name {
-    warning('php::phpunit is private')
-  }
+  assert_private()
 
   ensure_packages(['wget'])
 
