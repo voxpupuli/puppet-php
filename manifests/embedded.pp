@@ -21,9 +21,7 @@ class php::embedded(
   Hash $settings                = {},
 ) inherits php::params {
 
-  if $caller_module_name != $module_name {
-    warning('php::embedded is private')
-  }
+  assert_private()
 
   $real_settings = deep_merge(
     $settings,

@@ -33,9 +33,7 @@ class php::composer (
   Variant[Integer, String] $root_group = $php::params::root_group,
 ) inherits php::params {
 
-  if $caller_module_name != $module_name {
-    warning('php::composer is private')
-  }
+  assert_private()
 
   archive { 'download composer':
     path         => $path,

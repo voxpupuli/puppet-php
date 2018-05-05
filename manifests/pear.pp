@@ -14,9 +14,7 @@ class php::pear (
   Boolean $manage_repos     = $php::manage_repos,
 ) inherits php::params {
 
-  if $caller_module_name != $module_name {
-    warning('php::pear is private')
-  }
+  assert_private()
 
   # Defaults for the pear package name
   if $package {

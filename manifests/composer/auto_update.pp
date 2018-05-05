@@ -33,9 +33,8 @@ class php::composer::auto_update (
   $proxy_server = undef,
 ) {
 
-  if $caller_module_name != $module_name {
-    warning('php::composer::auto_update is private')
-  }
+  assert_private()
+
 
   if $proxy_type and $proxy_server {
     $env = [ 'HOME=/root', "${proxy_type}_proxy=${proxy_server}" ]

@@ -95,9 +95,7 @@ class php::fpm::config(
   String $syslog_ident                                                  = 'php-fpm',
 ) inherits php::params {
 
-  if $caller_module_name != $module_name {
-    warning('php::fpm::config is private')
-  }
+  assert_private()
 
   # Hack-ish to default to user for group too
   $log_group_final = $log_group ? {
