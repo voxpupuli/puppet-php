@@ -8,26 +8,30 @@ describe 'php::fpm::pool' do
       end
       let(:pre_condition) { 'include php' }
 
-      case facts[:osfamily]
+      case facts[:os]['name']
       when 'Debian'
-        case facts[:operatingsystem]
-        when 'Ubuntu'
-          context 'plain config' do
-            let(:title) { 'unique-name' }
-            let(:params) { {} }
+        context 'plain config' do
+          let(:title) { 'unique-name' }
+          let(:params) { {} }
 
-            case facts[:os]['release']['major']
-            when '14.04'
-              it { is_expected.to contain_file('/etc/php5/fpm/pool.d/unique-name.conf') }
-            when '16.04'
-              it { is_expected.to contain_file('/etc/php/7.0/fpm/pool.d/unique-name.conf') }
-            end
+          case facts[:os]['release']['major']
+          when '9'
+            it { is_expected.to contain_file('/etc/php/7.0/fpm/pool.d/unique-name.conf') }
+          else
+            it { is_expected.to contain_file('/etc/php5/fpm/pool.d/unique-name.conf') }
           end
-        when 'Debian'
-          context 'plain config' do
-            let(:title) { 'unique-name' }
-            let(:params) { {} }
+        end
+      when 'Ubuntu'
+        context 'plain config' do
+          let(:title) { 'unique-name' }
+          let(:params) { {} }
 
+          case facts[:os]['release']['major']
+          when '18.04'
+            it { is_expected.to contain_file('/etc/php/7.2/fpm/pool.d/unique-name.conf') }
+          when '16.04'
+            it { is_expected.to contain_file('/etc/php/7.0/fpm/pool.d/unique-name.conf') }
+          else
             it { is_expected.to contain_file('/etc/php5/fpm/pool.d/unique-name.conf') }
           end
         end

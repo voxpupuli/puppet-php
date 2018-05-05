@@ -7,6 +7,61 @@ describe 'php', type: :class do
         facts
       end
 
+      php_cli_package = case facts[:os]['name']
+                        when 'Debian'
+                          case facts[:os]['release']['major']
+                          when '9'
+                            'php7.0-cli'
+                          else
+                            'php5-cli'
+                          end
+                        when 'Ubuntu'
+                          case facts[:os]['release']['major']
+                          when '18.04'
+                            'php7.2-cli'
+                          when '16.04'
+                            'php7.0-cli'
+                          else
+                            'php5-cli'
+                          end
+                        end
+      php_fpm_ackage = case facts[:os]['name']
+                       when 'Debian'
+                         case facts[:os]['release']['major']
+                         when '9'
+                           'php7.0-fpm'
+                         else
+                           'php5-fpm'
+                         end
+                       when 'Ubuntu'
+                         case facts[:os]['release']['major']
+                         when '18.04'
+                           'php7.2-fpm'
+                         when '16.04'
+                           'php7.0-fpm'
+                         else
+                           'php5-fpm'
+                         end
+                       end
+      php_dev_ackage = case facts[:os]['name']
+                       when 'Debian'
+                         case facts[:os]['release']['major']
+                         when '9'
+                           'php7.0-dev'
+                         else
+                           'php5-dev'
+                         end
+                       when 'Ubuntu'
+                         case facts[:os]['release']['major']
+                         when '18.04'
+                           'php7.2-dev'
+                         when '16.04'
+                           'php7.0-dev'
+                         else
+                           'php5-dev'
+                         end
+                       end
+
       describe 'when called with no parameters' do
         case facts[:osfamily]
         when 'Debian'
@@ -14,16 +69,9 @@ describe 'php', type: :class do
           it { is_expected.to contain_class('php::fpm') }
           it { is_expected.to contain_package('php-pear').with_ensure('present') }
           it { is_expected.to contain_class('php::composer') }
-          case facts[:os]['release']['major']
-          when '14.04'
-            it { is_expected.to contain_package('php5-cli').with_ensure('present') }
-            it { is_expected.to contain_package('php5-fpm').with_ensure('present') }
-            it { is_expected.to contain_package('php5-dev').with_ensure('present') }
-          when '16.04'
-            it { is_expected.to contain_package('php7.0-cli').with_ensure('present') }
-            it { is_expected.to contain_package('php7.0-fpm').with_ensure('present') }
-            it { is_expected.to contain_package('php7.0-dev').with_ensure('present') }
-          end
+          it { is_expected.to contain_package(php_cli_package).with_ensure('present') }
+          it { is_expected.to contain_package(php_fpm_ackage).with_ensure('present') }
+          it { is_expected.to contain_package(php_dev_ackage).with_ensure('present') }
         when 'Suse'
           it { is_expected.to contain_class('php::global') }
           it { is_expected.to contain_package('php5').with_ensure('present') }
@@ -66,11 +114,23 @@ describe 'php', type: :class do
 
         dstfile = case facts[:osfamily]
                   when 'Debian'
-                    case facts[:os]['release']['major']
-                    when '16.04'
-                      '/etc/php/7.0/fpm/pool.d/www.conf'
-                    else
-                      '/etc/php5/fpm/pool.d/www.conf'
+                    case facts[:os]['name']
+                    when 'Debian'
+                      case facts[:os]['release']['major']
+                      when '9'
+                        '/etc/php/7.0/fpm/pool.d/www.conf'
+                      else
+                        '/etc/php5/fpm/pool.d/www.conf'
+                      end
+                    when 'Ubuntu'
+                      case facts[:os]['release']['major']
+                      when '18.04'
+                        '/etc/php/7.2/fpm/pool.d/www.conf'
+                      when '16.04'
+                        '/etc/php/7.0/fpm/pool.d/www.conf'
+                      else
+                        '/etc/php5/fpm/pool.d/www.conf'
+                      end
                     end
                   when 'Archlinux'
                     '/etc/php/php-fpm.d/www.conf'
@@ -89,13 +149,26 @@ describe 'php', type: :class do
 
         it { is_expected.to contain_class('php::fpm').with(group: 'nginx') }
         it { is_expected.to contain_php__fpm__pool('www').with(group: 'nginx') }
+
         dstfile = case facts[:osfamily]
                   when 'Debian'
-                    case facts[:os]['release']['major']
-                    when '16.04'
-                      '/etc/php/7.0/fpm/pool.d/www.conf'
-                    else
-                      '/etc/php5/fpm/pool.d/www.conf'
+                    case facts[:os]['name']
+                    when 'Debian'
+                      case facts[:os]['release']['major']
+                      when '9'
+                        '/etc/php/7.0/fpm/pool.d/www.conf'
+                      else
+                        '/etc/php5/fpm/pool.d/www.conf'
+                      end
+                    when 'Ubuntu'
+                      case facts[:os]['release']['major']
+                      when '18.04'
+                        '/etc/php/7.2/fpm/pool.d/www.conf'
+                      when '16.04'
+                        '/etc/php/7.0/fpm/pool.d/www.conf'
+                      else
+                        '/etc/php5/fpm/pool.d/www.conf'
+                      end
                     end
                   when 'Archlinux'
                     '/etc/php/php-fpm.d/www.conf'

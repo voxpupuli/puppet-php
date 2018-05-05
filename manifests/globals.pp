@@ -17,12 +17,14 @@ class php::globals (
   Optional[Stdlib::Absolutepath] $fpm_pid_file  = undef,
 ) {
 
-  $default_php_version = $facts['os']['family'] ? {
-    'Debian' => $facts['os']['name'] ? {
-      'Ubuntu' => $facts['os']['release']['full'] ? {
-        /^(1[67].04)$/ => '7.0',
-        default => '5.x',
-      },
+  $default_php_version = $facts['os']['name'] ? {
+    'Debian' => $facts['os']['release']['major'] ? {
+      '9' => '7.0',
+      default => '5.x',
+    },
+    'Ubuntu' => $facts['os']['release']['major'] ? {
+      '18.04' => '7.2',
+      '16.04' => '7.0',
       default => '5.x',
     },
     default => '5.x',
