@@ -15,10 +15,10 @@
 #   Defines if the service provider to use
 #
 class php::fpm::service(
-  $service_name = $::php::fpm::service_name,
-  $ensure       = $::php::fpm::service_ensure,
-  $enable       = $::php::fpm::service_enable,
-  $provider     = $::php::fpm::service_provider,
+  $service_name = $php::fpm::service_name,
+  $ensure       = $php::fpm::service_ensure,
+  $enable       = $php::fpm::service_enable,
+  $provider     = $php::fpm::service_provider,
 ) {
 
   if ! defined(Class['php::fpm']) {

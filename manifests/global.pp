@@ -12,7 +12,7 @@
 
 #
 class php::global(
-  Stdlib::Absolutepath $inifile = $::php::config_root_inifile,
+  Stdlib::Absolutepath $inifile = $php::config_root_inifile,
   Hash $settings                = {}
 ) inherits ::php {
 

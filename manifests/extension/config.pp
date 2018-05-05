@@ -89,7 +89,7 @@ define php::extension::config (
     $final_settings = $full_settings
   }
 
-  $config_root_ini = pick_default($::php::config_root_ini, $::php::params::config_root_ini)
+  $config_root_ini = pick_default($php::config_root_ini, $php::params::config_root_ini)
   ::php::config { $title:
     file   => "${config_root_ini}/${ini_prefix}${ini_name}.ini",
     config => $final_settings,
@@ -97,9 +97,9 @@ define php::extension::config (
 
   # Ubuntu/Debian systems use the mods-available folder. We need to enable
   # settings files ourselves with php5enmod command.
-  $ext_tool_enable   = pick_default($::php::ext_tool_enable, $::php::params::ext_tool_enable)
-  $ext_tool_query    = pick_default($::php::ext_tool_query, $::php::params::ext_tool_query)
-  $ext_tool_enabled  = pick_default($::php::ext_tool_enabled, $::php::params::ext_tool_enabled)
+  $ext_tool_enable   = pick_default($php::ext_tool_enable, $php::params::ext_tool_enable)
+  $ext_tool_query    = pick_default($php::ext_tool_query, $php::params::ext_tool_query)
+  $ext_tool_enabled  = pick_default($php::ext_tool_enabled, $php::params::ext_tool_enabled)
 
   if $facts['os']['family'] == 'Debian' and $ext_tool_enabled {
     $cmd = "${ext_tool_enable} -s ${sapi} ${so_name}"
@@ -113,8 +113,8 @@ define php::extension::config (
       require => ::Php::Config[$title],
     }
 
-    if $::php::fpm {
-      Package[$::php::fpm::package] ~> Exec[$cmd]
+    if $php::fpm {
+      Package[$php::fpm::package] ~> Exec[$cmd]
     }
   }
 }
