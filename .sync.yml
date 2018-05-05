@@ -10,7 +10,7 @@
     - set: docker/centos-7
       options:
         script: 'bundle exec rspec spec/acceptance/php56_spec.rb'
-    - set: docker/debian-8
+    - set: docker/debian-7
       options:
         script: 'bundle exec rspec spec/acceptance/php56_spec.rb'
     - set: docker/ubuntu-16.04
@@ -20,6 +20,9 @@
       options:
         script: 'bundle exec rspec spec/acceptance/php_spec.rb'
     - set: docker/centos-7
+      options:
+        script: 'bundle exec rspec spec/acceptance/php_spec.rb'
+    - set: docker/debian-9
       options:
         script: 'bundle exec rspec spec/acceptance/php_spec.rb'
     - set: docker/debian-8
