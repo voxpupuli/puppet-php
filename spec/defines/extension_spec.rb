@@ -21,7 +21,7 @@ describe 'php::extension' do
                   when 'Ubuntu'
                     case facts[:os]['release']['major']
                     when '18.04'
-                      '/etc/php/7.0/mods-available'
+                      '/etc/php/7.2/mods-available'
                     when '16.04'
                       '/etc/php/7.0/mods-available'
                     else
