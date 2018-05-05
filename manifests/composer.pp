@@ -24,14 +24,14 @@
 #   UNIX group of the root user
 #
 class php::composer (
-  String $source                       = $::php::params::composer_source,
-  Stdlib::Absolutepath $path           = $::php::params::composer_path,
+  String $source                       = $php::params::composer_source,
+  Stdlib::Absolutepath $path           = $php::params::composer_path,
   $proxy_type                          = undef,
   $proxy_server                        = undef,
   Boolean $auto_update                 = true,
-  Integer $max_age                     = $::php::params::composer_max_age,
-  Variant[Integer, String] $root_group = $::php::params::root_group,
-) inherits ::php::params {
+  Integer $max_age                     = $php::params::composer_max_age,
+  Variant[Integer, String] $root_group = $php::params::root_group,
+) inherits php::params {
 
   if $caller_module_name != $module_name {
     warning('php::composer is private')
@@ -50,7 +50,7 @@ class php::composer (
   }
 
   if $auto_update {
-    class { '::php::composer::auto_update':
+    class { 'php::composer::auto_update':
       max_age      => $max_age,
       source       => $source,
       path         => $path,

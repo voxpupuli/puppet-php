@@ -122,8 +122,8 @@ define php::fpm::pool (
   $listen_owner                            = undef,
   $listen_group                            = undef,
   $listen_mode                             = undef,
-  $user                                    = $::php::fpm::config::user,
-  $group                                   = $::php::fpm::config::group,
+  $user                                    = $php::fpm::config::user,
+  $group                                   = $php::fpm::config::group,
   $pm                                      = 'dynamic',
   $pm_max_children                         = '50',
   $pm_start_servers                        = '5',
@@ -155,7 +155,7 @@ define php::fpm::pool (
   $php_admin_value                         = {},
   $php_admin_flag                          = {},
   $php_directives                          = [],
-  $root_group                              = $::php::params::root_group,
+  $root_group                              = $php::params::root_group,
   Optional[Stdlib::Absolutepath] $base_dir = undef,
 ) {
 
@@ -176,10 +176,10 @@ define php::fpm::pool (
   # Implies that the option SET+=FPM was set when building the port.
   $real_package = $facts['os']['name'] ? {
     'FreeBSD' => [],
-    default   => $::php::fpm::package,
+    default   => $php::fpm::package,
   }
 
-  $pool_base_dir = pick_default($base_dir, $::php::fpm::config::pool_base_dir, $::php::params::fpm_pool_dir)
+  $pool_base_dir = pick_default($base_dir, $php::fpm::config::pool_base_dir, $php::params::fpm_pool_dir)
   if ($ensure == 'absent') {
     file { "${pool_base_dir}/${pool}.conf":
       ensure => absent,

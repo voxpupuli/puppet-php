@@ -15,11 +15,11 @@
 #   Defines the time in days after which an auto-update gets executed
 #
 class php::phpunit (
-  String $source             = $::php::params::phpunit_source,
-  Stdlib::Absolutepath $path = $::php::params::phpunit_path,
+  String $source             = $php::params::phpunit_source,
+  Stdlib::Absolutepath $path = $php::params::phpunit_path,
   Boolean $auto_update       = true,
-  Integer $max_age           = $::php::params::phpunit_max_age,
-) inherits ::php::params {
+  Integer $max_age           = $php::params::phpunit_max_age,
+) inherits php::params {
 
   if $caller_module_name != $module_name {
     warning('php::phpunit is private')
@@ -31,7 +31,7 @@ class php::phpunit (
     command => "wget ${source} -O ${path}",
     creates => $path,
     path    => ['/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/'],
-    require => [Class['::php::cli'],Package['wget']],
+    require => [Class['php::cli'],Package['wget']],
   }
   -> file { $path:
     mode  => '0555',
@@ -40,7 +40,7 @@ class php::phpunit (
   }
 
   if $auto_update {
-    class { '::php::phpunit::auto_update':
+    class { 'php::phpunit::auto_update':
       max_age => $max_age,
       source  => $source,
       path    => $path,

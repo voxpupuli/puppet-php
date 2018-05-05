@@ -15,11 +15,11 @@
 #   Specify which version of the package to install
 #
 class php::embedded(
-  String $ensure                = $::php::ensure,
-  String $package               = "${::php::package_prefix}${::php::params::embedded_package_suffix}",
-  Stdlib::Absolutepath $inifile = $::php::params::embedded_inifile,
+  String $ensure                = $php::ensure,
+  String $package               = "${php::package_prefix}${php::params::embedded_package_suffix}",
+  Stdlib::Absolutepath $inifile = $php::params::embedded_inifile,
   Hash $settings                = {},
-) inherits ::php::params {
+) inherits php::params {
 
   if $caller_module_name != $module_name {
     warning('php::embedded is private')
@@ -37,9 +37,9 @@ class php::embedded(
 
   package { $real_package:
     ensure  => $ensure,
-    require => Class['::php::packages'],
+    require => Class['php::packages'],
   }
-  -> ::php::config { 'embedded':
+  -> php::config { 'embedded':
     file   => $inifile,
     config => $real_settings,
   }

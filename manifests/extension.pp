@@ -65,14 +65,14 @@ define php::extension (
   Optional[String] $so_name                         = downcase($name),
   Optional[String] $ini_prefix                      = undef,
   Optional[String] $php_api_version                 = undef,
-  String           $package_prefix                  = $::php::package_prefix,
+  String           $package_prefix                  = $php::package_prefix,
   Boolean          $zend                            = false,
   Hash             $settings                        = {},
   Php::Sapi        $sapi                            = 'ALL',
   Variant[Boolean, String]       $settings_prefix   = false,
   Optional[Stdlib::AbsolutePath] $responsefile      = undef,
   Variant[String, Array[String]] $header_packages   = [],
-  Variant[String, Array[String]] $compiler_packages = $::php::params::compiler_packages,
+  Variant[String, Array[String]] $compiler_packages = $php::params::compiler_packages,
   Php::InstallOptions $install_options              = undef,
 ) {
 

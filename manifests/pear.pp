@@ -9,10 +9,10 @@
 #   The package name for PHP pear
 #
 class php::pear (
-  String $ensure            = $::php::pear_ensure,
+  String $ensure            = $php::pear_ensure,
   Optional[String] $package = undef,
   Boolean $manage_repos     = $php::manage_repos,
-) inherits ::php::params {
+) inherits php::params {
 
   if $caller_module_name != $module_name {
     warning('php::pear is private')
@@ -37,7 +37,7 @@ class php::pear (
         }
         'FreeBSD': {
           # On FreeBSD the package name is just 'pear'.
-          $package_name = $::php::params::pear_package_suffix
+          $package_name = $php::params::pear_package_suffix
         }
         default: {
           # This is the default for all other architectures
@@ -61,12 +61,12 @@ class php::pear (
 
     package { $package_name:
       ensure  => $ensure,
-      require => [$require,Class['::php::cli'],Package["${php::package_prefix}xml"]],
+      require => [$require,Class['php::cli'],Package["${php::package_prefix}xml"]],
     }
   } else {
     package { $package_name:
       ensure  => $ensure,
-      require => Class['::php::cli'],
+      require => Class['php::cli'],
     }
   }
 }
