@@ -17,6 +17,7 @@
 class php::phpunit (
   String $source             = $php::params::phpunit_source,
   Stdlib::Absolutepath $path = $php::params::phpunit_path,
+  String[1] $root_group      = $php::params::root_group,
   Boolean $auto_update       = true,
   Integer $max_age           = $php::params::phpunit_max_age,
 ) inherits php::params {
@@ -28,13 +29,13 @@ class php::phpunit (
   exec { 'download phpunit':
     command => "wget ${source} -O ${path}",
     creates => $path,
-    path    => ['/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/'],
+    path    => ['/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin'],
     require => [Class['php::cli'],Package['wget']],
   }
   -> file { $path:
     mode  => '0555',
     owner => root,
-    group => root,
+    group => $root_group,
   }
 
   if $auto_update {
