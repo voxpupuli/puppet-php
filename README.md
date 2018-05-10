@@ -200,6 +200,7 @@ Alternative to the Puppet DSL code examples above, you may optionally define you
 Below are all the examples you see above, but defined in YAML format for use with Hiera.
 
 ```yaml
+
 ---
 php::ensure: latest
 php::manage_repos: true
@@ -259,7 +260,7 @@ The older Ubuntu PPAs run by Ondřej have been deprecated (ondrej/php5, ondrej/p
 in favor of a new PPA: ondrej/php which contains all 3 versions of PHP: 5.5, 5.6, and 7.0
 Here's an example in hiera of getting PHP 5.6 installed with php-fpm, pear/pecl, and composer:
 
-```
+```puppet
 php::globals::php_version: '5.6'
 php::fpm: true
 php::dev: true
@@ -279,6 +280,124 @@ Apache with `mod_php` is not supported by this module. Please use
 We prefer using php-fpm. You can find an example Apache vhost in
 `manifests/apache_vhost.pp` that shows you how to use `mod_proxy_fcgi` to
 connect to php-fpm.
+
+
+### RedHat/CentOS SCL Users
+If you plan to use the SCL repositories with this module you must do the following adjustments:
+
+#### General config
+This ensures that the module will create configurations in the directory ``/etc/opt/rh/<php_version>/` (also in php.d/ 
+for extensions). Anyway you have to manage the SCL repo's by your own.
+ 
+```puppet
+class { '::php::globals':
+  php_version => 'rh-php71',
+  rhscl => true,
+}->
+class { '::php':
+  manage_repos => false
+}
+```
+
+#### Extensions
+Extensions in SCL are being installed with packages that cover 1 or more .so files. This is kinda incompatible with
+this module, since this module specifies an extension by name and derives the name of the package and the config (.ini)
+from it. To manage extensions of SCL packages you must use the following parameters:
+
+```puppet
+class { '::php':
+  ...
+  extensions  => {
+    'soap' => {
+      ini_prefix => '20-', 
+    },
+  }
+}
+```
+
+By this you tell the module to configure bz2 and calender while ensuring only the package `common`. Additionally to the 
+installation of 'common' the inifiles 'calender.ini' and 'bz2.ini' will be created by the scheme 
+`<config_file_prefix><extension_title>`.
+
+A list of commonly used modules:
+```puppet
+    {
+      extensions => {
+        'xml' => {
+          ini_prefix => '20-', 
+          multifile_settings => true,
+          settings => {
+            'dom'  => {},
+            'simplexml' => {},
+            'xmlwriter' => {},
+            'xsl' => {},
+            'wddx' => {},
+            'xmlreader' => {},
+          },
+        },
+        'soap' => {
+          ini_prefix => '20-', 
+        },
+        'imap' => {
+          ini_prefix => '20-', 
+        },
+        'intl' => {
+          ini_prefix => '20-', 
+        },
+        'gd' => {
+          ini_prefix => '20-', 
+        },   
+        'mbstring' => {
+          ini_prefix => '20-', 
+        },
+        'xmlrpc' => {
+          ini_prefix => '20-', 
+        },
+        'pdo' => {
+          ini_prefix => '20-',
+          multifile_settings => true,
+          settings => {
+              'pdo'  => {},
+              'pdo_sqlite' => {},
+              'sqlite3' => {},
+            },
+        },
+        'process' => {
+          ini_prefix => '20-',
+          multifile_settings => true,
+          settings => {
+             'posix'  => {},
+             'shmop' => {},
+             'sysvmsg' => {},
+             'sysvsem' => {},
+             'sysvshm' => {},
+          },
+        },
+        'mysqlnd' => {
+          ini_prefix => '30-',
+          multifile_settings => true,
+          settings => {
+             'mysqlnd'  => {},
+             'mysql' => {},
+             'mysqli' => {},
+             'pdo_mysql' => {},
+             'sysvshm' => {},
+          },
+        },
+        'mysqlnd' => {
+          ini_prefix => '30-',
+          multifile_settings => true,
+          settings => {
+             'mysqlnd'  => {},
+             'mysql' => {},
+             'mysqli' => {},
+             'pdo_mysql' => {},
+             'sysvshm' => {},
+          },
+        },
+      }
+    }
+```
 
 ### Facts
 
