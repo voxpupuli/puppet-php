@@ -149,17 +149,10 @@ class php (
 
   $real_fpm_package = pick($fpm_package, "${package_prefix}${::php::params::fpm_package_suffix}")
 
-  # Deep merge global php settings
-  $real_settings = deep_merge($settings, lookup('php::settings', {value_type => Hash, merge => 'deep', default_value => {}}))
-
-  # Deep merge global php extensions
-  $real_extensions = deep_merge($extensions, lookup('php::extensions', {value_type => Hash, merge => 'deep', default_value => {}}))
-
-  # Deep merge fpm_pools
-  $real_fpm_pools = deep_merge($fpm_pools, lookup('php::fpm_pools', {value_type => Hash, merge => 'deep', default_value => {}}))
-
-  # Deep merge fpm_global_pool_settings
-  $real_fpm_global_pool_settings = deep_merge($fpm_global_pool_settings, lookup('php::fpm_global_pool_settings', {value_type => Hash, merge => 'deep', default_value => {}}))
+  $real_settings = $settings
+  $real_extensions = $extensions
+  $real_fpm_pools = $fpm_pools
+  $real_fpm_global_pool_settings = $fpm_global_pool_settings
 
   if $manage_repos {
     class { 'php::repo': }
