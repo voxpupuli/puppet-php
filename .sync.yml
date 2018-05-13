@@ -1,31 +1,31 @@
 ---
 .travis.yml:
   docker_sets:
-    - set: docker/ubuntu-16.04
+    - set: ubuntu1604-64
       options:
         script: 'bundle exec rspec spec/acceptance/php56_spec.rb'
-    - set: docker/ubuntu-14.04
+    - set: ubuntu1404-64
       options:
         script: 'bundle exec rspec spec/acceptance/php56_spec.rb'
-    - set: docker/centos-7
+    - set: centos7-64
       options:
         script: 'bundle exec rspec spec/acceptance/php56_spec.rb'
-    - set: docker/debian-7
+    - set: debian7-64
       options:
         script: 'bundle exec rspec spec/acceptance/php56_spec.rb'
-    - set: docker/ubuntu-16.04
+    - set: ubuntu1604-64
       options:
         script: 'bundle exec rspec spec/acceptance/php_spec.rb'
-    - set: docker/ubuntu-14.04
+    - set: ubuntu1404-64
       options:
         script: 'bundle exec rspec spec/acceptance/php_spec.rb'
-    - set: docker/centos-7
+    - set: centos7-64
       options:
         script: 'bundle exec rspec spec/acceptance/php_spec.rb'
-    - set: docker/debian-9
+    - set: debian9-64
       options:
         script: 'bundle exec rspec spec/acceptance/php_spec.rb'
-    - set: docker/debian-8
+    - set: debian8-64
       options:
         script: 'bundle exec rspec spec/acceptance/php_spec.rb'
   secure: "GOhttACuJt+3s38m4WnW5RuTgwqaAoeEQnNT+X1Ukn7KdcIk4KV8NzYU/CC0VIm8lUOnBWYJKEC4ixX/J/4Wbxox2RAoKMQrO++L0DB1zTCJnq9SfoUBMaQhXvLu+PbxAR0p3P47ozra0C+pOWDpOaxT9ecufrPQt9W9Z4aY/bs="
