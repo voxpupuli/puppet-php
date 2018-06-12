@@ -77,6 +77,7 @@ class php::globals (
         }
       } else {
         case $globals_php_version {
+          /^5\.6/,
           /^7\.[0-9]/: {
             $default_config_root  = "/etc/php/${globals_php_version}"
             $default_fpm_pid_file = "/var/run/php/php${globals_php_version}-fpm.pid"
