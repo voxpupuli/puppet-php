@@ -72,7 +72,7 @@ class php::repo::debian(
     }
   }
 
-  if ($sury and $php::globals::php_version in ['7.1','7.2'] ) {
+  if ($sury and $php::globals::php_version in ['5.6','7.1','7.2'] ) {
     # Required packages for PHP sury repository
     ensure_packages(['lsb-release', 'ca-certificates'], {'ensure' => 'present'})
 
