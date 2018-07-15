@@ -10,6 +10,8 @@ describe 'php with default settings' do
     end
 
     case default[:platform]
+    when %r{ubuntu-18.04}
+      packagename = 'php7.2-fpm'
     when %r{ubuntu-16.04}
       packagename = 'php7.0-fpm'
     when %r{ubuntu-14.04}
