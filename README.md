@@ -292,9 +292,9 @@ for extensions). Anyway you have to manage the SCL repo's by your own.
 ```puppet
 class { '::php::globals':
   php_version => 'rh-php71',
-  rhscl => true,
-}->
-class { '::php':
+  rhscl_mode  => 'rhscl',
+}
+-> class { '::php':
   manage_repos => false
 }
 ```
