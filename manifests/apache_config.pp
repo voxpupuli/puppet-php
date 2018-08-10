@@ -8,10 +8,13 @@
 # [*settings*]
 #   Hash with nested hash of key => value to set in inifile
 #
+# [*service*]
+#   opt. name of Service resource that should be notified of configuration changes
+#
 class php::apache_config(
   Stdlib::Absolutepath $inifile = $php::params::apache_inifile,
   Hash $settings                = {},
-  String $service               = nil,
+  Optional[String] $service     = undef,
 ) inherits php::params {
 
   assert_private()
