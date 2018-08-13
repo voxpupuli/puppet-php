@@ -74,19 +74,10 @@ define php::extension::config (
   $ini_name = downcase($so_name)
 
   # Ensure "<extension>." prefix is present in setting keys if requested
-  $full_settings = $settings_prefix? {
+  $final_settings = $settings_prefix? {
     true   => ensure_prefix($settings, "${so_name}."),
     false  => $settings,
     String => ensure_prefix($settings, "${settings_prefix}."),
-  }
-
-  if $provider != 'pear' {
-    $final_settings = deep_merge(
-      {"${extension_key}" => "${module_path}${so_name}.so"},
-      $full_settings
-    )
-  } else {
-    $final_settings = $full_settings
   }
 
   $config_root_ini = pick_default($php::config_root_ini, $php::params::config_root_ini)
