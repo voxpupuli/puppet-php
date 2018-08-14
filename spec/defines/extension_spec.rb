@@ -48,8 +48,7 @@ describe 'php::extension' do
             is_expected.to contain_php__config('json').with(
               file: "#{etcdir}/json.ini",
               config: {
-                'extension' => 'json.so',
-                'test'      => 'foo'
+                'test' => 'foo'
               }
             )
           end
@@ -71,8 +70,7 @@ describe 'php::extension' do
               file: "#{etcdir}/json.ini",
               require: nil,
               config: {
-                'extension' => 'json.so',
-                'test'      => 'foo'
+                'test' => 'foo'
               }
             )
           end
@@ -93,7 +91,6 @@ describe 'php::extension' do
           it do
             is_expected.to contain_php__config('json').with(
               config: {
-                'extension' => 'json.so',
                 'json.test' => 'foo'
               }
             )
@@ -115,8 +112,7 @@ describe 'php::extension' do
           it do
             is_expected.to contain_php__config('json').with(
               config: {
-                'extension' => 'json.so',
-                'bar.test'  => 'foo'
+                'bar.test' => 'foo'
               }
             )
           end
@@ -216,8 +212,7 @@ describe 'php::extension' do
                 is_expected.to contain_php__config('json').with(
                   file: "#{etcdir}/nice_name.ini",
                   config: {
-                    'extension' => 'nice_name.so',
-                    'test'      => 'foo'
+                    'test' => 'foo'
                   }
                 )
               end

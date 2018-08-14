@@ -60,17 +60,6 @@ define php::extension::config (
     warning('php::extension::config is private')
   }
 
-  if $zend == true {
-    $extension_key = 'zend_extension'
-    $module_path = $php_api_version? {
-      undef   => undef,
-      default => "/usr/lib/php5/${php_api_version}/",
-    }
-  } else {
-    $extension_key = 'extension'
-    $module_path = undef
-  }
-
   $ini_name = downcase($so_name)
 
   # Ensure "<extension>." prefix is present in setting keys if requested
@@ -80,9 +69,13 @@ define php::extension::config (
     String => ensure_prefix($settings, "${settings_prefix}."),
   }
 
-  if $provider != 'pear' {
+  if $provider != 'pear' and $zend == true {
+    $module_path = $php_api_version? {
+      undef   => undef,
+      default => "/usr/lib/php5/${php_api_version}/",
+    }
     $final_settings = deep_merge(
-      {"${extension_key}" => "${module_path}${so_name}.so"},
+      {'zend_extension' => "${module_path}${so_name}.so"},
       $full_settings
     )
   } else {
