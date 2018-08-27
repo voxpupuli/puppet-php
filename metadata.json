@@ -11,11 +11,11 @@
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
-      "version_requirement": ">= 4.16.0 < 5.0.0"
+      "version_requirement": ">= 4.16.0 < 6.0.0"
     },
     {
       "name": "puppetlabs/apt",
-      "version_requirement": ">= 4.4.0 < 6.0.0"
+      "version_requirement": ">= 4.4.0 < 7.0.0"
     },
     {
       "name": "puppetlabs/inifile",
