@@ -54,11 +54,11 @@ define php::extension::install (
 
       unless empty($header_packages) {
         ensure_resource('package', $header_packages)
-        Package[$header_packages] -> Package[$real_package]
+        Package[$header_packages] -> Package["php_${real_package}"]
       }
       unless empty($compiler_packages) {
         ensure_resource('package', $compiler_packages)
-        Package[$compiler_packages] -> Package[$real_package]
+        Package[$compiler_packages] -> Package["php_${real_package}"]
       }
 
       $package_require      = [
@@ -78,7 +78,8 @@ define php::extension::install (
   }
 
   unless $provider == 'none' {
-    package { $real_package:
+    package { "php_${real_package}":
+      name            => $real_package,
       ensure          => $ensure,
       provider        => $provider,
       source          => $source,
