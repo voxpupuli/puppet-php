@@ -43,7 +43,7 @@ describe 'php::extension' do
             }
           end
 
-          it { is_expected.to contain_package('php_php5-json') }
+          it { is_expected.to contain_package('phpmod_php5-json') }
           it do
             is_expected.to contain_php__config('json').with(
               file: "#{etcdir}/json.ini",
@@ -209,9 +209,9 @@ describe 'php::extension' do
                 }
               end
 
-              it { is_expected.to contain_package('php_json') }
-              it { is_expected.to contain_package('php_libmemcached-dev') }
-              it { is_expected.to contain_package('php_build-essential') }
+              it { is_expected.to contain_package('phpmod_json') }
+              it { is_expected.to contain_package('libmemcached-dev') }
+              it { is_expected.to contain_package('build-essential') }
               it do
                 is_expected.to contain_php__config('json').with(
                   file: "#{etcdir}/nice_name.ini",
