@@ -51,14 +51,15 @@ define php::extension::install (
   case $provider {
     /pecl|pear/: {
       $real_package = $title
+      $real_package_class = "php_${title}"
 
       unless empty($header_packages) {
         ensure_resource('package', $header_packages)
-        Package[$header_packages] -> Package["php_${real_package}"]
+        Package[$header_packages] -> Package["${real_package_class}"]
       }
       unless empty($compiler_packages) {
         ensure_resource('package', $compiler_packages)
-        Package[$compiler_packages] -> Package["php_${real_package}"]
+        Package[$compiler_packages] -> Package["${real_package_class}"]
       }
 
       $package_require      = [
@@ -73,12 +74,13 @@ define php::extension::install (
 
     default: {
       $real_package = "${package_prefix}${title}"
+      $real_package_class = "php_${package_prefix}${title}"
       $package_require = undef
     }
   }
 
   unless $provider == 'none' {
-    package { "php_${real_package}":
+    package { "${real_package_class}":
       ensure          => $ensure,
       name            => $real_package,
       provider        => $provider,
