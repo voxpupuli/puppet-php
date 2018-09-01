@@ -51,7 +51,7 @@ define php::extension::install (
   case $provider {
     /pecl|pear/: {
       $real_package = $title
-      $real_package_class = "php_${title}"
+      $real_package_class = "phpmod_${real_package}"
 
       unless empty($header_packages) {
         ensure_resource('package', $header_packages)
@@ -74,7 +74,7 @@ define php::extension::install (
 
     default: {
       $real_package = "${package_prefix}${title}"
-      $real_package_class = "php_${package_prefix}${title}"
+      $real_package_class = "phpmod_${package_prefix}${title}"
       $package_require = undef
     }
   }
