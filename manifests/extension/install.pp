@@ -79,8 +79,8 @@ define php::extension::install (
 
   unless $provider == 'none' {
     package { "php_${real_package}":
-      name            => $real_package,
       ensure          => $ensure,
+      name            => $real_package,
       provider        => $provider,
       source          => $source,
       responsefile    => $responsefile,
