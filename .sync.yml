@@ -10,9 +10,6 @@
     - set: centos7-64
       options:
         script: 'bundle exec rspec spec/acceptance/php56_spec.rb'
-    - set: debian7-64
-      options:
-        script: 'bundle exec rspec spec/acceptance/php56_spec.rb'
     - set: ubuntu1804-64
       options:
         script: 'bundle exec rspec spec/acceptance/php_spec.rb'
