@@ -108,9 +108,16 @@ define php::extension (
     }
 
     $_settings.each |$settings_name, $settings_hash| {
-      $so_name = $multifile_settings ? {
-        true  => downcase($settings_name),
-        false => pick(downcase($so_name), downcase($name), downcase($settings_name)),
+      if $so_name {
+        $so_name = $multifile_settings ? {
+          true  => downcase($settings_name),
+          false => pick(downcase($so_name), downcase($name), downcase($settings_name)),
+        }
+      } else {
+        $so_name = $multifile_settings ? {
+          true  => downcase($settings_name),
+          false => pick(downcase($name), downcase($settings_name)),
+        }
       }
 
       php::extension::config { $settings_name:
