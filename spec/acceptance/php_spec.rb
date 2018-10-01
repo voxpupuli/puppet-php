@@ -33,18 +33,41 @@ describe 'php with default settings' do
     end
   end
   context 'default parameters with extensions' do
-    it 'works with defaults' do
-      pp = <<-EOS
-      class{'php':
-        extensions => {
-        'mysql'    => {},
-        'gd'       => {}
+    case default[:platform]
+    when %r{ubuntu-18.04}, %r{ubuntu-16.04}, %r{ubuntu-14.04}
+      it 'works with defaults' do
+        pp = <<-EOS
+        class{'php':
+          extensions => {
+            'mysql'    => {},
+            'gd'       => {},
+            'net-url'  => {
+              package_prefix => 'php-',
+              settings       => {
+                extension => undef
+              }
+            }
+          }
         }
-      }
-      EOS
-      # Run it twice and test for idempotency
-      apply_manifest(pp, catch_failures: true)
-      apply_manifest(pp, catch_changes: true)
+        EOS
+        # Run it twice and test for idempotency
+        apply_manifest(pp, catch_failures: true)
+        apply_manifest(pp, catch_changes: true)
+      end
+    else
+      it 'works with defaults' do
+        pp = <<-EOS
+        class{'php':
+          extensions => {
+            'mysql'    => {},
+            'gd'       => {}
+          }
+        }
+        EOS
+        # Run it twice and test for idempotency
+        apply_manifest(pp, catch_failures: true)
+        apply_manifest(pp, catch_changes: true)
+      end
     end
 
     case default[:platform]

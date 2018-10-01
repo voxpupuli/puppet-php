@@ -108,13 +108,15 @@ define php::extension::config (
       'ALL' => 'cli',
       default => $sapi,
     }
-    exec { $cmd:
-      onlyif  => "${ext_tool_query} -s ${_sapi} -m ${so_name} | /bin/grep 'No module matches ${so_name}'",
-      require => ::Php::Config[$title],
-    }
+    if has_key($final_settings, 'extension') and $final_settings[extension] {
+      exec { $cmd:
+        onlyif  => "${ext_tool_query} -s ${_sapi} -m ${so_name} | /bin/grep 'No module matches ${so_name}'",
+        require => ::Php::Config[$title],
+      }
 
-    if $php::fpm {
-      Package[$php::fpm::package] ~> Exec[$cmd]
+      if $php::fpm {
+        Package[$php::fpm::package] ~> Exec[$cmd]
+      }
     }
   }
 }
