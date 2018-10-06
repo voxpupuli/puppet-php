@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v6.0.1](https://github.com/voxpupuli/puppet-php/tree/v6.0.1) (2018-10-07)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v6.0.0...v6.0.1)
+
+**Fixed bugs:**
+
+- Fix enable extension when there is no module associated [\#479](https://github.com/voxpupuli/puppet-php/pull/479) ([amateo](https://github.com/amateo))
+- Remove config when module is ensured to absent [\#478](https://github.com/voxpupuli/puppet-php/pull/478) ([amateo](https://github.com/amateo))
+
+**Closed issues:**
+
+- "php::manage\_repos: true" causes failure on Ubuntu 18.04, needs newer puppetlabs-apt version\(\>=5.0.0\) [\#467](https://github.com/voxpupuli/puppet-php/issues/467)
+
+**Merged pull requests:**
+
+- modulesync 2.1.0 and allow puppet 6.x [\#481](https://github.com/voxpupuli/puppet-php/pull/481) ([bastelfreak](https://github.com/bastelfreak))
+- Add acceptance tests for system php with extensions [\#476](https://github.com/voxpupuli/puppet-php/pull/476) ([bastelfreak](https://github.com/bastelfreak))
+- Allow puppetlabs/stdlib 5.x and puppetlabs/apt 6.x [\#472](https://github.com/voxpupuli/puppet-php/pull/472) ([bastelfreak](https://github.com/bastelfreak))
+
 ## [v6.0.0](https://github.com/voxpupuli/puppet-php/tree/v6.0.0) (2018-07-29)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v5.3.0...v6.0.0)
