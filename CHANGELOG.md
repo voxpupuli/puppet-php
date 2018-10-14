@@ -4,7 +4,23 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
-## [v6.0.1](https://github.com/voxpupuli/puppet-php/tree/v6.0.1) (2018-10-07)
+## [v6.0.2](https://github.com/voxpupuli/puppet-php/tree/v6.0.2) (2018-10-14)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v6.0.1...v6.0.2)
+
+**Fixed bugs:**
+
+- allow `latest` for php extensions again [\#485](https://github.com/voxpupuli/puppet-php/pull/485) ([amateo](https://github.com/amateo))
+
+**Closed issues:**
+
+- Ubuntu 18.04 issue just installing [\#475](https://github.com/voxpupuli/puppet-php/issues/475)
+
+**Merged pull requests:**
+
+- Remove readable permissions for others on fpm pool config file [\#484](https://github.com/voxpupuli/puppet-php/pull/484) ([l-lotz](https://github.com/l-lotz))
+
+## [v6.0.1](https://github.com/voxpupuli/puppet-php/tree/v6.0.1) (2018-10-06)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v6.0.0...v6.0.1)
 
