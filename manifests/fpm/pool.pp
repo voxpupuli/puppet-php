@@ -193,7 +193,7 @@ define php::fpm::pool (
       content => template($template),
       owner   => root,
       group   => $root_group,
-      mode    => '0644',
+      mode    => '0640',
     }
   }
 }
