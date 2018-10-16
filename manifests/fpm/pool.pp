@@ -152,7 +152,7 @@ define php::fpm::pool (
   $include                                 = undef,
   $env                                     = [],
   $env_value                               = {},
-	$clear_env                               = undef,
+  $clear_env                               = true,
   $options                                 = {},
   $php_value                               = {},
   $php_flag                                = {},
