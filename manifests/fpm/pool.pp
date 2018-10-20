@@ -88,6 +88,9 @@
 #   Hash of environment variables and values as strings to use in php
 #   scripts in this pool
 #
+# [*clear_env*]
+#   Whether the environment should be cleared.
+#
 # [*options*]
 #   An optional hash for any other data.
 #
@@ -149,6 +152,7 @@ define php::fpm::pool (
   $include                                 = undef,
   $env                                     = [],
   $env_value                               = {},
+  $clear_env                               = true,
   $options                                 = {},
   $php_value                               = {},
   $php_flag                                = {},
