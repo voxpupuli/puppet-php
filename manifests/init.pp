@@ -111,6 +111,17 @@
 #   The package ensure of PHP pear to install and run pear auto_discover
 #
 # [*settings*]
+#   PHP configuration parameters in php.ini files as a hash. For example,
+#   'Date/date.timezone' => 'Australia/Melbourne' sets data.timezone
+#   to 'Australia/Melbourne' under [Date] section, and
+#   'PHP/memory_limit' => '256M' sets memory_limit to 256M.
+#
+# [*cli_settings*]
+#   Additional hash of PHP configuration parameters for PHP CLI. When a
+#   setting key already exists in $settings, the value provided from the
+#   $cli_settings parameter overrides the value from $settings parameter.
+#   For example, 'PHP/memory_limit' => '1000M' sets memory_limit to 1000M
+#   for the PHP cli ini file, regardless of the values from $settings.
 #
 class php (
   String $ensure                                  = $php::params::ensure,
@@ -137,6 +148,7 @@ class php (
   $proxy_server                                   = undef,
   Hash $extensions                                = {},
   Hash $settings                                  = {},
+  Hash $cli_settings                              = {},
   $package_prefix                                 = $php::params::package_prefix,
   Stdlib::Absolutepath $config_root_ini           = $php::params::config_root_ini,
   Stdlib::Absolutepath $config_root_inifile       = $php::params::config_root_inifile,
@@ -154,6 +166,9 @@ class php (
   $real_fpm_pools = $fpm_pools
   $real_fpm_global_pool_settings = $fpm_global_pool_settings
 
+  # Merge in additional or overridden settings for php::cli:settings.
+  $final_cli_settings = $real_settings + $cli_settings
+
   if $manage_repos {
     class { 'php::repo': }
     -> Anchor['php::begin']
@@ -162,7 +177,7 @@ class php (
   anchor { 'php::begin': }
     -> class { 'php::packages': }
     -> class { 'php::cli':
-      settings => $real_settings,
+      settings => $final_cli_settings,
     }
   -> anchor { 'php::end': }
 
