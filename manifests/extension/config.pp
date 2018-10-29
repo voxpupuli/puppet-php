@@ -91,6 +91,10 @@ define php::extension::config (
 
   $config_root_ini = pick_default($php::config_root_ini, $php::params::config_root_ini)
   if $ensure == 'present' or $ensure == 'installed' or $ensure == 'latest' {
+    # Make sure a file resource is created
+    # The file is now managed and is not removed when we purge all unmanaged files
+    ensure_resource('file', "${config_root_ini}/${ini_prefix}${ini_name}.ini", {'ensure' => 'present' })
+
     ::php::config { $title:
       file   => "${config_root_ini}/${ini_prefix}${ini_name}.ini",
       config => $final_settings,
