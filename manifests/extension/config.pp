@@ -90,7 +90,7 @@ define php::extension::config (
   }
 
   $config_root_ini = pick_default($php::config_root_ini, $php::params::config_root_ini)
-  if $ensure == 'present' or $ensure == 'installed' or $ensure == 'latest' {
+  if $ensure != 'absent' {
     ::php::config { $title:
       file   => "${config_root_ini}/${ini_prefix}${ini_name}.ini",
       config => $final_settings,
