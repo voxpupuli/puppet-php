@@ -14,23 +14,27 @@ class php::cli(
 ) inherits php::params {
 
   assert_private()
+  case $facts['os']['family'] {
+    'RedHat': {
+      if $php::globals::rhscl_mode {
+        # stupid fixes for scl
+        file {'/usr/bin/pear':
+          ensure => 'link',
+          target => "${$php::params::php_bin_dir}/pear",
+        }
 
-  if $php::globals::rhscl_mode {
-    # stupid fixes for scl
-    file {'/usr/bin/pear':
-      ensure => 'link',
-      target => "${$php::params::php_bin_dir}/pear",
-    }
+        file {'/usr/bin/pecl':
+          ensure => 'link',
+          target => "${$php::params::php_bin_dir}/pecl",
+        }
 
-    file {'/usr/bin/pecl':
-      ensure => 'link',
-      target => "${$php::params::php_bin_dir}/pecl",
+        file {'/usr/bin/php':
+          ensure => 'link',
+          target => "${$php::params::php_bin_dir}/php",
+        }
+      }
     }
-
-    file {'/usr/bin/php':
-      ensure => 'link',
-      target => "${$php::params::php_bin_dir}/php",
-    }
+    default: {}
   }
 
   $real_settings = deep_merge($settings, hiera_hash('php::cli::settings', {}))
