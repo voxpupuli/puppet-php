@@ -38,14 +38,9 @@ class php::repo::debian(
 
   assert_private()
 
-  include '::apt'
+  include 'apt'
 
-  create_resources(::apt::key, { 'php::repo::debian' => {
-    id     => $key['id'],
-    source => $key['source'],
-  }})
-
-  ::apt::source { "source_php_${release}":
+  apt::source { "source_php_${release}":
     location => $location,
     release  => $release,
     repos    => $repos,
@@ -53,14 +48,14 @@ class php::repo::debian(
       'src' => $include_src,
       'deb' => true,
     },
-    require  => Apt::Key['php::repo::debian'],
+    key      => $key,
   }
 
   if ($dotdeb) {
     # both repositories are required to work correctly
     # See: http://www.dotdeb.org/instructions/
     if $release == 'wheezy-php56' {
-      ::apt::source { 'dotdeb-wheezy':
+      apt::source { 'dotdeb-wheezy':
         location => $location,
         release  => 'wheezy',
         repos    => $repos,
@@ -73,27 +68,17 @@ class php::repo::debian(
   }
 
   if ($sury and $php::globals::php_version in ['5.6','7.1','7.2'] ) {
-    # Required packages for PHP sury repository
-    ensure_packages(['lsb-release', 'ca-certificates'], {'ensure' => 'present'})
-
-    # Add PHP sury key + repository
-    apt::key { 'php::repo::debian-php-sury':
-      id     => 'DF3D585DB8F0EB658690A554AC0E47584A7A714D',
-      source => 'https://packages.sury.org/php/apt.gpg',
-    }
-
-    ::apt::source { 'source_php_sury':
+    apt::source { 'source_php_sury':
       location => 'https://packages.sury.org/php/',
-      release  => $facts['os']['distro']['codename'],
       repos    => 'main',
       include  => {
         'src' => $include_src,
         'deb' => true,
       },
-      require  => [
-        Apt::Key['php::repo::debian-php-sury'],
-        Package['apt-transport-https', 'lsb-release', 'ca-certificates']
-      ],
+      key      => {
+        id     => 'DF3D585DB8F0EB658690A554AC0E47584A7A714D',
+        source => 'https://packages.sury.org/php/apt.gpg',
+      },
     }
   }
 }

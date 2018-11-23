@@ -304,6 +304,7 @@ include=<%= @include %>
 ;env[TMP] = /tmp
 ;env[TMPDIR] = /tmp
 ;env[TEMP] = /tmp
+<% if @clear_env -%>
 <% @env.each do |var| -%>
 env[<%= var %>] = $<%= var %>
 <% end -%>
@@ -311,6 +312,9 @@ env[<%= var %>] = $<%= var %>
 <% if !value.empty? -%>
 env[<%= key %>] = '<%= value %>'
 <% end -%>
+<% end -%>
+<% else -%>
+clear_env = no
 <% end -%>
 
 ; Additional php.ini defines, specific to this pool of workers. These settings
