@@ -67,8 +67,8 @@ class php::repo::debian(
     }
   }
 
-  if ($sury and $php::globals::php_version == '7.1') {
-    apt::source { 'source_php_71':
+  if ($sury and $php::globals::php_version in ['5.6','7.1','7.2'] ) {
+    apt::source { 'source_php_sury':
       location => 'https://packages.sury.org/php/',
       repos    => 'main',
       include  => {
