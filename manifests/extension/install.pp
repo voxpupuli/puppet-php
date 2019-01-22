@@ -42,7 +42,7 @@ define php::extension::install (
   Optional[Php::Provider] $provider                 = undef,
   Optional[String] $source                          = undef,
   String           $package_prefix                  = $php::package_prefix,
-  Optional[String] $package_name                    = undef,
+  Optional[String[1]] $package_name                 = undef,
   Optional[Stdlib::AbsolutePath] $responsefile      = undef,
   Variant[String, Array[String]] $header_packages   = [],
   Variant[String, Array[String]] $compiler_packages = $php::params::compiler_packages,

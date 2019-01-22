@@ -78,7 +78,7 @@ define php::extension (
   Optional[String] $ini_prefix                      = undef,
   Optional[String] $php_api_version                 = undef,
   String           $package_prefix                  = $php::package_prefix,
-  Optional[String] $package_name                    = undef,
+  Optional[String[1]] $package_name                 = undef,
   Boolean          $zend                            = false,
   Variant[Hash, Hash[String, Hash]] $settings       = {},
   Boolean          $multifile_settings              = false,
