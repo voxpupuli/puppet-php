@@ -286,9 +286,9 @@ connect to php-fpm.
 If you plan to use the SCL repositories with this module you must do the following adjustments:
 
 #### General config
-This ensures that the module will create configurations in the directory ``/etc/opt/rh/<php_version>/` (also in php.d/ 
+This ensures that the module will create configurations in the directory ``/etc/opt/rh/<php_version>/` (also in php.d/
 for extensions). Anyway you have to manage the SCL repo's by your own.
- 
+
 ```puppet
 class { '::php::globals':
   php_version => 'rh-php71',
@@ -309,14 +309,14 @@ class { '::php':
   ...
   extensions  => {
     'soap' => {
-      ini_prefix => '20-', 
+      ini_prefix => '20-',
     },
   }
 }
 ```
 
-By this you tell the module to configure bz2 and calender while ensuring only the package `common`. Additionally to the 
-installation of 'common' the inifiles 'calender.ini' and 'bz2.ini' will be created by the scheme 
+By this you tell the module to configure bz2 and calender while ensuring only the package `common`. Additionally to the
+installation of 'common' the inifiles 'calender.ini' and 'bz2.ini' will be created by the scheme
 `<config_file_prefix><extension_title>`.
 
 A list of commonly used modules:
@@ -324,7 +324,7 @@ A list of commonly used modules:
     {
       extensions => {
         'xml' => {
-          ini_prefix => '20-', 
+          ini_prefix => '20-',
           multifile_settings => true,
           settings => {
             'dom'  => {},
@@ -336,22 +336,22 @@ A list of commonly used modules:
           },
         },
         'soap' => {
-          ini_prefix => '20-', 
+          ini_prefix => '20-',
         },
         'imap' => {
-          ini_prefix => '20-', 
+          ini_prefix => '20-',
         },
         'intl' => {
-          ini_prefix => '20-', 
+          ini_prefix => '20-',
         },
         'gd' => {
-          ini_prefix => '20-', 
-        },   
+          ini_prefix => '20-',
+        },
         'mbstring' => {
-          ini_prefix => '20-', 
+          ini_prefix => '20-',
         },
         'xmlrpc' => {
-          ini_prefix => '20-', 
+          ini_prefix => '20-',
         },
         'pdo' => {
           ini_prefix => '20-',
