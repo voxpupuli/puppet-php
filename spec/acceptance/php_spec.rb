@@ -12,10 +12,13 @@ describe 'php with default settings' do
     case default[:platform]
     when %r{ubuntu-18.04}
       packagename = 'php7.2-fpm'
+      simplexmlpackagename = 'php7.2-xml'
     when %r{ubuntu-16.04}
       packagename = 'php7.0-fpm'
+      simplexmlpackagename = 'php0.2-xml'
     when %r{ubuntu-14.04}
       packagename = 'php5-fpm'
+      simplexmlpackagename = 'php5-xml'
     when %r{el}
       packagename = 'php-fpm'
     when %r{debian-8}
@@ -45,7 +48,9 @@ describe 'php with default settings' do
               package_prefix => 'php-',
               settings       => {
                 extension => undef
-              }
+              },
+            'simplexml'  => {
+              package_name => simplexmlpackagename
             }
           }
         }
