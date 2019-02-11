@@ -56,7 +56,7 @@ describe 'php with default settings' do
               },
             }
             'simplexml'  => {
-              package_name => simplexmlpackagename,
+              package_name => '#{simplexmlpackagename}',
             }
           }
         }
