@@ -54,7 +54,7 @@ describe 'php with default settings' do
               settings       => {
                 extension => undef
               },
-            }
+            },
             'simplexml'  => {
               package_name => '#{simplexmlpackagename}',
             }
