@@ -36,6 +36,14 @@ describe 'php with default settings' do
     case default[:platform]
     when %r{ubuntu-18.04}, %r{ubuntu-16.04}, %r{ubuntu-14.04}
       it 'works with defaults' do
+        case default[:platform]
+        when %r{ubuntu-18.04}
+          simplexmlpackagename = 'php7.2-xml'
+        when %r{ubuntu-16.04}
+          simplexmlpackagename = 'php7.0-xml'
+        when %r{ubuntu-14.04}
+          simplexmlpackagename = 'php-xml'
+        end
         pp = <<-EOS
         class{'php':
           extensions => {
@@ -48,7 +56,7 @@ describe 'php with default settings' do
               },
             }
             'simplexml'  => {
-              package_name => 'php-xml'
+              package_name => simplexmlpackagename,
             }
           }
         }
