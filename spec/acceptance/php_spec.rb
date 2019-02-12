@@ -41,8 +41,6 @@ describe 'php with default settings' do
           simplexmlpackagename = 'php7.2-xml'
         when %r{ubuntu-16.04}
           simplexmlpackagename = 'php7.0-xml'
-        when %r{ubuntu-14.04}
-          simplexmlpackagename = 'php-xml'
         end
         pp = <<-EOS
         class{'php':
@@ -57,6 +55,26 @@ describe 'php with default settings' do
             },
             'simplexml'  => {
               package_name => '#{simplexmlpackagename}',
+            }
+          }
+        }
+        EOS
+        # Run it twice and test for idempotency
+        apply_manifest(pp, catch_failures: true)
+        apply_manifest(pp, catch_changes: true)
+      end
+    when %r{ubuntu-14.04}
+      it 'works with defaults' do
+        pp = <<-EOS
+        class{'php':
+          extensions => {
+            'mysql'    => {},
+            'gd'       => {},
+            'net-url'  => {
+              package_prefix => 'php-',
+              settings       => {
+                extension => undef
+              },
             }
           }
         }
