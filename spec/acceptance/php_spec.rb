@@ -34,7 +34,36 @@ describe 'php with default settings' do
   end
   context 'default parameters with extensions' do
     case default[:platform]
-    when %r{ubuntu-18.04}, %r{ubuntu-16.04}, %r{ubuntu-14.04}
+    when %r{ubuntu-18.04}, %r{ubuntu-16.04}
+      it 'works with defaults' do
+        case default[:platform]
+        when %r{ubuntu-18.04}
+          simplexmlpackagename = 'php7.2-xml'
+        when %r{ubuntu-16.04}
+          simplexmlpackagename = 'php7.0-xml'
+        end
+        pp = <<-EOS
+        class{'php':
+          extensions => {
+            'mysql'    => {},
+            'gd'       => {},
+            'net-url'  => {
+              package_prefix => 'php-',
+              settings       => {
+                extension => undef
+              },
+            },
+            'simplexml'  => {
+              package_name => '#{simplexmlpackagename}',
+            }
+          }
+        }
+        EOS
+        # Run it twice and test for idempotency
+        apply_manifest(pp, catch_failures: true)
+        apply_manifest(pp, catch_changes: true)
+      end
+    when %r{ubuntu-14.04}
       it 'works with defaults' do
         pp = <<-EOS
         class{'php':
@@ -45,7 +74,7 @@ describe 'php with default settings' do
               package_prefix => 'php-',
               settings       => {
                 extension => undef
-              }
+              },
             }
           }
         }

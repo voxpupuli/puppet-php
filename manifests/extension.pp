@@ -9,6 +9,10 @@
 # [*package_prefix*]
 #   Prefix to prepend to the package name for the package provider
 #
+# [*package_name*]
+#   Full package name for the package provider (e.g. php7.2-xml for
+#   simlexml extension)
+#
 # [*provider*]
 #   The provider used to install the package
 #   Could be "pecl", "apt", "dpkg" or any other OS package provider
@@ -74,6 +78,7 @@ define php::extension (
   Optional[String] $ini_prefix                      = undef,
   Optional[String] $php_api_version                 = undef,
   String           $package_prefix                  = $php::package_prefix,
+  Optional[String[1]] $package_name                 = undef,
   Boolean          $zend                            = false,
   Variant[Hash, Hash[String, Hash]] $settings       = {},
   Boolean          $multifile_settings              = false,
@@ -95,6 +100,7 @@ define php::extension (
     source            => $source,
     responsefile      => $responsefile,
     package_prefix    => $package_prefix,
+    package_name      => $package_name,
     header_packages   => $header_packages,
     compiler_packages => $compiler_packages,
     install_options   => $install_options,
