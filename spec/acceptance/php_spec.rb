@@ -34,7 +34,7 @@ describe 'php with default settings' do
   end
   context 'default parameters with extensions' do
     case default[:platform]
-    when %r{ubuntu-18.04}, %r{ubuntu-16.04}, %r{ubuntu-14.04}
+    when %r{ubuntu-18.04}, %r{ubuntu-16.04}
       it 'works with defaults' do
         case default[:platform]
         when %r{ubuntu-18.04}
