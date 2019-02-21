@@ -43,7 +43,7 @@ class php::repo::redhat {
 
   yumrepo { "remi-php${version_repo}":
     ensure     => 'present',
-    descr      => "Remi\'s PHP ${version_real} RPM repository for Enterprise Linux 7 - ${basearch}",
+    descr      => "Remi\'s PHP ${version_real} RPM repository for Enterprise Linux \$releasever - \$basearch",
     enabled    => '1',
     gpgcheck   => '1',
     gpgkey     => 'https://rpms.remirepo.net/RPM-GPG-KEY-remi',
