@@ -214,6 +214,19 @@ describe 'php', type: :class do
       end
 
       if facts[:osfamily] == 'RedHat' || facts[:osfamily] == 'CentOS'
+        describe 'when called with cli_settings parameter' do
+          let(:params) do
+            {
+              'settings'     => { 'PHP/memory_limit' => '300M' },
+              'cli_settings' => { 'PHP/memory_limit' => '1000M' },
+            }
+          end
+
+          it { is_expected.to contain_php__config__setting('/etc/php.ini: PHP/memory_limit').with_value('300M') }
+          it { is_expected.to contain_php__config__setting('/etc/php-fpm.ini: PHP/memory_limit').with_value('300M') }
+          it { is_expected.to contain_php__config__setting('/etc/php-cli.ini: PHP/memory_limit').with_value('1000M') }
+        end
+
         describe 'when called with global option for rhscl_mode' do
           describe 'when called with mode "remi"' do
             scl_php_version = 'php56'
