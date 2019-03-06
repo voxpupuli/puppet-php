@@ -218,7 +218,7 @@ describe 'php', type: :class do
           let(:params) do
             {
               'settings'     => { 'PHP/memory_limit' => '300M' },
-              'cli_settings' => { 'PHP/memory_limit' => '1000M' },
+              'cli_settings' => { 'PHP/memory_limit' => '1000M' }
             }
           end
 
