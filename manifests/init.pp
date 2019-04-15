@@ -123,6 +123,10 @@
 #   For example, 'PHP/memory_limit' => '1000M' sets memory_limit to 1000M
 #   for the PHP cli ini file, regardless of the values from $settings.
 #
+# [*pool_purge*]
+#   Whether to purge pool config files not created
+#   by this module
+#
 class php (
   String $ensure                                  = $php::params::ensure,
   Boolean $manage_repos                           = $php::params::manage_repos,
@@ -157,6 +161,7 @@ class php (
   Boolean $ext_tool_enabled                       = $php::params::ext_tool_enabled,
   String $log_owner                               = $php::params::fpm_user,
   String $log_group                               = $php::params::fpm_group,
+  Boolean $pool_purge                             = $php::params::pool_purge,
 ) inherits php::params {
 
   $real_fpm_package = pick($fpm_package, "${package_prefix}${::php::params::fpm_package_suffix}")
