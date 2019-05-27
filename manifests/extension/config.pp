@@ -89,8 +89,16 @@ define php::extension::config (
     $final_settings = $full_settings
   }
 
+  if $facts['os']['name'] == 'Ubuntu' and $zend != true and $name == 'mysql' {
+    # Do not manage the .ini file if it's mysql.  PHP 7.0+ do not have
+    # mysql.so.  If mysql.ini exists and version is 7.0+, then remove it.
+    $real_ensure = 'absent'
+  } else {
+    $real_ensure = $ensure
+  }
+
   $config_root_ini = pick_default($php::config_root_ini, $php::params::config_root_ini)
-  if $ensure != 'absent' {
+  if $real_ensure != 'absent' {
     ::php::config { $title:
       file   => "${config_root_ini}/${ini_prefix}${ini_name}.ini",
       config => $final_settings,

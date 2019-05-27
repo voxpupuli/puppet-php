@@ -187,7 +187,7 @@ describe 'php::extension' do
           it { is_expected.to contain_php__config('xdebug').with_config('zend_extension' => '/usr/lib/php5/20100525/xdebug.so') }
         end
 
-        case facts[:osfamily]
+        case facts[:os]['name']
         when 'Debian'
           context 'on Debian' do
             let(:title) { 'xdebug' }
@@ -220,6 +220,21 @@ describe 'php::extension' do
                     'test'      => 'foo'
                   }
                 )
+              end
+            end
+          end
+        when 'Ubuntu'
+          context 'on Ubuntu' do
+            context 'do not setup mysql.ini' do
+              let(:title) { 'mysql' }
+              let(:params) do
+                {
+                  name: 'mysql'
+                }
+              end
+
+              it do
+                is_expected.to contain_file("#{etcdir}/mysql.ini").with(ensure: 'absent')
               end
             end
           end
