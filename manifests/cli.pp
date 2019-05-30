@@ -33,7 +33,7 @@ class php::cli(
     }
   }
 
-  $real_settings = deep_merge($settings, hiera_hash('php::cli::settings', {}))
+  $real_settings = lookup('php::cli::settings', Hash, {'strategy' => 'deep', 'merge_hash_arrays' => true}, $settings)
 
   if $inifile != $php::params::config_root_inifile {
     # only create a cli specific inifile if the filenames are different

@@ -23,9 +23,13 @@ class php::embedded(
 
   assert_private()
 
-  $real_settings = deep_merge(
-    $settings,
-    hiera_hash('php::embedded::settings', {})
+  $real_settings = lookup(
+    'php::embedded::settings',
+    Hash, {
+      'strategy' => 'deep',
+      'merge_hash_arrays' => true
+    },
+    $settings
   )
 
   $real_package = $facts['os']['family'] ? {
