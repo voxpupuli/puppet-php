@@ -2,17 +2,18 @@
 #
 class php::params inherits php::globals {
 
-  $ensure              = 'present'
-  $fpm_service_enable  = true
-  $fpm_service_ensure  = 'running'
-  $composer_source     = 'https://getcomposer.org/composer.phar'
-  $composer_path       = '/usr/local/bin/composer'
-  $composer_max_age    = 30
-  $pear_ensure         = 'present'
-  $pear_package_suffix = 'pear'
-  $phpunit_source      = 'https://phar.phpunit.de/phpunit.phar'
-  $phpunit_path        = '/usr/local/bin/phpunit'
-  $phpunit_max_age     = 30
+  $ensure                      = 'present'
+  $fpm_service_enable          = true
+  $fpm_service_ensure          = 'running'
+  $fpm_process_control_timeout = 0
+  $composer_source             = 'https://getcomposer.org/composer.phar'
+  $composer_path               = '/usr/local/bin/composer'
+  $composer_max_age            = 30
+  $pear_ensure                 = 'present'
+  $pear_package_suffix         = 'pear'
+  $phpunit_source              = 'https://phar.phpunit.de/phpunit.phar'
+  $phpunit_path                = '/usr/local/bin/phpunit'
+  $phpunit_max_age             = 30
 
   case $facts['os']['family'] {
     'Debian': {
