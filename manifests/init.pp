@@ -122,7 +122,7 @@ class php (
   $fpm_service_provider                           = undef,
   Hash $fpm_pools                                 = { 'www' => {} },
   Hash $fpm_global_pool_settings                  = {},
-  Variant[Integer, Pattern[/^\d+[smhd]?$/]]       = $fpm_process_control_timeout,
+  $fpm_process_control_timeout                    = $php::params::fpm_process_control_timeout,
   $fpm_inifile                                    = $php::params::fpm_inifile,
   $fpm_package                                    = undef,
   $fpm_user                                       = $php::params::fpm_user,
