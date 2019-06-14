@@ -83,7 +83,7 @@ class php::fpm::config(
   String $log_level                                                     = 'notice',
   Integer $emergency_restart_threshold                                  = 0,
   Variant[Integer, Pattern[/^\d+[smhd]?$/]] $emergency_restart_interval = 0,
-  Variant[Integer, Pattern[/^\d+[smhd]?$/]] $process_control_timeout    = $php::params::fpm_process_control_timeout,
+  Variant[Integer, Pattern[/^\d+[smhd]?$/]] $process_control_timeout    = $php::fpm_process_control_timeout,
   Integer $process_max                                                  = 0,
   $rlimit_files                                                         = undef,
   Optional[Variant[Integer,Pattern[/^\d+[smhd]?$/]]] $systemd_interval  = undef,
