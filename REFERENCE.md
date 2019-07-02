@@ -2248,6 +2248,9 @@ documented here: http://php.net/manual/en/install.fpm.configuration.php.
 [*group*]
   The group that php-fpm should run as
 
+[*apparmor_hat*]
+  The Apparmor hat to use
+
 [*pm*]
 
 [*pm_max_children*]
