@@ -61,10 +61,15 @@ define php::extension::install (
         Package[$compiler_packages] -> Package[$real_package]
       }
 
-      $package_require      = [
-        Class['::php::pear'],
-        Class['::php::dev'],
-      ]
+      if $facts['os']['name'] == 'Ubuntu' and
+      versioncmp($facts['os']['release']['full'], '14.04') == 0  {
+        $package_require = Class['::php::pear']
+      } else {
+        $package_require      = [
+          Class['::php::pear'],
+          Class['::php::dev'],
+        ]
+      }
     }
 
     'none' : {
