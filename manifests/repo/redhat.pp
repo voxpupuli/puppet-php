@@ -39,6 +39,7 @@ class php::repo::redhat {
     '7.0' => '70',
     '7.1' => '71',
     '7.2' => '72',
+    '7.3' => '73',
   }
 
   yumrepo { "remi-php${version_repo}":
