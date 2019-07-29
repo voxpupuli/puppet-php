@@ -4,7 +4,7 @@
 #
 # [*ensure*]
 #   The ensure of the package to install
-#   Could be "latest", "installed" or a pinned version
+#   Could be "present", "absent", "latest", "installed" or a pinned version
 #
 # [*package_prefix*]
 #   Prefix to prepend to the package name for the package provider
@@ -71,7 +71,7 @@
 #   Array of String or Hash options to pass to the provider.
 #
 define php::extension (
-  String           $ensure                          = 'installed',
+  String           $ensure                          = $php::ensure,
   Optional[Php::Provider] $provider                 = undef,
   Optional[String] $source                          = undef,
   Optional[String] $so_name                         = undef,

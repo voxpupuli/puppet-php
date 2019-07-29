@@ -25,42 +25,42 @@ describe 'php', type: :class do
                             'php5-cli'
                           end
                         end
-      php_fpm_ackage = case facts[:os]['name']
-                       when 'Debian'
-                         case facts[:os]['release']['major']
-                         when '9'
-                           'php7.0-fpm'
-                         else
-                           'php5-fpm'
-                         end
-                       when 'Ubuntu'
-                         case facts[:os]['release']['major']
-                         when '18.04'
-                           'php7.2-fpm'
-                         when '16.04'
-                           'php7.0-fpm'
-                         else
-                           'php5-fpm'
-                         end
-                       end
-      php_dev_ackage = case facts[:os]['name']
-                       when 'Debian'
-                         case facts[:os]['release']['major']
-                         when '9'
-                           'php7.0-dev'
-                         else
-                           'php5-dev'
-                         end
-                       when 'Ubuntu'
-                         case facts[:os]['release']['major']
-                         when '18.04'
-                           'php7.2-dev'
-                         when '16.04'
-                           'php7.0-dev'
-                         else
-                           'php5-dev'
-                         end
-                       end
+      php_fpm_package = case facts[:os]['name']
+                        when 'Debian'
+                          case facts[:os]['release']['major']
+                          when '9'
+                            'php7.0-fpm'
+                          else
+                            'php5-fpm'
+                          end
+                        when 'Ubuntu'
+                          case facts[:os]['release']['major']
+                          when '18.04'
+                            'php7.2-fpm'
+                          when '16.04'
+                            'php7.0-fpm'
+                          else
+                            'php5-fpm'
+                          end
+                        end
+      php_dev_package = case facts[:os]['name']
+                        when 'Debian'
+                          case facts[:os]['release']['major']
+                          when '9'
+                            'php7.0-dev'
+                          else
+                            'php5-dev'
+                          end
+                        when 'Ubuntu'
+                          case facts[:os]['release']['major']
+                          when '18.04'
+                            'php7.2-dev'
+                          when '16.04'
+                            'php7.0-dev'
+                          else
+                            'php5-dev'
+                          end
+                        end
 
       describe 'when called with no parameters' do
         case facts[:osfamily]
@@ -75,8 +75,8 @@ describe 'php', type: :class do
           it { is_expected.to contain_package('php-pear').with_ensure('present') }
           it { is_expected.to contain_class('php::composer') }
           it { is_expected.to contain_package(php_cli_package).with_ensure('present') }
-          it { is_expected.to contain_package(php_fpm_ackage).with_ensure('present') }
-          it { is_expected.to contain_package(php_dev_ackage).with_ensure('present') }
+          it { is_expected.to contain_package(php_fpm_package).with_ensure('present') }
+          it { is_expected.to contain_package(php_dev_package).with_ensure('present') }
         when 'Suse'
           it { is_expected.to contain_package('php5').with_ensure('present') }
           it { is_expected.to contain_package('php5-devel').with_ensure('present') }
@@ -87,6 +87,32 @@ describe 'php', type: :class do
         when 'RedHat', 'CentOS'
           it { is_expected.to contain_package('php-cli').with_ensure('present') }
           it { is_expected.to contain_package('php-common').with_ensure('present') }
+        end
+      end
+
+      describe 'when called with extensions' do
+        let(:params) { { extensions: { xml: {} } } }
+
+        it { is_expected.to contain_php__extension('xml').with_ensure('present') }
+      end
+
+      describe 'when called with ensure absent and extensions' do
+        extensions = { xml: {} }
+        let(:params) { { ensure: 'absent', extensions: extensions } }
+
+        it { is_expected.to contain_php__extension('xml').with_ensure('absent') }
+
+        case facts[:osfamily]
+        when 'Debian'
+          it { is_expected.to contain_package(php_cli_package).with_ensure('absent') }
+          it { is_expected.to contain_package(php_fpm_package).with_ensure('absent') }
+          it { is_expected.to contain_package(php_dev_package).with_ensure('absent') }
+        when 'Suse'
+          it { is_expected.to contain_package('php5').with_ensure('absent') }
+          it { is_expected.to contain_package('php5-devel').with_ensure('absent') }
+        when 'RedHat', 'CentOS'
+          it { is_expected.to contain_package('php-cli').with_ensure('absent') }
+          it { is_expected.to contain_package('php-common').with_ensure('absent') }
         end
       end
 
