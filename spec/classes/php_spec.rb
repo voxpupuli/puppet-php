@@ -10,6 +10,8 @@ describe 'php', type: :class do
       php_cli_package = case facts[:os]['name']
                         when 'Debian'
                           case facts[:os]['release']['major']
+                          when '10'
+                            'php7.3-cli'
                           when '9'
                             'php7.0-cli'
                           else
@@ -28,6 +30,8 @@ describe 'php', type: :class do
       php_fpm_package = case facts[:os]['name']
                         when 'Debian'
                           case facts[:os]['release']['major']
+                          when '10'
+                            'php7.3-fpm'
                           when '9'
                             'php7.0-fpm'
                           else
@@ -46,6 +50,8 @@ describe 'php', type: :class do
       php_dev_package = case facts[:os]['name']
                         when 'Debian'
                           case facts[:os]['release']['major']
+                          when '10'
+                            'php7.3-dev'
                           when '9'
                             'php7.0-dev'
                           else
@@ -161,6 +167,8 @@ describe 'php', type: :class do
                     case facts[:os]['name']
                     when 'Debian'
                       case facts[:os]['release']['major']
+                      when '10'
+                        '/etc/php/7.3/fpm/pool.d/www.conf'
                       when '9'
                         '/etc/php/7.0/fpm/pool.d/www.conf'
                       else
@@ -199,6 +207,8 @@ describe 'php', type: :class do
                     case facts[:os]['name']
                     when 'Debian'
                       case facts[:os]['release']['major']
+                      when '10'
+                        '/etc/php/7.3/fpm/pool.d/www.conf'
                       when '9'
                         '/etc/php/7.0/fpm/pool.d/www.conf'
                       else
