@@ -15,6 +15,8 @@ describe 'php::fpm::pool' do
           let(:params) { {} }
 
           case facts[:os]['release']['major']
+          when '10'
+            it { is_expected.to contain_file('/etc/php/7.3/fpm/pool.d/unique-name.conf') }
           when '9'
             it { is_expected.to contain_file('/etc/php/7.0/fpm/pool.d/unique-name.conf') }
           else

@@ -44,7 +44,7 @@ class php::params inherits php::globals {
 
       case $facts['os']['name'] {
         'Debian': {
-          $manage_repos = (versioncmp($facts['os']['release']['major'], '8') < 0)
+          $manage_repos = false
         }
 
         'Ubuntu': {
