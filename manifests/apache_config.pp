@@ -15,7 +15,7 @@ class php::apache_config(
 
   assert_private()
 
-  $real_settings = $real_settings = lookup('php::apache::settings', Hash, {'strategy' => 'deep', 'merge_hash_arrays' => true}, $settings)
+  $real_settings = lookup('php::apache::settings', Hash, {'strategy' => 'deep', 'merge_hash_arrays' => true}, $settings)
 
   php::config { 'apache':
     file   => $inifile,
