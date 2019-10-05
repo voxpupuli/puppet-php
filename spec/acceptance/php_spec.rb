@@ -1,7 +1,7 @@
 require 'spec_helper_acceptance'
 
-describe 'php with default settings' do
-  context 'default parameters' do
+describe 'php class' do
+  context 'with default parameters' do
     pp = 'include php'
     it 'applies without error' do
       apply_manifest(pp, catch_failures: true)
@@ -35,7 +35,7 @@ describe 'php with default settings' do
       it { is_expected.to be_enabled }
     end
   end
-  context 'default parameters with extensions' do
+  context 'with extensions' do
     case default[:platform]
     when %r{ubuntu-18.04}, %r{ubuntu-16.04}
       case default[:platform]
