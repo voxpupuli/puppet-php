@@ -36,57 +36,53 @@ describe 'php class' do
     end
   end
   context 'with extensions' do
-    case default[:platform]
-    when %r{ubuntu-18.04}, %r{ubuntu-16.04}
-      case default[:platform]
-      when %r{ubuntu-18.04}
-        simplexmlpackagename = 'php7.2-xml'
-      when %r{ubuntu-16.04}
-        simplexmlpackagename = 'php7.0-xml'
-      end
-      pp = <<-EOS
-        class{'php':
-          extensions => {
-            'mysql'    => {},
-            'gd'       => {},
-            'net-url'  => {
-              package_prefix => 'php-',
-              settings       => {
-                extension => undef
-              },
-            },
-            'simplexml'  => {
-              package_name => '#{simplexmlpackagename}',
-            }
-          }
-        }
-      EOS
-    when %r{ubuntu-14.04}
-      pp = <<-EOS
-        class{'php':
-          extensions => {
-            'mysql'    => {},
-            'gd'       => {},
-            'net-url'  => {
-              package_prefix => 'php-',
-              settings       => {
-                extension => undef
-              },
-            }
-          }
-        }
-      EOS
-    else
-      pp = <<-EOS
-        class{'php':
-          extensions => {
-            'mysql'    => {},
-            'gd'       => {}
-          }
-        }
-      EOS
-    end
+    added_extensions = case default[:platform]
+                       when %r{ubuntu-18.04}
+                         <<-EOS
+                          'net-url'  => {
+                            package_prefix => 'php-',
+                            settings       => {
+                              extension => undef
+                            },
+                          },
+                          'simplexml'  => {
+                            package_name => 'php7.2-xml',
+                          },
+                         EOS
+                       when %r{ubuntu-16.04}
+                         <<-EOS
+                          'net-url'  => {
+                            package_prefix => 'php-',
+                            settings       => {
+                              extension => undef
+                            },
+                          },
+                          'simplexml'  => {
+                            package_name => 'php7.0-xml',
+                          },
+                         EOS
+                       when %r{ubuntu-14.04}
+                         <<-EOS
+                          'net-url'  => {
+                            package_prefix => 'php-',
+                            settings       => {
+                              extension => undef
+                            },
+                          },
+                         EOS
+                       else
+                         ''
+                       end
 
+    pp = <<-EOS
+        class{'php':
+          extensions => {
+            'mysql'    => {},
+            'gd'       => {},
+             #{added_extensions}
+          }
+        }
+    EOS
     it 'applies without error' do
       apply_manifest(pp, catch_failures: true)
     end
@@ -110,6 +106,7 @@ describe 'php class' do
     when %r{debian-10}
       packagename = 'php7.3-fpm'
     end
+
     describe package(packagename) do
       it { is_expected.to be_installed }
     end
