@@ -61,12 +61,6 @@ describe 'php class' do
           }
         }
       EOS
-      it 'applies without error' do
-        apply_manifest(pp, catch_failures: true)
-      end
-      it 'applies idempotently' do
-        apply_manifest(pp, catch_changes: true)
-      end
     when %r{ubuntu-14.04}
       pp = <<-EOS
         class{'php':
@@ -82,12 +76,6 @@ describe 'php class' do
           }
         }
       EOS
-      it 'applies without error' do
-        apply_manifest(pp, catch_failures: true)
-      end
-      it 'applies idempotently' do
-        apply_manifest(pp, catch_changes: true)
-      end
     else
       pp = <<-EOS
         class{'php':
@@ -97,12 +85,13 @@ describe 'php class' do
           }
         }
       EOS
-      it 'applies without error' do
-        apply_manifest(pp, catch_failures: true)
-      end
-      it 'applies idempotently' do
-        apply_manifest(pp, catch_changes: true)
-      end
+    end
+
+    it 'applies without error' do
+      apply_manifest(pp, catch_failures: true)
+    end
+    it 'applies idempotently' do
+      apply_manifest(pp, catch_changes: true)
     end
 
     case default[:platform]
