@@ -2,10 +2,11 @@ require 'spec_helper_acceptance'
 
 describe 'php with default settings' do
   context 'default parameters' do
-    it 'works with defaults' do
-      pp = 'include php'
-      # Run it twice and test for idempotency
+    pp = 'include php'
+    it 'applies without error' do
       apply_manifest(pp, catch_failures: true)
+    end
+    it 'applies idempotently' do
       apply_manifest(pp, catch_changes: true)
     end
 
@@ -37,14 +38,13 @@ describe 'php with default settings' do
   context 'default parameters with extensions' do
     case default[:platform]
     when %r{ubuntu-18.04}, %r{ubuntu-16.04}
-      it 'works with defaults' do
-        case default[:platform]
-        when %r{ubuntu-18.04}
-          simplexmlpackagename = 'php7.2-xml'
-        when %r{ubuntu-16.04}
-          simplexmlpackagename = 'php7.0-xml'
-        end
-        pp = <<-EOS
+      case default[:platform]
+      when %r{ubuntu-18.04}
+        simplexmlpackagename = 'php7.2-xml'
+      when %r{ubuntu-16.04}
+        simplexmlpackagename = 'php7.0-xml'
+      end
+      pp = <<-EOS
         class{'php':
           extensions => {
             'mysql'    => {},
@@ -60,14 +60,15 @@ describe 'php with default settings' do
             }
           }
         }
-        EOS
-        # Run it twice and test for idempotency
+      EOS
+      it 'applies without error' do
         apply_manifest(pp, catch_failures: true)
+      end
+      it 'applies idempotently' do
         apply_manifest(pp, catch_changes: true)
       end
     when %r{ubuntu-14.04}
-      it 'works with defaults' do
-        pp = <<-EOS
+      pp = <<-EOS
         class{'php':
           extensions => {
             'mysql'    => {},
@@ -80,23 +81,26 @@ describe 'php with default settings' do
             }
           }
         }
-        EOS
-        # Run it twice and test for idempotency
+      EOS
+      it 'applies without error' do
         apply_manifest(pp, catch_failures: true)
+      end
+      it 'applies idempotently' do
         apply_manifest(pp, catch_changes: true)
       end
     else
-      it 'works with defaults' do
-        pp = <<-EOS
+      pp = <<-EOS
         class{'php':
           extensions => {
             'mysql'    => {},
             'gd'       => {}
           }
         }
-        EOS
-        # Run it twice and test for idempotency
+      EOS
+      it 'applies without error' do
         apply_manifest(pp, catch_failures: true)
+      end
+      it 'applies idempotently' do
         apply_manifest(pp, catch_changes: true)
       end
     end
