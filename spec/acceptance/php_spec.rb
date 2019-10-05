@@ -39,19 +39,11 @@ describe 'php class' do
     added_extensions = case default[:platform]
                        when %r{ubuntu-18.04}
                          <<-EOS
-                          'apcu'      => {},
                           'bz2'       => {},
-                          'ctype'     => {},
                           'curl'      => {},
-                          'dom'       => {},
-                          'iconv'     => {},
-                          'imagick'   => {},
                           'intl'      => {},
                           'json'      => {},
                           'mbstring'  => {},
-                          'posix'     => {},
-                          'xmlreader' => {},
-                          'xmlwriter' => {},
                           'zip'       => {},
                           'net-url'  => {
                             package_prefix => 'php-',
