@@ -44,6 +44,7 @@ describe 'php class' do
                           'intl'      => {},
                           'json'      => {},
                           'mbstring'  => {},
+                          'xmlreader' => {},
                           'zip'       => {},
                           'net-url'  => {
                             package_prefix => 'php-',
