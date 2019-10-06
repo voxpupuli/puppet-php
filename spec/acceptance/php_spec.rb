@@ -40,6 +40,7 @@ describe 'php class' do
                        when %r{ubuntu-18.04}
                          <<-EOS
                           'bz2'       => {},
+                          'ctype'     => {},
                           'curl'      => {},
                           'intl'      => {},
                           'json'      => {},
