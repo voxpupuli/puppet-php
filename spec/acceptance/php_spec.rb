@@ -39,6 +39,7 @@ describe 'php class' do
     added_extensions = case default[:platform]
                        when %r{ubuntu-18.04}
                          <<-EOS
+                          'apcu'      => {},
                           'bz2'       => {},
                           'curl'      => {},
                           'intl'      => {},
