@@ -40,6 +40,11 @@ describe 'php class' do
                        when %r{ubuntu-18.04}
                          <<-EOS
                           'bz2'       => {},
+                          'curl'      => {},
+                          'intl'      => {},
+                          'json'      => {},
+                          'mbstring'  => {},
+                          'zip'       => {},
                           'net-url'  => {
                             package_prefix => 'php-',
                             settings       => {
