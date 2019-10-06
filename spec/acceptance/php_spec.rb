@@ -41,6 +41,7 @@ describe 'php class' do
                          <<-EOS
                           'bz2'       => {},
                           'curl'      => {},
+                          'dom'       => {},
                           'intl'      => {},
                           'json'      => {},
                           'mbstring'  => {},
