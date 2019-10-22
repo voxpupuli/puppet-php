@@ -1,5 +1,5 @@
 ---
-php::fpm_pools:
+php::fpm::pools:
   www:
     catch_workers_output: 'no'
     listen: '127.0.0.1:9000'
