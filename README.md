@@ -240,6 +240,23 @@ php::fpm::pools:
 
 ## Notes
 
+### Inheriting configuration across mutliple Hiera sources
+
+Configuration from Hiera such as `php::fpm::pools` is automatically
+lookup up using the "first" merge method. This means that the first
+value found is used. If you instead want to merge the hash keys
+across multiple Hiera sources, you can use [`lookup_options`] to set
+[`hash` or `deep` behaviors] such as:
+
+```yaml
+lookup_options:
+  php::fpm::pools:
+    merge: hash
+```
+
+[`lookup_options`]: https://puppet.com/docs/puppet/6.4/hiera_merging.html#concept-2997
+[`hash` or `deep` behaviors]: https://puppet.com/docs/puppet/6.4/hiera_merging.html#merge-behaviors
+
 ### Debian squeeze & Ubuntu precise come with PHP 5.3
 
 On Debian-based systems, we use `php5enmod` to enable extension-specific
