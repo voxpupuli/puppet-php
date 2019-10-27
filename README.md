@@ -245,8 +245,9 @@ php::fpm::pools:
 Configuration from Hiera such as `php::fpm::pools` is automatically
 lookup up using the "first" merge method. This means that the first
 value found is used. If you instead want to merge the hash keys
-across multiple Hiera sources, you can use [`lookup_options`] to set
-[`hash` or `deep` behaviors] such as:
+across multiple Hiera sources, you can use [`lookup_options`] to
+set [`hash` or `deep` behaviors] such as in the example
+[data/default.yaml](data/default.yaml):
 
 ```yaml
 lookup_options:
