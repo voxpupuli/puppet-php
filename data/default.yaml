@@ -2,7 +2,7 @@
 
 lookup_options:
   php::fpm::pools:
-    merge: hash
+    merge: first
 
 php::fpm::pools:
   www:
