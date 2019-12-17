@@ -13,6 +13,7 @@ class php::params inherits php::globals {
   $phpunit_source      = 'https://phar.phpunit.de/phpunit.phar'
   $phpunit_path        = '/usr/local/bin/phpunit'
   $phpunit_max_age     = 30
+  $pool_purge          = false
 
   case $facts['os']['family'] {
     'Debian': {
