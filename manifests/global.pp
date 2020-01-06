@@ -12,13 +12,11 @@
 
 #
 class php::global(
-  Stdlib::Absolutepath $inifile = $::php::config_root_inifile,
+  Stdlib::Absolutepath $inifile = $php::config_root_inifile,
   Hash $settings                = {}
 ) inherits ::php {
 
-  if $caller_module_name != $module_name {
-    warning('php::global is private')
-  }
+  assert_private()
 
   # No deep merging required since the settings we have are the global settings.
   $real_settings = $settings

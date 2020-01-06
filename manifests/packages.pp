@@ -13,15 +13,13 @@
 #   package prefix `$php::package_prefix`
 #
 class php::packages (
-  String $ensure         = $::php::ensure,
-  Boolean $manage_repos  = $::php::manage_repos,
-  Array $names_to_prefix = prefix($::php::params::common_package_suffixes, $::php::package_prefix),
-  Array $names           = $::php::params::common_package_names,
-) inherits ::php::params {
+  String $ensure         = $php::ensure,
+  Boolean $manage_repos  = $php::manage_repos,
+  Array $names_to_prefix = prefix($php::params::common_package_suffixes, $php::package_prefix),
+  Array $names           = $php::params::common_package_names,
+) inherits php::params {
 
-  if $caller_module_name != $module_name {
-    warning('php::packages is private')
-  }
+  assert_private()
 
   $real_names = union($names, $names_to_prefix)
   if $facts['os']['family'] == 'debian' {

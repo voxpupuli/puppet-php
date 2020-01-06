@@ -22,10 +22,11 @@ class php::repo::ubuntu (
   assert_type(Pattern[/^\d\.\d/], $version_real)
 
   $version_repo = $version_real ? {
-    '5.4' => 'ondrej/php5-oldstable',
-    '5.6' => 'ondrej/php',
-    '7.0' => 'ondrej/php'
+    '5.4'   => 'ondrej/php5-oldstable',
+    default => 'ondrej/php'
   }
 
-  ::apt::ppa { "ppa:${version_repo}": }
+  ::apt::ppa { "ppa:${version_repo}":
+    package_manage => true,
+  }
 }

@@ -33,9 +33,8 @@ class php::composer::auto_update (
   $proxy_server = undef,
 ) {
 
-  if $caller_module_name != $module_name {
-    warning('php::composer::auto_update is private')
-  }
+  assert_private()
+
 
   if $proxy_type and $proxy_server {
     $env = [ 'HOME=/root', "${proxy_type}_proxy=${proxy_server}" ]
@@ -44,7 +43,8 @@ class php::composer::auto_update (
   }
 
   exec { 'update composer':
-    command     => "${path} --no-interaction --quiet self-update",
+    # touch binary when an update is attempted to update its mtime for idempotency when no update is available
+    command     => "${path} --no-interaction --quiet self-update; touch ${path}",
     environment => $env,
     onlyif      => "test `find '${path}' -mtime +${max_age}`",
     path        => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],

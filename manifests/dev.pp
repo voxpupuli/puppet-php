@@ -9,13 +9,12 @@
 #   The package name for the PHP development files
 #
 class php::dev(
-  String $ensure  = $::php::ensure,
-  String $package = "${::php::package_prefix}${::php::params::dev_package_suffix}",
-) inherits ::php::params {
+  String $ensure        = $php::ensure,
+  String $package       = "${php::package_prefix}${php::params::dev_package_suffix}",
+  Boolean $manage_repos = $php::manage_repos,
+) inherits php::params {
 
-  if $caller_module_name != $module_name {
-    warning('php::dev is private')
-  }
+  assert_private()
 
   # On FreeBSD there is no 'devel' package.
   $real_package = $facts['os']['family'] ? {
@@ -23,21 +22,25 @@ class php::dev(
     default   => $package,
   }
 
+  if $facts['os']['family'] == 'Debian' {
+    # we can set the dependency only if we manage repos
+    $require = $manage_repos ? {
+      true  => Class['::apt::update'],
+      false => undef,
+    }
+  } else {
+    $require = undef
+  }
+
   # Default PHP come with xml module and no seperate package for it
   if $facts['os']['name'] == 'Ubuntu' and versioncmp($facts['os']['release']['full'], '16.04') >= 0  {
     ensure_packages(["${php::package_prefix}xml"], {
       ensure  => present,
-      require => Class['::apt::update'],
+      require => $require,
     })
-
-    package { $real_package:
-      ensure  => $ensure,
-      require => Class['::php::packages'],
-    }
-  } else {
-    package { $real_package:
-      ensure  => $ensure,
-      require => Class['::php::packages'],
-    }
+  }
+  package { $real_package:
+    ensure  => $ensure,
+    require => Class['php::packages'],
   }
 }

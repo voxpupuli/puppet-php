@@ -140,12 +140,67 @@ By default, php-fpm is set up to run as Apache. If you need to customize that us
   }
 ```
 
+### PHP with one FPM pool per user
+
+This will create one vhost. $users is an array of people having php files at
+$fqdn/$user. This codesnipped uses voxpupuli/php and voxpupuli/nginx to create
+the vhost and one php fpm pool per user. This was tested on Archlinux with
+nginx 1.13 and PHP 7.2.3.
+
+```puppet
+$users = ['bob', 'alice']
+
+class { 'php':
+   ensure       => 'present',
+   manage_repos => false,
+   fpm          => true,
+   dev          => false,
+   composer     => false,
+   pear         => true,
+   phpunit      => false,
+   fpm_pools    => {},
+}
+
+include nginx
+
+nginx::resource::server{$facts['fqdn']:
+  www_root  => '/var/www',
+  autoindex => 'on',
+}
+nginx::resource::location{'dontexportprivatedata':
+  server        => $facts['fqdn'],
+  location      => '~ /\.',
+  location_deny => ['all'],
+}
+$users.each |$user| {
+  # create one fpm pool. will be owned by the specific user
+  # fpm socket will be owned by the nginx user 'http'
+  php::fpm::pool{$user:
+    user         => $user,
+    group        => $user,
+    listen_owner => 'http',
+    listen_group => 'http',
+    listen_mode  => '0660',
+    listen       => "/var/run/php-fpm/${user}-fpm.sock",
+  }
+  nginx::resource::location { "${name}_root":
+    ensure      => 'present',
+    server      => $facts['fqdn'],
+    location    => "~ .*${user}\/.*\.php$",
+    index_files => ['index.php'],
+    fastcgi     => "unix:/var/run/php-fpm/${user}-fpm.sock",
+    include     => ['fastcgi.conf'],
+  }
+}
+```
+
 ### Alternative examples using Hiera
 Alternative to the Puppet DSL code examples above, you may optionally define your PHP configuration using Hiera.
 
 Below are all the examples you see above, but defined in YAML format for use with Hiera.
 
 ```yaml
+
 ---
 php::ensure: latest
 php::manage_repos: true
@@ -185,6 +240,24 @@ php::fpm::pools:
 
 ## Notes
 
+### Inheriting configuration across mutliple Hiera sources
+
+Configuration from Hiera such as `php::fpm::pools` is automatically
+lookup up using the "first" merge method. This means that the first
+value found is used. If you instead want to merge the hash keys
+across multiple Hiera sources, you can use [`lookup_options`] to
+set [`hash` or `deep` behaviors] such as in the example
+[data/default.yaml](data/default.yaml):
+
+```yaml
+lookup_options:
+  php::fpm::pools:
+    merge: hash
+```
+
+[`lookup_options`]: https://puppet.com/docs/puppet/6.4/hiera_merging.html#concept-2997
+[`hash` or `deep` behaviors]: https://puppet.com/docs/puppet/6.4/hiera_merging.html#merge-behaviors
+
 ### Debian squeeze & Ubuntu precise come with PHP 5.3
 
 On Debian-based systems, we use `php5enmod` to enable extension-specific
@@ -205,7 +278,7 @@ The older Ubuntu PPAs run by Ondřej have been deprecated (ondrej/php5, ondrej/p
 in favor of a new PPA: ondrej/php which contains all 3 versions of PHP: 5.5, 5.6, and 7.0
 Here's an example in hiera of getting PHP 5.6 installed with php-fpm, pear/pecl, and composer:
 
-```
+```puppet
 php::globals::php_version: '5.6'
 php::fpm: true
 php::dev: true
@@ -225,6 +298,124 @@ Apache with `mod_php` is not supported by this module. Please use
 We prefer using php-fpm. You can find an example Apache vhost in
 `manifests/apache_vhost.pp` that shows you how to use `mod_proxy_fcgi` to
 connect to php-fpm.
+
+
+### RedHat/CentOS SCL Users
+If you plan to use the SCL repositories with this module you must do the following adjustments:
+
+#### General config
+This ensures that the module will create configurations in the directory ``/etc/opt/rh/<php_version>/` (also in php.d/
+for extensions). Anyway you have to manage the SCL repo's by your own.
+
+```puppet
+class { '::php::globals':
+  php_version => 'rh-php71',
+  rhscl_mode  => 'rhscl',
+}
+-> class { '::php':
+  manage_repos => false
+}
+```
+
+#### Extensions
+Extensions in SCL are being installed with packages that cover 1 or more .so files. This is kinda incompatible with
+this module, since this module specifies an extension by name and derives the name of the package and the config (.ini)
+from it. To manage extensions of SCL packages you must use the following parameters:
+
+```puppet
+class { '::php':
+  ...
+  extensions  => {
+    'soap' => {
+      ini_prefix => '20-',
+    },
+  }
+}
+```
+
+By this you tell the module to configure bz2 and calender while ensuring only the package `common`. Additionally to the
+installation of 'common' the inifiles 'calender.ini' and 'bz2.ini' will be created by the scheme
+`<config_file_prefix><extension_title>`.
+
+A list of commonly used modules:
+```puppet
+    {
+      extensions => {
+        'xml' => {
+          ini_prefix => '20-',
+          multifile_settings => true,
+          settings => {
+            'dom'  => {},
+            'simplexml' => {},
+            'xmlwriter' => {},
+            'xsl' => {},
+            'wddx' => {},
+            'xmlreader' => {},
+          },
+        },
+        'soap' => {
+          ini_prefix => '20-',
+        },
+        'imap' => {
+          ini_prefix => '20-',
+        },
+        'intl' => {
+          ini_prefix => '20-',
+        },
+        'gd' => {
+          ini_prefix => '20-',
+        },
+        'mbstring' => {
+          ini_prefix => '20-',
+        },
+        'xmlrpc' => {
+          ini_prefix => '20-',
+        },
+        'pdo' => {
+          ini_prefix => '20-',
+          multifile_settings => true,
+          settings => {
+              'pdo'  => {},
+              'pdo_sqlite' => {},
+              'sqlite3' => {},
+            },
+        },
+        'process' => {
+          ini_prefix => '20-',
+          multifile_settings => true,
+          settings => {
+             'posix'  => {},
+             'shmop' => {},
+             'sysvmsg' => {},
+             'sysvsem' => {},
+             'sysvshm' => {},
+          },
+        },
+        'mysqlnd' => {
+          ini_prefix => '30-',
+          multifile_settings => true,
+          settings => {
+             'mysqlnd'  => {},
+             'mysql' => {},
+             'mysqli' => {},
+             'pdo_mysql' => {},
+             'sysvshm' => {},
+          },
+        },
+        'mysqlnd' => {
+          ini_prefix => '30-',
+          multifile_settings => true,
+          settings => {
+             'mysqlnd'  => {},
+             'mysql' => {},
+             'mysqli' => {},
+             'pdo_mysql' => {},
+             'sysvshm' => {},
+          },
+        },
+      }
+    }
+```
 
 ### Facts
 

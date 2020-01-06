@@ -24,7 +24,7 @@ class php::repo {
       contain ::php::repo::suse
     }
     'RedHat': {
-      contain '::php::repo::redhat'
+      contain 'php::repo::redhat'
     }
     default: {
       fail($msg_no_repo)

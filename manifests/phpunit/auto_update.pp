@@ -17,14 +17,12 @@ class php::phpunit::auto_update (
   $path,
 ) {
 
-  if $caller_module_name != $module_name {
-    warning('php::phpunit::auto_update is private')
-  }
+  assert_private()
 
   exec { 'update phpunit':
     command => "wget ${source} -O ${path}",
     onlyif  => "test `find '${path}' -mtime +${max_age}`",
-    path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
+    path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
     require => File[$path],
   }
 }
