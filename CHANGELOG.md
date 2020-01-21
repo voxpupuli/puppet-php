@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v7.0.1](https://github.com/voxpupuli/puppet-php/tree/v7.0.1) (2020-01-21)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v7.0.0...v7.0.1)
+
+**Fixed bugs:**
+
+- Do a `deep` merge on `fpm` lookup [\#550](https://github.com/voxpupuli/puppet-php/pull/550) ([sigv](https://github.com/sigv))
+
+**Closed issues:**
+
+- Fpm config results in "expects a Hash value, got Tuple" [\#536](https://github.com/voxpupuli/puppet-php/issues/536)
+- composer created as folder not binary file [\#535](https://github.com/voxpupuli/puppet-php/issues/535)
+- Forge Release [\#528](https://github.com/voxpupuli/puppet-php/issues/528)
+
+**Merged pull requests:**
+
+- allow puppetlabs/inifile 4.x [\#553](https://github.com/voxpupuli/puppet-php/pull/553) ([bastelfreak](https://github.com/bastelfreak))
+- Clean up acceptance spec helper [\#551](https://github.com/voxpupuli/puppet-php/pull/551) ([ekohl](https://github.com/ekohl))
+
 ## [v7.0.0](https://github.com/voxpupuli/puppet-php/tree/v7.0.0) (2019-09-12)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v6.0.2...v7.0.0)
