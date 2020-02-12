@@ -51,6 +51,7 @@ class php::globals (
             $default_fpm_pid_file = "/var/run/php/php${globals_php_version}-fpm.pid"
             $fpm_error_log = '/var/log/php5-fpm.log'
             $fpm_service_name = 'php5-fpm'
+            $fpm_checkconf_cmd = '/usr/sbin/php5-fpm -t --fpm-config %'
             $ext_tool_enable = '/usr/sbin/php5enmod'
             $ext_tool_query = '/usr/sbin/php5query'
             $package_prefix = 'php5-'
@@ -60,6 +61,7 @@ class php::globals (
             $default_fpm_pid_file = "/var/run/php/php${globals_php_version}-fpm.pid"
             $fpm_error_log = "/var/log/php${globals_php_version}-fpm.log"
             $fpm_service_name = "php${globals_php_version}-fpm"
+            $fpm_checkconf_cmd = "/usr/sbin/php-fpm${globals_php_version} -t --fpm-config %"
             $ext_tool_enable = "/usr/sbin/phpenmod -v ${globals_php_version}"
             $ext_tool_query = "/usr/sbin/phpquery -v ${globals_php_version}"
             $package_prefix = "php${globals_php_version}-"
@@ -71,6 +73,7 @@ class php::globals (
             $default_fpm_pid_file = '/var/run/php5-fpm.pid'
             $fpm_error_log = '/var/log/php5-fpm.log'
             $fpm_service_name = 'php5-fpm'
+            $fpm_checkconf_cmd = '/usr/sbin/php5-fpm -t --fpm-config %'
             $ext_tool_enable = '/usr/sbin/php5enmod'
             $ext_tool_query = '/usr/sbin/php5query'
             $package_prefix = 'php5-'
@@ -84,6 +87,7 @@ class php::globals (
             $default_fpm_pid_file = "/var/run/php/php${globals_php_version}-fpm.pid"
             $fpm_error_log        = "/var/log/php${globals_php_version}-fpm.log"
             $fpm_service_name     = "php${globals_php_version}-fpm"
+            $fpm_checkconf_cmd    = "/usr/sbin/php-fpm${globals_php_version} -t --fpm-config %"
             $ext_tool_enable      = "/usr/sbin/phpenmod -v ${globals_php_version}"
             $ext_tool_query       = "/usr/sbin/phpquery -v ${globals_php_version}"
             $package_prefix       = "php${globals_php_version}-"
@@ -93,6 +97,7 @@ class php::globals (
             $default_fpm_pid_file = '/var/run/php5-fpm.pid'
             $fpm_error_log = '/var/log/php5-fpm.log'
             $fpm_service_name = 'php5-fpm'
+            $fpm_checkconf_cmd = '/usr/sbin/php5-fpm -t --fpm-config %'
             $ext_tool_enable = '/usr/sbin/php5enmod'
             $ext_tool_query = '/usr/sbin/php5query'
             $package_prefix = 'php5-'

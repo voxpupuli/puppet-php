@@ -191,13 +191,14 @@ define php::fpm::pool (
     }
   } else {
     file { "${pool_base_dir}/${pool}.conf":
-      ensure  => file,
-      notify  => Class['::php::fpm::service'],
-      require => Package[$real_package],
-      content => template($template),
-      owner   => root,
-      group   => $root_group,
-      mode    => '0640',
+      ensure       => file,
+      notify       => Class['::php::fpm::service'],
+      require      => Package[$real_package],
+      content      => template($template),
+      owner        => root,
+      group        => $root_group,
+      mode         => '0640',
+      validate_cmd => $php::globals::fpm_checkconf_cmd,
     }
   }
 }
