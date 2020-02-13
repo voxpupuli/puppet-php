@@ -190,6 +190,11 @@ define php::fpm::pool (
       notify => Class['::php::fpm::service'],
     }
   } else {
+    $validate_cmd = $php::fpm::disable_configtest ? {
+        true    => undef,
+        default => $php::globals::fpm_checkconf_cmd,
+    }
+
     file { "${pool_base_dir}/${pool}.conf":
       ensure       => file,
       notify       => Class['::php::fpm::service'],
@@ -198,7 +203,7 @@ define php::fpm::pool (
       owner        => root,
       group        => $root_group,
       mode         => '0640',
-      validate_cmd => $php::globals::fpm_checkconf_cmd,
+      validate_cmd => $validate_cmd,
     }
   }
 }
