@@ -22,7 +22,7 @@ class php::packages (
   assert_private()
 
   $real_names = union($names, $names_to_prefix)
-  if $facts['os']['family'] == 'debian' {
+  if $facts['os']['family'] == 'Debian' {
     if $manage_repos {
       include ::apt
       Class['::apt::update'] -> Package[$real_names]
