@@ -113,8 +113,9 @@ class php::fpm::config(
 
   ensure_resource('file', ['/var/run/php-fpm/', '/var/log/php-fpm/'], {
     ensure => directory,
-    owner => $user,
-    group => $group,
+    owner  => $user,
+    group  => $group,
+    mode   => '0755',
   })
 
   file { $pool_base_dir:
