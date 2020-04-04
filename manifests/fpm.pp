@@ -114,7 +114,7 @@ class php::fpm (
     else {
       $fpm_override = "reload signal USR2\nmanual"
     }
-    file { "/etc/init/${::php::fpm::service::service_name}.override":
+    file { "/etc/init/${php::fpm::service::service_name}.override":
       content => $fpm_override,
       before  => Package[$real_package],
     }

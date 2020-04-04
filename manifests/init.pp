@@ -159,7 +159,7 @@ class php (
   String $log_group                               = $php::params::fpm_group,
 ) inherits php::params {
 
-  $real_fpm_package = pick($fpm_package, "${package_prefix}${::php::params::fpm_package_suffix}")
+  $real_fpm_package = pick($fpm_package, "${package_prefix}${php::params::fpm_package_suffix}")
 
   $real_settings = $settings
   $real_extensions = $extensions
