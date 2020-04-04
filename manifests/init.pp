@@ -170,16 +170,15 @@ class php (
   $final_cli_settings = $real_settings + $cli_settings
 
   if $manage_repos {
-    class { 'php::repo': }
-    -> Anchor['php::begin']
+    contain php::repo
   }
 
-  anchor { 'php::begin': }
-    -> class { 'php::packages': }
+    class { 'php::packages': }
     -> class { 'php::cli':
       settings => $final_cli_settings,
     }
-  -> anchor { 'php::end': }
+    contain php::packages
+    contain php::cli
 
   # Configure global PHP settings in php.ini
   if $facts['os']['family'] != 'Debian' {
@@ -187,7 +186,7 @@ class php (
     -> class {'php::global':
       settings => $real_settings,
     }
-    -> Anchor['php::end']
+    contain php::global
   }
 
   if $fpm { contain 'php::fpm' }
@@ -197,48 +196,37 @@ class php (
       fail('Enabling both cli and embedded sapis is not currently supported')
     }
 
-    Anchor['php::begin']
-      -> class { 'php::embedded':
-        settings => $real_settings,
-      }
-    -> Anchor['php::end']
+    class { 'php::embedded':
+      settings => $real_settings,
+    }
+    contain php::embedded
   }
   if $dev {
-    Anchor['php::begin']
-      -> class { 'php::dev': }
-    -> Anchor['php::end']
+    contain php::dev
   }
   if $composer {
-    Anchor['php::begin']
-      -> class { 'php::composer':
-        proxy_type   => $proxy_type,
-        proxy_server => $proxy_server,
-      }
-    -> Anchor['php::end']
+    class { 'php::composer':
+      proxy_type   => $proxy_type,
+      proxy_server => $proxy_server,
+    }
   }
   if $pear {
-    Anchor['php::begin']
-      -> class { 'php::pear':
-        ensure => $pear_ensure,
-      }
-    -> Anchor['php::end']
+    class { 'php::pear':
+      ensure => $pear_ensure,
+    }
   }
   if $phpunit {
-    Anchor['php::begin']
-      -> class { 'php::phpunit': }
-    -> Anchor['php::end']
+    contain php::phpunit
   }
   if $apache_config {
-    Anchor['php::begin']
-      -> class { 'php::apache_config':
-        settings => $real_settings,
-      }
-    -> Anchor['php::end']
+    class { 'php::apache_config':
+      settings => $real_settings,
+    }
+    contain php::apache_config
   }
 
   create_resources('php::extension', $real_extensions, {
     require => Class['php::cli'],
-    before  => Anchor['php::end']
   })
 
   # On FreeBSD purge the system-wide extensions.ini. It is going
