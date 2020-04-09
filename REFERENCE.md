@@ -497,6 +497,9 @@ Install composer package manager
 [*path*]
   Holds path to the Composer executable
 
+[*channel*]
+  Holds the Update channel (stable|preview|snapshot|1|2)
+
 [*proxy_type*]
    proxy server type (none|http|https|ftp)
 
