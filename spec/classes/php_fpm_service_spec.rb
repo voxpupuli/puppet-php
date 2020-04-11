@@ -14,10 +14,6 @@ describe 'php::fpm::service', type: :class do
         case facts[:osfamily]
         when 'Debian'
           case facts[:operatingsystemrelease]
-          when '12.04'
-            it { is_expected.to contain_service('php5-fpm').with_ensure('running').without_restart }
-          when '14.04'
-            it { is_expected.to contain_service('php5-fpm').with_restart('service php5-fpm reload').with_ensure('running') }
           when '16.04'
             it { is_expected.to contain_service('php7.0-fpm').with_ensure('running') }
           end

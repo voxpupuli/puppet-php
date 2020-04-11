@@ -9,10 +9,10 @@ class php::repo {
       # no contain here because apt does that already
       case $facts['os']['name'] {
         'Debian': {
-          include ::php::repo::debian
+          include php::repo::debian
         }
         'Ubuntu': {
-          include ::php::repo::ubuntu
+          include php::repo::ubuntu
         }
         default: {
           fail($msg_no_repo)
@@ -21,7 +21,7 @@ class php::repo {
     }
     'FreeBSD': {}
     'Suse': {
-      contain ::php::repo::suse
+      contain php::repo::suse
     }
     'RedHat': {
       contain 'php::repo::redhat'

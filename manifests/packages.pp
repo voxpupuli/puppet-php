@@ -24,7 +24,7 @@ class php::packages (
   $real_names = union($names, $names_to_prefix)
   if $facts['os']['family'] == 'Debian' {
     if $manage_repos {
-      include ::apt
+      include apt
       Class['::apt::update'] -> Package[$real_names]
     }
     package { $real_names:

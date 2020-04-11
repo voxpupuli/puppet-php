@@ -8,7 +8,7 @@
 class php::repo::ubuntu (
   $version   = undef,
 ) {
-  include '::apt'
+  include 'apt'
 
   if($version == undef) {
     $version_real = '5.6'
