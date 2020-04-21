@@ -198,6 +198,7 @@ describe 'php::extension' do
                   zend: true
                 }
               end
+
               it { is_expected.to contain_exec('ext_tool_enable_xdebug') }
             end
           end
