@@ -135,7 +135,7 @@ class php (
   $fpm_service_ensure                             = $php::params::fpm_service_ensure,
   $fpm_service_name                               = $php::params::fpm_service_name,
   $fpm_service_provider                           = undef,
-  Hash $fpm_pools                                 = {},
+  Hash $fpm_pools                                 = $php::params::fpm_pools,
   Hash $fpm_global_pool_settings                  = {},
   $fpm_inifile                                    = $php::params::fpm_inifile,
   $fpm_package                                    = undef,
