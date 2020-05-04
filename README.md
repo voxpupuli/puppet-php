@@ -402,17 +402,6 @@ A list of commonly used modules:
              'sysvshm' => {},
           },
         },
-        'mysqlnd' => {
-          ini_prefix => '30-',
-          multifile_settings => true,
-          settings => {
-             'mysqlnd'  => {},
-             'mysql' => {},
-             'mysqli' => {},
-             'pdo_mysql' => {},
-             'sysvshm' => {},
-          },
-        },
       }
     }
 ```
