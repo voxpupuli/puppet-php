@@ -8,6 +8,9 @@
 # [*path*]
 #   Holds path to the Composer executable
 #
+# [*channel*]
+#   Holds the Update channel (stable|preview|snapshot|1|2)
+#
 # [*proxy_type*]
 #    proxy server type (none|http|https|ftp)
 #
@@ -28,6 +31,7 @@ class php::composer (
   Stdlib::Absolutepath $path           = $php::params::composer_path,
   $proxy_type                          = undef,
   $proxy_server                        = undef,
+  Php::ComposerChannel $channel        = 'stable',
   Boolean $auto_update                 = true,
   Integer $max_age                     = $php::params::composer_max_age,
   Variant[Integer, String] $root_group = $php::params::root_group,
@@ -52,6 +56,7 @@ class php::composer (
       max_age      => $max_age,
       source       => $source,
       path         => $path,
+      channel      => $channel,
       proxy_type   => $proxy_type,
       proxy_server => $proxy_server,
     }

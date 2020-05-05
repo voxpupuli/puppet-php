@@ -21,7 +21,7 @@ class php::global(
   # No deep merging required since the settings we have are the global settings.
   $real_settings = $settings
 
-  ::php::config { 'global':
+  php::config { 'global':
     file   => $inifile,
     config => $real_settings,
   }

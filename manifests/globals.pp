@@ -144,6 +144,14 @@ class php::globals (
       }
     }
     'FreeBSD': {
+      case $globals_php_version {
+        /^(\d)\.(\d)$/: {
+          $package_prefix = "php${1}${2}-"
+        }
+        default: {
+          $package_prefix = 'php56-'
+        }
+      }
       $default_config_root  = '/usr/local/etc'
       $default_fpm_pid_file = '/var/run/php-fpm.pid'
       $fpm_service_name     = undef

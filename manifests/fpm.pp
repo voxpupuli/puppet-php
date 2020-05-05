@@ -49,6 +49,10 @@
 #   Hash of defaults params php::fpm::pool resources that will be created.
 #   Defaults is empty hash.
 #
+# [*pool_purge*]
+#   Whether to purge pool config files not created
+#   by this module
+#
 class php::fpm (
   String $ensure                = $php::ensure,
   $user                         = $php::fpm_user,
@@ -64,6 +68,7 @@ class php::fpm (
   Hash $pools                   = $php::real_fpm_pools,
   $log_owner                    = $php::log_owner,
   $log_group                    = $php::log_group,
+  Boolean $pool_purge           = $php::pool_purge,
 ) {
 
   if ! defined(Class['php']) {
@@ -85,13 +90,14 @@ class php::fpm (
   }
 
   class { 'php::fpm::config':
-    user      => $user,
-    group     => $group,
-    inifile   => $inifile,
-    settings  => $real_settings,
-    log_owner => $log_owner,
-    log_group => $log_group,
-    require   => Package[$real_package],
+    user       => $user,
+    group      => $group,
+    inifile    => $inifile,
+    settings   => $real_settings,
+    log_owner  => $log_owner,
+    log_group  => $log_group,
+    pool_purge => $pool_purge,
+    require    => Package[$real_package],
   }
 
   contain 'php::fpm::config'
@@ -114,7 +120,7 @@ class php::fpm (
     else {
       $fpm_override = "reload signal USR2\nmanual"
     }
-    file { "/etc/init/${::php::fpm::service::service_name}.override":
+    file { "/etc/init/${php::fpm::service::service_name}.override":
       content => $fpm_override,
       before  => Package[$real_package],
     }
