@@ -4,22 +4,33 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
-## [v7.0.1](https://github.com/voxpupuli/puppet-php/tree/v7.0.1) (2020-01-21)
+## [v7.1.0](https://github.com/voxpupuli/puppet-php/tree/v7.1.0) (2020-05-05)
 
-[Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v7.0.0...v7.0.1)
+[Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v7.0.0...v7.1.0)
+
+**Implemented enhancements:**
+
+- add ability to define composer update channel [\#571](https://github.com/voxpupuli/puppet-php/pull/571) ([CyberLine](https://github.com/CyberLine))
+- add pool\_purge option to init.pp [\#557](https://github.com/voxpupuli/puppet-php/pull/557) ([bovy89](https://github.com/bovy89))
+- Improve package prefix selection on FreeBSD [\#552](https://github.com/voxpupuli/puppet-php/pull/552) ([oxc](https://github.com/oxc))
 
 **Fixed bugs:**
 
+- Fix enabling of zend extensions [\#567](https://github.com/voxpupuli/puppet-php/pull/567) ([coreyralph](https://github.com/coreyralph))
+- Fix running apt update on Debian family [\#554](https://github.com/voxpupuli/puppet-php/pull/554) ([Hexta](https://github.com/Hexta))
 - Do a `deep` merge on `fpm` lookup [\#550](https://github.com/voxpupuli/puppet-php/pull/550) ([sigv](https://github.com/sigv))
 
 **Closed issues:**
 
+- mod 'puppetlabs-inifile', '4.1.0' [\#566](https://github.com/voxpupuli/puppet-php/issues/566)
 - Fpm config results in "expects a Hash value, got Tuple" [\#536](https://github.com/voxpupuli/puppet-php/issues/536)
 - composer created as folder not binary file [\#535](https://github.com/voxpupuli/puppet-php/issues/535)
 - Forge Release [\#528](https://github.com/voxpupuli/puppet-php/issues/528)
+- Invalid tag '::php::config' on node ... [\#177](https://github.com/voxpupuli/puppet-php/issues/177)
 
 **Merged pull requests:**
 
+- delete legacy travis directory [\#556](https://github.com/voxpupuli/puppet-php/pull/556) ([bastelfreak](https://github.com/bastelfreak))
 - allow puppetlabs/inifile 4.x [\#553](https://github.com/voxpupuli/puppet-php/pull/553) ([bastelfreak](https://github.com/bastelfreak))
 - Clean up acceptance spec helper [\#551](https://github.com/voxpupuli/puppet-php/pull/551) ([ekohl](https://github.com/ekohl))
 
@@ -44,7 +55,7 @@ These should not affect the functionality of the module.
 - Simplify php \(extension\) removal [\#526](https://github.com/voxpupuli/puppet-php/pull/526) ([TuningYourCode](https://github.com/TuningYourCode))
 - Rely more on puppetlabs-apt [\#494](https://github.com/voxpupuli/puppet-php/pull/494) ([ekohl](https://github.com/ekohl))
 - Add cli\_settings parameter to php class [\#491](https://github.com/voxpupuli/puppet-php/pull/491) ([sunnz](https://github.com/sunnz))
-- Allow `clear\_env` to be disabled [\#483](https://github.com/voxpupuli/puppet-php/pull/483) ([joshuaspence](https://github.com/joshuaspence))
+- Allow `clear_env` to be disabled [\#483](https://github.com/voxpupuli/puppet-php/pull/483) ([joshuaspence](https://github.com/joshuaspence))
 - allow php 7.2 [\#455](https://github.com/voxpupuli/puppet-php/pull/455) ([cbergmann](https://github.com/cbergmann))
 
 **Fixed bugs:**
