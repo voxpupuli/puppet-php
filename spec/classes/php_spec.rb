@@ -309,6 +309,13 @@ describe 'php', type: :class do
           end
         end
       end
+
+      describe 'when called with pool_purge => true and fpm_pools => {}' do
+        let(:params) { { pool_purge: true, fpm_pools: {} } }
+
+        it { is_expected.to contain_class('php::fpm').with(pool_purge: true) }
+        it { is_expected.not_to contain_php__fpm__pool('www') }
+      end
     end
   end
 end
