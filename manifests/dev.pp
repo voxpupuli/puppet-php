@@ -39,8 +39,10 @@ class php::dev(
       require => $require,
     })
   }
-  package { $real_package:
-    ensure  => $ensure,
-    require => Class['php::packages'],
+  if ($real_package != []) {
+    ensure_packages([$real_package], {
+      ensure  => $ensure,
+      require => Class['php::packages'],
+    })
   }
 }
