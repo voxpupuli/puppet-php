@@ -69,6 +69,7 @@ class php::fpm (
   $log_owner                    = $php::log_owner,
   $log_group                    = $php::log_group,
   Boolean $pool_purge           = $php::pool_purge,
+  Boolean $disable_configtest   = false,
 ) {
 
   if ! defined(Class['php']) {

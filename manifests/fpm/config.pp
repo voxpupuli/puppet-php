@@ -103,12 +103,18 @@ class php::fpm::config(
     default => $log_group,
   }
 
+  $validate_cmd = $php::fpm::disable_configtest ? {
+      true    => undef,
+      default => $php::globals::fpm_checkconf_cmd,
+  }
+
   file { $config_file:
-    ensure  => file,
-    content => template('php/fpm/php-fpm.conf.erb'),
-    owner   => root,
-    group   => $root_group,
-    mode    => '0644',
+    ensure       => file,
+    content      => template('php/fpm/php-fpm.conf.erb'),
+    owner        => root,
+    group        => $root_group,
+    mode         => '0644',
+    validate_cmd => $validate_cmd,
   }
 
   ensure_resource('file', ['/var/run/php-fpm/', '/var/log/php-fpm/'], {
