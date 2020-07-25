@@ -158,8 +158,7 @@ class php (
   String $log_owner                               = $php::params::fpm_user,
   String $log_group                               = $php::params::fpm_group,
 ) inherits php::params {
-
-  $real_fpm_package = pick($fpm_package, "${package_prefix}${::php::params::fpm_package_suffix}")
+  $real_fpm_package = pick($fpm_package, "${package_prefix}${php::params::fpm_package_suffix}")
 
   $real_settings = $settings
   $real_extensions = $extensions
@@ -175,16 +174,16 @@ class php (
   }
 
   anchor { 'php::begin': }
-    -> class { 'php::packages': }
-    -> class { 'php::cli':
-      settings => $final_cli_settings,
-    }
+  -> class { 'php::packages': }
+  -> class { 'php::cli':
+    settings => $final_cli_settings,
+  }
   -> anchor { 'php::end': }
 
   # Configure global PHP settings in php.ini
   if $facts['os']['family'] != 'Debian' {
     Class['php::packages']
-    -> class {'php::global':
+    -> class { 'php::global':
       settings => $real_settings,
     }
     -> Anchor['php::end']
@@ -198,47 +197,47 @@ class php (
     }
 
     Anchor['php::begin']
-      -> class { 'php::embedded':
-        settings => $real_settings,
-      }
+    -> class { 'php::embedded':
+      settings => $real_settings,
+    }
     -> Anchor['php::end']
   }
   if $dev {
     Anchor['php::begin']
-      -> class { 'php::dev': }
+    -> class { 'php::dev': }
     -> Anchor['php::end']
   }
   if $composer {
     Anchor['php::begin']
-      -> class { 'php::composer':
-        proxy_type   => $proxy_type,
-        proxy_server => $proxy_server,
-      }
+    -> class { 'php::composer':
+      proxy_type   => $proxy_type,
+      proxy_server => $proxy_server,
+    }
     -> Anchor['php::end']
   }
   if $pear {
     Anchor['php::begin']
-      -> class { 'php::pear':
-        ensure => $pear_ensure,
-      }
+    -> class { 'php::pear':
+      ensure => $pear_ensure,
+    }
     -> Anchor['php::end']
   }
   if $phpunit {
     Anchor['php::begin']
-      -> class { 'php::phpunit': }
+    -> class { 'php::phpunit': }
     -> Anchor['php::end']
   }
   if $apache_config {
     Anchor['php::begin']
-      -> class { 'php::apache_config':
-        settings => $real_settings,
-      }
+    -> class { 'php::apache_config':
+      settings => $real_settings,
+    }
     -> Anchor['php::end']
   }
 
   create_resources('php::extension', $real_extensions, {
-    require => Class['php::cli'],
-    before  => Anchor['php::end']
+      require => Class['php::cli'],
+      before  => Anchor['php::end']
   })
 
   # On FreeBSD purge the system-wide extensions.ini. It is going

@@ -55,7 +55,6 @@ define php::extension::config (
   Variant[Boolean, String] $settings_prefix = false,
   Php::Sapi                $sapi            = 'ALL',
 ) {
-
   if ! defined(Class['php']) {
     warning('php::extension::config is private')
   }
@@ -81,8 +80,7 @@ define php::extension::config (
   }
 
   if $provider != 'pear' {
-    $final_settings = deep_merge(
-      {"${extension_key}" => "${module_path}${so_name}.so"},
+    $final_settings = deep_merge( { "${extension_key}" => "${module_path}${so_name}.so" },
       $full_settings
     )
   } else {
@@ -121,7 +119,7 @@ define php::extension::config (
       }
     }
   } else {
-    file {"${config_root_ini}/${ini_prefix}${ini_name}.ini":
+    file { "${config_root_ini}/${ini_prefix}${ini_name}.ini":
       ensure => 'absent',
     }
   }

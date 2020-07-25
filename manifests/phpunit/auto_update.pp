@@ -16,13 +16,12 @@ class php::phpunit::auto_update (
   $source,
   $path,
 ) {
-
   assert_private()
 
   exec { 'update phpunit':
     command => "wget ${source} -O ${path}",
     onlyif  => "test `find '${path}' -mtime +${max_age}`",
-    path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
+    path    => ['/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin'],
     require => File[$path],
   }
 }

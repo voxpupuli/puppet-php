@@ -11,11 +11,10 @@
 #
 
 #
-class php::global(
+class php::global (
   Stdlib::Absolutepath $inifile = $php::config_root_inifile,
   Hash $settings                = {}
 ) inherits ::php {
-
   assert_private()
 
   # No deep merging required since the settings we have are the global settings.

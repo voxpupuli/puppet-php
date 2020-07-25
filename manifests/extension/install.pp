@@ -48,7 +48,6 @@ define php::extension::install (
   Variant[String, Array[String]] $compiler_packages = $php::params::compiler_packages,
   Php::InstallOptions $install_options              = undef,
 ) {
-
   if ! defined(Class['php']) {
     warning('php::extension::install is private')
   }

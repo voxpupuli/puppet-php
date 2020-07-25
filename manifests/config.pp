@@ -17,16 +17,15 @@
 #     }
 #   }
 #
-define php::config(
+define php::config (
   Stdlib::Absolutepath $file,
   Hash $config
 ) {
-
   if $caller_module_name != $module_name {
     warning('php::config is private')
   }
 
   create_resources(::php::config::setting, to_hash_settings($config, $file), {
-    file => $file
+      file => $file
   })
 }

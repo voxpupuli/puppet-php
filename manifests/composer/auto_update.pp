@@ -32,14 +32,12 @@ class php::composer::auto_update (
   $proxy_type   = undef,
   $proxy_server = undef,
 ) {
-
   assert_private()
 
-
   if $proxy_type and $proxy_server {
-    $env = [ 'HOME=/root', "${proxy_type}_proxy=${proxy_server}" ]
+    $env = ['HOME=/root', "${proxy_type}_proxy=${proxy_server}"]
   } else {
-    $env = [ 'HOME=/root' ]
+    $env = ['HOME=/root']
   }
 
   exec { 'update composer':
@@ -47,7 +45,7 @@ class php::composer::auto_update (
     command     => "${path} --no-interaction --quiet self-update; touch ${path}",
     environment => $env,
     onlyif      => "test `find '${path}' -mtime +${max_age}`",
-    path        => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
+    path        => ['/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin'],
     require     => [File[$path], Class['::php::cli']],
   }
 }

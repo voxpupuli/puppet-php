@@ -18,13 +18,11 @@
 #     value => 'Europe/Berlin'
 #   }
 #
-define php::config::setting(
+define php::config::setting (
   $key,
   $value,
   Stdlib::Absolutepath $file,
 ) {
-
-
   assert_private()
 
   $split_name = split($key, '/')

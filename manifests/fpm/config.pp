@@ -70,7 +70,7 @@
 # [*pid_file*]
 #   Path to fpm pid file
 #
-class php::fpm::config(
+class php::fpm::config (
   $config_file                                                          = $php::params::fpm_config_file,
   String $user                                                          = $php::params::fpm_user,
   String $group                                                         = $php::params::fpm_group,
@@ -94,7 +94,6 @@ class php::fpm::config(
   String $syslog_facility                                               = 'daemon',
   String $syslog_ident                                                  = 'php-fpm',
 ) inherits php::params {
-
   assert_private()
 
   # Hack-ish to default to user for group too
@@ -112,9 +111,9 @@ class php::fpm::config(
   }
 
   ensure_resource('file', ['/var/run/php-fpm/', '/var/log/php-fpm/'], {
-    ensure => directory,
-    owner => $user,
-    group => $group,
+      ensure => directory,
+      owner => $user,
+      group => $group,
   })
 
   file { $pool_base_dir:

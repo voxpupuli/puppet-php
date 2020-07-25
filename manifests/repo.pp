@@ -1,7 +1,6 @@
 # Configure package repository
 #
 class php::repo {
-
   $msg_no_repo = "No repo available for ${facts['os']['family']}/${facts['os']['name']}"
 
   case $facts['os']['family'] {
