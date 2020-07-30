@@ -274,7 +274,7 @@ upstream.
 
 ### Ubuntu systems and Ondřej's PPA
 
-To use a different PHP version than the Ubuntu one, you can install Ondřej's PPA and set the version explicitly: 
+To use a different PHP version than the Ubuntu one, you can install Ondřej's PPA and set the version explicitly:
 
 ```
   class{ 'php::repo::ubuntu': }->
