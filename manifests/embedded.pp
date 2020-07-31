@@ -14,13 +14,12 @@
 # [*ensure*]
 #   Specify which version of the package to install
 #
-class php::embedded(
+class php::embedded (
   String $ensure                = $php::ensure,
   String $package               = "${php::package_prefix}${php::params::embedded_package_suffix}",
   Stdlib::Absolutepath $inifile = $php::params::embedded_inifile,
   Hash $settings                = {},
 ) inherits php::params {
-
   assert_private()
 
   $real_settings = lookup(
@@ -45,5 +44,4 @@ class php::embedded(
     file   => $inifile,
     config => $real_settings,
   }
-
 }

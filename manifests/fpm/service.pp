@@ -14,13 +14,12 @@
 # [*provider*]
 #   Defines if the service provider to use
 #
-class php::fpm::service(
+class php::fpm::service (
   $service_name = $php::fpm::service_name,
   $ensure       = $php::fpm::service_ensure,
   $enable       = $php::fpm::service_enable,
   $provider     = $php::fpm::service_provider,
 ) {
-
   if ! defined(Class['php::fpm']) {
     warning('php::fpm::service is private')
   }
@@ -28,8 +27,8 @@ class php::fpm::service(
   $reload = "service ${service_name} reload"
 
   if ($facts['os']['name'] == 'Ubuntu'
-      and versioncmp($facts['os']['release']['full'], '12') >= 0
-      and versioncmp($facts['os']['release']['full'], '14') < 0) {
+    and versioncmp($facts['os']['release']['full'], '12') >= 0
+  and versioncmp($facts['os']['release']['full'], '14') < 0) {
     # Precise upstart doesn't support reload signals, so use
     # regular service restart instead
     $restart = undef

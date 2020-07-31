@@ -25,7 +25,6 @@ class php::globals (
   Optional[Stdlib::Absolutepath] $fpm_pid_file  = undef,
   $rhscl_mode   = undef,
 ) {
-
   $default_php_version = $facts['os']['name'] ? {
     'Debian' => $facts['os']['release']['major'] ? {
       '9'     => '7.0',

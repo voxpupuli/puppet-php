@@ -9,7 +9,6 @@
 class php::repo::redhat (
   $yum_repo = 'remi_php56',
 ) {
-
   $releasever = $facts['os']['name'] ? {
     /(?i:Amazon)/ => '6',
     default       => '$releasever',  # Yum var

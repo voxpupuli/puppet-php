@@ -17,14 +17,13 @@
 # [*fastcgi_socket*]
 #   address of the fastcgi socket
 #
-define php::apache_vhost(
+define php::apache_vhost (
   $vhost          = 'example.com',
   $docroot        = '/var/www',
   $port           = 80,
   $default_vhost  = true,
   $fastcgi_socket = 'fcgi://127.0.0.1:9000/$1'
 ) {
-
   ::apache::vhost { $vhost:
     docroot         => $docroot,
     default_vhost   => $default_vhost,

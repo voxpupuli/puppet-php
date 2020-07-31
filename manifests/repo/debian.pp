@@ -23,7 +23,7 @@
 # [*sury*]
 #   Enable special sury handling
 #
-class php::repo::debian(
+class php::repo::debian (
   $location     = 'https://packages.dotdeb.org',
   $release      = 'wheezy-php56',
   $repos        = 'all',
@@ -35,7 +35,6 @@ class php::repo::debian(
   $dotdeb       = true,
   $sury         = true,
 ) {
-
   assert_private()
 
   include 'apt'
@@ -67,7 +66,7 @@ class php::repo::debian(
     }
   }
 
-  if ($sury and $php::globals::php_version in ['5.6','7.1','7.2'] ) {
+  if ($sury and $php::globals::php_version in ['5.6','7.1','7.2']) {
     apt::source { 'source_php_sury':
       location => 'https://packages.sury.org/php/',
       repos    => 'main',

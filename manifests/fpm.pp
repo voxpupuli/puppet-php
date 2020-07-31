@@ -70,7 +70,6 @@ class php::fpm (
   $log_group                    = $php::log_group,
   Boolean $pool_purge           = $php::pool_purge,
 ) {
-
   if ! defined(Class['php']) {
     warning('php::fpm is private')
   }
@@ -111,9 +110,7 @@ class php::fpm (
 
   # Create an override to use a reload signal as trusty and utopic's
   # upstart version supports this
-  if ($facts['os']['name'] == 'Ubuntu'
-      and versioncmp($facts['os']['release']['full'], '14') >= 0
-      and versioncmp($facts['os']['release']['full'], '16') < 0) {
+  if ($facts['os']['name'] == 'Ubuntu' and versioncmp($facts['os']['release']['full'], '14') >= 0 and versioncmp($facts['os']['release']['full'], '16') < 0) {
     if ($service_enable) {
       $fpm_override = 'reload signal USR2'
     }

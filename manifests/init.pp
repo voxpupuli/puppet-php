@@ -163,7 +163,6 @@ class php (
   String $log_group                               = $php::params::fpm_group,
   Boolean $pool_purge                             = $php::params::pool_purge,
 ) inherits php::params {
-
   $real_fpm_package = pick($fpm_package, "${package_prefix}${php::params::fpm_package_suffix}")
 
   $real_settings = $settings
@@ -178,17 +177,17 @@ class php (
     contain php::repo
   }
 
-    class { 'php::packages': }
-    -> class { 'php::cli':
-      settings => $final_cli_settings,
-    }
-    contain php::packages
-    contain php::cli
+  class { 'php::packages': }
+  -> class { 'php::cli':
+    settings => $final_cli_settings,
+  }
+  contain php::packages
+  contain php::cli
 
   # Configure global PHP settings in php.ini
   if $facts['os']['family'] != 'Debian' {
     Class['php::packages']
-    -> class {'php::global':
+    -> class { 'php::global':
       settings => $real_settings,
     }
     contain php::global
@@ -231,7 +230,7 @@ class php (
   }
 
   create_resources('php::extension', $real_extensions, {
-    require => Class['php::cli'],
+      require => Class['php::cli'],
   })
 
   # On FreeBSD purge the system-wide extensions.ini. It is going

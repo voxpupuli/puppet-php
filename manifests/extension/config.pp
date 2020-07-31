@@ -55,7 +55,6 @@ define php::extension::config (
   Variant[Boolean, String] $settings_prefix = false,
   Php::Sapi                $sapi            = 'ALL',
 ) {
-
   if ! defined(Class['php']) {
     warning('php::extension::config is private')
   }
@@ -74,17 +73,14 @@ define php::extension::config (
   $ini_name = downcase($so_name)
 
   # Ensure "<extension>." prefix is present in setting keys if requested
-  $full_settings = $settings_prefix? {
+  $full_settings = $settings_prefix ? {
     true   => ensure_prefix($settings, "${so_name}."),
     false  => $settings,
     String => ensure_prefix($settings, "${settings_prefix}."),
   }
 
   if $provider != 'pear' {
-    $final_settings = deep_merge(
-      {"${extension_key}" => "${module_path}${so_name}.so"},
-      $full_settings
-    )
+    $final_settings = deep_merge( { "${extension_key}" => "${module_path}${so_name}.so" }, $full_settings)
   } else {
     $final_settings = $full_settings
   }
@@ -114,7 +110,7 @@ define php::extension::config (
       $cmd = "${ext_tool_enable} -s ${sapi} ${so_name}"
       $execname = "ext_tool_enable_${so_name}"
 
-      $_sapi = $sapi? {
+      $_sapi = $sapi ? {
         'ALL' => 'cli',
         default => $sapi,
       }
@@ -131,7 +127,7 @@ define php::extension::config (
       }
     }
   } else {
-    file {"${config_root_ini}/${ini_prefix}${ini_name}.ini":
+    file { "${config_root_ini}/${ini_prefix}${ini_name}.ini":
       ensure => 'absent',
     }
   }
