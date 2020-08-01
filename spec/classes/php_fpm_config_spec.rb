@@ -8,6 +8,11 @@ describe 'php::fpm::config' do
         facts
       end
 
+      describe 'works without params' do
+        it { is_expected.to compile.with_all_deps }
+        it { is_expected.to contain_class('php::globals') }
+        it { is_expected.to contain_class('php::params') }
+      end
       describe 'creates config file' do
         let(:params) do
           {

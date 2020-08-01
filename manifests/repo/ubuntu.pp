@@ -8,6 +8,9 @@
 class php::repo::ubuntu (
   $version   = undef,
 ) {
+  if $facts['os']['name'] != 'Ubuntu' {
+    fail("class php::repo::ubuntu does not work on OS ${facts['os']['name']}")
+  }
   include 'apt'
 
   if($version == undef) {

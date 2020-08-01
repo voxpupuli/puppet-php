@@ -67,7 +67,9 @@ describe 'php', type: :class do
                             'php5-dev'
                           end
                         end
-
+      describe 'works without params' do
+        it { is_expected.to compile.with_all_deps }
+      end
       describe 'when called with no parameters' do
         case facts[:osfamily]
         when 'Suse', 'RedHat', 'CentOS'

@@ -8,6 +8,10 @@ describe 'php::fpm', type: :class do
       end
       let(:pre_condition) { 'class {"php": fpm => false}' }
 
+      describe 'works without params' do
+        it { is_expected.to compile.with_all_deps }
+      end
+
       describe 'when called with no parameters' do
         # rubocop:disable RSpec/RepeatedExample
         case facts[:osfamily]

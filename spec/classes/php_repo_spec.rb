@@ -11,6 +11,13 @@ describe 'php::repo', type: :class do
         'include php'
       end
 
+      describe 'works without params' do
+        if facts[:os]['name'] == 'Archlinux'
+          it { is_expected.to compile.and_raise_error(%r{No repo available for}) }
+        else
+          it { is_expected.to compile.with_all_deps }
+        end
+      end
       describe 'when configuring a package repo' do
         case facts[:osfamily]
         when 'Debian'
