@@ -107,19 +107,4 @@ class php::fpm (
   $real_global_pool_settings = $global_pool_settings
   $real_pools = $pools
   create_resources(::php::fpm::pool, $real_pools, $real_global_pool_settings)
-
-  # Create an override to use a reload signal as trusty and utopic's
-  # upstart version supports this
-  if ($facts['os']['name'] == 'Ubuntu' and versioncmp($facts['os']['release']['full'], '14') >= 0 and versioncmp($facts['os']['release']['full'], '16') < 0) {
-    if ($service_enable) {
-      $fpm_override = 'reload signal USR2'
-    }
-    else {
-      $fpm_override = "reload signal USR2\nmanual"
-    }
-    file { "/etc/init/${php::fpm::service::service_name}.override":
-      content => $fpm_override,
-      before  => Package[$real_package],
-    }
-  }
 }
