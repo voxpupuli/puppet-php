@@ -1,7 +1,6 @@
 # PHP params class
 #
 class php::params inherits php::globals {
-
   $ensure              = 'present'
   $fpm_service_enable  = true
   $fpm_service_ensure  = 'running'

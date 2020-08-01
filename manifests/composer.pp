@@ -36,7 +36,6 @@ class php::composer (
   Integer $max_age                     = $php::params::composer_max_age,
   Variant[Integer, String] $root_group = $php::params::root_group,
 ) inherits php::params {
-
   assert_private()
 
   archive { 'download composer':
