@@ -24,14 +24,11 @@ class php::fpm::service (
     warning('php::fpm::service is private')
   }
 
-  $restart = "service ${service_name} reload"
-
   service { $service_name:
     ensure     => $ensure,
     enable     => $enable,
     provider   => $provider,
     hasrestart => true,
-    restart    => $restart,
     hasstatus  => true,
   }
 
