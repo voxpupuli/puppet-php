@@ -127,6 +127,12 @@
 #   Whether to purge pool config files not created
 #   by this module
 #
+# [*reload_fpm_on_config_changes*]
+#   by default, we reload the service on changes.
+#   But certain options, like socket owner, will only be applied during a restart.
+#   If set to false, a restart will be executed instead of a reload.
+#   This default will be changed in a future release.
+#
 class php (
   String $ensure                                  = $php::params::ensure,
   Boolean $manage_repos                           = $php::params::manage_repos,
@@ -162,6 +168,7 @@ class php (
   String $log_owner                               = $php::params::fpm_user,
   String $log_group                               = $php::params::fpm_group,
   Boolean $pool_purge                             = $php::params::pool_purge,
+  Boolean $reload_fpm_on_config_changes           = true,
 ) inherits php::params {
   $real_fpm_package = pick($fpm_package, "${package_prefix}${php::params::fpm_package_suffix}")
 

@@ -53,22 +53,29 @@
 #   Whether to purge pool config files not created
 #   by this module
 #
+# [*reload_fpm_on_config_changes*]
+#   by default, we reload the service on changes.
+#   But certain options, like socket owner, will only be applied during a restart.
+#   If set to false, a restart will be executed instead of a reload.
+#   This default will be changed in a future release.
+#
 class php::fpm (
-  String $ensure                = $php::ensure,
-  $user                         = $php::fpm_user,
-  $group                        = $php::fpm_group,
-  $service_ensure               = $php::fpm_service_ensure,
-  $service_enable               = $php::fpm_service_enable,
-  $service_name                 = $php::fpm_service_name,
-  $service_provider             = $php::fpm_service_provider,
-  String $package               = $php::real_fpm_package,
-  Stdlib::Absolutepath $inifile = $php::fpm_inifile,
-  Hash $settings                = $php::real_settings,
-  $global_pool_settings         = $php::real_fpm_global_pool_settings,
-  Hash $pools                   = $php::real_fpm_pools,
-  $log_owner                    = $php::log_owner,
-  $log_group                    = $php::log_group,
-  Boolean $pool_purge           = $php::pool_purge,
+  String $ensure                        = $php::ensure,
+  $user                                 = $php::fpm_user,
+  $group                                = $php::fpm_group,
+  $service_ensure                       = $php::fpm_service_ensure,
+  $service_enable                       = $php::fpm_service_enable,
+  $service_name                         = $php::fpm_service_name,
+  $service_provider                     = $php::fpm_service_provider,
+  String $package                       = $php::real_fpm_package,
+  Stdlib::Absolutepath $inifile         = $php::fpm_inifile,
+  Hash $settings                        = $php::real_settings,
+  $global_pool_settings                 = $php::real_fpm_global_pool_settings,
+  Hash $pools                           = $php::real_fpm_pools,
+  $log_owner                            = $php::log_owner,
+  $log_group                            = $php::log_group,
+  Boolean $pool_purge                   = $php::pool_purge,
+  Boolean $reload_fpm_on_config_changes = $php::reload_fpm_on_config_changes,
 ) {
   if ! defined(Class['php']) {
     warning('php::fpm is private')
