@@ -239,6 +239,46 @@ describe 'php', type: :class do
         it { is_expected.to contain_file(dstfile).with_content(%r{group = nginx}) }
       end
 
+      describe 'when configured with a pool with apparmor_hat parameter' do
+        let(:params) { { fpm_pools: { 'www' => { 'apparmor_hat' => 'www' } } } }
+
+        it { is_expected.to contain_php__fpm__pool('www').with(apparmor_hat: 'www') }
+
+        dstfile = case facts[:osfamily]
+                  when 'Debian'
+                    case facts[:os]['name']
+                    when 'Debian'
+                      case facts[:os]['release']['major']
+                      when '10'
+                        '/etc/php/7.3/fpm/pool.d/www.conf'
+                      when '9'
+                        '/etc/php/7.0/fpm/pool.d/www.conf'
+                      else
+                        '/etc/php5/fpm/pool.d/www.conf'
+                      end
+                    when 'Ubuntu'
+                      case facts[:os]['release']['major']
+                      when '18.04'
+                        '/etc/php/7.2/fpm/pool.d/www.conf'
+                      when '16.04'
+                        '/etc/php/7.0/fpm/pool.d/www.conf'
+                      else
+                        '/etc/php5/fpm/pool.d/www.conf'
+                      end
+                    end
+                  when 'Archlinux'
+                    '/etc/php/php-fpm.d/www.conf'
+                  when 'Suse'
+                    '/etc/php5/fpm/pool.d/www.conf'
+                  when 'RedHat'
+                    '/etc/php-fpm.d/www.conf'
+                  when 'FreeBSD'
+                    '/usr/local/etc/php-fpm.d/www.conf'
+                  end
+
+        it { is_expected.to contain_file(dstfile).with_content(%r{apparmor_hat = www}) }
+      end
+
       describe 'when fpm is disabled' do
         let(:params) { { fpm: false } }
 
