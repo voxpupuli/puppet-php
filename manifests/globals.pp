@@ -31,6 +31,7 @@ class php::globals (
       default => '7.3',
     },
     'Ubuntu' => $facts['os']['release']['major'] ? {
+      '20.04' => '7.4',
       '16.04' => '7.0',
       default => '7.2',
     },
