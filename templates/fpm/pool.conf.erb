@@ -46,6 +46,10 @@ listen.mode = <%= @listen_mode %>
 user = <%= @user %>
 ; RPM: Keep a group allowed to write in log dir.
 group = <%= @group_final %>
+<% if @apparmor_hat -%>
+; Apparmor hat to change to
+apparmor_hat = <%= @apparmor_hat %>
+<% end -%>
 
 ; Choose how the process manager will control the number of child processes.
 ; Possible Values:
