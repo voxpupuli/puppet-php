@@ -130,7 +130,7 @@ define php::fpm::pool (
   $listen_mode                             = undef,
   $user                                    = $php::fpm::config::user,
   $group                                   = $php::fpm::config::group,
-  Optional[String] $apparmor_hat           = undef,
+  Optional[String[1]] $apparmor_hat        = undef,
   $pm                                      = 'dynamic',
   $pm_max_children                         = '50',
   $pm_start_servers                        = '5',
