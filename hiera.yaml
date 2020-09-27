@@ -1,6 +1,12 @@
 ---
 version: 5
+defaults:
+  datadir: 'data'
+  data_hash: 'yaml_data'
+
 hierarchy:
-  - name: default.yaml
+  - name: 'My Hierachie'
     paths:
-      - 'default.yaml'
+     - '%{facts.os.name}/%{facts.os.release.full}.yaml'
+     - '%{facts.os.name}/%{facts.os.release.major}.yaml'
+     - 'common.yaml'
