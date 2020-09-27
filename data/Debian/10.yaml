@@ -1,1 +1,25 @@
 ---
+php::external_repo: false
+php::php_version: '7.3'
+php::os_supported_php_versions:
+  - '7.3'
+
+php::external_repo_supported_php_versions:
+  - '5.6'
+  - '7.0'
+  - '7.1'
+  - '7.2'
+  - '7.3'
+  - '7.4'
+
+php::external_repo_details:
+  'source_php_sury':
+    comment: 'the debian sury repo sury.org'
+    location: 'https://packages.sury.org/php/'
+    repos: 'main'
+    include:
+      src: true
+      deb: true
+    key:
+      id: '15058500A0235D97F5D10063B188E2B695BD4743'
+      source: 'https://packages.sury.org/php/apt.gpg'

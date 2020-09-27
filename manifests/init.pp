@@ -169,6 +169,13 @@ class php (
   String $log_group                               = $php::params::fpm_group,
   Boolean $pool_purge                             = $php::params::pool_purge,
   Boolean $reload_fpm_on_config_changes           = true,
+  # added for refactoring
+  Boolean $external_repo                                = false,
+  Optional[String[1]] $php_version                      = undef,
+  Optional[Array] $os_supported_php_versions            = undef,
+  Optional[Array] $external_repo_supported_php_versions = undef,
+  Hash $external_repo_details                           = {},
+
 ) inherits php::params {
   $real_fpm_package = pick($fpm_package, "${package_prefix}${php::params::fpm_package_suffix}")
 

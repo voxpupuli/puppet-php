@@ -1,32 +1,15 @@
 # Configure package repository
 #
-class php::repo {
-  $msg_no_repo = "No repo available for ${facts['os']['family']}/${facts['os']['name']}"
-
-  case $facts['os']['family'] {
-    'Debian': {
-      # no contain here because apt does that already
-      case $facts['os']['name'] {
-        'Debian': {
-          include php::repo::debian
-        }
-        'Ubuntu': {
-          include php::repo::ubuntu
-        }
-        default: {
-          fail($msg_no_repo)
-        }
-      }
-    }
-    'FreeBSD': {}
-    'Suse': {
-      contain php::repo::suse
-    }
-    'RedHat': {
-      contain 'php::repo::redhat'
-    }
-    default: {
-      fail($msg_no_repo)
-    }
+class php::repo (
+  Boolean $external_repo                                = $php::external_repo,
+  Optional[String[1]] $php_version                      = $php::php_version,
+  Optional[Array] $external_repo_supported_php_versions = $php::external_repo_supported_php_versions,
+) {
+  if ($external_repo and $php_version in $external_repo_supported_php_versions) {
+  case $facts['os']['name'] {
+  'RedHat', 'CentOS': { contain '::php::repo::redhat'  }
+  'Debian', 'Ubuntu': { contain '::php::repo::debian'  }
+  default:            { contain '::php::repo::fallback' }
+}
   }
 }
