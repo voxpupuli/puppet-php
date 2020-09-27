@@ -1,3 +1,4 @@
+# the fallback class, throws an error, if called
 class php::repo::fallback () {
   assert_private()
   
