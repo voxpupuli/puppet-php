@@ -136,29 +136,39 @@
 #########
 ######### REWRITE
 #
-# [*external_repo*]
-#    type: Boolean
-#    default: false
-#    manage an external package repository or not
+# @param [Boolean] manage_external_repo
+#   manage an external package repository or not
+# @option external_repo [Boolean] :false
+#   default
+# @option external_repo [Boolean] :true  
 #
-# [*php_version*]
-#   type: String
+# @param [Hash] external_repo_details
+#   The PHP versions the additional repositories support
+# @option external_repo_details [Hash] :{}
+#   default: empty Hash, default for OS from Hiera Data in module
+#
+# @param [Array] external_repo_supported_php_versions
+#   The PHP versions the additional repositories support
+# @option external_repo_supported_php_versions [Array] :[]
+#   default: empty array, default for OS from Hiera Data in module
+#
+# @param [Boolean] manage_internal_repo
+#   manage an internal package repository, parameter is to control
+#   app streams in CENTOS/RHEL/Fedora, Repos on FreeBSD or Archlinux
+# @option external_repo [Boolean] :false
+#   true
+# @option external_repo [Boolean] :true   
+#
+# @param [Array] os_supported_php_versions
+#   The PHP versions the OS supports by default, without any additional repositories,
+#   on RHEL/CentOS and Fedora this includes app streams, on FreeBSD or Archlinux it manages Repos
+# @option os_supported_php_versions [Array] :[]
+#   default: empty array, default for OS from Hiera Data in module
+# 
+# @param [String] php_version
+#   Set the PHP version to install
+# @option php_version [String] :'7.4'
 #   defaults: latest stable PHP Version available on php.net, default for OS from Hiera Data in module
-#
-# [*os_supported_php_versions*]
-#    type: Array
-#    default: empty array, default for OS from Hiera Data in module
-#    The PHP versions the OS supports by default, without any eadditional repositories, on RHEL, CentOS and Fedora this includes app streams
-#
-# [*external_repo_supported_php_versions*]
-#    type: Array
-#    default: empty array, default for OS from Hiera Data in module
-#    The PHP versions the additional repositories support.
-#
-# [*external_repo_details*]
-#    type: Hash
-#    default: empty hash, default for OS from Hiera Data in module
-#    The details needed to manage the external repository.
 #
 class php (
   String $ensure                                  = $php::params::ensure,
@@ -197,12 +207,13 @@ class php (
   Boolean $pool_purge                             = $php::params::pool_purge,
   Boolean $reload_fpm_on_config_changes           = true,
   # added for refactoring
-  Boolean $external_repo                                = false,
-  # TODO: validate a version string here?
-  String[1] $php_version                                = '7.4',
-  Array $os_supported_php_versions                      = [],
+  Boolean $manage_external_repo                         = false,
   Array $external_repo_supported_php_versions           = [],
   Hash $external_repo_details                           = {},
+  Boolean $manage_internal_repo                         = true,
+  Array $os_supported_php_versions                      = [],
+  String[1] $php_version                                = '7.4', # TODO: validate a version string here?
+
 
 ) inherits php::params {
   $real_fpm_package = pick($fpm_package, "${package_prefix}${php::params::fpm_package_suffix}")
