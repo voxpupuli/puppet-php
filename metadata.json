@@ -41,7 +41,8 @@
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
         "16.04",
-        "18.04"
+        "18.04",
+        "20.04"
       ]
     },
     {
@@ -55,33 +56,52 @@
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
         "6",
-        "7"
+        "7",
+        "8"
       ]
     },
     {
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
         "6",
-        "7"
+        "7",
+        "8"
       ]
+    },
+    {
+    "operatingsystem": "Fedora",
+    "operatingsystemrelease": [ 
+      "31", 
+      "32",
+      "24"
+    ]   
     },
     {
       "operatingsystem": "FreeBSD",
       "operatingsystemrelease": [
-        "11"
+        "11",
+        "12"
       ]
     },
     {
       "operatingsystem": "SLES",
       "operatingsystemrelease": [
-        "11"
+        "11",
+        "12",
+        "15"
       ]
     },
     {
-      "operatingsystem": "OpenSUSE"
+      "operatingsystem": "OpenSUSE",
+      "operatingsystemrelease": [
+          "15"
+        ]
     },
     {
-      "operatingsystem": "Archlinux"
+      "operatingsystem": "Archlinux",
+      "operatingsystemrelease": [
+        "rolling"
+      ]
     }
   ]
 }

@@ -42,9 +42,12 @@ class php::repo (
 
   if (($manage_internal_repo or $manage_external_repo) and (($php_version in $external_repo_supported_php_versions) or ($php_version in $os_supported_php_versions))) {
     case $facts['os']['name'] {
-      'RedHat', 'CentOS': { contain 'php::repo::redhat' }
-      'Debian', 'Ubuntu': { contain 'php::repo::debian' }
-      default:            { contain 'php::repo::fallback' }
+      'Archlinux':                  { contain 'php::repo::archlinux' }
+      'FreeBSD':                    { contain 'php::repo::freebsd' }
+      'RedHat', 'CentOS', 'Fedora': { contain 'php::repo::redhat' }
+      'Debian', 'Ubuntu':           { contain 'php::repo::debian' }
+      'OpenSuSE', 'SLES':           { contain 'php::repo::suse' }
+      default:                      { contain 'php::repo::fallback' }
     }
   }
 }

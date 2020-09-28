@@ -1,25 +1,13 @@
-# Configure suse repo
+# @api private
+# @summary Configure suse/sles zypper repo
 #
-# === Parameters
-#
-# [*reponame*]
-#   Name of the Zypper repository
-#
-# [*baseurl*]
-#   Base URL of the Zypper repository
+# @param [Hash] external_repo_details
+#   The PHP versions the additional repositories support
+# @option external_repo_details [Hash] :{}
+#   default: empty Hash, default for OS from Hiera Data in module
 #
 class php::repo::suse (
-  $reponame = 'mayflower-php56',
-  $baseurl  = 'http://download.opensuse.org/repositories/home:/mayflower:/php5.6_based/SLE_11_SP3/',
+  Hash[String[1], Hash] $external_repo_details = $php::external_repo_details,
 ) {
-  zypprepo { $reponame:
-    baseurl     => $baseurl,
-    enabled     => 1,
-    autorefresh => 1,
-  }
-  ~> exec { 'zypprepo-accept-key':
-    command     => 'zypper --gpg-auto-import-keys update -y',
-    path        => '/usr/bin:/bin',
-    refreshonly => true,
-  }
+  assert_private()
 }
