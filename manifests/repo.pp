@@ -9,10 +9,10 @@ class php::repo (
   assert_private()
 
   if ($external_repo and $php_version in $external_repo_supported_php_versions) {
-  case $facts['os']['name'] {
-  'RedHat', 'CentOS': { contain 'php::repo::redhat'  }
-  'Debian', 'Ubuntu': { contain 'php::repo::debian'  }
-  default:            { contain 'php::repo::fallback' }
-}
+    case $facts['os']['name'] {
+      'RedHat', 'CentOS': { contain 'php::repo::redhat' }
+      'Debian', 'Ubuntu': { contain 'php::repo::debian' }
+      default:            { contain 'php::repo::fallback' }
+    }
   }
 }
