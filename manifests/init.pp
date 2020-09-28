@@ -133,6 +133,33 @@
 #   If set to false, a restart will be executed instead of a reload.
 #   This default will be changed in a future release.
 #
+#########
+######### REWRITE
+#
+# [*external_repo*]
+#    type: Boolean
+#    default: false
+#    manage an external package repository or not
+#
+# [*php_version*]
+#   type: String
+#   defaults: latest stable PHP Version available on php.net, default for OS from Hiera Data in module
+#
+# [*os_supported_php_versions*]
+#    type: Array
+#    default: empty array, default for OS from Hiera Data in module
+#    The PHP versions the OS supports by default, without any eadditional repositories, on RHEL, CentOS and Fedora this includes app streams
+#
+# [*external_repo_supported_php_versions*]
+#    type: Array
+#    default: empty array, default for OS from Hiera Data in module
+#    The PHP versions the additional repositories support.
+#
+# [*external_repo_details*]
+#    type: Hash
+#    default: empty hash, default for OS from Hiera Data in module
+#    The details needed to manage the external repository.
+#
 class php (
   String $ensure                                  = $php::params::ensure,
   Boolean $manage_repos                           = $php::params::manage_repos,
@@ -171,9 +198,10 @@ class php (
   Boolean $reload_fpm_on_config_changes           = true,
   # added for refactoring
   Boolean $external_repo                                = false,
-  Optional[String[1]] $php_version                      = undef,
-  Optional[Array] $os_supported_php_versions            = undef,
-  Optional[Array] $external_repo_supported_php_versions = undef,
+  # TODO: validate a version string here?
+  String[1] $php_version                                = '7.4',
+  Array $os_supported_php_versions                      = [],
+  Array $external_repo_supported_php_versions           = [],
   Hash $external_repo_details                           = {},
 
 ) inherits php::params {

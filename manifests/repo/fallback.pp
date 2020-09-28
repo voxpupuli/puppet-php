@@ -1,4 +1,5 @@
-# the fallback class, throws an error, if called
+# @api private
+# @summary the fallback class, throws an error, if called
 class php::repo::fallback () {
   assert_private()
   

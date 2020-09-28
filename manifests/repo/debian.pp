@@ -1,4 +1,5 @@
-# Configure debian apt repo
+# @api private
+# @summary Configure debian apt repo
 #
 # === Parameters
 #
@@ -6,7 +7,7 @@
 #   The repository details
 #
 class php::repo::debian (
-  Hash $external_repo_details = $php::external_repo_details,
+  Hash[String[1], Hash] $external_repo_details = $php::external_repo_details,
 ) {
   assert_private()
 
