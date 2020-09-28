@@ -86,6 +86,7 @@ jobs:
 branches:
   only:
   - master
+  - module_rewrite
   - /^v\d/
 notifications:
   email: false
