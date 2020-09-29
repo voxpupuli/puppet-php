@@ -5,7 +5,7 @@ defaults:
   data_hash: 'yaml_data'
 
 hierarchy:
-  - name: 'My Hierachie'
+  - name: 'My Hierarchies'
     paths:
      - '%{facts.os.name}/%{facts.os.distro.release.major}.yaml'
      - '%{facts.os.name}/%{facts.os.release.full}.yaml'
