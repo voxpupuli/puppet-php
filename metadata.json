@@ -7,7 +7,6 @@
   "source": "https://github.com/voxpupuli/puppet-php",
   "project_page": "https://github.com/voxpupuli/puppet-php",
   "issues_url": "https://github.com/voxpupuli/puppet-php/issues",
-  "description": "Puppet module that aims to manage PHP and extensions in a generic way on many platforms with sane defaults and easy configuration",
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",

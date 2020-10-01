@@ -39,8 +39,10 @@ class php::repo (
 
 ) {
   assert_private()
+  $valid_external_php_version = $php_version in $external_repo_supported_php_versions
+  $valid_os_php_version       = $php_version in $os_supported_php_versions
 
-  if (($manage_internal_repo or $manage_external_repo) and (($php_version in $external_repo_supported_php_versions) or ($php_version in $os_supported_php_versions))) {
+  if (($manage_internal_repo or $manage_external_repo) and ( $valid_os_php_version or $valid_external_php_version)) {
     case $facts['os']['name'] {
       'Archlinux':                  { contain 'php::repo::archlinux' }
       'FreeBSD':                    { contain 'php::repo::freebsd' }
