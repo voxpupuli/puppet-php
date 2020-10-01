@@ -1,67 +1,21 @@
-# Configure debian apt repo
+# @api private
+# @summary Configure debian apt repo
 #
-# === Parameters
-#
-# [*location*]
-#   Location of the apt repository
-#
-# [*release*]
-#   Release of the apt repository
-#
-# [*repos*]
-#   Apt repository names
-#
-# [*include_src*]
-#   Add source source repository
-#
-# [*key*]
-#   Public key in apt::key format
-#
-# [*dotdeb*]
-#   Enable special dotdeb handling
-#
-# [*sury*]
-#   Enable special sury handling
+# @param [Hash] external_repo_details
+#   The PHP versions the additional repositories support
+# @option external_repo_details [Hash] :{}
+#   default: empty Hash, default for OS from Hiera Data in module
 #
 class php::repo::debian (
-  $location     = 'https://packages.dotdeb.org',
-  $release      = 'wheezy-php56',
-  $repos        = 'all',
-  $include_src  = false,
-  $key          = {
-    'id'     => '6572BBEF1B5FF28B28B706837E3F070089DF5277',
-    'source' => 'http://www.dotdeb.org/dotdeb.gpg',
-  },
-  $dotdeb       = true,
-  $sury         = true,
+  Hash[String[1], Hash] $external_repo_details = $php::external_repo_details,
 ) {
   assert_private()
 
   include 'apt'
 
-  apt::source { "source_php_${release}":
-    location => $location,
-    release  => $release,
-    repos    => $repos,
-    include  => {
-      'src' => $include_src,
-      'deb' => true,
-    },
-    key      => $key,
-  }
-
-  if ($sury and $php::globals::php_version in ['7.1','7.2']) {
-    apt::source { 'source_php_sury':
-      location => 'https://packages.sury.org/php/',
-      repos    => 'main',
-      include  => {
-        'src' => $include_src,
-        'deb' => true,
-      },
-      key      => {
-        id     => '15058500A0235D97F5D10063B188E2B695BD4743',
-        source => 'https://packages.sury.org/php/apt.gpg',
-      },
+  $external_repo_details.each |String $repository, Hash $repository_details| {
+    apt::source { $repository:
+      * => $repository_details,
     }
   }
 }
