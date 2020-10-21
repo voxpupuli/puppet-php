@@ -24,6 +24,8 @@
 #
 # [*listen_mode*]
 #
+# [*listen_acl_users*]
+#
 # [*user*]
 #   The user that php-fpm should run as
 #
@@ -128,6 +130,7 @@ define php::fpm::pool (
   $listen_owner                            = undef,
   $listen_group                            = undef,
   $listen_mode                             = undef,
+  $listen_acl_users                        = undef,
   $user                                    = $php::fpm::config::user,
   $group                                   = $php::fpm::config::group,
   Optional[String[1]] $apparmor_hat        = undef,
