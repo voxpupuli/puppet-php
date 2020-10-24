@@ -50,6 +50,6 @@ class php::composer::auto_update (
     environment => $env,
     onlyif      => "test `find '${path}' -mtime +${max_age}`",
     path        => ['/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin'],
-    require     => [File[$path], Class['::php::cli']],
+    require     => [File[$path], Class['php::cli']],
   }
 }

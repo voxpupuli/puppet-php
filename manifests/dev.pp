@@ -24,7 +24,7 @@ class php::dev (
   if $facts['os']['family'] == 'Debian' {
     # we can set the dependency only if we manage repos
     $require = $manage_repos ? {
-      true  => Class['::apt::update'],
+      true  => Class['apt::update'],
       false => undef,
     }
   } else {

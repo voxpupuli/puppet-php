@@ -190,12 +190,12 @@ define php::fpm::pool (
   if ($ensure == 'absent') {
     file { "${pool_base_dir}/${pool}.conf":
       ensure => absent,
-      notify => Class['::php::fpm::service'],
+      notify => Class['php::fpm::service'],
     }
   } else {
     file { "${pool_base_dir}/${pool}.conf":
       ensure  => file,
-      notify  => Class['::php::fpm::service'],
+      notify  => Class['php::fpm::service'],
       require => Package[$real_package],
       content => template($template),
       owner   => root,
