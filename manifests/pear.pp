@@ -42,7 +42,7 @@ class php::pear (
 
   # the apt module provides apt::update. apt is only included if we manage any repos
   $require = $manage_repos ? {
-    true  => Class['::apt::update'],
+    true  => Class['apt::update'],
     false => undef,
   }
   # Default PHP come with xml module and no seperate package for it

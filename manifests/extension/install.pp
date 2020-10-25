@@ -66,8 +66,8 @@ define php::extension::install (
       }
 
       $package_require      = [
-        Class['::php::pear'],
-        Class['::php::dev'],
+        Class['php::pear'],
+        Class['php::dev'],
       ]
     }
 
