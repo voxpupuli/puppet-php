@@ -19,6 +19,8 @@ describe 'php', type: :class do
                           end
                         when 'Ubuntu'
                           case facts[:os]['release']['major']
+                          when '20.04'
+                            'php7.4-cli'
                           when '18.04'
                             'php7.2-cli'
                           when '16.04'
@@ -39,6 +41,8 @@ describe 'php', type: :class do
                           end
                         when 'Ubuntu'
                           case facts[:os]['release']['major']
+                          when '20.04'
+                            'php7.4-fpm'
                           when '18.04'
                             'php7.2-fpm'
                           when '16.04'
@@ -59,6 +63,8 @@ describe 'php', type: :class do
                           end
                         when 'Ubuntu'
                           case facts[:os]['release']['major']
+                          when '20.04'
+                            'php7.4-dev'
                           when '18.04'
                             'php7.2-dev'
                           when '16.04'
@@ -178,6 +184,8 @@ describe 'php', type: :class do
                       end
                     when 'Ubuntu'
                       case facts[:os]['release']['major']
+                      when '20.04'
+                        '/etc/php/7.4/fpm/pool.d/www.conf'
                       when '18.04'
                         '/etc/php/7.2/fpm/pool.d/www.conf'
                       when '16.04'
@@ -218,6 +226,8 @@ describe 'php', type: :class do
                       end
                     when 'Ubuntu'
                       case facts[:os]['release']['major']
+                      when '20.04'
+                        '/etc/php/7.4/fpm/pool.d/www.conf'
                       when '18.04'
                         '/etc/php/7.2/fpm/pool.d/www.conf'
                       when '16.04'
@@ -258,6 +268,8 @@ describe 'php', type: :class do
                       end
                     when 'Ubuntu'
                       case facts[:os]['release']['major']
+                      when '20.04'
+                        '/etc/php/7.4/fpm/pool.d/www.conf'
                       when '18.04'
                         '/etc/php/7.2/fpm/pool.d/www.conf'
                       when '16.04'
