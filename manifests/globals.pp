@@ -20,7 +20,7 @@
 
 class php::globals (
 
-  Optional[Pattern[/^(rh-)?(php)?[57](\.)?[0-9]/]] $php_version = undef,
+  Optional[Pattern[/^(rh-)?(php)?[578](\.)?[0-9]/]] $php_version = undef,
   Optional[Stdlib::Absolutepath] $config_root   = undef,
   Optional[Stdlib::Absolutepath] $fpm_pid_file  = undef,
   $rhscl_mode   = undef,
@@ -44,7 +44,7 @@ class php::globals (
     'Debian': {
       if $facts['os']['name'] == 'Ubuntu' {
         case $globals_php_version {
-          /^[57].[0-9]/: {
+          /^[578].[0-9]/: {
             $default_config_root = "/etc/php/${globals_php_version}"
             $default_fpm_pid_file = "/var/run/php/php${globals_php_version}-fpm.pid"
             $fpm_error_log = "/var/log/php${globals_php_version}-fpm.log"
@@ -68,7 +68,7 @@ class php::globals (
       } else {
         case $globals_php_version {
           /^5\.6/,
-          /^7\.[0-9]/: {
+          /^[78]\.[0-9]/: {
             $default_config_root  = "/etc/php/${globals_php_version}"
             $default_fpm_pid_file = "/var/run/php/php${globals_php_version}-fpm.pid"
             $fpm_error_log        = "/var/log/php${globals_php_version}-fpm.log"
