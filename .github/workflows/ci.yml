@@ -69,7 +69,7 @@ jobs:
           ruby-version: '2.7'
           bundler-cache: true
       - name: Run tests
-        run: bundle exec rake beaker
+        run: bundle exec rspec spec/acceptance/php_spec.rb
         env:
           BEAKER_PUPPET_COLLECTION: ${{ matrix.puppet.collection }}
           BEAKER_setfile: ${{ matrix.setfile.value }}
