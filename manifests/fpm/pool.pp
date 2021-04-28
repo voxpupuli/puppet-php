@@ -25,6 +25,9 @@
 # [*listen_mode*]
 #
 # [*listen_acl_users*]
+#   When POSIX Access Control Lists are supported you can set them using this option.
+#   When set, listen.owner and listen.group are ignored. Value is a comma separated
+#   list of user names.
 #
 # [*user*]
 #   The user that php-fpm should run as
