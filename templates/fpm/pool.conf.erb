@@ -38,11 +38,11 @@ listen.mode = <%= @listen_mode %>
 <% else -%>
 ;listen.mode = 0660
 <% end -%>
-<% if @listen_acl_users -%>
-listen.acl_users = <%= @listen_acl_users %>
+<% if @real_listen_acl_users -%>
+listen.acl_users = <%= @real_listen_acl_users %>
 <% end -%>
-<% if @listen_acl_groups -%>
-listen.acl_groups = <%= @listen_acl_groups %>
+<% if @real_listen_acl_groups -%>
+listen.acl_groups = <%= @real_listen_acl_groups %>
 <% end -%>
 
 ; Unix user/group of processes

@@ -25,12 +25,12 @@
 # [*listen_mode*]
 #
 # [*listen_acl_users*]
-#   When POSIX Access Control Lists are supported you can set them using this option.
-#   When set, listen.owner and listen.group are ignored. Value is a comma separated
-#   list of user names.
+#   Array. When POSIX Access Control Lists are supported you can set them using
+#   this option. When set, listen.owner and listen.group are ignored. Value is
+#   an array of user names.
 #
 # [*listen_acl_groups*]
-#   See listen_acl_users. Value is a comma separated list of group names.
+#   See listen_acl_users. Value is an array of group names.
 #
 # [*user*]
 #   The user that php-fpm should run as
@@ -129,52 +129,52 @@
 #   '/etc/php5/fpm/pool.d' or '/etc/php-fpm.d'
 #
 define php::fpm::pool (
-  $ensure                                  = 'present',
-  $listen                                  = '127.0.0.1:9000',
-  $listen_backlog                          = '-1',
-  $listen_allowed_clients                  = undef,
-  $listen_owner                            = undef,
-  $listen_group                            = undef,
-  $listen_mode                             = undef,
-  Optional[String[1]] $listen_acl_users    = undef,
-  Optional[String[1]] $listen_acl_groups   = undef,
-  $user                                    = $php::fpm::config::user,
-  $group                                   = $php::fpm::config::group,
-  Optional[String[1]] $apparmor_hat        = undef,
-  $pm                                      = 'dynamic',
-  $pm_max_children                         = '50',
-  $pm_start_servers                        = '5',
-  $pm_min_spare_servers                    = '5',
-  $pm_max_spare_servers                    = '35',
-  $pm_max_requests                         = '0',
-  $pm_process_idle_timeout                 = '10s',
-  $pm_status_path                          = undef,
-  $ping_path                               = undef,
-  $ping_response                           = 'pong',
-  $access_log                              = undef,
-  $access_log_format                       = '"%R - %u %t \"%m %r\" %s"',
-  $request_terminate_timeout               = '0',
-  $request_slowlog_timeout                 = '0',
-  $security_limit_extensions               = undef,
-  $slowlog                                 = "/var/log/php-fpm/${name}-slow.log",
-  $template                                = 'php/fpm/pool.conf.erb',
-  $rlimit_files                            = undef,
-  $rlimit_core                             = undef,
-  $chroot                                  = undef,
-  $chdir                                   = undef,
-  $catch_workers_output                    = 'no',
-  $include                                 = undef,
-  $env                                     = [],
-  $env_value                               = {},
-  $clear_env                               = true,
-  $options                                 = {},
-  $php_value                               = {},
-  $php_flag                                = {},
-  $php_admin_value                         = {},
-  $php_admin_flag                          = {},
-  $php_directives                          = [],
-  $root_group                              = $php::params::root_group,
-  Optional[Stdlib::Absolutepath] $base_dir = undef,
+  $ensure                                       = 'present',
+  $listen                                       = '127.0.0.1:9000',
+  $listen_backlog                               = '-1',
+  $listen_allowed_clients                       = undef,
+  $listen_owner                                 = undef,
+  $listen_group                                 = undef,
+  $listen_mode                                  = undef,
+  Array[String[1]] $listen_acl_users            = undef,
+  Array[String[1]] $listen_acl_groups           = undef,
+  $user                                         = $php::fpm::config::user,
+  $group                                        = $php::fpm::config::group,
+  Optional[String[1]] $apparmor_hat             = undef,
+  $pm                                           = 'dynamic',
+  $pm_max_children                              = '50',
+  $pm_start_servers                             = '5',
+  $pm_min_spare_servers                         = '5',
+  $pm_max_spare_servers                         = '35',
+  $pm_max_requests                              = '0',
+  $pm_process_idle_timeout                      = '10s',
+  $pm_status_path                               = undef,
+  $ping_path                                    = undef,
+  $ping_response                                = 'pong',
+  $access_log                                   = undef,
+  $access_log_format                            = '"%R - %u %t \"%m %r\" %s"',
+  $request_terminate_timeout                    = '0',
+  $request_slowlog_timeout                      = '0',
+  $security_limit_extensions                    = undef,
+  $slowlog                                      = "/var/log/php-fpm/${name}-slow.log",
+  $template                                     = 'php/fpm/pool.conf.erb',
+  $rlimit_files                                 = undef,
+  $rlimit_core                                  = undef,
+  $chroot                                       = undef,
+  $chdir                                        = undef,
+  $catch_workers_output                         = 'no',
+  $include                                      = undef,
+  $env                                          = [],
+  $env_value                                    = {},
+  $clear_env                                    = true,
+  $options                                      = {},
+  $php_value                                    = {},
+  $php_flag                                     = {},
+  $php_admin_value                              = {},
+  $php_admin_flag                               = {},
+  $php_directives                               = [],
+  $root_group                                   = $php::params::root_group,
+  Optional[Stdlib::Absolutepath] $base_dir      = undef,
 ) {
   # The base class must be included first because it is used by parameter defaults
   if ! defined(Class['php']) {
@@ -194,6 +194,16 @@ define php::fpm::pool (
   $real_package = $facts['os']['name'] ? {
     'FreeBSD' => [],
     default   => $php::fpm::package,
+  }
+
+  # 'php-fpm' expects a comma separated list of user names
+  unless $listen_acl_users.empty {
+    $real_listen_acl_users = join(flatten($listen_acl_users).unique, ",")
+  }
+
+  # 'php-fpm' expects a comma separated list of group names
+  unless $listen_acl_groups.empty {
+    $real_listen_acl_groups = join(flatten($listen_acl_groups).unique, ",")
   }
 
   $pool_base_dir = pick_default($base_dir, $php::fpm::config::pool_base_dir, $php::params::fpm_pool_dir)
