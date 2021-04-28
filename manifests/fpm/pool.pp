@@ -24,6 +24,14 @@
 #
 # [*listen_mode*]
 #
+# [*listen_acl_users*]
+#   When POSIX Access Control Lists are supported you can set them using this option.
+#   When set, listen.owner and listen.group are ignored. Value is a comma separated
+#   list of user names.
+#
+# [*listen_acl_groups*]
+#   See listen_acl_users. Value is a comma separated list of group names.
+#
 # [*user*]
 #   The user that php-fpm should run as
 #
@@ -128,6 +136,8 @@ define php::fpm::pool (
   $listen_owner                            = undef,
   $listen_group                            = undef,
   $listen_mode                             = undef,
+  Optional[String[1]] $listen_acl_users    = undef,
+  Optional[String[1]] $listen_acl_groups   = undef,
   $user                                    = $php::fpm::config::user,
   $group                                   = $php::fpm::config::group,
   Optional[String[1]] $apparmor_hat        = undef,
