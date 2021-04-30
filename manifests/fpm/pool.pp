@@ -24,6 +24,14 @@
 #
 # [*listen_mode*]
 #
+# [*listen_acl_users*]
+#   Array. When POSIX Access Control Lists are supported you can set them using
+#   this option. When set, listen.owner and listen.group are ignored. Value is
+#   an array of user names.
+#
+# [*listen_acl_groups*]
+#   See listen_acl_users. Value is an array of group names.
+#
 # [*user*]
 #   The user that php-fpm should run as
 #
@@ -128,6 +136,8 @@ define php::fpm::pool (
   $listen_owner                            = undef,
   $listen_group                            = undef,
   $listen_mode                             = undef,
+  Array[String[1]] $listen_acl_users       = undef,
+  Array[String[1]] $listen_acl_groups      = undef,
   $user                                    = $php::fpm::config::user,
   $group                                   = $php::fpm::config::group,
   Optional[String[1]] $apparmor_hat        = undef,
@@ -184,6 +194,16 @@ define php::fpm::pool (
   $real_package = $facts['os']['name'] ? {
     'FreeBSD' => [],
     default   => $php::fpm::package,
+  }
+
+  # 'php-fpm' expects a comma separated list of user names
+  unless $listen_acl_users.empty {
+    $real_listen_acl_users = join(flatten($listen_acl_users).unique, ",")
+  }
+
+  # 'php-fpm' expects a comma separated list of group names
+  unless $listen_acl_groups.empty {
+    $real_listen_acl_groups = join(flatten($listen_acl_groups).unique, ",")
   }
 
   $pool_base_dir = pick_default($base_dir, $php::fpm::config::pool_base_dir, $php::params::fpm_pool_dir)
