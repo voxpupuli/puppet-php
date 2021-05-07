@@ -17,7 +17,7 @@ class php::globals (
   $fpm_pid_file = undef,
 ) {
   if $php_version != undef {
-    validate_re($php_version, '^[57].[0-9]')
+    validate_re($php_version, '^[578].[0-9]')
   }
   if $config_root != undef {
     validate_absolute_path($config_root)
