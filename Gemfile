@@ -1,3 +1,6 @@
+# Managed by modulesync - DO NOT EDIT
+# https://voxpupuli.org/docs/updating-files-managed-with-modulesync/
+
 source ENV['GEM_SOURCE'] || "https://rubygems.org"
 
 group :test do
@@ -17,17 +20,17 @@ group :system_tests do
 end
 
 group :release do
-  gem 'github_changelog_generator',  :require => false, :git => 'https://github.com/voxpupuli/github-changelog-generator', :branch => 'voxpupuli_essential_fixes'
-  gem 'puppet-blacksmith',           :require => false
-  gem 'voxpupuli-release',           :require => false
-  gem 'puppet-strings', '>= 2.2',    :require => false
+  gem 'github_changelog_generator', '>= 1.16.1',  :require => false
+  gem 'puppet-blacksmith',                        :require => false
+  gem 'voxpupuli-release',                        :require => false
+  gem 'puppet-strings', '>= 2.2',                 :require => false
 end
 
-gem 'puppetlabs_spec_helper', '~> 2.0', :require => false
+gem 'puppetlabs_spec_helper', '>= 2', '< 4', :require => false
 gem 'rake', :require => false
 gem 'facter', ENV['FACTER_GEM_VERSION'], :require => false, :groups => [:test]
 
-puppetversion = ENV['PUPPET_VERSION'] || '~> 6.0'
+puppetversion = ENV['PUPPET_VERSION'] || '>= 6.0'
 gem 'puppet', puppetversion, :require => false, :groups => [:test]
 
 # vim: syntax=ruby
