@@ -18,8 +18,6 @@ describe 'php with default settings' do
       packagename = 'php7.0-fpm'
     when %r{el}
       packagename = 'php-fpm'
-    when %r{debian-8}
-      packagename = 'php5-fpm'
     when %r{debian-9}
       packagename = 'php7.0-fpm'
     when %r{debian-10}
@@ -92,8 +90,6 @@ describe 'php with default settings' do
       packagename = 'php7.0-fpm'
     when %r{el}
       packagename = 'php-fpm'
-    when %r{debian-8}
-      packagename = 'php5-fpm'
     when %r{debian-9}
       packagename = 'php7.0-fpm'
     when %r{debian-10}
