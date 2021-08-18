@@ -28,6 +28,7 @@ class php::globals (
   $default_php_version = $facts['os']['name'] ? {
     'Debian' => $facts['os']['release']['major'] ? {
       '9'     => '7.0',
+      '11'    => '7.4',
       default => '7.3',
     },
     'Ubuntu' => $facts['os']['release']['major'] ? {
