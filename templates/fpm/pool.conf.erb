@@ -378,6 +378,6 @@ php_admin_flag[<%= key %>] = <%= flag %>
 <%= line.gsub "{", "%{" %>
 <% end -%>
 
-<% if @security_limit_extensions -%>
+<% unless @security_limit_extensions.empty? -%>
 security.limit_extensions = <%= @security_limit_extensions.join(" ") %>
 <% end -%>
