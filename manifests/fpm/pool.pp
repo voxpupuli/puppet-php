@@ -137,7 +137,7 @@ define php::fpm::pool (
   String[1] $pm_min_spare_servers          = '5',
   String[1] $pm_max_spare_servers          = '35',
   String[1] $pm_max_requests               = '0',
-  String[1] $pm_process_idle_timeout       = '10s',
+  Php::Duration $pm_process_idle_timeout   = '10s',
   Optional[Stdlib::Absolutepath] $pm_status_path = undef,
   Optional[Stdlib::Absolutepath] $ping_path = undef,
   String[1] $ping_response                 = 'pong',
