@@ -29,8 +29,8 @@
 class php::composer (
   String $source                       = $php::params::composer_source,
   Stdlib::Absolutepath $path           = $php::params::composer_path,
-  $proxy_type                          = undef,
-  $proxy_server                        = undef,
+  Optional[String[1]] $proxy_type      = undef,
+  Optional[String[1]] $proxy_server    = undef,
   Php::ComposerChannel $channel        = 'stable',
   Boolean $auto_update                 = true,
   Integer $max_age                     = $php::params::composer_max_age,

@@ -6,7 +6,7 @@
 #   PHP version to manage (e.g. 5.6)
 #
 class php::repo::ubuntu (
-  $version   = undef,
+  Optional[String[1]] $version = undef,
 ) {
   if $facts['os']['name'] != 'Ubuntu' {
     fail("class php::repo::ubuntu does not work on OS ${facts['os']['name']}")

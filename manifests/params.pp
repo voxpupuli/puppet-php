@@ -20,12 +20,12 @@ class php::params inherits php::globals {
       'listen'                    => '127.0.0.1:9000',
       'listen_backlog'            => '-1',
       'pm'                        => 'dynamic',
-      'pm_max_children'           => 50,
-      'pm_max_requests'           => 0,
-      'pm_max_spare_servers'      => 35,
-      'pm_min_spare_servers'      => 5,
-      'pm_start_servers'          => 5,
-      'request_terminate_timeout' => 0,
+      'pm_max_children'           => '50',
+      'pm_max_requests'           => '0',
+      'pm_max_spare_servers'      => '35',
+      'pm_min_spare_servers'      => '5',
+      'pm_start_servers'          => '5',
+      'request_terminate_timeout' => '0',
     },
   }
 
