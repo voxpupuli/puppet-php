@@ -18,7 +18,7 @@ class php::params inherits php::globals {
     'www' => {
       'catch_workers_output'      => 'no',
       'listen'                    => '127.0.0.1:9000',
-      'listen_backlog'            => '-1',
+      'listen_backlog'            => -1,
       'pm'                        => 'dynamic',
       'pm_max_children'           => 50,
       'pm_max_requests'           => 0,

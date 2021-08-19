@@ -9,8 +9,8 @@
 #   Base URL of the Zypper repository
 #
 class php::repo::suse (
-  $reponame = 'mayflower-php56',
-  $baseurl  = 'http://download.opensuse.org/repositories/home:/mayflower:/php5.6_based/SLE_11_SP3/',
+  String[1] $reponame = 'mayflower-php56',
+  String[1] $baseurl  = 'http://download.opensuse.org/repositories/home:/mayflower:/php5.6_based/SLE_11_SP3/',
 ) {
   zypprepo { $reponame:
     baseurl     => $baseurl,

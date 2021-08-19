@@ -15,15 +15,13 @@
 #   The mode specifies the specifics in paths for the various RedHat SCL environments so that the module is configured
 #   correctly on their pathnames.
 #
-#   Valid modes are: 'rhscl', 'remi'
-#
 
 class php::globals (
 
   Optional[Pattern[/^(rh-)?(php)?[57](\.)?[0-9]/]] $php_version = undef,
   Optional[Stdlib::Absolutepath] $config_root   = undef,
   Optional[Stdlib::Absolutepath] $fpm_pid_file  = undef,
-  $rhscl_mode   = undef,
+  Optional[Enum['rhscl', 'remi']] $rhscl_mode   = undef,
 ) {
   $default_php_version = $facts['os']['name'] ? {
     'Debian' => $facts['os']['release']['major'] ? {

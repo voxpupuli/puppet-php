@@ -19,8 +19,8 @@
 #   }
 #
 define php::config::setting (
-  $key,
-  $value,
+  String[1] $key,
+  Variant[Integer, String[1]] $value,
   Stdlib::Absolutepath $file,
 ) {
   assert_private()

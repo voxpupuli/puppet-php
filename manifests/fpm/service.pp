@@ -21,10 +21,10 @@
 #   This default will be changed in a future release.
 #
 class php::fpm::service (
-  $service_name                         = $php::fpm::service_name,
-  $ensure                               = $php::fpm::service_ensure,
-  $enable                               = $php::fpm::service_enable,
-  $provider                             = $php::fpm::service_provider,
+  String[1] $service_name               = $php::fpm::service_name,
+  Enum['running', 'stopped'] $ensure    = $php::fpm::service_ensure,
+  Boolean $enable                       = $php::fpm::service_enable,
+  Optional[String[1]] $provider         = $php::fpm::service_provider,
   Boolean $reload_fpm_on_config_changes = $php::fpm::reload_fpm_on_config_changes,
 ) {
   if ! defined(Class['php::fpm']) {

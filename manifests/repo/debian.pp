@@ -24,16 +24,16 @@
 #   Enable special sury handling
 #
 class php::repo::debian (
-  $location     = 'https://packages.dotdeb.org',
-  $release      = 'wheezy-php56',
-  $repos        = 'all',
-  $include_src  = false,
-  $key          = {
+  String[1] $location     = 'https://packages.dotdeb.org',
+  String[1] $release      = 'wheezy-php56',
+  String[1] $repos        = 'all',
+  Boolean $include_src    = false,
+  Hash $key               = {
     'id'     => '6572BBEF1B5FF28B28B706837E3F070089DF5277',
     'source' => 'http://www.dotdeb.org/dotdeb.gpg',
   },
-  $dotdeb       = true,
-  $sury         = true,
+  Boolean $dotdeb         = true,
+  Boolean $sury           = true,
 ) {
   assert_private()
 

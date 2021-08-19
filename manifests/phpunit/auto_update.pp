@@ -12,9 +12,9 @@
 #   Holds path to the phpunit executable
 #
 class php::phpunit::auto_update (
-  $max_age,
-  $source,
-  $path,
+  Integer[1] $max_age,
+  String[1] $source,
+  Stdlib::Absolutepath $path,
 ) {
   assert_private()
 

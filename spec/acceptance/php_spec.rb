@@ -53,9 +53,6 @@ describe 'php with default settings' do
             'gd'       => {},
             'net-url'  => {
               package_prefix => 'php-',
-              settings       => {
-                extension => undef
-              },
             },
             'simplexml'  => {
               package_name => '#{simplexmlpackagename}',

@@ -29,12 +29,12 @@
 #  }
 #
 class php::composer::auto_update (
-  $max_age,
-  $source,
-  $path,
+  Integer[1] $max_age,
+  String[1] $source,
+  Stdlib::Absolutepath $path,
   Php::ComposerChannel  $channel = 'stable',
-  $proxy_type                    = undef,
-  $proxy_server                  = undef,
+  Optional[String[1]] $proxy_type   = undef,
+  Optional[String[1]] $proxy_server = undef,
 ) {
   assert_private()
 
