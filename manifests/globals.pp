@@ -25,13 +25,11 @@ class php::globals (
 ) {
   $default_php_version = $facts['os']['name'] ? {
     'Debian' => $facts['os']['release']['major'] ? {
-      '9'     => '7.0',
       '10'    => '7.3',
       '11'    => '7.4',
       default => fail("Unsupported Debian release: ${fact('os.release.major')}"),
     },
     'Ubuntu' => $facts['os']['release']['major'] ? {
-      '16.04' => '7.0',
       '18.04' => '7.2',
       '20.04' => '7.4',
       default => fail("Unsupported Ubuntu release: ${fact('os.release.major')}"),
