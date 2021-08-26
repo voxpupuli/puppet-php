@@ -4,6 +4,50 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v8.0.0](https://github.com/voxpupuli/puppet-php/tree/v8.0.0) (2021-08-26)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v7.1.0...v8.0.0)
+
+**Breaking changes:**
+
+- Drop EOL FreeBSD 9 and 10 from metadata.json [\#591](https://github.com/voxpupuli/puppet-php/issues/591)
+- Drop Debian 9/Ubuntu 16.04 support [\#636](https://github.com/voxpupuli/puppet-php/pull/636) ([root-expert](https://github.com/root-expert))
+- Drop support for Puppet 5 \(EOL\) [\#631](https://github.com/voxpupuli/puppet-php/pull/631) ([smortex](https://github.com/smortex))
+- Drop support for RedHat 6 / CentOS 6 \(EOL\) [\#630](https://github.com/voxpupuli/puppet-php/pull/630) ([smortex](https://github.com/smortex))
+- Drop EOL Debian 7/8 & Ubuntu 12/14 [\#592](https://github.com/voxpupuli/puppet-php/pull/592) ([bastelfreak](https://github.com/bastelfreak))
+
+**Implemented enhancements:**
+
+- Add/Fix data types of all parameters [\#634](https://github.com/voxpupuli/puppet-php/pull/634) ([smortex](https://github.com/smortex))
+- Add support for Debian 11 [\#633](https://github.com/voxpupuli/puppet-php/pull/633) ([smortex](https://github.com/smortex))
+- Add support for Puppet 7 [\#632](https://github.com/voxpupuli/puppet-php/pull/632) ([smortex](https://github.com/smortex))
+- Add PHP 8 Support [\#627](https://github.com/voxpupuli/puppet-php/pull/627) ([bratucornel](https://github.com/bratucornel))
+- puppet/archive: allow 5.x [\#620](https://github.com/voxpupuli/puppet-php/pull/620) ([bastelfreak](https://github.com/bastelfreak))
+- php::globals: support Ubuntu 20.04 that ships php 7.4 [\#599](https://github.com/voxpupuli/puppet-php/pull/599) ([simondeziel](https://github.com/simondeziel))
+- php-fpm: Make service reload/restart configurable [\#598](https://github.com/voxpupuli/puppet-php/pull/598) ([bastelfreak](https://github.com/bastelfreak))
+- Add apparmor\_hat support to php::fpm::pool [\#524](https://github.com/voxpupuli/puppet-php/pull/524) ([simondeziel](https://github.com/simondeziel))
+
+**Closed issues:**
+
+- remove puppet 5 support, introduce puppet 7 support [\#616](https://github.com/voxpupuli/puppet-php/issues/616)
+- php reloading on each run [\#613](https://github.com/voxpupuli/puppet-php/issues/613)
+- Is it possible to ensure the fpm service from hiera? [\#609](https://github.com/voxpupuli/puppet-php/issues/609)
+- Restart service 'php-fpm' if socket owner / group changes [\#596](https://github.com/voxpupuli/puppet-php/issues/596)
+- Support for Ondřej Surýs PPA on Ubuntu 18.04 [\#586](https://github.com/voxpupuli/puppet-php/issues/586)
+- Unused variable 'log\_group\_final' [\#568](https://github.com/voxpupuli/puppet-php/issues/568)
+- New Release 7.0.0+ ? [\#562](https://github.com/voxpupuli/puppet-php/issues/562)
+- undesired service restart due to missing /var/run/php-fpm dir [\#501](https://github.com/voxpupuli/puppet-php/issues/501)
+- New Release after Ubuntu 18.04 support is added? [\#442](https://github.com/voxpupuli/puppet-php/issues/442)
+- Deprecate mayflower/php in favor for voxpupuli/php [\#348](https://github.com/voxpupuli/puppet-php/issues/348)
+
+**Merged pull requests:**
+
+- Allow up-to-date dependencies [\#635](https://github.com/voxpupuli/puppet-php/pull/635) ([smortex](https://github.com/smortex))
+- Update dependencies [\#629](https://github.com/voxpupuli/puppet-php/pull/629) ([saz](https://github.com/saz))
+- Remove duplicate mysqlnd from example in README [\#574](https://github.com/voxpupuli/puppet-php/pull/574) ([saz](https://github.com/saz))
+- remove www pool from defaults [\#572](https://github.com/voxpupuli/puppet-php/pull/572) ([bovy89](https://github.com/bovy89))
+- Cleanup fpm config class [\#570](https://github.com/voxpupuli/puppet-php/pull/570) ([paescuj](https://github.com/paescuj))
+
 ## [v7.1.0](https://github.com/voxpupuli/puppet-php/tree/v7.1.0) (2020-05-05)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v7.0.0...v7.1.0)
