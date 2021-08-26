@@ -46,7 +46,7 @@ class php::pear (
     false => undef,
   }
   # Default PHP come with xml module and no seperate package for it
-  if $facts['os']['name'] == 'Ubuntu' and versioncmp($facts['os']['release']['full'], '16.04') >= 0 {
+  if $facts['os']['name'] == 'Ubuntu' and versioncmp($facts['os']['release']['full'], '18.04') >= 0 {
     ensure_packages(["${php::package_prefix}xml"], { ensure  => present, require => $require, })
 
     package { $package_name:

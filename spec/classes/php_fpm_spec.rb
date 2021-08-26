@@ -17,9 +17,15 @@ describe 'php::fpm', type: :class do
         case facts[:osfamily]
         when 'Debian'
           case facts[:operatingsystemrelease]
-          when '16.04'
-            it { is_expected.to contain_package('php7.0-fpm').with_ensure('present') }
-            it { is_expected.to contain_service('php7.0-fpm').with_ensure('running') }
+          when '18.04'
+            it { is_expected.to contain_package('php7.2-fpm').with_ensure('present') }
+            it { is_expected.to contain_service('php7.2-fpm').with_ensure('running') }
+          when '20.04', '11'
+            it { is_expected.to contain_package('php7.4-fpm').with_ensure('present') }
+            it { is_expected.to contain_service('php7.4-fpm').with_ensure('running') }
+          when '10'
+            it { is_expected.to contain_package('php7.3-fpm').with_ensure('present') }
+            it { is_expected.to contain_service('php7.3-fpm').with_ensure('running') }
           end
         when 'Suse'
           it { is_expected.to contain_package('php5-fpm').with_ensure('present') }
