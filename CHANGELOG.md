@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v8.0.1](https://github.com/voxpupuli/puppet-php/tree/v8.0.1) (2021-08-27)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v8.0.0...v8.0.1)
+
+**Fixed bugs:**
+
+- Allow empty string for setting value [\#640](https://github.com/voxpupuli/puppet-php/pull/640) ([smortex](https://github.com/smortex))
+
+**Closed issues:**
+
+- String\[1\] forbids empty php::settings value [\#639](https://github.com/voxpupuli/puppet-php/issues/639)
+
 ## [v8.0.0](https://github.com/voxpupuli/puppet-php/tree/v8.0.0) (2021-08-26)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v7.1.0...v8.0.0)

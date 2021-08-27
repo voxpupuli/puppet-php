@@ -2054,7 +2054,7 @@ Data type: `String[1]`
 
 ##### <a name="value"></a>`value`
 
-Data type: `Variant[Integer, String[1]]`
+Data type: `Variant[Integer, String]`
 
 
 
