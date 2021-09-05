@@ -133,7 +133,7 @@ define php::fpm::pool (
   Optional[String[1]] $apparmor_hat        = undef,
   String[1] $pm                            = 'dynamic',
   Integer[1] $pm_max_children              = 50,
-  Integer[1] $pm_start_servers             = 5,
+  Integer[0] $pm_start_servers             = 5,
   Integer[0] $pm_min_spare_servers         = 5,
   Integer[0] $pm_max_spare_servers         = 35,
   Integer[0] $pm_max_requests              = 0,
