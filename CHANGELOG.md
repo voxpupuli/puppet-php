@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v8.0.2](https://github.com/voxpupuli/puppet-php/tree/v8.0.2) (2021-09-05)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v8.0.1...v8.0.2)
+
+**Fixed bugs:**
+
+- Allow 0 for pm\_start\_servers [\#642](https://github.com/voxpupuli/puppet-php/pull/642) ([jkroepke](https://github.com/jkroepke))
+
 ## [v8.0.1](https://github.com/voxpupuli/puppet-php/tree/v8.0.1) (2021-08-27)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v8.0.0...v8.0.1)
