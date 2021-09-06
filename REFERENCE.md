@@ -2828,7 +2828,7 @@ Default value: `50`
 
 ##### <a name="pm_start_servers"></a>`pm_start_servers`
 
-Data type: `Integer[1]`
+Data type: `Integer[0]`
 
 
 
