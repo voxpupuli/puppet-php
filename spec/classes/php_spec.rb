@@ -292,6 +292,25 @@ describe 'php', type: :class do
       end
 
       if facts[:osfamily] == 'RedHat' || facts[:osfamily] == 'CentOS'
+        describe 'when called with valid settings parameter types' do
+          let(:params) do
+            {
+              'settings' =>
+              {
+                'PHP/memory_limit'          => '300M',
+                'PHP/safe_mode_include_dir' => :undef,
+                'PHP/error_reporting'       => '',
+                'PHP/max_execution_time'    => 60
+              }
+            }
+          end
+
+          it { is_expected.to contain_php__config__setting('/etc/php.ini: PHP/memory_limit').with_value('300M') }
+          it { is_expected.to contain_ini_setting('/etc/php.ini: PHP/safe_mode_include_dir').with_ensure('absent') }
+          it { is_expected.to contain_php__config__setting('/etc/php.ini: PHP/error_reporting').with_value('') }
+          it { is_expected.to contain_php__config__setting('/etc/php.ini: PHP/max_execution_time').with_value(60) }
+        end
+
         describe 'when called with cli_settings parameter' do
           let(:params) do
             {
