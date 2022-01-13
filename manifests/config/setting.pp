@@ -20,7 +20,7 @@
 #
 define php::config::setting (
   String[1] $key,
-  Variant[Integer, String] $value,
+  Optional[Variant[Integer, String]] $value,
   Stdlib::Absolutepath $file,
 ) {
   assert_private()
