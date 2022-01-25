@@ -25,7 +25,7 @@ class php::repo::redhat (
 
   yumrepo { $yum_repo:
     descr      => "Remi's ${yum_repo.match('php.+$')[0].strip} RPM repository for Enterprise Linux \$releasever - \$basearch",
-    mirrorlist => "https://rpms.remirepo.net/enterprise/$releasever/${yum_repo.match('php.+$')[0].strip}/mirror",
+    mirrorlist => "https://rpms.remirepo.net/enterprise/${releasever}/${yum_repo.match('php.+$')[0].strip}/mirror",
     enabled    => 1,
     gpgcheck   => 1,
     gpgkey     => 'https://rpms.remirepo.net/RPM-GPG-KEY-remi',
