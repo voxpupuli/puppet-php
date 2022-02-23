@@ -35,22 +35,22 @@ class php::repo::debian (
   Boolean $dotdeb         = true,
   Boolean $sury           = true,
 ) {
-  assert_private()
-
   include 'apt'
 
-  apt::source { "source_php_${release}":
-    location => $location,
-    release  => $release,
-    repos    => $repos,
-    include  => {
-      'src' => $include_src,
-      'deb' => true,
-    },
-    key      => $key,
+  if ($dotdeb) {
+    apt::source { "source_php_${release}":
+      location => $location,
+      release  => $release,
+      repos    => $repos,
+      include  => {
+        'src' => $include_src,
+        'deb' => true,
+      },
+      key      => $key,
+    }
   }
 
-  if ($sury and $php::globals::php_version in ['7.1','7.2']) {
+  if ($sury) {
     apt::source { 'source_php_sury':
       location => 'https://packages.sury.org/php/',
       repos    => 'main',
