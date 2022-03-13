@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'puppet/provider/package'
 
 Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
@@ -38,7 +40,7 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
     when %r{no packages installed}i then nil
     when %r{^=} then nil
     when %r{^package}i then nil
-    when %r{^(\S+)\s+(\S+)\s+(\S+)\s*$} then
+    when %r{^(\S+)\s+(\S+)\s+(\S+)\s*$}
       name = Regexp.last_match(1)
       version = Regexp.last_match(2)
       state = Regexp.last_match(3)

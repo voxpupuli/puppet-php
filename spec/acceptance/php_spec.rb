@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper_acceptance'
 
 describe 'php with default settings' do
@@ -30,6 +32,7 @@ describe 'php with default settings' do
       it { is_expected.to be_enabled }
     end
   end
+
   context 'default parameters with extensions' do
     case default[:platform]
     when %r{ubuntu-20.04}, %r{ubuntu-18.04}

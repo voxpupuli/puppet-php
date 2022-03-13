@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 module Puppet::Parser::Functions
   newfunction(:to_hash_settings, type: :rvalue, doc: <<-EOS
@@ -23,8 +24,8 @@ module Puppet::Parser::Functions
         'foo: a' => {'key' => 'a', 'value' => 1},
         'foo: b' => {'key' => 'b', 'value' => 2}
       }
-EOS
-             ) do |arguments|
+  EOS
+  ) do |arguments|
     hash, id = arguments
     id = (id.nil? ? '' : "#{id}: ")
 
