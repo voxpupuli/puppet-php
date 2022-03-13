@@ -34,6 +34,7 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
   def self.pearsplit(desc, channel)
     desc.strip!
 
+    # rubocop:disable Lint/DuplicateBranch
     case desc
     when '' then nil
     when %r{^installed}i then nil
@@ -55,6 +56,7 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
       Puppet.warning format('Could not match %s', desc)
       nil
     end
+    # rubocop:enable Lint/DuplicateBranch
   end
 
   def self.instances

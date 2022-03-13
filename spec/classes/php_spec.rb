@@ -73,7 +73,7 @@ describe 'php', type: :class do
         it { is_expected.to compile.with_all_deps }
       end
 
-      describe 'when called with no parameters' do
+      describe 'when called with no parameters' do # rubocop: disable RSpec/EmptyExampleGroup
         case facts[:osfamily]
         when 'Suse', 'RedHat', 'CentOS'
           it { is_expected.to contain_class('php::global') }
@@ -127,7 +127,7 @@ describe 'php', type: :class do
         end
       end
 
-      describe 'when called with package_prefix parameter' do
+      describe 'when called with package_prefix parameter' do # rubocop: disable RSpec/EmptyExampleGroup
         package_prefix = 'myphp-'
         let(:params) { { package_prefix: package_prefix } }
 

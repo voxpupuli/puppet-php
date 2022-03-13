@@ -12,7 +12,7 @@ describe 'php with default settings' do
     end
 
     case default[:platform]
-    when %r{ubuntu-20.04}
+    when %r{ubuntu-20.04}, %r{debian-11}
       packagename = 'php7.4-fpm'
     when %r{ubuntu-18.04}
       packagename = 'php7.2-fpm'
@@ -20,8 +20,6 @@ describe 'php with default settings' do
       packagename = 'php-fpm'
     when %r{debian-10}
       packagename = 'php7.3-fpm'
-    when %r{debian-11}
-      packagename = 'php7.4-fpm'
     end
     describe package(packagename) do
       it { is_expected.to be_installed }
@@ -78,7 +76,7 @@ describe 'php with default settings' do
     end
 
     case default[:platform]
-    when %r{ubuntu-20.04}
+    when %r{ubuntu-20.04}, %r{debian-11}
       packagename = 'php7.4-fpm'
     when %r{ubuntu-18.04}
       packagename = 'php7.2-fpm'
@@ -86,8 +84,6 @@ describe 'php with default settings' do
       packagename = 'php-fpm'
     when %r{debian-10}
       packagename = 'php7.3-fpm'
-    when %r{debian-11}
-      packagename = 'php7.4-fpm'
     end
     describe package(packagename) do
       it { is_expected.to be_installed }
