@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'puppet/provider/package'
 
 Puppet::Type.type(:package).provide :pecl, parent: :pear do
