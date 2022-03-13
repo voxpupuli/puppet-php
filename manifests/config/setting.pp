@@ -20,8 +20,8 @@
 #
 define php::config::setting (
   String[1] $key,
-  Variant[Integer, String] $value,
   Stdlib::Absolutepath $file,
+  Optional[Variant[Integer, String]] $value = undef,
 ) {
   assert_private()
 
@@ -35,13 +35,13 @@ define php::config::setting (
   }
 
   if $value == undef {
-    $ensure = 'absent'
+    $_ensure = 'absent'
   } else {
-    $ensure = 'present'
+    $_ensure = 'present'
   }
 
   ini_setting { $name:
-    ensure  => $ensure,
+    ensure  => $_ensure,
     value   => $value,
     path    => $file,
     section => $section,
