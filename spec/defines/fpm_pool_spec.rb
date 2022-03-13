@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe 'php::fpm::pool' do
   on_supported_os.each do |os, facts|
-    context "on #{os}" do
+    context "on #{os}" do # rubocop: disable RSpec/EmptyExampleGroup
       let :facts do
         facts
       end
@@ -12,7 +12,7 @@ describe 'php::fpm::pool' do
 
       case facts[:os]['name']
       when 'Debian'
-        context 'plain config' do
+        context 'plain config' do # rubocop: disable RSpec/EmptyExampleGroup
           let(:title) { 'unique-name' }
           let(:params) { {} }
 
@@ -26,7 +26,7 @@ describe 'php::fpm::pool' do
           end
         end
       when 'Ubuntu'
-        context 'plain config' do
+        context 'plain config' do # rubocop: disable RSpec/EmptyExampleGroup
           let(:title) { 'unique-name' }
           let(:params) { {} }
 

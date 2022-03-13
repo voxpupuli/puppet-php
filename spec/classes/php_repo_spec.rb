@@ -21,7 +21,7 @@ describe 'php::repo', type: :class do
         end
       end
 
-      describe 'when configuring a package repo' do
+      describe 'when configuring a package repo' do # rubocop: disable RSpec/EmptyExampleGroup
         case facts[:osfamily]
         when 'Debian'
           case facts[:operatingsystem]
