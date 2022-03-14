@@ -74,10 +74,11 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
       command << '--alldeps'
     end
 
-    pear_pkg = @resource[:source] || @resource[:name]
     if !@resource[:ensure].is_a?(Symbol) && useversion
       command << '-f'
-      pear_pkg << "-#{@resource[:ensure]}"
+      pear_pkg = "#{@resource[:source] || @resource[:name]}-#{@resource[:ensure]}"
+    else
+      pear_pkg = @resource[:source] || @resource[:name]
     end
     command << pear_pkg
 
