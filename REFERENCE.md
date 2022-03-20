@@ -2043,18 +2043,12 @@ Configure php.ini settings
 The following parameters are available in the `php::config::setting` defined type:
 
 * [`key`](#key)
-* [`value`](#value)
 * [`file`](#file)
+* [`value`](#value)
 
 ##### <a name="key"></a>`key`
 
 Data type: `String[1]`
-
-
-
-##### <a name="value"></a>`value`
-
-Data type: `Variant[Integer, String]`
 
 
 
@@ -2063,6 +2057,14 @@ Data type: `Variant[Integer, String]`
 Data type: `Stdlib::Absolutepath`
 
 
+
+##### <a name="value"></a>`value`
+
+Data type: `Optional[Variant[Integer, String]]`
+
+
+
+Default value: ``undef``
 
 ### <a name="phpextension"></a>`php::extension`
 
