@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'php', type: :class do
@@ -70,7 +72,8 @@ describe 'php', type: :class do
       describe 'works without params' do
         it { is_expected.to compile.with_all_deps }
       end
-      describe 'when called with no parameters' do
+
+      describe 'when called with no parameters' do # rubocop: disable RSpec/EmptyExampleGroup
         case facts[:osfamily]
         when 'Suse', 'RedHat', 'CentOS'
           it { is_expected.to contain_class('php::global') }
@@ -124,7 +127,7 @@ describe 'php', type: :class do
         end
       end
 
-      describe 'when called with package_prefix parameter' do
+      describe 'when called with package_prefix parameter' do # rubocop: disable RSpec/EmptyExampleGroup
         package_prefix = 'myphp-'
         let(:params) { { package_prefix: package_prefix } }
 
@@ -198,6 +201,7 @@ describe 'php', type: :class do
 
         it { is_expected.to contain_file(dstfile).with_content(%r{user = nginx}) }
       end
+
       describe 'when called with fpm_group parameter' do
         let(:params) { { fpm_group: 'nginx' } }
 
@@ -297,10 +301,10 @@ describe 'php', type: :class do
             {
               'settings' =>
               {
-                'PHP/memory_limit'          => '300M',
+                'PHP/memory_limit' => '300M',
                 'PHP/safe_mode_include_dir' => :undef,
-                'PHP/error_reporting'       => '',
-                'PHP/max_execution_time'    => 60
+                'PHP/error_reporting' => '',
+                'PHP/max_execution_time' => 60
               }
             }
           end
@@ -314,7 +318,7 @@ describe 'php', type: :class do
         describe 'when called with cli_settings parameter' do
           let(:params) do
             {
-              'settings'     => { 'PHP/memory_limit' => '300M' },
+              'settings' => { 'PHP/memory_limit' => '300M' },
               'cli_settings' => { 'PHP/memory_limit' => '1000M' }
             }
           end

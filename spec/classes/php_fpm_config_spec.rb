@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rspec'
 require 'spec_helper'
 
@@ -13,6 +15,7 @@ describe 'php::fpm::config' do
         it { is_expected.to contain_class('php::globals') }
         it { is_expected.to contain_class('php::params') }
       end
+
       describe 'creates config file' do
         let(:params) do
           {

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'php::repo', type: :class do
@@ -18,7 +20,8 @@ describe 'php::repo', type: :class do
           it { is_expected.to compile.with_all_deps }
         end
       end
-      describe 'when configuring a package repo' do
+
+      describe 'when configuring a package repo' do # rubocop: disable RSpec/EmptyExampleGroup
         case facts[:osfamily]
         when 'Debian'
           case facts[:operatingsystem]

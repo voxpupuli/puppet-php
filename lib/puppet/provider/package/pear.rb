@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'puppet/provider/package'
 
 Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
@@ -32,13 +34,14 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
   def self.pearsplit(desc, channel)
     desc.strip!
 
+    # rubocop:disable Lint/DuplicateBranch
     case desc
     when '' then nil
     when %r{^installed}i then nil
     when %r{no packages installed}i then nil
     when %r{^=} then nil
     when %r{^package}i then nil
-    when %r{^(\S+)\s+(\S+)\s+(\S+)\s*$} then
+    when %r{^(\S+)\s+(\S+)\s+(\S+)\s*$}
       name = Regexp.last_match(1)
       version = Regexp.last_match(2)
       state = Regexp.last_match(3)
@@ -53,6 +56,7 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
       Puppet.warning format('Could not match %s', desc)
       nil
     end
+    # rubocop:enable Lint/DuplicateBranch
   end
 
   def self.instances
@@ -70,10 +74,11 @@ Puppet::Type.type(:package).provide :pear, parent: Puppet::Provider::Package do
       command << '--alldeps'
     end
 
-    pear_pkg = @resource[:source] || @resource[:name]
     if !@resource[:ensure].is_a?(Symbol) && useversion
       command << '-f'
-      pear_pkg << "-#{@resource[:ensure]}"
+      pear_pkg = "#{@resource[:source] || @resource[:name]}-#{@resource[:ensure]}"
+    else
+      pear_pkg = @resource[:source] || @resource[:name]
     end
     command << pear_pkg
 

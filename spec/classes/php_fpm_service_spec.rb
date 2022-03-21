@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'php::fpm::service', type: :class do
@@ -23,8 +25,7 @@ describe 'php::fpm::service', type: :class do
         it { is_expected.to contain_class('php::pear') }
       end
 
-      describe 'when called with no parameters' do
-        # rubocop:disable RSpec/RepeatedExample
+      describe 'when called with no parameters' do # rubocop: disable RSpec/EmptyExampleGroup
         case facts[:osfamily]
         when 'Debian'
           case facts[:operatingsystemrelease]
@@ -35,11 +36,7 @@ describe 'php::fpm::service', type: :class do
           when '20.04', '11'
             it { is_expected.to contain_service('php7.4-fpm').with_ensure('running') }
           end
-        when 'Suse'
-          it { is_expected.to contain_service('php-fpm').with_ensure('running') }
-        when 'FreeBSD'
-          it { is_expected.to contain_service('php-fpm').with_ensure('running') }
-        else
+        when 'Suse', 'FreeBSD'
           it { is_expected.to contain_service('php-fpm').with_ensure('running') }
         end
       end

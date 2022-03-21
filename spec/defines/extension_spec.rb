@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'php::extension' do
@@ -46,12 +48,13 @@ describe 'php::extension' do
           end
 
           it { is_expected.to contain_package('php5-json') }
+
           it do
             is_expected.to contain_php__config('json').with(
               file: "#{etcdir}/json.ini",
               config: {
                 'extension' => 'json.so',
-                'test'      => 'foo'
+                'test' => 'foo'
               }
             )
           end
@@ -74,7 +77,7 @@ describe 'php::extension' do
               require: nil,
               config: {
                 'extension' => 'json.so',
-                'test'      => 'foo'
+                'test' => 'foo'
               }
             )
           end
@@ -118,7 +121,7 @@ describe 'php::extension' do
             is_expected.to contain_php__config('json').with(
               config: {
                 'extension' => 'json.so',
-                'bar.test'  => 'foo'
+                'bar.test' => 'foo'
               }
             )
           end
@@ -211,7 +214,7 @@ describe 'php::extension' do
 
             it { is_expected.to contain_php__config('xdebug').with_file("#{etcdir}/xdebug.ini") }
 
-            # note to consider: As of PHP 5.2.0, the JSON extension is bundled and compiled into PHP by default
+            # NOTE: to consider: As of PHP 5.2.0, the JSON extension is bundled and compiled into PHP by default
             # http://php.net/manual/en/json.installation.php
             context 'pecl installation' do
               let(:title) { 'json' }
@@ -229,12 +232,13 @@ describe 'php::extension' do
               it { is_expected.to contain_package('json') }
               it { is_expected.to contain_package('libmemcached-dev') }
               it { is_expected.to contain_package('build-essential') }
+
               it do
                 is_expected.to contain_php__config('json').with(
                   file: "#{etcdir}/nice_name.ini",
                   config: {
                     'extension' => 'nice_name.so',
-                    'test'      => 'foo'
+                    'test' => 'foo'
                   }
                 )
               end
