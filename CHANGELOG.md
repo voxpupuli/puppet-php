@@ -4,7 +4,20 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
-## [v8.0.2](https://github.com/voxpupuli/puppet-php/tree/v8.0.2) (2021-09-05)
+## [v8.0.3](https://github.com/voxpupuli/puppet-php/tree/v8.0.3) (2022-03-21)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v8.0.2...v8.0.3)
+
+**Fixed bugs:**
+
+- Fix forcing a php::setting to be absent by setting its value to undef [\#647](https://github.com/voxpupuli/puppet-php/pull/647) ([jadestorm](https://github.com/jadestorm))
+
+**Closed issues:**
+
+- Unable to remove extension configuration settings [\#653](https://github.com/voxpupuli/puppet-php/issues/653)
+- update supported os matrix [\#617](https://github.com/voxpupuli/puppet-php/issues/617)
+
+## [v8.0.2](https://github.com/voxpupuli/puppet-php/tree/v8.0.2) (2021-09-06)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v8.0.1...v8.0.2)
 
