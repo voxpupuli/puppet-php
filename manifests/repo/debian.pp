@@ -5,9 +5,6 @@
 # [*location*]
 #   Location of the apt repository
 #
-# [*release*]
-#   Release of the apt repository
-#
 # [*repos*]
 #   Apt repository names
 #
@@ -25,7 +22,6 @@
 #
 class php::repo::debian (
   String[1] $location     = 'https://packages.dotdeb.org',
-  String[1] $release      = 'wheezy-php56',
   String[1] $repos        = 'all',
   Boolean $include_src    = false,
   Hash $key               = {
@@ -37,20 +33,24 @@ class php::repo::debian (
 ) {
   assert_private()
 
+  if $facts['os']['name'] != 'Debian' {
+    fail("class php::repo::debian does not work on OS ${facts['os']['name']}")
+  }
   include 'apt'
 
-  apt::source { "source_php_${release}":
-    location => $location,
-    release  => $release,
-    repos    => $repos,
-    include  => {
-      'src' => $include_src,
-      'deb' => true,
-    },
-    key      => $key,
+  if ($dotdeb and $facts['os']['release']['major'] in ['6', '7', '8']) {
+    apt::source { 'source_php_dotdeb':
+      location => $location,
+      repos    => $repos,
+      include  => {
+        'src' => $include_src,
+        'deb' => true,
+      },
+      key      => $key,
+    }
   }
 
-  if ($sury and $php::globals::php_version in ['7.1','7.2']) {
+  if ($sury and $facts['os']['release']['major'] in ['9', '10', '11']) {
     apt::source { 'source_php_sury':
       location => 'https://packages.sury.org/php/',
       repos    => 'main',
