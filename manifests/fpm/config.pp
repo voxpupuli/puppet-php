@@ -93,7 +93,7 @@ class php::fpm::config (
   String[1] $root_group                                                 = $php::params::root_group,
   String $syslog_facility                                               = 'daemon',
   String $syslog_ident                                                  = 'php-fpm',
-  Boolean $manange_run_dir                                              = true
+  Boolean $manage_run_dir                                               = true
 ) inherits php::params {
   assert_private()
 
@@ -105,7 +105,7 @@ class php::fpm::config (
     mode    => '0644',
   }
 
-  if $manange_run_dir {
+  if $manage_run_dir {
     ensure_resource('file', '/var/run/php-fpm',
       {
         ensure => directory,
