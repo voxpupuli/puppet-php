@@ -138,58 +138,64 @@ describe 'php::extension' do
           it { is_expected.to contain_php__config('xdebug').with_config('zend_extension' => 'xdebug.so') }
         end
 
-        context 'pecl extensions support so_name' do
-          let(:title) { 'zendopcache' }
-          let(:params) do
-            {
-              provider: 'pecl',
-              zend: true,
-              so_name: 'opcache'
-            }
-          end
-
-          it do
-            is_expected.to contain_php__config('zendopcache').with(
-              file: "#{etcdir}/opcache.ini",
-              config: {
-                'zend_extension' => 'opcache.so'
+        if facts[:os]['family'] != 'Archlinux'
+          context 'pecl extensions support so_name' do
+            let(:title) { 'zendopcache' }
+            let(:params) do
+              {
+                provider: 'pecl',
+                zend: true,
+                so_name: 'opcache'
               }
-            )
+            end
+
+            it do
+              is_expected.to contain_php__config('zendopcache').with(
+                file: "#{etcdir}/opcache.ini",
+                config: {
+                  'zend_extension' => 'opcache.so'
+                }
+              )
+            end
           end
         end
 
-        context 'add ini file prefix if requested' do
-          let(:title) { 'zendopcache' }
-          let(:params) do
-            {
-              provider: 'pecl',
-              zend: true,
-              ini_prefix: '10-',
-              so_name: 'opcache'
-            }
-          end
-
-          it do
-            is_expected.to contain_php__config('zendopcache').with(
-              file: "#{etcdir}/10-opcache.ini",
-              config: {
-                'zend_extension' => 'opcache.so'
+        if facts[:os]['family'] != 'Archlinux'
+          context 'add ini file prefix if requested' do
+            let(:title) { 'zendopcache' }
+            let(:params) do
+              {
+                provider: 'pecl',
+                zend: true,
+                ini_prefix: '10-',
+                so_name: 'opcache'
               }
-            )
+            end
+
+            it do
+              is_expected.to contain_php__config('zendopcache').with(
+                file: "#{etcdir}/10-opcache.ini",
+                config: {
+                  'zend_extension' => 'opcache.so'
+                }
+              )
+            end
           end
         end
 
-        context 'pecl extensions support php_api_version' do
-          let(:title) { 'xdebug' }
-          let(:params) do
-            {
-              provider: 'pecl',
-              zend: true,
-              php_api_version: '20100525'
-            }
-          end
+        if facts[:os]['family'] != 'Archlinux'
+          context 'pecl extensions support php_api_version' do
+            let(:title) { 'xdebug' }
+            let(:params) do
+              {
+                provider: 'pecl',
+                zend: true,
+                php_api_version: '20100525'
+              }
+            end
 
-          it { is_expected.to contain_php__config('xdebug').with_config('zend_extension' => '/usr/lib/php5/20100525/xdebug.so') }
+            it { is_expected.to contain_php__config('xdebug').with_config('zend_extension' => '/usr/lib/php5/20100525/xdebug.so') }
+          end
         end
 
         if facts[:os]['family'] == 'Debian'

@@ -22,7 +22,8 @@ describe 'php::fpm::service', type: :class do
         it { is_expected.to contain_class('php::packages') }
         it { is_expected.to contain_class('php::globals') }
         it { is_expected.to contain_class('php::params') }
-        it { is_expected.to contain_class('php::pear') }
+
+        it { is_expected.to contain_class('php::pear') } if facts[:osfamily] != 'Archlinux'
       end
 
       describe 'when called with no parameters' do
