@@ -365,7 +365,7 @@ Data type: `Boolean`
 
 
 
-Default value: ``true``
+Default value: `$php::params::pear`
 
 ##### <a name="pear_ensure"></a>`pear_ensure`
 
