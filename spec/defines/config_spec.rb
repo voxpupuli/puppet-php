@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe 'php::config' do
   on_supported_os.each do |os, facts|
-    context "on #{os}" do # rubocop:disable RSpec/EmptyExampleGroup
+    context "on #{os}" do
       let :facts do
         facts
       end

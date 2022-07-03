@@ -150,7 +150,7 @@ class php (
   Boolean $embedded                               = false,
   Boolean $dev                                    = true,
   Boolean $composer                               = true,
-  Boolean $pear                                   = true,
+  Boolean $pear                                   = $php::params::pear,
   String $pear_ensure                             = $php::params::pear_ensure,
   Boolean $phpunit                                = false,
   Boolean $apache_config                          = false,

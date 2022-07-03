@@ -56,6 +56,7 @@ class php::params inherits php::globals {
       $ext_tool_enable         = $php::globals::ext_tool_enable
       $ext_tool_query          = $php::globals::ext_tool_query
       $ext_tool_enabled        = true
+      $pear                    = true
 
       case $facts['os']['name'] {
         'Debian': {
@@ -103,6 +104,8 @@ class php::params inherits php::globals {
       $ext_tool_enable         = undef
       $ext_tool_query          = undef
       $ext_tool_enabled        = false
+      $pear                    = true
+
       case $facts['os']['name'] {
         'SLES': {
           $compiler_packages = []
@@ -170,6 +173,7 @@ class php::params inherits php::globals {
       $ext_tool_enable         = undef
       $ext_tool_query          = undef
       $ext_tool_enabled        = false
+      $pear                    = true
     }
     'FreeBSD': {
       $config_root             = $php::globals::globals_config_root
@@ -200,6 +204,7 @@ class php::params inherits php::globals {
       $ext_tool_enable         = undef
       $ext_tool_query          = undef
       $ext_tool_enabled        = false
+      $pear                    = true
     }
     'Archlinux': {
       $config_root_ini         = '/etc/php/conf.d'
@@ -215,8 +220,8 @@ class php::params inherits php::globals {
       $fpm_package_suffix      = 'fpm'
       $fpm_pool_dir            = '/etc/php/php-fpm.d'
       $fpm_service_name        = 'php-fpm'
-      $fpm_user                = 'root'
-      $fpm_group               = 'root'
+      $fpm_user                = 'http'
+      $fpm_group               = 'http'
       $apache_inifile          = '/etc/php/php.ini'
       $embedded_package_suffix = 'embedded'
       $embedded_inifile        = '/etc/php/php.ini'
@@ -227,6 +232,7 @@ class php::params inherits php::globals {
       $ext_tool_enable         = undef
       $ext_tool_query          = undef
       $ext_tool_enabled        = false
+      $pear                    = false
     }
     default: {
       fail("Unsupported osfamily: ${facts['os']['family']}")
