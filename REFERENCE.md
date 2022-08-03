@@ -24,7 +24,7 @@
 * [`php::phpunit`](#phpphpunit): Install phpunit, PHP testing framework  === Parameters  [*source*]   Holds URL to the phpunit source file  [*path*]   Holds path to the phpun
 * [`php::phpunit::auto_update`](#phpphpunitauto_update): Install phpunit package manager  === Parameters  [*max_age*]   Defines number of days after which phpunit should be updated  [*source*]   Hol
 * [`php::repo`](#phprepo): Configure package repository
-* [`php::repo::debian`](#phprepodebian): Configure debian apt repo  === Parameters  [*location*]   Location of the apt repository  [*release*]   Release of the apt repository  [*repo
+* [`php::repo::debian`](#phprepodebian): Configure debian apt repo  === Parameters  [*location*]   Location of the apt repository  [*repos*]   Apt repository names  [*include_src*]  
 * [`php::repo::redhat`](#phpreporedhat)
 * [`php::repo::suse`](#phpreposuse): Configure suse repo  === Parameters  [*reponame*]   Name of the Zypper repository  [*baseurl*]   Base URL of the Zypper repository
 * [`php::repo::ubuntu`](#phprepoubuntu): Configure ubuntu ppa  === Parameters  [*version*]   PHP version to manage (e.g. 5.6)
@@ -1738,9 +1738,6 @@ Configure debian apt repo
 [*location*]
   Location of the apt repository
 
-[*release*]
-  Release of the apt repository
-
 [*repos*]
   Apt repository names
 
@@ -1761,7 +1758,6 @@ Configure debian apt repo
 The following parameters are available in the `php::repo::debian` class:
 
 * [`location`](#location)
-* [`release`](#release)
 * [`repos`](#repos)
 * [`include_src`](#include_src)
 * [`key`](#key)
@@ -1775,14 +1771,6 @@ Data type: `String[1]`
 
 
 Default value: `'https://packages.dotdeb.org'`
-
-##### <a name="release"></a>`release`
-
-Data type: `String[1]`
-
-
-
-Default value: `'wheezy-php56'`
 
 ##### <a name="repos"></a>`repos`
 

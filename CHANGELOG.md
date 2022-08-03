@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v8.1.1](https://github.com/voxpupuli/puppet-php/tree/v8.1.1) (2022-08-03)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v8.1.0...v8.1.1)
+
+**Fixed bugs:**
+
+- Why does dotdeb APT wheezy 5.6 repo get installed on Debian 9? [\#458](https://github.com/voxpupuli/puppet-php/issues/458)
+- \(\#458\) Remove dotdeb and sury repos overuse on Debian [\#659](https://github.com/voxpupuli/puppet-php/pull/659) ([OlegPS](https://github.com/OlegPS))
+
+**Closed issues:**
+
+- Howto solve package name conflict between apt and pecl [\#579](https://github.com/voxpupuli/puppet-php/issues/579)
+
 ## [v8.1.0](https://github.com/voxpupuli/puppet-php/tree/v8.1.0) (2022-07-03)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v8.0.3...v8.1.0)
