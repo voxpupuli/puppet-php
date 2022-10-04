@@ -7,12 +7,14 @@
 #
 
 class php::repo::redhat (
-  String[1] $yum_repo = 'remi_php56',
+  $version = '5.6',
 ) {
+
   $releasever = $facts['os']['name'] ? {
     /(?i:Amazon)/ => '6',
     default       => '$releasever',  # Yum var
   }
+  $no_dot_version = $version.delete('.')
 
   yumrepo { 'remi':
     descr      => 'Remi\'s RPM repository for Enterprise Linux $releasever - $basearch',
@@ -23,9 +25,9 @@ class php::repo::redhat (
     priority   => 1,
   }
 
-  yumrepo { 'remi-php56':
-    descr      => 'Remi\'s PHP 5.6 RPM repository for Enterprise Linux $releasever - $basearch',
-    mirrorlist => "https://rpms.remirepo.net/enterprise/${releasever}/php56/mirror",
+  yumrepo { "remi-php${no_dot_version}":
+    descr      => "Remi's PHP ${version} RPM repository for Enterprise Linux \$releasever - \$basearch",
+    mirrorlist => "https://rpms.remirepo.net/enterprise/${releasever}/php${no_dot_version}/mirror",
     enabled    => 1,
     gpgcheck   => 1,
     gpgkey     => 'https://rpms.remirepo.net/RPM-GPG-KEY-remi',
