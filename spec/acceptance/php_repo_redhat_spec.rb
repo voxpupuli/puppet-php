@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require 'spec_helper_acceptance'
 
@@ -11,7 +13,7 @@ describe 'with RedHat', if: (fact('os.family') == 'RedHat') do
       end
     end
     describe yumrepo('remi-php56') do
-      it { should exist }
+      it { is_expected.to exist }
     end
   end
 
@@ -26,7 +28,7 @@ describe 'with RedHat', if: (fact('os.family') == 'RedHat') do
       end
     end
     describe yumrepo('remi-php72') do
-      it { should exist }
+      it { is_expected.to exist }
     end
   end
 end
