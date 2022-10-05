@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
 require 'spec_helper_acceptance'
 
 describe 'with RedHat', if: (fact('os.family') == 'RedHat') do
