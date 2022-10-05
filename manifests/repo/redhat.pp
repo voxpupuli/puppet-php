@@ -7,9 +7,8 @@
 #
 
 class php::repo::redhat (
-  $version = '5.6',
+  String[1] $version = '5.6',
 ) {
-
   $releasever = $facts['os']['name'] ? {
     /(?i:Amazon)/ => '6',
     default       => '$releasever',  # Yum var
