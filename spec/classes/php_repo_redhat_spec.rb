@@ -12,7 +12,7 @@ describe 'php::repo::redhat', type: :class do
       case facts[:osfamily]
       when 'RedHat'
         describe 'when called with no parameters on RedHat' do
-          it { is_expected.to contain_yumrepo('remi_php56') }
+          it { is_expected.to contain_yumrepo('remi-php56') }
         end
 
         describe 'when called with version 7.0 on RedHat' do
@@ -22,7 +22,7 @@ describe 'php::repo::redhat', type: :class do
             }
           end
 
-          it { is_expected.to contain_yumrepo('remi_php70') }
+          it { is_expected.to contain_yumrepo('remi-php70') }
         end
 
         describe 'when call with version 7.1 on RedHat' do
@@ -32,7 +32,7 @@ describe 'php::repo::redhat', type: :class do
             }
           end
 
-          it { is_expected.to contain_yumrepo('remi_php71') }
+          it { is_expected.to contain_yumrepo('remi-php71') }
         end
 
         describe 'when call with version 7.2 on RedHat' do
@@ -42,7 +42,7 @@ describe 'php::repo::redhat', type: :class do
             }
           end
 
-          it { is_expected.to contain_yumrepo('remi_php72') }
+          it { is_expected.to contain_yumrepo('remi-php72') }
         end
 
       end

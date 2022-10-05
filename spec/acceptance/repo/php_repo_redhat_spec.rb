@@ -11,7 +11,7 @@ describe 'with RedHat', if: (fact('os.family') == 'RedHat') do
         PUPPET
       end
     end
-    describe yumrepo('remi_php56') do
+    describe yumrepo('remi-php56') do
       it { is_expected.to exist }
     end
   end
@@ -26,7 +26,7 @@ describe 'with RedHat', if: (fact('os.family') == 'RedHat') do
         PUPPET
       end
     end
-    describe yumrepo('remi_php72') do
+    describe yumrepo('remi-php72') do
       it { is_expected.to exist }
     end
   end
