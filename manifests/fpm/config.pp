@@ -106,14 +106,12 @@ class php::fpm::config (
   }
 
   if $manage_run_dir {
-    ensure_resource('file', '/var/run/php-fpm',
-      {
-        ensure => directory,
-        owner  => 'root',
-        group  => $root_group,
-        mode   => '0755',
-      }
-    )
+    file { '/var/run/php-fpm':
+      ensure => directory,
+      owner  => 'root',
+      group  => $root_group,
+      mode   => '0755',
+    }
   }
 
   ensure_resource('file', '/var/log/php-fpm/',
