@@ -25,5 +25,5 @@ define php::config (
     warning('php::config is private')
   }
 
-  create_resources(::php::config::setting, to_hash_settings($config, $file),{ file => $file })
+  create_resources(::php::config::setting,to_hash_settings($config, $file), { file => $file })
 }
