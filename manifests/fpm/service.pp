@@ -34,7 +34,7 @@ class php::fpm::service (
   if $reload_fpm_on_config_changes {
     $restart = $facts['service_provider'] ? {
       'systemd' => "systemctl reload ${service_name}",
-      undef     => "service ${service_name} reload"
+      default   => "service ${service_name} reload"
     }
   } else {
     $restart = undef
