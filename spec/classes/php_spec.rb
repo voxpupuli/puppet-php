@@ -21,6 +21,8 @@ describe 'php', type: :class do
                           end
                         when 'Ubuntu'
                           case facts[:os]['release']['major']
+                          when '22.04'
+                            'php8.1-cli'
                           when '20.04'
                             'php7.4-cli'
                           when '18.04'
@@ -41,6 +43,8 @@ describe 'php', type: :class do
                           end
                         when 'Ubuntu'
                           case facts[:os]['release']['major']
+                          when '22.04'
+                            'php8.1-fpm'
                           when '20.04'
                             'php7.4-fpm'
                           when '18.04'
@@ -61,6 +65,8 @@ describe 'php', type: :class do
                           end
                         when 'Ubuntu'
                           case facts[:os]['release']['major']
+                          when '22.04'
+                            'php8.1-dev'
                           when '20.04'
                             'php7.4-dev'
                           when '18.04'
@@ -73,7 +79,7 @@ describe 'php', type: :class do
         it { is_expected.to compile.with_all_deps }
       end
 
-      describe 'when called with no parameters' do # rubocop: disable RSpec/EmptyExampleGroup
+      describe 'when called with no parameters' do
         case facts[:osfamily]
         when 'Suse', 'RedHat', 'CentOS'
           it { is_expected.to contain_class('php::global') }
@@ -127,7 +133,7 @@ describe 'php', type: :class do
         end
       end
 
-      describe 'when called with package_prefix parameter' do # rubocop: disable RSpec/EmptyExampleGroup
+      describe 'when called with package_prefix parameter' do
         package_prefix = 'myphp-'
         let(:params) { { package_prefix: package_prefix } }
 
@@ -181,6 +187,8 @@ describe 'php', type: :class do
                       end
                     when 'Ubuntu'
                       case facts[:os]['release']['major']
+                      when '22.04'
+                        '/etc/php/8.1/fpm/pool.d/www.conf'
                       when '20.04'
                         '/etc/php/7.4/fpm/pool.d/www.conf'
                       when '18.04'
@@ -222,6 +230,8 @@ describe 'php', type: :class do
                       end
                     when 'Ubuntu'
                       case facts[:os]['release']['major']
+                      when '22.04'
+                        '/etc/php/8.1/fpm/pool.d/www.conf'
                       when '20.04'
                         '/etc/php/7.4/fpm/pool.d/www.conf'
                       when '18.04'
@@ -262,6 +272,8 @@ describe 'php', type: :class do
                       end
                     when 'Ubuntu'
                       case facts[:os]['release']['major']
+                      when '22.04'
+                        '/etc/php/8.1/fpm/pool.d/www.conf'
                       when '20.04'
                         '/etc/php/7.4/fpm/pool.d/www.conf'
                       when '18.04'

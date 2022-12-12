@@ -1,6 +1,6 @@
 {
   "name": "puppet-php",
-  "version": "8.0.4-rc0",
+  "version": "8.1.2-rc0",
   "author": "Vox Pupuli",
   "summary": "Generic PHP module that supports many platforms",
   "license": "MIT",
@@ -15,7 +15,7 @@
     },
     {
       "name": "puppetlabs/apt",
-      "version_requirement": ">= 4.4.0 < 9.0.0"
+      "version_requirement": ">= 4.4.0 < 10.0.0"
     },
     {
       "name": "puppetlabs/inifile",
@@ -41,7 +41,8 @@
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
         "18.04",
-        "20.04"
+        "20.04",
+        "22.04"
       ]
     },
     {

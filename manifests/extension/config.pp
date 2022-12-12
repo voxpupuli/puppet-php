@@ -80,7 +80,7 @@ define php::extension::config (
   }
 
   if $provider != 'pear' {
-    $final_settings = deep_merge( { "${extension_key}" => "${module_path}${so_name}.so" }, $full_settings)
+    $final_settings = deep_merge({ "${extension_key}" => "${module_path}${so_name}.so" }, $full_settings)
   } else {
     $final_settings = $full_settings
   }

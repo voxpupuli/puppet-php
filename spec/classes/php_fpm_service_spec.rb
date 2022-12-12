@@ -22,15 +22,18 @@ describe 'php::fpm::service', type: :class do
         it { is_expected.to contain_class('php::packages') }
         it { is_expected.to contain_class('php::globals') }
         it { is_expected.to contain_class('php::params') }
-        it { is_expected.to contain_class('php::pear') }
+
+        it { is_expected.to contain_class('php::pear') } if facts[:osfamily] != 'Archlinux'
       end
 
-      describe 'when called with no parameters' do # rubocop: disable RSpec/EmptyExampleGroup
+      describe 'when called with no parameters' do
         case facts[:osfamily]
         when 'Debian'
           case facts[:operatingsystemrelease]
           when '18.04'
             it { is_expected.to contain_service('php7.2-fpm').with_ensure('running') }
+          when '22.04'
+            it { is_expected.to contain_service('php8.1-fpm').with_ensure('running') }
           when '10'
             it { is_expected.to contain_service('php7.3-fpm').with_ensure('running') }
           when '20.04', '11'

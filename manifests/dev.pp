@@ -15,10 +15,10 @@ class php::dev (
 ) inherits php::params {
   assert_private()
 
-  # On FreeBSD there is no 'devel' package.
-  $real_package = $facts['os']['family'] ? {
-    'FreeBSD' => [],
-    default   => $package,
+  # On FreeBSD, Arch there is no 'devel' package. If dev_package_suffix is undef, consider to not install.
+  $real_package = $php::params::dev_package_suffix ? {
+    undef   => [],
+    default => $package,
   }
 
   if $facts['os']['family'] == 'Debian' {

@@ -23,21 +23,24 @@ class php::globals (
   Optional[Stdlib::Absolutepath] $fpm_pid_file  = undef,
   Optional[Enum['rhscl', 'remi']] $rhscl_mode   = undef,
 ) {
-  $default_php_version = $facts['os']['name'] ? {
-    'Debian' => $facts['os']['release']['major'] ? {
-      '10'    => '7.3',
-      '11'    => '7.4',
-      default => fail("Unsupported Debian release: ${fact('os.release.major')}"),
-    },
-    'Ubuntu' => $facts['os']['release']['major'] ? {
-      '18.04' => '7.2',
-      '20.04' => '7.4',
-      default => fail("Unsupported Ubuntu release: ${fact('os.release.major')}"),
-    },
-    default => '5.x',
+  if ($php_version == undef) {
+    $globals_php_version = $facts['os']['name'] ? {
+      'Debian' => $facts['os']['release']['major'] ? {
+        '10'    => '7.3',
+        '11'    => '7.4',
+        default => fail("Unsupported Debian release: ${fact('os.release.major')}"),
+      },
+      'Ubuntu' => $facts['os']['release']['major'] ? {
+        '18.04' => '7.2',
+        '20.04' => '7.4',
+        '22.04' => '8.1',
+        default => fail("Unsupported Ubuntu release: ${fact('os.release.major')}"),
+      },
+      default  => '5.x',
+    }
+  } else {
+    $globals_php_version = $php_version
   }
-
-  $globals_php_version = pick($php_version, $default_php_version)
 
   case $facts['os']['family'] {
     'Debian': {
