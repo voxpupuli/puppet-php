@@ -70,6 +70,9 @@
 # [*pid_file*]
 #   Path to fpm pid file
 #
+# [*manage_run_dir*]
+#   Manage the run directory
+#
 class php::fpm::config (
   Stdlib::Absolutepath $config_file                                     = $php::params::fpm_config_file,
   String $user                                                          = $php::params::fpm_user,
@@ -93,6 +96,7 @@ class php::fpm::config (
   String[1] $root_group                                                 = $php::params::root_group,
   String $syslog_facility                                               = 'daemon',
   String $syslog_ident                                                  = 'php-fpm',
+  Boolean $manage_run_dir                                               = true
 ) inherits php::params {
   assert_private()
 
@@ -104,14 +108,14 @@ class php::fpm::config (
     mode    => '0644',
   }
 
-  ensure_resource('file', '/var/run/php-fpm',
-    {
+  if $manage_run_dir {
+    file { '/var/run/php-fpm':
       ensure => directory,
       owner  => 'root',
       group  => $root_group,
       mode   => '0755',
     }
-  )
+  }
 
   ensure_resource('file', '/var/log/php-fpm/',
     {
