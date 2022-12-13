@@ -93,7 +93,11 @@ class php::fpm::config (
   String[1] $root_group                                                 = $php::params::root_group,
   String $syslog_facility                                               = 'daemon',
   String $syslog_ident                                                  = 'php-fpm',
+<<<<<<< HEAD
   Boolean $manage_run_dir                                               = true
+=======
+  Boolean $manage_run_dir = true
+>>>>>>> 8ae9754 (Add option to disable management of rundir)
 ) inherits php::params {
   assert_private()
 
