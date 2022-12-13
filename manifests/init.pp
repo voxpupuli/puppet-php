@@ -147,6 +147,7 @@ class php (
   Optional[String[1]] $fpm_package                = undef,
   String[1] $fpm_user                             = $php::params::fpm_user,
   String[1] $fpm_group                            = $php::params::fpm_group,
+  Pattern[/^\d+$/] $fpm_log_dir_mode              = $php::params::fpm_log_dir_mode,
   Boolean $embedded                               = false,
   Boolean $dev                                    = true,
   Boolean $composer                               = true,

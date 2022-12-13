@@ -13,6 +13,7 @@ class php::params inherits php::globals {
   $phpunit_path        = '/usr/local/bin/phpunit'
   $phpunit_max_age     = 30
   $pool_purge          = false
+  $fpm_log_dir_mode    = '0770'
 
   $fpm_pools = {
     'www' => {
