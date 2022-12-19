@@ -256,7 +256,9 @@ describe 'php', type: :class do
       describe 'when called with fpm_log_dir_mode parameter' do
         let(:params) { { fpm_log_dir_mode: '0770' } }
 
-        it { is_expected.to contain_file('/var/log/php-fpm/').with_content(%r{mode = '0770'}) }
+        dstfile = '/var/log/php-fpm/'
+
+        it { is_expected.to contain_file(dstfile).with_mode('0770') }
       end
 
       describe 'when configured with a pool with apparmor_hat parameter' do
