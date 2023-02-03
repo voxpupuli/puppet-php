@@ -307,6 +307,34 @@ describe 'php', type: :class do
         it { is_expected.not_to contain_class('php::composer') }
       end
 
+      if facts[:osfamily] == 'RedHat' || facts[:osfamily] == 'CentOS' || facts[:osfamily] == 'Debian'
+        describe 'when called with flavor zend' do
+          zendphp_cli_package = case facts[:os]['name']
+                                when 'Debian', 'Ubuntu'
+                                  'php8.1-zend-cli'
+                                when 'RedHat', 'CentOS'
+                                  'php81zend-php-cli'
+                                end
+          zendphp_fpm_package = case facts[:os]['name']
+                                when 'Debian', 'Ubuntu'
+                                  'php8.1-zend-fpm'
+                                when 'RedHat', 'CentOS'
+                                  'php81zend-php-fpm'
+                                end
+
+          let(:pre_condition) do
+            "class {'php::globals':
+                      php_version => '8.1',
+                      flavor      => 'zend'
+            }"
+          end
+
+          it { is_expected.to contain_class('zend_common::repo') }
+          it { is_expected.to contain_package(zendphp_cli_package).with_ensure('present') }
+          it { is_expected.to contain_package(zendphp_fpm_package).with_ensure('present') }
+        end
+      end
+
       if facts[:osfamily] == 'RedHat' || facts[:osfamily] == 'CentOS'
         describe 'when called with valid settings parameter types' do
           let(:params) do
