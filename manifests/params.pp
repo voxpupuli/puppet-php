@@ -58,17 +58,25 @@ class php::params inherits php::globals {
       $ext_tool_enabled        = true
       $pear                    = true
 
-      case $facts['os']['name'] {
-        'Debian': {
-          $manage_repos = false
-        }
-
-        'Ubuntu': {
-          $manage_repos = false
+      case $php::globals::flavor {
+        'zend': {
+          $manage_repos = true
         }
 
         default: {
-          $manage_repos = false
+          case $facts['os']['name'] {
+            'Debian': {
+              $manage_repos = false
+            }
+
+            'Ubuntu': {
+              $manage_repos = false
+            }
+
+            default: {
+              $manage_repos = false
+            }
+          }
         }
       }
     }
@@ -121,36 +129,49 @@ class php::params inherits php::globals {
     'RedHat': {
       $config_root      = $php::globals::globals_config_root
 
-      case $php::globals::rhscl_mode {
-        'remi': {
+      case $php::globals::flavor {
+        'zend': {
           $config_root_ini         = "${config_root}/php.d"
           $config_root_inifile     = "${config_root}/php.ini"
           $cli_inifile             = $config_root_inifile
           $fpm_inifile             = $config_root_inifile
           $fpm_config_file         = "${config_root}/php-fpm.conf"
           $fpm_pool_dir            = "${config_root}/php-fpm.d"
-          $php_bin_dir             = "${php::globals::rhscl_root}/bin"
         }
-        'rhscl': {
-          $config_root_ini         = "${config_root}/php.d"
-          $config_root_inifile     = "${config_root}/php.ini"
-          $cli_inifile             = "${config_root}/php-cli.ini"
-          $fpm_inifile             = "${config_root}/php-fpm.ini"
-          $fpm_config_file         = "${config_root}/php-fpm.conf"
-          $fpm_pool_dir            = "${config_root}/php-fpm.d"
-          $php_bin_dir             = "${php::globals::rhscl_root}/bin"
-        }
-        undef: {
-          # no rhscl
-          $config_root_ini         = $config_root
-          $config_root_inifile     = '/etc/php.ini'
-          $cli_inifile             = '/etc/php-cli.ini'
-          $fpm_inifile             = '/etc/php-fpm.ini'
-          $fpm_config_file         = '/etc/php-fpm.conf'
-          $fpm_pool_dir            = '/etc/php-fpm.d'
-        }
+
         default: {
-          fail("Unsupported rhscl_mode '${php::globals::rhscl_mode}'")
+          case $php::globals::rhscl_mode {
+            'remi': {
+              $config_root_ini         = "${config_root}/php.d"
+              $config_root_inifile     = "${config_root}/php.ini"
+              $cli_inifile             = $config_root_inifile
+              $fpm_inifile             = $config_root_inifile
+              $fpm_config_file         = "${config_root}/php-fpm.conf"
+              $fpm_pool_dir            = "${config_root}/php-fpm.d"
+              $php_bin_dir             = "${php::globals::rhscl_root}/bin"
+            }
+            'rhscl': {
+              $config_root_ini         = "${config_root}/php.d"
+              $config_root_inifile     = "${config_root}/php.ini"
+              $cli_inifile             = "${config_root}/php-cli.ini"
+              $fpm_inifile             = "${config_root}/php-fpm.ini"
+              $fpm_config_file         = "${config_root}/php-fpm.conf"
+              $fpm_pool_dir            = "${config_root}/php-fpm.d"
+              $php_bin_dir             = "${php::globals::rhscl_root}/bin"
+            }
+            undef: {
+              # no rhscl
+              $config_root_ini         = $config_root
+              $config_root_inifile     = '/etc/php.ini'
+              $cli_inifile             = '/etc/php-cli.ini'
+              $fpm_inifile             = '/etc/php-fpm.ini'
+              $fpm_config_file         = '/etc/php-fpm.conf'
+              $fpm_pool_dir            = '/etc/php-fpm.d'
+            }
+            default: {
+              fail("Unsupported rhscl_mode '${php::globals::rhscl_mode}'")
+            }
+          }
         }
       }
 
@@ -168,7 +189,10 @@ class php::params inherits php::globals {
       $embedded_package_suffix = 'embedded'
       $package_prefix          = pick($php::globals::package_prefix, 'php-')
       $compiler_packages       = ['gcc', 'gcc-c++', 'make']
-      $manage_repos            = false
+      $manage_repos            = $php::globals::flavor ? {
+        'zend' => true,
+        default => false,
+      }
       $root_group              = 'root'
       $ext_tool_enable         = undef
       $ext_tool_query          = undef
