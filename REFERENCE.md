@@ -1162,6 +1162,9 @@ Configure php-fpm service
 [*pid_file*]
   Path to fpm pid file
 
+[*manage_run_dir*]
+  Manage the run directory
+
 #### Parameters
 
 The following parameters are available in the `php::fpm::config` class:
@@ -1188,6 +1191,7 @@ The following parameters are available in the `php::fpm::config` class:
 * [`root_group`](#-php--fpm--config--root_group)
 * [`syslog_facility`](#-php--fpm--config--syslog_facility)
 * [`syslog_ident`](#-php--fpm--config--syslog_ident)
+* [`manage_run_dir`](#-php--fpm--config--manage_run_dir)
 
 ##### <a name="-php--fpm--config--config_file"></a>`config_file`
 
@@ -1365,6 +1369,14 @@ Data type: `String`
 
 Default value: `'php-fpm'`
 
+##### <a name="-php--fpm--config--manage_run_dir"></a>`manage_run_dir`
+
+Data type: `Boolean`
+
+
+
+Default value: `true`
+
 ### <a name="php--fpm--service"></a>`php::fpm::service`
 
 Manage fpm service
@@ -1478,6 +1490,8 @@ The following parameters are available in the `php::globals` class:
 * [`config_root`](#-php--globals--config_root)
 * [`fpm_pid_file`](#-php--globals--fpm_pid_file)
 * [`rhscl_mode`](#-php--globals--rhscl_mode)
+* [`zend_creds`](#-php--globals--zend_creds)
+* [`flavor`](#-php--globals--flavor)
 
 ##### <a name="-php--globals--php_version"></a>`php_version`
 
@@ -1510,6 +1524,22 @@ Data type: `Optional[Enum['rhscl', 'remi']]`
 
 
 Default value: `undef`
+
+##### <a name="-php--globals--zend_creds"></a>`zend_creds`
+
+Data type: `Optional[Hash]`
+
+
+
+Default value: `undef`
+
+##### <a name="-php--globals--flavor"></a>`flavor`
+
+Data type: `Enum['community', 'zend']`
+
+
+
+Default value: `'community'`
 
 ### <a name="php--packages"></a>`php::packages`
 
