@@ -114,7 +114,7 @@ define php::extension::config (
         'ALL' => 'cli',
         default => $sapi,
       }
-      if has_key($final_settings, $extension_key) and $final_settings[$extension_key] {
+      if $final_settings[$extension_key] {
         exec { $execname:
           command => $cmd,
           onlyif  => "${ext_tool_query} -s ${_sapi} -m ${so_name} | /bin/grep 'No module matches ${so_name}'",
