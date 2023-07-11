@@ -4,6 +4,50 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v8.2.0](https://github.com/voxpupuli/puppet-php/tree/v8.2.0) (2023-01-27)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v8.1.1...v8.2.0)
+
+**Implemented enhancements:**
+
+- Add Ubuntu 22.04 support [\#672](https://github.com/voxpupuli/puppet-php/pull/672) ([martialblog](https://github.com/martialblog))
+- Allow up-to-date dependencies [\#667](https://github.com/voxpupuli/puppet-php/pull/667) ([smortex](https://github.com/smortex))
+- Support other versions of remi repo on redhat [\#495](https://github.com/voxpupuli/puppet-php/pull/495) ([edestecd](https://github.com/edestecd))
+
+**Fixed bugs:**
+
+- fpm: fix FreeBSD support [\#673](https://github.com/voxpupuli/puppet-php/pull/673) ([fraenki](https://github.com/fraenki))
+
+**Merged pull requests:**
+
+- Fix broken MIT license [\#678](https://github.com/voxpupuli/puppet-php/pull/678) ([bastelfreak](https://github.com/bastelfreak))
+
+## [v8.1.1](https://github.com/voxpupuli/puppet-php/tree/v8.1.1) (2022-08-03)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v8.1.0...v8.1.1)
+
+**Fixed bugs:**
+
+- Why does dotdeb APT wheezy 5.6 repo get installed on Debian 9? [\#458](https://github.com/voxpupuli/puppet-php/issues/458)
+- \(\#458\) Remove dotdeb and sury repos overuse on Debian [\#659](https://github.com/voxpupuli/puppet-php/pull/659) ([OlegPS](https://github.com/OlegPS))
+
+**Closed issues:**
+
+- Howto solve package name conflict between apt and pecl [\#579](https://github.com/voxpupuli/puppet-php/issues/579)
+
+## [v8.1.0](https://github.com/voxpupuli/puppet-php/tree/v8.1.0) (2022-07-03)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v8.0.3...v8.1.0)
+
+**Implemented enhancements:**
+
+- Allow unsupported environments [\#662](https://github.com/voxpupuli/puppet-php/pull/662) ([jkroepke](https://github.com/jkroepke))
+
+**Fixed bugs:**
+
+- php-fpm: Reload service with systemd if available [\#664](https://github.com/voxpupuli/puppet-php/pull/664) ([bastelfreak](https://github.com/bastelfreak))
+- Arch Linux: Fix package names and set correct php-fpm user \(root -\> http\) [\#663](https://github.com/voxpupuli/puppet-php/pull/663) ([jkroepke](https://github.com/jkroepke))
+
 ## [v8.0.3](https://github.com/voxpupuli/puppet-php/tree/v8.0.3) (2022-03-21)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v8.0.2...v8.0.3)

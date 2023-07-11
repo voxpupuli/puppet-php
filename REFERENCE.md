@@ -7,37 +7,37 @@
 ### Classes
 
 * [`php`](#php): Base class with global configuration parameters that pulls in all enabled components.  === Parameters  [*ensure*]   Specify which version of 
-* [`php::apache_config`](#phpapache_config): Install and configure php apache settings  === Parameters  [*inifile*]   The path to the ini php-apache ini file  [*settings*]   Hash with ne
-* [`php::cli`](#phpcli): Install and configure php CLI  === Parameters  [*inifile*]   The path to the ini php5-cli ini file  [*settings*]   Hash with nested hash of k
-* [`php::composer`](#phpcomposer): Install composer package manager  === Parameters  [*source*]   Holds URL to the Composer source file  [*path*]   Holds path to the Composer e
-* [`php::composer::auto_update`](#phpcomposerauto_update): Install composer package manager  === Parameters  [*max_age*]   Defines number of days after which Composer should be updated  [*source*]   H
-* [`php::dev`](#phpdev): Install the development package with headers for PHP  === Parameters  [*ensure*]   The PHP ensure of PHP dev to install  [*package*]   The pa
-* [`php::embedded`](#phpembedded): Install and configure php embedded SAPI  === Parameters  [*inifile*]   The path to the ini php5-embeded ini file  [*settings*]   Hash with ne
-* [`php::fpm`](#phpfpm): Install and configure mod_php for fpm  === Parameters  [*user*]   The user that php-fpm should run as  [*group*]   The group that php-fpm sho
-* [`php::fpm::config`](#phpfpmconfig): Configure php-fpm service  === Parameters  [*config_file*]   The path to the fpm config file  [*user*]   The user that runs php-fpm  [*group*
-* [`php::fpm::service`](#phpfpmservice): Manage fpm service  === Parameters  [*service_name*]   name of the php-fpm service  [*ensure*]   'ensure' value for the service  [*enable*]  
-* [`php::global`](#phpglobal)
-* [`php::globals`](#phpglobals)
-* [`php::packages`](#phppackages): Install common PHP packages  === Parameters  [*ensure*]   Specify which version of PHP packages to install  [*names*]   List of the names of 
-* [`php::params`](#phpparams): PHP params class
-* [`php::pear`](#phppear): Install PEAR package manager  === Parameters  [*ensure*]   The package ensure of PHP pear to install and run pear auto_discover  [*package*] 
-* [`php::phpunit`](#phpphpunit): Install phpunit, PHP testing framework  === Parameters  [*source*]   Holds URL to the phpunit source file  [*path*]   Holds path to the phpun
-* [`php::phpunit::auto_update`](#phpphpunitauto_update): Install phpunit package manager  === Parameters  [*max_age*]   Defines number of days after which phpunit should be updated  [*source*]   Hol
-* [`php::repo`](#phprepo): Configure package repository
-* [`php::repo::debian`](#phprepodebian): Configure debian apt repo  === Parameters  [*location*]   Location of the apt repository  [*release*]   Release of the apt repository  [*repo
-* [`php::repo::redhat`](#phpreporedhat)
-* [`php::repo::suse`](#phpreposuse): Configure suse repo  === Parameters  [*reponame*]   Name of the Zypper repository  [*baseurl*]   Base URL of the Zypper repository
-* [`php::repo::ubuntu`](#phprepoubuntu): Configure ubuntu ppa  === Parameters  [*version*]   PHP version to manage (e.g. 5.6)
+* [`php::apache_config`](#php--apache_config): Install and configure php apache settings  === Parameters  [*inifile*]   The path to the ini php-apache ini file  [*settings*]   Hash with ne
+* [`php::cli`](#php--cli): Install and configure php CLI  === Parameters  [*inifile*]   The path to the ini php5-cli ini file  [*settings*]   Hash with nested hash of k
+* [`php::composer`](#php--composer): Install composer package manager  === Parameters  [*source*]   Holds URL to the Composer source file  [*path*]   Holds path to the Composer e
+* [`php::composer::auto_update`](#php--composer--auto_update): Install composer package manager  === Parameters  [*max_age*]   Defines number of days after which Composer should be updated  [*source*]   H
+* [`php::dev`](#php--dev): Install the development package with headers for PHP  === Parameters  [*ensure*]   The PHP ensure of PHP dev to install  [*package*]   The pa
+* [`php::embedded`](#php--embedded): Install and configure php embedded SAPI  === Parameters  [*inifile*]   The path to the ini php5-embeded ini file  [*settings*]   Hash with ne
+* [`php::fpm`](#php--fpm): Install and configure mod_php for fpm  === Parameters  [*user*]   The user that php-fpm should run as  [*group*]   The group that php-fpm sho
+* [`php::fpm::config`](#php--fpm--config): Configure php-fpm service  === Parameters  [*config_file*]   The path to the fpm config file  [*user*]   The user that runs php-fpm  [*group*
+* [`php::fpm::service`](#php--fpm--service): Manage fpm service  === Parameters  [*service_name*]   name of the php-fpm service  [*ensure*]   'ensure' value for the service  [*enable*]  
+* [`php::global`](#php--global)
+* [`php::globals`](#php--globals)
+* [`php::packages`](#php--packages): Install common PHP packages  === Parameters  [*ensure*]   Specify which version of PHP packages to install  [*names*]   List of the names of 
+* [`php::params`](#php--params): PHP params class
+* [`php::pear`](#php--pear): Install PEAR package manager  === Parameters  [*ensure*]   The package ensure of PHP pear to install and run pear auto_discover  [*package*] 
+* [`php::phpunit`](#php--phpunit): Install phpunit, PHP testing framework  === Parameters  [*source*]   Holds URL to the phpunit source file  [*path*]   Holds path to the phpun
+* [`php::phpunit::auto_update`](#php--phpunit--auto_update): Install phpunit package manager  === Parameters  [*max_age*]   Defines number of days after which phpunit should be updated  [*source*]   Hol
+* [`php::repo`](#php--repo): Configure package repository
+* [`php::repo::debian`](#php--repo--debian): Configure debian apt repo  === Parameters  [*location*]   Location of the apt repository  [*repos*]   Apt repository names  [*include_src*]  
+* [`php::repo::redhat`](#php--repo--redhat)
+* [`php::repo::suse`](#php--repo--suse): Configure suse repo  === Parameters  [*reponame*]   Name of the Zypper repository  [*baseurl*]   Base URL of the Zypper repository
+* [`php::repo::ubuntu`](#php--repo--ubuntu): Configure ubuntu ppa  === Parameters  [*version*]   PHP version to manage (e.g. 5.6)
 
 ### Defined types
 
-* [`php::apache_vhost`](#phpapache_vhost): Configures an apache vhost for php  === Parameters  [*vhost*]   The vhost address  [*docroot*]   The vhost docroot  [*port*]   The vhost port
-* [`php::config`](#phpconfig): Configure php.ini settings for a PHP SAPI  === Parameters  [*file*]   The path to ini file  [*config*]   Nested hash of key => value to apply
-* [`php::config::setting`](#phpconfigsetting): Configure php.ini settings  === Parameters  [*key*]   The key of the value, like `ini_setting`  [*file*]   The path to ini file  [*value*]   
-* [`php::extension`](#phpextension): Install a PHP extension package  === Parameters  [*ensure*]   The ensure of the package to install   Could be "present", "absent", "latest", 
-* [`php::extension::config`](#phpextensionconfig): Configure a PHP extension package  === Parameters  [*ensure*]   The ensure of the package to install   Could be "latest", "installed" or a pi
-* [`php::extension::install`](#phpextensioninstall): Install a PHP extension package  === Parameters  [*ensure*]   The ensure of the package to install   Could be "latest", "installed" or a pinn
-* [`php::fpm::pool`](#phpfpmpool): Configure fpm pools  === Parameters  See the official php-fpm documentation for parameters that are not documented here: http://php.net/manua
+* [`php::apache_vhost`](#php--apache_vhost): Configures an apache vhost for php  === Parameters  [*vhost*]   The vhost address  [*docroot*]   The vhost docroot  [*port*]   The vhost port
+* [`php::config`](#php--config): Configure php.ini settings for a PHP SAPI  === Parameters  [*file*]   The path to ini file  [*config*]   Nested hash of key => value to apply
+* [`php::config::setting`](#php--config--setting): Configure php.ini settings  === Parameters  [*key*]   The key of the value, like `ini_setting`  [*file*]   The path to ini file  [*value*]   
+* [`php::extension`](#php--extension): Install a PHP extension package  === Parameters  [*ensure*]   The ensure of the package to install   Could be "present", "absent", "latest", 
+* [`php::extension::config`](#php--extension--config): Configure a PHP extension package  === Parameters  [*ensure*]   The ensure of the package to install   Could be "latest", "installed" or a pi
+* [`php::extension::install`](#php--extension--install): Install a PHP extension package  === Parameters  [*ensure*]   The ensure of the package to install   Could be "latest", "installed" or a pinn
+* [`php::fpm::pool`](#php--fpm--pool): Configure fpm pools  === Parameters  See the official php-fpm documentation for parameters that are not documented here: http://php.net/manua
 
 ### Functions
 
@@ -46,11 +46,11 @@
 
 ### Data types
 
-* [`Php::ComposerChannel`](#phpcomposerchannel)
-* [`Php::Duration`](#phpduration): A duration in seconds are with an unit
-* [`Php::InstallOptions`](#phpinstalloptions)
-* [`Php::Provider`](#phpprovider)
-* [`Php::Sapi`](#phpsapi)
+* [`Php::ComposerChannel`](#Php--ComposerChannel)
+* [`Php::Duration`](#Php--Duration): A duration in seconds are with an unit
+* [`Php::InstallOptions`](#Php--InstallOptions)
+* [`Php::Provider`](#Php--Provider)
+* [`Php::Sapi`](#Php--Sapi)
 
 ## Classes
 
@@ -195,43 +195,43 @@ enabled components.
 
 The following parameters are available in the `php` class:
 
-* [`ensure`](#ensure)
-* [`manage_repos`](#manage_repos)
-* [`fpm`](#fpm)
-* [`fpm_service_enable`](#fpm_service_enable)
-* [`fpm_service_ensure`](#fpm_service_ensure)
-* [`fpm_service_name`](#fpm_service_name)
-* [`fpm_service_provider`](#fpm_service_provider)
-* [`fpm_pools`](#fpm_pools)
-* [`fpm_global_pool_settings`](#fpm_global_pool_settings)
-* [`fpm_inifile`](#fpm_inifile)
-* [`fpm_package`](#fpm_package)
-* [`fpm_user`](#fpm_user)
-* [`fpm_group`](#fpm_group)
-* [`embedded`](#embedded)
-* [`dev`](#dev)
-* [`composer`](#composer)
-* [`pear`](#pear)
-* [`pear_ensure`](#pear_ensure)
-* [`phpunit`](#phpunit)
-* [`apache_config`](#apache_config)
-* [`proxy_type`](#proxy_type)
-* [`proxy_server`](#proxy_server)
-* [`extensions`](#extensions)
-* [`settings`](#settings)
-* [`cli_settings`](#cli_settings)
-* [`package_prefix`](#package_prefix)
-* [`config_root_ini`](#config_root_ini)
-* [`config_root_inifile`](#config_root_inifile)
-* [`ext_tool_enable`](#ext_tool_enable)
-* [`ext_tool_query`](#ext_tool_query)
-* [`ext_tool_enabled`](#ext_tool_enabled)
-* [`log_owner`](#log_owner)
-* [`log_group`](#log_group)
-* [`pool_purge`](#pool_purge)
-* [`reload_fpm_on_config_changes`](#reload_fpm_on_config_changes)
+* [`ensure`](#-php--ensure)
+* [`manage_repos`](#-php--manage_repos)
+* [`fpm`](#-php--fpm)
+* [`fpm_service_enable`](#-php--fpm_service_enable)
+* [`fpm_service_ensure`](#-php--fpm_service_ensure)
+* [`fpm_service_name`](#-php--fpm_service_name)
+* [`fpm_service_provider`](#-php--fpm_service_provider)
+* [`fpm_pools`](#-php--fpm_pools)
+* [`fpm_global_pool_settings`](#-php--fpm_global_pool_settings)
+* [`fpm_inifile`](#-php--fpm_inifile)
+* [`fpm_package`](#-php--fpm_package)
+* [`fpm_user`](#-php--fpm_user)
+* [`fpm_group`](#-php--fpm_group)
+* [`embedded`](#-php--embedded)
+* [`dev`](#-php--dev)
+* [`composer`](#-php--composer)
+* [`pear`](#-php--pear)
+* [`pear_ensure`](#-php--pear_ensure)
+* [`phpunit`](#-php--phpunit)
+* [`apache_config`](#-php--apache_config)
+* [`proxy_type`](#-php--proxy_type)
+* [`proxy_server`](#-php--proxy_server)
+* [`extensions`](#-php--extensions)
+* [`settings`](#-php--settings)
+* [`cli_settings`](#-php--cli_settings)
+* [`package_prefix`](#-php--package_prefix)
+* [`config_root_ini`](#-php--config_root_ini)
+* [`config_root_inifile`](#-php--config_root_inifile)
+* [`ext_tool_enable`](#-php--ext_tool_enable)
+* [`ext_tool_query`](#-php--ext_tool_query)
+* [`ext_tool_enabled`](#-php--ext_tool_enabled)
+* [`log_owner`](#-php--log_owner)
+* [`log_group`](#-php--log_group)
+* [`pool_purge`](#-php--pool_purge)
+* [`reload_fpm_on_config_changes`](#-php--reload_fpm_on_config_changes)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-php--ensure"></a>`ensure`
 
 Data type: `String`
 
@@ -239,7 +239,7 @@ Data type: `String`
 
 Default value: `$php::params::ensure`
 
-##### <a name="manage_repos"></a>`manage_repos`
+##### <a name="-php--manage_repos"></a>`manage_repos`
 
 Data type: `Boolean`
 
@@ -247,15 +247,15 @@ Data type: `Boolean`
 
 Default value: `$php::params::manage_repos`
 
-##### <a name="fpm"></a>`fpm`
+##### <a name="-php--fpm"></a>`fpm`
 
 Data type: `Boolean`
 
 
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="fpm_service_enable"></a>`fpm_service_enable`
+##### <a name="-php--fpm_service_enable"></a>`fpm_service_enable`
 
 Data type: `Boolean`
 
@@ -263,7 +263,7 @@ Data type: `Boolean`
 
 Default value: `$php::params::fpm_service_enable`
 
-##### <a name="fpm_service_ensure"></a>`fpm_service_ensure`
+##### <a name="-php--fpm_service_ensure"></a>`fpm_service_ensure`
 
 Data type: `Enum['running', 'stopped']`
 
@@ -271,7 +271,7 @@ Data type: `Enum['running', 'stopped']`
 
 Default value: `$php::params::fpm_service_ensure`
 
-##### <a name="fpm_service_name"></a>`fpm_service_name`
+##### <a name="-php--fpm_service_name"></a>`fpm_service_name`
 
 Data type: `String[1]`
 
@@ -279,15 +279,15 @@ Data type: `String[1]`
 
 Default value: `$php::params::fpm_service_name`
 
-##### <a name="fpm_service_provider"></a>`fpm_service_provider`
+##### <a name="-php--fpm_service_provider"></a>`fpm_service_provider`
 
 Data type: `Optional[String[1]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="fpm_pools"></a>`fpm_pools`
+##### <a name="-php--fpm_pools"></a>`fpm_pools`
 
 Data type: `Hash`
 
@@ -295,7 +295,7 @@ Data type: `Hash`
 
 Default value: `$php::params::fpm_pools`
 
-##### <a name="fpm_global_pool_settings"></a>`fpm_global_pool_settings`
+##### <a name="-php--fpm_global_pool_settings"></a>`fpm_global_pool_settings`
 
 Data type: `Hash`
 
@@ -303,7 +303,7 @@ Data type: `Hash`
 
 Default value: `{}`
 
-##### <a name="fpm_inifile"></a>`fpm_inifile`
+##### <a name="-php--fpm_inifile"></a>`fpm_inifile`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -311,15 +311,15 @@ Data type: `Stdlib::Absolutepath`
 
 Default value: `$php::params::fpm_inifile`
 
-##### <a name="fpm_package"></a>`fpm_package`
+##### <a name="-php--fpm_package"></a>`fpm_package`
 
 Data type: `Optional[String[1]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="fpm_user"></a>`fpm_user`
+##### <a name="-php--fpm_user"></a>`fpm_user`
 
 Data type: `String[1]`
 
@@ -327,7 +327,7 @@ Data type: `String[1]`
 
 Default value: `$php::params::fpm_user`
 
-##### <a name="fpm_group"></a>`fpm_group`
+##### <a name="-php--fpm_group"></a>`fpm_group`
 
 Data type: `String[1]`
 
@@ -335,39 +335,39 @@ Data type: `String[1]`
 
 Default value: `$php::params::fpm_group`
 
-##### <a name="embedded"></a>`embedded`
+##### <a name="-php--embedded"></a>`embedded`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="dev"></a>`dev`
-
-Data type: `Boolean`
-
-
-
-Default value: ``true``
-
-##### <a name="composer"></a>`composer`
+##### <a name="-php--dev"></a>`dev`
 
 Data type: `Boolean`
 
 
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="pear"></a>`pear`
+##### <a name="-php--composer"></a>`composer`
 
 Data type: `Boolean`
 
 
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="pear_ensure"></a>`pear_ensure`
+##### <a name="-php--pear"></a>`pear`
+
+Data type: `Boolean`
+
+
+
+Default value: `$php::params::pear`
+
+##### <a name="-php--pear_ensure"></a>`pear_ensure`
 
 Data type: `String`
 
@@ -375,55 +375,39 @@ Data type: `String`
 
 Default value: `$php::params::pear_ensure`
 
-##### <a name="phpunit"></a>`phpunit`
+##### <a name="-php--phpunit"></a>`phpunit`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="apache_config"></a>`apache_config`
+##### <a name="-php--apache_config"></a>`apache_config`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="proxy_type"></a>`proxy_type`
-
-Data type: `Optional[String[1]]`
-
-
-
-Default value: ``undef``
-
-##### <a name="proxy_server"></a>`proxy_server`
+##### <a name="-php--proxy_type"></a>`proxy_type`
 
 Data type: `Optional[String[1]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="extensions"></a>`extensions`
+##### <a name="-php--proxy_server"></a>`proxy_server`
 
-Data type: `Hash`
-
-
-
-Default value: `{}`
-
-##### <a name="settings"></a>`settings`
-
-Data type: `Hash`
+Data type: `Optional[String[1]]`
 
 
 
-Default value: `{}`
+Default value: `undef`
 
-##### <a name="cli_settings"></a>`cli_settings`
+##### <a name="-php--extensions"></a>`extensions`
 
 Data type: `Hash`
 
@@ -431,7 +415,23 @@ Data type: `Hash`
 
 Default value: `{}`
 
-##### <a name="package_prefix"></a>`package_prefix`
+##### <a name="-php--settings"></a>`settings`
+
+Data type: `Hash`
+
+
+
+Default value: `{}`
+
+##### <a name="-php--cli_settings"></a>`cli_settings`
+
+Data type: `Hash`
+
+
+
+Default value: `{}`
+
+##### <a name="-php--package_prefix"></a>`package_prefix`
 
 Data type: `Optional[String[1]]`
 
@@ -439,7 +439,7 @@ Data type: `Optional[String[1]]`
 
 Default value: `$php::params::package_prefix`
 
-##### <a name="config_root_ini"></a>`config_root_ini`
+##### <a name="-php--config_root_ini"></a>`config_root_ini`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -447,7 +447,7 @@ Data type: `Stdlib::Absolutepath`
 
 Default value: `$php::params::config_root_ini`
 
-##### <a name="config_root_inifile"></a>`config_root_inifile`
+##### <a name="-php--config_root_inifile"></a>`config_root_inifile`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -455,7 +455,7 @@ Data type: `Stdlib::Absolutepath`
 
 Default value: `$php::params::config_root_inifile`
 
-##### <a name="ext_tool_enable"></a>`ext_tool_enable`
+##### <a name="-php--ext_tool_enable"></a>`ext_tool_enable`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
@@ -463,7 +463,7 @@ Data type: `Optional[Stdlib::Absolutepath]`
 
 Default value: `$php::params::ext_tool_enable`
 
-##### <a name="ext_tool_query"></a>`ext_tool_query`
+##### <a name="-php--ext_tool_query"></a>`ext_tool_query`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
@@ -471,7 +471,7 @@ Data type: `Optional[Stdlib::Absolutepath]`
 
 Default value: `$php::params::ext_tool_query`
 
-##### <a name="ext_tool_enabled"></a>`ext_tool_enabled`
+##### <a name="-php--ext_tool_enabled"></a>`ext_tool_enabled`
 
 Data type: `Boolean`
 
@@ -479,7 +479,7 @@ Data type: `Boolean`
 
 Default value: `$php::params::ext_tool_enabled`
 
-##### <a name="log_owner"></a>`log_owner`
+##### <a name="-php--log_owner"></a>`log_owner`
 
 Data type: `String`
 
@@ -487,7 +487,7 @@ Data type: `String`
 
 Default value: `$php::params::fpm_user`
 
-##### <a name="log_group"></a>`log_group`
+##### <a name="-php--log_group"></a>`log_group`
 
 Data type: `String`
 
@@ -495,7 +495,7 @@ Data type: `String`
 
 Default value: `$php::params::fpm_group`
 
-##### <a name="pool_purge"></a>`pool_purge`
+##### <a name="-php--pool_purge"></a>`pool_purge`
 
 Data type: `Boolean`
 
@@ -503,15 +503,15 @@ Data type: `Boolean`
 
 Default value: `$php::params::pool_purge`
 
-##### <a name="reload_fpm_on_config_changes"></a>`reload_fpm_on_config_changes`
+##### <a name="-php--reload_fpm_on_config_changes"></a>`reload_fpm_on_config_changes`
 
 Data type: `Boolean`
 
 
 
-Default value: ``true``
+Default value: `true`
 
-### <a name="phpapache_config"></a>`php::apache_config`
+### <a name="php--apache_config"></a>`php::apache_config`
 
 Install and configure php apache settings
 
@@ -527,10 +527,10 @@ Install and configure php apache settings
 
 The following parameters are available in the `php::apache_config` class:
 
-* [`inifile`](#inifile)
-* [`settings`](#settings)
+* [`inifile`](#-php--apache_config--inifile)
+* [`settings`](#-php--apache_config--settings)
 
-##### <a name="inifile"></a>`inifile`
+##### <a name="-php--apache_config--inifile"></a>`inifile`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -538,7 +538,7 @@ Data type: `Stdlib::Absolutepath`
 
 Default value: `$php::params::apache_inifile`
 
-##### <a name="settings"></a>`settings`
+##### <a name="-php--apache_config--settings"></a>`settings`
 
 Data type: `Hash`
 
@@ -546,7 +546,7 @@ Data type: `Hash`
 
 Default value: `{}`
 
-### <a name="phpcli"></a>`php::cli`
+### <a name="php--cli"></a>`php::cli`
 
 Install and configure php CLI
 
@@ -562,10 +562,10 @@ Install and configure php CLI
 
 The following parameters are available in the `php::cli` class:
 
-* [`inifile`](#inifile)
-* [`settings`](#settings)
+* [`inifile`](#-php--cli--inifile)
+* [`settings`](#-php--cli--settings)
 
-##### <a name="inifile"></a>`inifile`
+##### <a name="-php--cli--inifile"></a>`inifile`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -573,7 +573,7 @@ Data type: `Stdlib::Absolutepath`
 
 Default value: `$php::params::cli_inifile`
 
-##### <a name="settings"></a>`settings`
+##### <a name="-php--cli--settings"></a>`settings`
 
 Data type: `Hash`
 
@@ -581,7 +581,7 @@ Data type: `Hash`
 
 Default value: `{}`
 
-### <a name="phpcomposer"></a>`php::composer`
+### <a name="php--composer"></a>`php::composer`
 
 Install composer package manager
 
@@ -615,16 +615,16 @@ Install composer package manager
 
 The following parameters are available in the `php::composer` class:
 
-* [`source`](#source)
-* [`path`](#path)
-* [`proxy_type`](#proxy_type)
-* [`proxy_server`](#proxy_server)
-* [`channel`](#channel)
-* [`auto_update`](#auto_update)
-* [`max_age`](#max_age)
-* [`root_group`](#root_group)
+* [`source`](#-php--composer--source)
+* [`path`](#-php--composer--path)
+* [`proxy_type`](#-php--composer--proxy_type)
+* [`proxy_server`](#-php--composer--proxy_server)
+* [`channel`](#-php--composer--channel)
+* [`auto_update`](#-php--composer--auto_update)
+* [`max_age`](#-php--composer--max_age)
+* [`root_group`](#-php--composer--root_group)
 
-##### <a name="source"></a>`source`
+##### <a name="-php--composer--source"></a>`source`
 
 Data type: `String`
 
@@ -632,7 +632,7 @@ Data type: `String`
 
 Default value: `$php::params::composer_source`
 
-##### <a name="path"></a>`path`
+##### <a name="-php--composer--path"></a>`path`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -640,23 +640,23 @@ Data type: `Stdlib::Absolutepath`
 
 Default value: `$php::params::composer_path`
 
-##### <a name="proxy_type"></a>`proxy_type`
+##### <a name="-php--composer--proxy_type"></a>`proxy_type`
 
 Data type: `Optional[String[1]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="proxy_server"></a>`proxy_server`
+##### <a name="-php--composer--proxy_server"></a>`proxy_server`
 
 Data type: `Optional[String[1]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="channel"></a>`channel`
+##### <a name="-php--composer--channel"></a>`channel`
 
 Data type: `Php::ComposerChannel`
 
@@ -664,15 +664,15 @@ Data type: `Php::ComposerChannel`
 
 Default value: `'stable'`
 
-##### <a name="auto_update"></a>`auto_update`
+##### <a name="-php--composer--auto_update"></a>`auto_update`
 
 Data type: `Boolean`
 
 
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="max_age"></a>`max_age`
+##### <a name="-php--composer--max_age"></a>`max_age`
 
 Data type: `Integer`
 
@@ -680,7 +680,7 @@ Data type: `Integer`
 
 Default value: `$php::params::composer_max_age`
 
-##### <a name="root_group"></a>`root_group`
+##### <a name="-php--composer--root_group"></a>`root_group`
 
 Data type: `Variant[Integer, String]`
 
@@ -688,7 +688,7 @@ Data type: `Variant[Integer, String]`
 
 Default value: `$php::params::root_group`
 
-### <a name="phpcomposerauto_update"></a>`php::composer::auto_update`
+### <a name="php--composer--auto_update"></a>`php::composer::auto_update`
 
 Install composer package manager
 
@@ -724,32 +724,32 @@ Install composer package manager
 
 The following parameters are available in the `php::composer::auto_update` class:
 
-* [`max_age`](#max_age)
-* [`source`](#source)
-* [`path`](#path)
-* [`channel`](#channel)
-* [`proxy_type`](#proxy_type)
-* [`proxy_server`](#proxy_server)
+* [`max_age`](#-php--composer--auto_update--max_age)
+* [`source`](#-php--composer--auto_update--source)
+* [`path`](#-php--composer--auto_update--path)
+* [`channel`](#-php--composer--auto_update--channel)
+* [`proxy_type`](#-php--composer--auto_update--proxy_type)
+* [`proxy_server`](#-php--composer--auto_update--proxy_server)
 
-##### <a name="max_age"></a>`max_age`
+##### <a name="-php--composer--auto_update--max_age"></a>`max_age`
 
 Data type: `Integer[1]`
 
 
 
-##### <a name="source"></a>`source`
+##### <a name="-php--composer--auto_update--source"></a>`source`
 
 Data type: `String[1]`
 
 
 
-##### <a name="path"></a>`path`
+##### <a name="-php--composer--auto_update--path"></a>`path`
 
 Data type: `Stdlib::Absolutepath`
 
 
 
-##### <a name="channel"></a>`channel`
+##### <a name="-php--composer--auto_update--channel"></a>`channel`
 
 Data type: `Php::ComposerChannel`
 
@@ -757,23 +757,23 @@ Data type: `Php::ComposerChannel`
 
 Default value: `'stable'`
 
-##### <a name="proxy_type"></a>`proxy_type`
+##### <a name="-php--composer--auto_update--proxy_type"></a>`proxy_type`
 
 Data type: `Optional[String[1]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="proxy_server"></a>`proxy_server`
+##### <a name="-php--composer--auto_update--proxy_server"></a>`proxy_server`
 
 Data type: `Optional[String[1]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-### <a name="phpdev"></a>`php::dev`
+### <a name="php--dev"></a>`php::dev`
 
 Install the development package with headers for PHP
 
@@ -789,11 +789,11 @@ Install the development package with headers for PHP
 
 The following parameters are available in the `php::dev` class:
 
-* [`ensure`](#ensure)
-* [`package`](#package)
-* [`manage_repos`](#manage_repos)
+* [`ensure`](#-php--dev--ensure)
+* [`package`](#-php--dev--package)
+* [`manage_repos`](#-php--dev--manage_repos)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-php--dev--ensure"></a>`ensure`
 
 Data type: `String`
 
@@ -801,7 +801,7 @@ Data type: `String`
 
 Default value: `$php::ensure`
 
-##### <a name="package"></a>`package`
+##### <a name="-php--dev--package"></a>`package`
 
 Data type: `String`
 
@@ -809,7 +809,7 @@ Data type: `String`
 
 Default value: `"${php::package_prefix}${php::params::dev_package_suffix}"`
 
-##### <a name="manage_repos"></a>`manage_repos`
+##### <a name="-php--dev--manage_repos"></a>`manage_repos`
 
 Data type: `Boolean`
 
@@ -817,7 +817,7 @@ Data type: `Boolean`
 
 Default value: `$php::manage_repos`
 
-### <a name="phpembedded"></a>`php::embedded`
+### <a name="php--embedded"></a>`php::embedded`
 
 Install and configure php embedded SAPI
 
@@ -839,12 +839,12 @@ Install and configure php embedded SAPI
 
 The following parameters are available in the `php::embedded` class:
 
-* [`ensure`](#ensure)
-* [`package`](#package)
-* [`inifile`](#inifile)
-* [`settings`](#settings)
+* [`ensure`](#-php--embedded--ensure)
+* [`package`](#-php--embedded--package)
+* [`inifile`](#-php--embedded--inifile)
+* [`settings`](#-php--embedded--settings)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-php--embedded--ensure"></a>`ensure`
 
 Data type: `String`
 
@@ -852,7 +852,7 @@ Data type: `String`
 
 Default value: `$php::ensure`
 
-##### <a name="package"></a>`package`
+##### <a name="-php--embedded--package"></a>`package`
 
 Data type: `String`
 
@@ -860,7 +860,7 @@ Data type: `String`
 
 Default value: `"${php::package_prefix}${php::params::embedded_package_suffix}"`
 
-##### <a name="inifile"></a>`inifile`
+##### <a name="-php--embedded--inifile"></a>`inifile`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -868,7 +868,7 @@ Data type: `Stdlib::Absolutepath`
 
 Default value: `$php::params::embedded_inifile`
 
-##### <a name="settings"></a>`settings`
+##### <a name="-php--embedded--settings"></a>`settings`
 
 Data type: `Hash`
 
@@ -876,7 +876,7 @@ Data type: `Hash`
 
 Default value: `{}`
 
-### <a name="phpfpm"></a>`php::fpm`
+### <a name="php--fpm"></a>`php::fpm`
 
 Install and configure mod_php for fpm
 
@@ -943,24 +943,24 @@ Install and configure mod_php for fpm
 
 The following parameters are available in the `php::fpm` class:
 
-* [`ensure`](#ensure)
-* [`user`](#user)
-* [`group`](#group)
-* [`service_ensure`](#service_ensure)
-* [`service_enable`](#service_enable)
-* [`service_name`](#service_name)
-* [`service_provider`](#service_provider)
-* [`package`](#package)
-* [`inifile`](#inifile)
-* [`settings`](#settings)
-* [`global_pool_settings`](#global_pool_settings)
-* [`pools`](#pools)
-* [`log_owner`](#log_owner)
-* [`log_group`](#log_group)
-* [`pool_purge`](#pool_purge)
-* [`reload_fpm_on_config_changes`](#reload_fpm_on_config_changes)
+* [`ensure`](#-php--fpm--ensure)
+* [`user`](#-php--fpm--user)
+* [`group`](#-php--fpm--group)
+* [`service_ensure`](#-php--fpm--service_ensure)
+* [`service_enable`](#-php--fpm--service_enable)
+* [`service_name`](#-php--fpm--service_name)
+* [`service_provider`](#-php--fpm--service_provider)
+* [`package`](#-php--fpm--package)
+* [`inifile`](#-php--fpm--inifile)
+* [`settings`](#-php--fpm--settings)
+* [`global_pool_settings`](#-php--fpm--global_pool_settings)
+* [`pools`](#-php--fpm--pools)
+* [`log_owner`](#-php--fpm--log_owner)
+* [`log_group`](#-php--fpm--log_group)
+* [`pool_purge`](#-php--fpm--pool_purge)
+* [`reload_fpm_on_config_changes`](#-php--fpm--reload_fpm_on_config_changes)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-php--fpm--ensure"></a>`ensure`
 
 Data type: `Optional[String]`
 
@@ -968,7 +968,7 @@ Data type: `Optional[String]`
 
 Default value: `$php::ensure`
 
-##### <a name="user"></a>`user`
+##### <a name="-php--fpm--user"></a>`user`
 
 Data type: `String[1]`
 
@@ -976,7 +976,7 @@ Data type: `String[1]`
 
 Default value: `$php::fpm_user`
 
-##### <a name="group"></a>`group`
+##### <a name="-php--fpm--group"></a>`group`
 
 Data type: `String[1]`
 
@@ -984,7 +984,7 @@ Data type: `String[1]`
 
 Default value: `$php::fpm_group`
 
-##### <a name="service_ensure"></a>`service_ensure`
+##### <a name="-php--fpm--service_ensure"></a>`service_ensure`
 
 Data type: `Enum['running', 'stopped']`
 
@@ -992,7 +992,7 @@ Data type: `Enum['running', 'stopped']`
 
 Default value: `$php::fpm_service_ensure`
 
-##### <a name="service_enable"></a>`service_enable`
+##### <a name="-php--fpm--service_enable"></a>`service_enable`
 
 Data type: `Boolean`
 
@@ -1000,7 +1000,7 @@ Data type: `Boolean`
 
 Default value: `$php::fpm_service_enable`
 
-##### <a name="service_name"></a>`service_name`
+##### <a name="-php--fpm--service_name"></a>`service_name`
 
 Data type: `String[1]`
 
@@ -1008,7 +1008,7 @@ Data type: `String[1]`
 
 Default value: `$php::fpm_service_name`
 
-##### <a name="service_provider"></a>`service_provider`
+##### <a name="-php--fpm--service_provider"></a>`service_provider`
 
 Data type: `Optional[String[1]]`
 
@@ -1016,7 +1016,7 @@ Data type: `Optional[String[1]]`
 
 Default value: `$php::fpm_service_provider`
 
-##### <a name="package"></a>`package`
+##### <a name="-php--fpm--package"></a>`package`
 
 Data type: `String`
 
@@ -1024,7 +1024,7 @@ Data type: `String`
 
 Default value: `$php::real_fpm_package`
 
-##### <a name="inifile"></a>`inifile`
+##### <a name="-php--fpm--inifile"></a>`inifile`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -1032,7 +1032,7 @@ Data type: `Stdlib::Absolutepath`
 
 Default value: `$php::fpm_inifile`
 
-##### <a name="settings"></a>`settings`
+##### <a name="-php--fpm--settings"></a>`settings`
 
 Data type: `Hash`
 
@@ -1040,7 +1040,7 @@ Data type: `Hash`
 
 Default value: `$php::real_settings`
 
-##### <a name="global_pool_settings"></a>`global_pool_settings`
+##### <a name="-php--fpm--global_pool_settings"></a>`global_pool_settings`
 
 Data type: `Hash`
 
@@ -1048,7 +1048,7 @@ Data type: `Hash`
 
 Default value: `$php::real_fpm_global_pool_settings`
 
-##### <a name="pools"></a>`pools`
+##### <a name="-php--fpm--pools"></a>`pools`
 
 Data type: `Hash`
 
@@ -1056,7 +1056,7 @@ Data type: `Hash`
 
 Default value: `$php::real_fpm_pools`
 
-##### <a name="log_owner"></a>`log_owner`
+##### <a name="-php--fpm--log_owner"></a>`log_owner`
 
 Data type: `String[1]`
 
@@ -1064,7 +1064,7 @@ Data type: `String[1]`
 
 Default value: `$php::log_owner`
 
-##### <a name="log_group"></a>`log_group`
+##### <a name="-php--fpm--log_group"></a>`log_group`
 
 Data type: `String[1]`
 
@@ -1072,7 +1072,7 @@ Data type: `String[1]`
 
 Default value: `$php::log_group`
 
-##### <a name="pool_purge"></a>`pool_purge`
+##### <a name="-php--fpm--pool_purge"></a>`pool_purge`
 
 Data type: `Boolean`
 
@@ -1080,7 +1080,7 @@ Data type: `Boolean`
 
 Default value: `$php::pool_purge`
 
-##### <a name="reload_fpm_on_config_changes"></a>`reload_fpm_on_config_changes`
+##### <a name="-php--fpm--reload_fpm_on_config_changes"></a>`reload_fpm_on_config_changes`
 
 Data type: `Boolean`
 
@@ -1088,7 +1088,7 @@ Data type: `Boolean`
 
 Default value: `$php::reload_fpm_on_config_changes`
 
-### <a name="phpfpmconfig"></a>`php::fpm::config`
+### <a name="php--fpm--config"></a>`php::fpm::config`
 
 Configure php-fpm service
 
@@ -1162,34 +1162,38 @@ Configure php-fpm service
 [*pid_file*]
   Path to fpm pid file
 
+[*manage_run_dir*]
+  Manage the run directory
+
 #### Parameters
 
 The following parameters are available in the `php::fpm::config` class:
 
-* [`config_file`](#config_file)
-* [`user`](#user)
-* [`group`](#group)
-* [`inifile`](#inifile)
-* [`pid_file`](#pid_file)
-* [`settings`](#settings)
-* [`pool_base_dir`](#pool_base_dir)
-* [`pool_purge`](#pool_purge)
-* [`error_log`](#error_log)
-* [`log_level`](#log_level)
-* [`emergency_restart_threshold`](#emergency_restart_threshold)
-* [`emergency_restart_interval`](#emergency_restart_interval)
-* [`process_control_timeout`](#process_control_timeout)
-* [`process_max`](#process_max)
-* [`rlimit_files`](#rlimit_files)
-* [`systemd_interval`](#systemd_interval)
-* [`log_owner`](#log_owner)
-* [`log_group`](#log_group)
-* [`log_dir_mode`](#log_dir_mode)
-* [`root_group`](#root_group)
-* [`syslog_facility`](#syslog_facility)
-* [`syslog_ident`](#syslog_ident)
+* [`config_file`](#-php--fpm--config--config_file)
+* [`user`](#-php--fpm--config--user)
+* [`group`](#-php--fpm--config--group)
+* [`inifile`](#-php--fpm--config--inifile)
+* [`pid_file`](#-php--fpm--config--pid_file)
+* [`settings`](#-php--fpm--config--settings)
+* [`pool_base_dir`](#-php--fpm--config--pool_base_dir)
+* [`pool_purge`](#-php--fpm--config--pool_purge)
+* [`error_log`](#-php--fpm--config--error_log)
+* [`log_level`](#-php--fpm--config--log_level)
+* [`emergency_restart_threshold`](#-php--fpm--config--emergency_restart_threshold)
+* [`emergency_restart_interval`](#-php--fpm--config--emergency_restart_interval)
+* [`process_control_timeout`](#-php--fpm--config--process_control_timeout)
+* [`process_max`](#-php--fpm--config--process_max)
+* [`rlimit_files`](#-php--fpm--config--rlimit_files)
+* [`systemd_interval`](#-php--fpm--config--systemd_interval)
+* [`log_owner`](#-php--fpm--config--log_owner)
+* [`log_group`](#-php--fpm--config--log_group)
+* [`log_dir_mode`](#-php--fpm--config--log_dir_mode)
+* [`root_group`](#-php--fpm--config--root_group)
+* [`syslog_facility`](#-php--fpm--config--syslog_facility)
+* [`syslog_ident`](#-php--fpm--config--syslog_ident)
+* [`manage_run_dir`](#-php--fpm--config--manage_run_dir)
 
-##### <a name="config_file"></a>`config_file`
+##### <a name="-php--fpm--config--config_file"></a>`config_file`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -1197,7 +1201,7 @@ Data type: `Stdlib::Absolutepath`
 
 Default value: `$php::params::fpm_config_file`
 
-##### <a name="user"></a>`user`
+##### <a name="-php--fpm--config--user"></a>`user`
 
 Data type: `String`
 
@@ -1205,7 +1209,7 @@ Data type: `String`
 
 Default value: `$php::params::fpm_user`
 
-##### <a name="group"></a>`group`
+##### <a name="-php--fpm--config--group"></a>`group`
 
 Data type: `String`
 
@@ -1213,7 +1217,7 @@ Data type: `String`
 
 Default value: `$php::params::fpm_group`
 
-##### <a name="inifile"></a>`inifile`
+##### <a name="-php--fpm--config--inifile"></a>`inifile`
 
 Data type: `String`
 
@@ -1221,7 +1225,7 @@ Data type: `String`
 
 Default value: `$php::params::fpm_inifile`
 
-##### <a name="pid_file"></a>`pid_file`
+##### <a name="-php--fpm--config--pid_file"></a>`pid_file`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -1229,7 +1233,7 @@ Data type: `Stdlib::Absolutepath`
 
 Default value: `$php::params::fpm_pid_file`
 
-##### <a name="settings"></a>`settings`
+##### <a name="-php--fpm--config--settings"></a>`settings`
 
 Data type: `Hash`
 
@@ -1237,7 +1241,7 @@ Data type: `Hash`
 
 Default value: `{}`
 
-##### <a name="pool_base_dir"></a>`pool_base_dir`
+##### <a name="-php--fpm--config--pool_base_dir"></a>`pool_base_dir`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -1245,15 +1249,15 @@ Data type: `Stdlib::Absolutepath`
 
 Default value: `$php::params::fpm_pool_dir`
 
-##### <a name="pool_purge"></a>`pool_purge`
+##### <a name="-php--fpm--config--pool_purge"></a>`pool_purge`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="error_log"></a>`error_log`
+##### <a name="-php--fpm--config--error_log"></a>`error_log`
 
 Data type: `String`
 
@@ -1261,7 +1265,7 @@ Data type: `String`
 
 Default value: `$php::params::fpm_error_log`
 
-##### <a name="log_level"></a>`log_level`
+##### <a name="-php--fpm--config--log_level"></a>`log_level`
 
 Data type: `String`
 
@@ -1269,7 +1273,7 @@ Data type: `String`
 
 Default value: `'notice'`
 
-##### <a name="emergency_restart_threshold"></a>`emergency_restart_threshold`
+##### <a name="-php--fpm--config--emergency_restart_threshold"></a>`emergency_restart_threshold`
 
 Data type: `Integer`
 
@@ -1277,7 +1281,7 @@ Data type: `Integer`
 
 Default value: `0`
 
-##### <a name="emergency_restart_interval"></a>`emergency_restart_interval`
+##### <a name="-php--fpm--config--emergency_restart_interval"></a>`emergency_restart_interval`
 
 Data type: `Php::Duration`
 
@@ -1285,7 +1289,7 @@ Data type: `Php::Duration`
 
 Default value: `0`
 
-##### <a name="process_control_timeout"></a>`process_control_timeout`
+##### <a name="-php--fpm--config--process_control_timeout"></a>`process_control_timeout`
 
 Data type: `Php::Duration`
 
@@ -1293,7 +1297,7 @@ Data type: `Php::Duration`
 
 Default value: `0`
 
-##### <a name="process_max"></a>`process_max`
+##### <a name="-php--fpm--config--process_max"></a>`process_max`
 
 Data type: `Integer`
 
@@ -1301,23 +1305,23 @@ Data type: `Integer`
 
 Default value: `0`
 
-##### <a name="rlimit_files"></a>`rlimit_files`
+##### <a name="-php--fpm--config--rlimit_files"></a>`rlimit_files`
 
 Data type: `Optional[Integer[1]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="systemd_interval"></a>`systemd_interval`
+##### <a name="-php--fpm--config--systemd_interval"></a>`systemd_interval`
 
 Data type: `Optional[Php::Duration]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="log_owner"></a>`log_owner`
+##### <a name="-php--fpm--config--log_owner"></a>`log_owner`
 
 Data type: `String`
 
@@ -1325,7 +1329,7 @@ Data type: `String`
 
 Default value: `$php::params::fpm_user`
 
-##### <a name="log_group"></a>`log_group`
+##### <a name="-php--fpm--config--log_group"></a>`log_group`
 
 Data type: `String`
 
@@ -1333,7 +1337,7 @@ Data type: `String`
 
 Default value: `$php::params::fpm_group`
 
-##### <a name="log_dir_mode"></a>`log_dir_mode`
+##### <a name="-php--fpm--config--log_dir_mode"></a>`log_dir_mode`
 
 Data type: `Pattern[/^\d+$/]`
 
@@ -1341,7 +1345,7 @@ Data type: `Pattern[/^\d+$/]`
 
 Default value: `'0770'`
 
-##### <a name="root_group"></a>`root_group`
+##### <a name="-php--fpm--config--root_group"></a>`root_group`
 
 Data type: `String[1]`
 
@@ -1349,7 +1353,7 @@ Data type: `String[1]`
 
 Default value: `$php::params::root_group`
 
-##### <a name="syslog_facility"></a>`syslog_facility`
+##### <a name="-php--fpm--config--syslog_facility"></a>`syslog_facility`
 
 Data type: `String`
 
@@ -1357,7 +1361,7 @@ Data type: `String`
 
 Default value: `'daemon'`
 
-##### <a name="syslog_ident"></a>`syslog_ident`
+##### <a name="-php--fpm--config--syslog_ident"></a>`syslog_ident`
 
 Data type: `String`
 
@@ -1365,7 +1369,15 @@ Data type: `String`
 
 Default value: `'php-fpm'`
 
-### <a name="phpfpmservice"></a>`php::fpm::service`
+##### <a name="-php--fpm--config--manage_run_dir"></a>`manage_run_dir`
+
+Data type: `Boolean`
+
+
+
+Default value: `true`
+
+### <a name="php--fpm--service"></a>`php::fpm::service`
 
 Manage fpm service
 
@@ -1393,13 +1405,13 @@ Manage fpm service
 
 The following parameters are available in the `php::fpm::service` class:
 
-* [`service_name`](#service_name)
-* [`ensure`](#ensure)
-* [`enable`](#enable)
-* [`provider`](#provider)
-* [`reload_fpm_on_config_changes`](#reload_fpm_on_config_changes)
+* [`service_name`](#-php--fpm--service--service_name)
+* [`ensure`](#-php--fpm--service--ensure)
+* [`enable`](#-php--fpm--service--enable)
+* [`provider`](#-php--fpm--service--provider)
+* [`reload_fpm_on_config_changes`](#-php--fpm--service--reload_fpm_on_config_changes)
 
-##### <a name="service_name"></a>`service_name`
+##### <a name="-php--fpm--service--service_name"></a>`service_name`
 
 Data type: `String[1]`
 
@@ -1407,7 +1419,7 @@ Data type: `String[1]`
 
 Default value: `$php::fpm::service_name`
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-php--fpm--service--ensure"></a>`ensure`
 
 Data type: `Enum['running', 'stopped']`
 
@@ -1415,7 +1427,7 @@ Data type: `Enum['running', 'stopped']`
 
 Default value: `$php::fpm::service_ensure`
 
-##### <a name="enable"></a>`enable`
+##### <a name="-php--fpm--service--enable"></a>`enable`
 
 Data type: `Boolean`
 
@@ -1423,7 +1435,7 @@ Data type: `Boolean`
 
 Default value: `$php::fpm::service_enable`
 
-##### <a name="provider"></a>`provider`
+##### <a name="-php--fpm--service--provider"></a>`provider`
 
 Data type: `Optional[String[1]]`
 
@@ -1431,7 +1443,7 @@ Data type: `Optional[String[1]]`
 
 Default value: `$php::fpm::service_provider`
 
-##### <a name="reload_fpm_on_config_changes"></a>`reload_fpm_on_config_changes`
+##### <a name="-php--fpm--service--reload_fpm_on_config_changes"></a>`reload_fpm_on_config_changes`
 
 Data type: `Boolean`
 
@@ -1439,7 +1451,7 @@ Data type: `Boolean`
 
 Default value: `$php::fpm::reload_fpm_on_config_changes`
 
-### <a name="phpglobal"></a>`php::global`
+### <a name="php--global"></a>`php::global`
 
 The php::global class.
 
@@ -1447,10 +1459,10 @@ The php::global class.
 
 The following parameters are available in the `php::global` class:
 
-* [`inifile`](#inifile)
-* [`settings`](#settings)
+* [`inifile`](#-php--global--inifile)
+* [`settings`](#-php--global--settings)
 
-##### <a name="inifile"></a>`inifile`
+##### <a name="-php--global--inifile"></a>`inifile`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -1458,7 +1470,7 @@ Data type: `Stdlib::Absolutepath`
 
 Default value: `$php::config_root_inifile`
 
-##### <a name="settings"></a>`settings`
+##### <a name="-php--global--settings"></a>`settings`
 
 Data type: `Hash`
 
@@ -1466,7 +1478,7 @@ Data type: `Hash`
 
 Default value: `{}`
 
-### <a name="phpglobals"></a>`php::globals`
+### <a name="php--globals"></a>`php::globals`
 
 The php::globals class.
 
@@ -1474,44 +1486,62 @@ The php::globals class.
 
 The following parameters are available in the `php::globals` class:
 
-* [`php_version`](#php_version)
-* [`config_root`](#config_root)
-* [`fpm_pid_file`](#fpm_pid_file)
-* [`rhscl_mode`](#rhscl_mode)
+* [`php_version`](#-php--globals--php_version)
+* [`config_root`](#-php--globals--config_root)
+* [`fpm_pid_file`](#-php--globals--fpm_pid_file)
+* [`rhscl_mode`](#-php--globals--rhscl_mode)
+* [`zend_creds`](#-php--globals--zend_creds)
+* [`flavor`](#-php--globals--flavor)
 
-##### <a name="php_version"></a>`php_version`
+##### <a name="-php--globals--php_version"></a>`php_version`
 
 Data type: `Optional[Pattern[/^(rh-)?(php)?[578](\.)?[0-9]/]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="config_root"></a>`config_root`
-
-Data type: `Optional[Stdlib::Absolutepath]`
-
-
-
-Default value: ``undef``
-
-##### <a name="fpm_pid_file"></a>`fpm_pid_file`
+##### <a name="-php--globals--config_root"></a>`config_root`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="rhscl_mode"></a>`rhscl_mode`
+##### <a name="-php--globals--fpm_pid_file"></a>`fpm_pid_file`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+
+
+Default value: `undef`
+
+##### <a name="-php--globals--rhscl_mode"></a>`rhscl_mode`
 
 Data type: `Optional[Enum['rhscl', 'remi']]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-### <a name="phppackages"></a>`php::packages`
+##### <a name="-php--globals--zend_creds"></a>`zend_creds`
+
+Data type: `Optional[Hash]`
+
+
+
+Default value: `undef`
+
+##### <a name="-php--globals--flavor"></a>`flavor`
+
+Data type: `Enum['community', 'zend']`
+
+
+
+Default value: `'community'`
+
+### <a name="php--packages"></a>`php::packages`
 
 Install common PHP packages
 
@@ -1531,12 +1561,12 @@ Install common PHP packages
 
 The following parameters are available in the `php::packages` class:
 
-* [`ensure`](#ensure)
-* [`manage_repos`](#manage_repos)
-* [`names_to_prefix`](#names_to_prefix)
-* [`names`](#names)
+* [`ensure`](#-php--packages--ensure)
+* [`manage_repos`](#-php--packages--manage_repos)
+* [`names_to_prefix`](#-php--packages--names_to_prefix)
+* [`names`](#-php--packages--names)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-php--packages--ensure"></a>`ensure`
 
 Data type: `String`
 
@@ -1544,7 +1574,7 @@ Data type: `String`
 
 Default value: `$php::ensure`
 
-##### <a name="manage_repos"></a>`manage_repos`
+##### <a name="-php--packages--manage_repos"></a>`manage_repos`
 
 Data type: `Boolean`
 
@@ -1552,7 +1582,7 @@ Data type: `Boolean`
 
 Default value: `$php::manage_repos`
 
-##### <a name="names_to_prefix"></a>`names_to_prefix`
+##### <a name="-php--packages--names_to_prefix"></a>`names_to_prefix`
 
 Data type: `Array`
 
@@ -1560,7 +1590,7 @@ Data type: `Array`
 
 Default value: `prefix($php::params::common_package_suffixes, $php::package_prefix)`
 
-##### <a name="names"></a>`names`
+##### <a name="-php--packages--names"></a>`names`
 
 Data type: `Array`
 
@@ -1568,11 +1598,11 @@ Data type: `Array`
 
 Default value: `$php::params::common_package_names`
 
-### <a name="phpparams"></a>`php::params`
+### <a name="php--params"></a>`php::params`
 
 PHP params class
 
-### <a name="phppear"></a>`php::pear`
+### <a name="php--pear"></a>`php::pear`
 
 Install PEAR package manager
 
@@ -1588,11 +1618,11 @@ Install PEAR package manager
 
 The following parameters are available in the `php::pear` class:
 
-* [`ensure`](#ensure)
-* [`package`](#package)
-* [`manage_repos`](#manage_repos)
+* [`ensure`](#-php--pear--ensure)
+* [`package`](#-php--pear--package)
+* [`manage_repos`](#-php--pear--manage_repos)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-php--pear--ensure"></a>`ensure`
 
 Data type: `String`
 
@@ -1600,15 +1630,15 @@ Data type: `String`
 
 Default value: `$php::pear_ensure`
 
-##### <a name="package"></a>`package`
+##### <a name="-php--pear--package"></a>`package`
 
 Data type: `Optional[String]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="manage_repos"></a>`manage_repos`
+##### <a name="-php--pear--manage_repos"></a>`manage_repos`
 
 Data type: `Boolean`
 
@@ -1616,7 +1646,7 @@ Data type: `Boolean`
 
 Default value: `$php::manage_repos`
 
-### <a name="phpphpunit"></a>`php::phpunit`
+### <a name="php--phpunit"></a>`php::phpunit`
 
 Install phpunit, PHP testing framework
 
@@ -1638,13 +1668,13 @@ Install phpunit, PHP testing framework
 
 The following parameters are available in the `php::phpunit` class:
 
-* [`source`](#source)
-* [`path`](#path)
-* [`root_group`](#root_group)
-* [`auto_update`](#auto_update)
-* [`max_age`](#max_age)
+* [`source`](#-php--phpunit--source)
+* [`path`](#-php--phpunit--path)
+* [`root_group`](#-php--phpunit--root_group)
+* [`auto_update`](#-php--phpunit--auto_update)
+* [`max_age`](#-php--phpunit--max_age)
 
-##### <a name="source"></a>`source`
+##### <a name="-php--phpunit--source"></a>`source`
 
 Data type: `String`
 
@@ -1652,7 +1682,7 @@ Data type: `String`
 
 Default value: `$php::params::phpunit_source`
 
-##### <a name="path"></a>`path`
+##### <a name="-php--phpunit--path"></a>`path`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -1660,7 +1690,7 @@ Data type: `Stdlib::Absolutepath`
 
 Default value: `$php::params::phpunit_path`
 
-##### <a name="root_group"></a>`root_group`
+##### <a name="-php--phpunit--root_group"></a>`root_group`
 
 Data type: `String[1]`
 
@@ -1668,15 +1698,15 @@ Data type: `String[1]`
 
 Default value: `$php::params::root_group`
 
-##### <a name="auto_update"></a>`auto_update`
+##### <a name="-php--phpunit--auto_update"></a>`auto_update`
 
 Data type: `Boolean`
 
 
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="max_age"></a>`max_age`
+##### <a name="-php--phpunit--max_age"></a>`max_age`
 
 Data type: `Integer`
 
@@ -1684,7 +1714,7 @@ Data type: `Integer`
 
 Default value: `$php::params::phpunit_max_age`
 
-### <a name="phpphpunitauto_update"></a>`php::phpunit::auto_update`
+### <a name="php--phpunit--auto_update"></a>`php::phpunit::auto_update`
 
 Install phpunit package manager
 
@@ -1703,33 +1733,33 @@ Install phpunit package manager
 
 The following parameters are available in the `php::phpunit::auto_update` class:
 
-* [`max_age`](#max_age)
-* [`source`](#source)
-* [`path`](#path)
+* [`max_age`](#-php--phpunit--auto_update--max_age)
+* [`source`](#-php--phpunit--auto_update--source)
+* [`path`](#-php--phpunit--auto_update--path)
 
-##### <a name="max_age"></a>`max_age`
+##### <a name="-php--phpunit--auto_update--max_age"></a>`max_age`
 
 Data type: `Integer[1]`
 
 
 
-##### <a name="source"></a>`source`
+##### <a name="-php--phpunit--auto_update--source"></a>`source`
 
 Data type: `String[1]`
 
 
 
-##### <a name="path"></a>`path`
+##### <a name="-php--phpunit--auto_update--path"></a>`path`
 
 Data type: `Stdlib::Absolutepath`
 
 
 
-### <a name="phprepo"></a>`php::repo`
+### <a name="php--repo"></a>`php::repo`
 
 Configure package repository
 
-### <a name="phprepodebian"></a>`php::repo::debian`
+### <a name="php--repo--debian"></a>`php::repo::debian`
 
 Configure debian apt repo
 
@@ -1737,9 +1767,6 @@ Configure debian apt repo
 
 [*location*]
   Location of the apt repository
-
-[*release*]
-  Release of the apt repository
 
 [*repos*]
   Apt repository names
@@ -1760,15 +1787,14 @@ Configure debian apt repo
 
 The following parameters are available in the `php::repo::debian` class:
 
-* [`location`](#location)
-* [`release`](#release)
-* [`repos`](#repos)
-* [`include_src`](#include_src)
-* [`key`](#key)
-* [`dotdeb`](#dotdeb)
-* [`sury`](#sury)
+* [`location`](#-php--repo--debian--location)
+* [`repos`](#-php--repo--debian--repos)
+* [`include_src`](#-php--repo--debian--include_src)
+* [`key`](#-php--repo--debian--key)
+* [`dotdeb`](#-php--repo--debian--dotdeb)
+* [`sury`](#-php--repo--debian--sury)
 
-##### <a name="location"></a>`location`
+##### <a name="-php--repo--debian--location"></a>`location`
 
 Data type: `String[1]`
 
@@ -1776,15 +1802,7 @@ Data type: `String[1]`
 
 Default value: `'https://packages.dotdeb.org'`
 
-##### <a name="release"></a>`release`
-
-Data type: `String[1]`
-
-
-
-Default value: `'wheezy-php56'`
-
-##### <a name="repos"></a>`repos`
+##### <a name="-php--repo--debian--repos"></a>`repos`
 
 Data type: `String[1]`
 
@@ -1792,42 +1810,46 @@ Data type: `String[1]`
 
 Default value: `'all'`
 
-##### <a name="include_src"></a>`include_src`
+##### <a name="-php--repo--debian--include_src"></a>`include_src`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="key"></a>`key`
+##### <a name="-php--repo--debian--key"></a>`key`
 
 Data type: `Hash`
 
 
 
-Default value: `{
+Default value:
+
+```puppet
+{
     'id'     => '6572BBEF1B5FF28B28B706837E3F070089DF5277',
     'source' => 'http://www.dotdeb.org/dotdeb.gpg',
-  }`
+  }
+```
 
-##### <a name="dotdeb"></a>`dotdeb`
-
-Data type: `Boolean`
-
-
-
-Default value: ``true``
-
-##### <a name="sury"></a>`sury`
+##### <a name="-php--repo--debian--dotdeb"></a>`dotdeb`
 
 Data type: `Boolean`
 
 
 
-Default value: ``true``
+Default value: `true`
 
-### <a name="phpreporedhat"></a>`php::repo::redhat`
+##### <a name="-php--repo--debian--sury"></a>`sury`
+
+Data type: `Boolean`
+
+
+
+Default value: `true`
+
+### <a name="php--repo--redhat"></a>`php::repo::redhat`
 
 The php::repo::redhat class.
 
@@ -1835,9 +1857,9 @@ The php::repo::redhat class.
 
 The following parameters are available in the `php::repo::redhat` class:
 
-* [`yum_repo`](#yum_repo)
+* [`yum_repo`](#-php--repo--redhat--yum_repo)
 
-##### <a name="yum_repo"></a>`yum_repo`
+##### <a name="-php--repo--redhat--yum_repo"></a>`yum_repo`
 
 Data type: `String[1]`
 
@@ -1845,7 +1867,7 @@ Data type: `String[1]`
 
 Default value: `'remi_php56'`
 
-### <a name="phpreposuse"></a>`php::repo::suse`
+### <a name="php--repo--suse"></a>`php::repo::suse`
 
 Configure suse repo
 
@@ -1861,10 +1883,10 @@ Configure suse repo
 
 The following parameters are available in the `php::repo::suse` class:
 
-* [`reponame`](#reponame)
-* [`baseurl`](#baseurl)
+* [`reponame`](#-php--repo--suse--reponame)
+* [`baseurl`](#-php--repo--suse--baseurl)
 
-##### <a name="reponame"></a>`reponame`
+##### <a name="-php--repo--suse--reponame"></a>`reponame`
 
 Data type: `String[1]`
 
@@ -1872,7 +1894,7 @@ Data type: `String[1]`
 
 Default value: `'mayflower-php56'`
 
-##### <a name="baseurl"></a>`baseurl`
+##### <a name="-php--repo--suse--baseurl"></a>`baseurl`
 
 Data type: `String[1]`
 
@@ -1880,7 +1902,7 @@ Data type: `String[1]`
 
 Default value: `'http://download.opensuse.org/repositories/home:/mayflower:/php5.6_based/SLE_11_SP3/'`
 
-### <a name="phprepoubuntu"></a>`php::repo::ubuntu`
+### <a name="php--repo--ubuntu"></a>`php::repo::ubuntu`
 
 Configure ubuntu ppa
 
@@ -1893,9 +1915,9 @@ Configure ubuntu ppa
 
 The following parameters are available in the `php::repo::ubuntu` class:
 
-* [`version`](#version)
+* [`version`](#-php--repo--ubuntu--version)
 
-##### <a name="version"></a>`version`
+##### <a name="-php--repo--ubuntu--version"></a>`version`
 
 Data type: `Pattern[/^\d\.\d/]`
 
@@ -1905,7 +1927,7 @@ Default value: `'5.6'`
 
 ## Defined types
 
-### <a name="phpapache_vhost"></a>`php::apache_vhost`
+### <a name="php--apache_vhost"></a>`php::apache_vhost`
 
 Configures an apache vhost for php
 
@@ -1930,13 +1952,13 @@ Configures an apache vhost for php
 
 The following parameters are available in the `php::apache_vhost` defined type:
 
-* [`vhost`](#vhost)
-* [`docroot`](#docroot)
-* [`port`](#port)
-* [`default_vhost`](#default_vhost)
-* [`fastcgi_socket`](#fastcgi_socket)
+* [`vhost`](#-php--apache_vhost--vhost)
+* [`docroot`](#-php--apache_vhost--docroot)
+* [`port`](#-php--apache_vhost--port)
+* [`default_vhost`](#-php--apache_vhost--default_vhost)
+* [`fastcgi_socket`](#-php--apache_vhost--fastcgi_socket)
 
-##### <a name="vhost"></a>`vhost`
+##### <a name="-php--apache_vhost--vhost"></a>`vhost`
 
 Data type: `String[1]`
 
@@ -1944,7 +1966,7 @@ Data type: `String[1]`
 
 Default value: `'example.com'`
 
-##### <a name="docroot"></a>`docroot`
+##### <a name="-php--apache_vhost--docroot"></a>`docroot`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -1952,7 +1974,7 @@ Data type: `Stdlib::Absolutepath`
 
 Default value: `'/var/www'`
 
-##### <a name="port"></a>`port`
+##### <a name="-php--apache_vhost--port"></a>`port`
 
 Data type: `Integer[1]`
 
@@ -1960,15 +1982,15 @@ Data type: `Integer[1]`
 
 Default value: `80`
 
-##### <a name="default_vhost"></a>`default_vhost`
+##### <a name="-php--apache_vhost--default_vhost"></a>`default_vhost`
 
 Data type: `Boolean`
 
 
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="fastcgi_socket"></a>`fastcgi_socket`
+##### <a name="-php--apache_vhost--fastcgi_socket"></a>`fastcgi_socket`
 
 Data type: `String[1]`
 
@@ -1976,7 +1998,7 @@ Data type: `String[1]`
 
 Default value: `'fcgi://127.0.0.1:9000/$1'`
 
-### <a name="phpconfig"></a>`php::config`
+### <a name="php--config"></a>`php::config`
 
 Configure php.ini settings for a PHP SAPI
 
@@ -2001,22 +2023,22 @@ Configure php.ini settings for a PHP SAPI
 
 The following parameters are available in the `php::config` defined type:
 
-* [`file`](#file)
-* [`config`](#config)
+* [`file`](#-php--config--file)
+* [`config`](#-php--config--config)
 
-##### <a name="file"></a>`file`
+##### <a name="-php--config--file"></a>`file`
 
 Data type: `Stdlib::Absolutepath`
 
 
 
-##### <a name="config"></a>`config`
+##### <a name="-php--config--config"></a>`config`
 
 Data type: `Hash`
 
 
 
-### <a name="phpconfigsetting"></a>`php::config::setting`
+### <a name="php--config--setting"></a>`php::config::setting`
 
 Configure php.ini settings
 
@@ -2042,31 +2064,31 @@ Configure php.ini settings
 
 The following parameters are available in the `php::config::setting` defined type:
 
-* [`key`](#key)
-* [`file`](#file)
-* [`value`](#value)
+* [`key`](#-php--config--setting--key)
+* [`file`](#-php--config--setting--file)
+* [`value`](#-php--config--setting--value)
 
-##### <a name="key"></a>`key`
+##### <a name="-php--config--setting--key"></a>`key`
 
 Data type: `String[1]`
 
 
 
-##### <a name="file"></a>`file`
+##### <a name="-php--config--setting--file"></a>`file`
 
 Data type: `Stdlib::Absolutepath`
 
 
 
-##### <a name="value"></a>`value`
+##### <a name="-php--config--setting--value"></a>`value`
 
 Data type: `Optional[Variant[Integer, String]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-### <a name="phpextension"></a>`php::extension`
+### <a name="php--extension"></a>`php::extension`
 
 Install a PHP extension package
 
@@ -2144,25 +2166,25 @@ Install a PHP extension package
 
 The following parameters are available in the `php::extension` defined type:
 
-* [`ensure`](#ensure)
-* [`provider`](#provider)
-* [`source`](#source)
-* [`so_name`](#so_name)
-* [`ini_prefix`](#ini_prefix)
-* [`php_api_version`](#php_api_version)
-* [`package_prefix`](#package_prefix)
-* [`package_name`](#package_name)
-* [`zend`](#zend)
-* [`settings`](#settings)
-* [`multifile_settings`](#multifile_settings)
-* [`sapi`](#sapi)
-* [`settings_prefix`](#settings_prefix)
-* [`responsefile`](#responsefile)
-* [`header_packages`](#header_packages)
-* [`compiler_packages`](#compiler_packages)
-* [`install_options`](#install_options)
+* [`ensure`](#-php--extension--ensure)
+* [`provider`](#-php--extension--provider)
+* [`source`](#-php--extension--source)
+* [`so_name`](#-php--extension--so_name)
+* [`ini_prefix`](#-php--extension--ini_prefix)
+* [`php_api_version`](#-php--extension--php_api_version)
+* [`package_prefix`](#-php--extension--package_prefix)
+* [`package_name`](#-php--extension--package_name)
+* [`zend`](#-php--extension--zend)
+* [`settings`](#-php--extension--settings)
+* [`multifile_settings`](#-php--extension--multifile_settings)
+* [`sapi`](#-php--extension--sapi)
+* [`settings_prefix`](#-php--extension--settings_prefix)
+* [`responsefile`](#-php--extension--responsefile)
+* [`header_packages`](#-php--extension--header_packages)
+* [`compiler_packages`](#-php--extension--compiler_packages)
+* [`install_options`](#-php--extension--install_options)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-php--extension--ensure"></a>`ensure`
 
 Data type: `String`
 
@@ -2170,47 +2192,47 @@ Data type: `String`
 
 Default value: `$php::ensure`
 
-##### <a name="provider"></a>`provider`
+##### <a name="-php--extension--provider"></a>`provider`
 
 Data type: `Optional[Php::Provider]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="source"></a>`source`
-
-Data type: `Optional[String]`
-
-
-
-Default value: ``undef``
-
-##### <a name="so_name"></a>`so_name`
+##### <a name="-php--extension--source"></a>`source`
 
 Data type: `Optional[String]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="ini_prefix"></a>`ini_prefix`
-
-Data type: `Optional[String]`
-
-
-
-Default value: ``undef``
-
-##### <a name="php_api_version"></a>`php_api_version`
+##### <a name="-php--extension--so_name"></a>`so_name`
 
 Data type: `Optional[String]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="package_prefix"></a>`package_prefix`
+##### <a name="-php--extension--ini_prefix"></a>`ini_prefix`
+
+Data type: `Optional[String]`
+
+
+
+Default value: `undef`
+
+##### <a name="-php--extension--php_api_version"></a>`php_api_version`
+
+Data type: `Optional[String]`
+
+
+
+Default value: `undef`
+
+##### <a name="-php--extension--package_prefix"></a>`package_prefix`
 
 Data type: `String`
 
@@ -2218,23 +2240,23 @@ Data type: `String`
 
 Default value: `$php::package_prefix`
 
-##### <a name="package_name"></a>`package_name`
+##### <a name="-php--extension--package_name"></a>`package_name`
 
 Data type: `Optional[String[1]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="zend"></a>`zend`
+##### <a name="-php--extension--zend"></a>`zend`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="settings"></a>`settings`
+##### <a name="-php--extension--settings"></a>`settings`
 
 Data type: `Variant[Hash, Hash[String, Hash]]`
 
@@ -2242,15 +2264,15 @@ Data type: `Variant[Hash, Hash[String, Hash]]`
 
 Default value: `{}`
 
-##### <a name="multifile_settings"></a>`multifile_settings`
+##### <a name="-php--extension--multifile_settings"></a>`multifile_settings`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="sapi"></a>`sapi`
+##### <a name="-php--extension--sapi"></a>`sapi`
 
 Data type: `Php::Sapi`
 
@@ -2258,23 +2280,23 @@ Data type: `Php::Sapi`
 
 Default value: `'ALL'`
 
-##### <a name="settings_prefix"></a>`settings_prefix`
+##### <a name="-php--extension--settings_prefix"></a>`settings_prefix`
 
 Data type: `Variant[Boolean, String]`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="responsefile"></a>`responsefile`
+##### <a name="-php--extension--responsefile"></a>`responsefile`
 
 Data type: `Optional[Stdlib::AbsolutePath]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="header_packages"></a>`header_packages`
+##### <a name="-php--extension--header_packages"></a>`header_packages`
 
 Data type: `Variant[String, Array[String]]`
 
@@ -2282,7 +2304,7 @@ Data type: `Variant[String, Array[String]]`
 
 Default value: `[]`
 
-##### <a name="compiler_packages"></a>`compiler_packages`
+##### <a name="-php--extension--compiler_packages"></a>`compiler_packages`
 
 Data type: `Variant[String, Array[String]]`
 
@@ -2290,15 +2312,15 @@ Data type: `Variant[String, Array[String]]`
 
 Default value: `$php::params::compiler_packages`
 
-##### <a name="install_options"></a>`install_options`
+##### <a name="-php--extension--install_options"></a>`install_options`
 
 Data type: `Php::InstallOptions`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-### <a name="phpextensionconfig"></a>`php::extension::config`
+### <a name="php--extension--config"></a>`php::extension::config`
 
 Configure a PHP extension package
 
@@ -2350,17 +2372,17 @@ Configure a PHP extension package
 
 The following parameters are available in the `php::extension::config` defined type:
 
-* [`ensure`](#ensure)
-* [`provider`](#provider)
-* [`so_name`](#so_name)
-* [`ini_prefix`](#ini_prefix)
-* [`php_api_version`](#php_api_version)
-* [`zend`](#zend)
-* [`settings`](#settings)
-* [`settings_prefix`](#settings_prefix)
-* [`sapi`](#sapi)
+* [`ensure`](#-php--extension--config--ensure)
+* [`provider`](#-php--extension--config--provider)
+* [`so_name`](#-php--extension--config--so_name)
+* [`ini_prefix`](#-php--extension--config--ini_prefix)
+* [`php_api_version`](#-php--extension--config--php_api_version)
+* [`zend`](#-php--extension--config--zend)
+* [`settings`](#-php--extension--config--settings)
+* [`settings_prefix`](#-php--extension--config--settings_prefix)
+* [`sapi`](#-php--extension--config--sapi)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-php--extension--config--ensure"></a>`ensure`
 
 Data type: `String`
 
@@ -2368,15 +2390,15 @@ Data type: `String`
 
 Default value: `'installed'`
 
-##### <a name="provider"></a>`provider`
+##### <a name="-php--extension--config--provider"></a>`provider`
 
 Data type: `Optional[Php::Provider]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="so_name"></a>`so_name`
+##### <a name="-php--extension--config--so_name"></a>`so_name`
 
 Data type: `Optional[String]`
 
@@ -2384,31 +2406,31 @@ Data type: `Optional[String]`
 
 Default value: `downcase($name)`
 
-##### <a name="ini_prefix"></a>`ini_prefix`
+##### <a name="-php--extension--config--ini_prefix"></a>`ini_prefix`
 
 Data type: `Optional[String]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="php_api_version"></a>`php_api_version`
+##### <a name="-php--extension--config--php_api_version"></a>`php_api_version`
 
 Data type: `Optional[String]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="zend"></a>`zend`
+##### <a name="-php--extension--config--zend"></a>`zend`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="settings"></a>`settings`
+##### <a name="-php--extension--config--settings"></a>`settings`
 
 Data type: `Hash`
 
@@ -2416,15 +2438,15 @@ Data type: `Hash`
 
 Default value: `{}`
 
-##### <a name="settings_prefix"></a>`settings_prefix`
+##### <a name="-php--extension--config--settings_prefix"></a>`settings_prefix`
 
 Data type: `Variant[Boolean, String]`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="sapi"></a>`sapi`
+##### <a name="-php--extension--config--sapi"></a>`sapi`
 
 Data type: `Php::Sapi`
 
@@ -2432,7 +2454,7 @@ Data type: `Php::Sapi`
 
 Default value: `'ALL'`
 
-### <a name="phpextensioninstall"></a>`php::extension::install`
+### <a name="php--extension--install"></a>`php::extension::install`
 
 Install a PHP extension package
 
@@ -2477,17 +2499,17 @@ Install a PHP extension package
 
 The following parameters are available in the `php::extension::install` defined type:
 
-* [`ensure`](#ensure)
-* [`provider`](#provider)
-* [`source`](#source)
-* [`package_prefix`](#package_prefix)
-* [`package_name`](#package_name)
-* [`responsefile`](#responsefile)
-* [`header_packages`](#header_packages)
-* [`compiler_packages`](#compiler_packages)
-* [`install_options`](#install_options)
+* [`ensure`](#-php--extension--install--ensure)
+* [`provider`](#-php--extension--install--provider)
+* [`source`](#-php--extension--install--source)
+* [`package_prefix`](#-php--extension--install--package_prefix)
+* [`package_name`](#-php--extension--install--package_name)
+* [`responsefile`](#-php--extension--install--responsefile)
+* [`header_packages`](#-php--extension--install--header_packages)
+* [`compiler_packages`](#-php--extension--install--compiler_packages)
+* [`install_options`](#-php--extension--install--install_options)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-php--extension--install--ensure"></a>`ensure`
 
 Data type: `String`
 
@@ -2495,23 +2517,23 @@ Data type: `String`
 
 Default value: `'installed'`
 
-##### <a name="provider"></a>`provider`
+##### <a name="-php--extension--install--provider"></a>`provider`
 
 Data type: `Optional[Php::Provider]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="source"></a>`source`
+##### <a name="-php--extension--install--source"></a>`source`
 
 Data type: `Optional[String]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="package_prefix"></a>`package_prefix`
+##### <a name="-php--extension--install--package_prefix"></a>`package_prefix`
 
 Data type: `String`
 
@@ -2519,23 +2541,23 @@ Data type: `String`
 
 Default value: `$php::package_prefix`
 
-##### <a name="package_name"></a>`package_name`
+##### <a name="-php--extension--install--package_name"></a>`package_name`
 
 Data type: `Optional[String[1]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="responsefile"></a>`responsefile`
+##### <a name="-php--extension--install--responsefile"></a>`responsefile`
 
 Data type: `Optional[Stdlib::AbsolutePath]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="header_packages"></a>`header_packages`
+##### <a name="-php--extension--install--header_packages"></a>`header_packages`
 
 Data type: `Variant[String, Array[String]]`
 
@@ -2543,7 +2565,7 @@ Data type: `Variant[String, Array[String]]`
 
 Default value: `[]`
 
-##### <a name="compiler_packages"></a>`compiler_packages`
+##### <a name="-php--extension--install--compiler_packages"></a>`compiler_packages`
 
 Data type: `Variant[String, Array[String]]`
 
@@ -2551,15 +2573,15 @@ Data type: `Variant[String, Array[String]]`
 
 Default value: `$php::params::compiler_packages`
 
-##### <a name="install_options"></a>`install_options`
+##### <a name="-php--extension--install--install_options"></a>`install_options`
 
 Data type: `Php::InstallOptions`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-### <a name="phpfpmpool"></a>`php::fpm::pool`
+### <a name="php--fpm--pool"></a>`php::fpm::pool`
 
 Configure fpm pools
 
@@ -2687,52 +2709,52 @@ documented here: http://php.net/manual/en/install.fpm.configuration.php.
 
 The following parameters are available in the `php::fpm::pool` defined type:
 
-* [`ensure`](#ensure)
-* [`listen`](#listen)
-* [`listen_backlog`](#listen_backlog)
-* [`listen_allowed_clients`](#listen_allowed_clients)
-* [`listen_owner`](#listen_owner)
-* [`listen_group`](#listen_group)
-* [`listen_mode`](#listen_mode)
-* [`user`](#user)
-* [`group`](#group)
-* [`apparmor_hat`](#apparmor_hat)
-* [`pm`](#pm)
-* [`pm_max_children`](#pm_max_children)
-* [`pm_start_servers`](#pm_start_servers)
-* [`pm_min_spare_servers`](#pm_min_spare_servers)
-* [`pm_max_spare_servers`](#pm_max_spare_servers)
-* [`pm_max_requests`](#pm_max_requests)
-* [`pm_process_idle_timeout`](#pm_process_idle_timeout)
-* [`pm_status_path`](#pm_status_path)
-* [`ping_path`](#ping_path)
-* [`ping_response`](#ping_response)
-* [`access_log`](#access_log)
-* [`access_log_format`](#access_log_format)
-* [`request_terminate_timeout`](#request_terminate_timeout)
-* [`request_slowlog_timeout`](#request_slowlog_timeout)
-* [`security_limit_extensions`](#security_limit_extensions)
-* [`slowlog`](#slowlog)
-* [`template`](#template)
-* [`rlimit_files`](#rlimit_files)
-* [`rlimit_core`](#rlimit_core)
-* [`chroot`](#chroot)
-* [`chdir`](#chdir)
-* [`catch_workers_output`](#catch_workers_output)
-* [`include`](#include)
-* [`env`](#env)
-* [`env_value`](#env_value)
-* [`clear_env`](#clear_env)
-* [`options`](#options)
-* [`php_value`](#php_value)
-* [`php_flag`](#php_flag)
-* [`php_admin_value`](#php_admin_value)
-* [`php_admin_flag`](#php_admin_flag)
-* [`php_directives`](#php_directives)
-* [`root_group`](#root_group)
-* [`base_dir`](#base_dir)
+* [`ensure`](#-php--fpm--pool--ensure)
+* [`listen`](#-php--fpm--pool--listen)
+* [`listen_backlog`](#-php--fpm--pool--listen_backlog)
+* [`listen_allowed_clients`](#-php--fpm--pool--listen_allowed_clients)
+* [`listen_owner`](#-php--fpm--pool--listen_owner)
+* [`listen_group`](#-php--fpm--pool--listen_group)
+* [`listen_mode`](#-php--fpm--pool--listen_mode)
+* [`user`](#-php--fpm--pool--user)
+* [`group`](#-php--fpm--pool--group)
+* [`apparmor_hat`](#-php--fpm--pool--apparmor_hat)
+* [`pm`](#-php--fpm--pool--pm)
+* [`pm_max_children`](#-php--fpm--pool--pm_max_children)
+* [`pm_start_servers`](#-php--fpm--pool--pm_start_servers)
+* [`pm_min_spare_servers`](#-php--fpm--pool--pm_min_spare_servers)
+* [`pm_max_spare_servers`](#-php--fpm--pool--pm_max_spare_servers)
+* [`pm_max_requests`](#-php--fpm--pool--pm_max_requests)
+* [`pm_process_idle_timeout`](#-php--fpm--pool--pm_process_idle_timeout)
+* [`pm_status_path`](#-php--fpm--pool--pm_status_path)
+* [`ping_path`](#-php--fpm--pool--ping_path)
+* [`ping_response`](#-php--fpm--pool--ping_response)
+* [`access_log`](#-php--fpm--pool--access_log)
+* [`access_log_format`](#-php--fpm--pool--access_log_format)
+* [`request_terminate_timeout`](#-php--fpm--pool--request_terminate_timeout)
+* [`request_slowlog_timeout`](#-php--fpm--pool--request_slowlog_timeout)
+* [`security_limit_extensions`](#-php--fpm--pool--security_limit_extensions)
+* [`slowlog`](#-php--fpm--pool--slowlog)
+* [`template`](#-php--fpm--pool--template)
+* [`rlimit_files`](#-php--fpm--pool--rlimit_files)
+* [`rlimit_core`](#-php--fpm--pool--rlimit_core)
+* [`chroot`](#-php--fpm--pool--chroot)
+* [`chdir`](#-php--fpm--pool--chdir)
+* [`catch_workers_output`](#-php--fpm--pool--catch_workers_output)
+* [`include`](#-php--fpm--pool--include)
+* [`env`](#-php--fpm--pool--env)
+* [`env_value`](#-php--fpm--pool--env_value)
+* [`clear_env`](#-php--fpm--pool--clear_env)
+* [`options`](#-php--fpm--pool--options)
+* [`php_value`](#-php--fpm--pool--php_value)
+* [`php_flag`](#-php--fpm--pool--php_flag)
+* [`php_admin_value`](#-php--fpm--pool--php_admin_value)
+* [`php_admin_flag`](#-php--fpm--pool--php_admin_flag)
+* [`php_directives`](#-php--fpm--pool--php_directives)
+* [`root_group`](#-php--fpm--pool--root_group)
+* [`base_dir`](#-php--fpm--pool--base_dir)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-php--fpm--pool--ensure"></a>`ensure`
 
 Data type: `Enum['present', 'absent']`
 
@@ -2740,7 +2762,7 @@ Data type: `Enum['present', 'absent']`
 
 Default value: `'present'`
 
-##### <a name="listen"></a>`listen`
+##### <a name="-php--fpm--pool--listen"></a>`listen`
 
 Data type: `String[1]`
 
@@ -2748,47 +2770,47 @@ Data type: `String[1]`
 
 Default value: `'127.0.0.1:9000'`
 
-##### <a name="listen_backlog"></a>`listen_backlog`
+##### <a name="-php--fpm--pool--listen_backlog"></a>`listen_backlog`
 
 Data type: `Integer[-1]`
 
 
 
-Default value: `-`
+Default value: `-1`
 
-##### <a name="listen_allowed_clients"></a>`listen_allowed_clients`
-
-Data type: `Optional[String[1]]`
-
-
-
-Default value: ``undef``
-
-##### <a name="listen_owner"></a>`listen_owner`
+##### <a name="-php--fpm--pool--listen_allowed_clients"></a>`listen_allowed_clients`
 
 Data type: `Optional[String[1]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="listen_group"></a>`listen_group`
+##### <a name="-php--fpm--pool--listen_owner"></a>`listen_owner`
 
 Data type: `Optional[String[1]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="listen_mode"></a>`listen_mode`
+##### <a name="-php--fpm--pool--listen_group"></a>`listen_group`
+
+Data type: `Optional[String[1]]`
+
+
+
+Default value: `undef`
+
+##### <a name="-php--fpm--pool--listen_mode"></a>`listen_mode`
 
 Data type: `Optional[Stdlib::Filemode]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="user"></a>`user`
+##### <a name="-php--fpm--pool--user"></a>`user`
 
 Data type: `String[1]`
 
@@ -2796,7 +2818,7 @@ Data type: `String[1]`
 
 Default value: `$php::fpm::config::user`
 
-##### <a name="group"></a>`group`
+##### <a name="-php--fpm--pool--group"></a>`group`
 
 Data type: `String[1]`
 
@@ -2804,15 +2826,15 @@ Data type: `String[1]`
 
 Default value: `$php::fpm::config::group`
 
-##### <a name="apparmor_hat"></a>`apparmor_hat`
+##### <a name="-php--fpm--pool--apparmor_hat"></a>`apparmor_hat`
 
 Data type: `Optional[String[1]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="pm"></a>`pm`
+##### <a name="-php--fpm--pool--pm"></a>`pm`
 
 Data type: `String[1]`
 
@@ -2820,7 +2842,7 @@ Data type: `String[1]`
 
 Default value: `'dynamic'`
 
-##### <a name="pm_max_children"></a>`pm_max_children`
+##### <a name="-php--fpm--pool--pm_max_children"></a>`pm_max_children`
 
 Data type: `Integer[1]`
 
@@ -2828,7 +2850,7 @@ Data type: `Integer[1]`
 
 Default value: `50`
 
-##### <a name="pm_start_servers"></a>`pm_start_servers`
+##### <a name="-php--fpm--pool--pm_start_servers"></a>`pm_start_servers`
 
 Data type: `Integer[0]`
 
@@ -2836,7 +2858,7 @@ Data type: `Integer[0]`
 
 Default value: `5`
 
-##### <a name="pm_min_spare_servers"></a>`pm_min_spare_servers`
+##### <a name="-php--fpm--pool--pm_min_spare_servers"></a>`pm_min_spare_servers`
 
 Data type: `Integer[0]`
 
@@ -2844,7 +2866,7 @@ Data type: `Integer[0]`
 
 Default value: `5`
 
-##### <a name="pm_max_spare_servers"></a>`pm_max_spare_servers`
+##### <a name="-php--fpm--pool--pm_max_spare_servers"></a>`pm_max_spare_servers`
 
 Data type: `Integer[0]`
 
@@ -2852,7 +2874,7 @@ Data type: `Integer[0]`
 
 Default value: `35`
 
-##### <a name="pm_max_requests"></a>`pm_max_requests`
+##### <a name="-php--fpm--pool--pm_max_requests"></a>`pm_max_requests`
 
 Data type: `Integer[0]`
 
@@ -2860,7 +2882,7 @@ Data type: `Integer[0]`
 
 Default value: `0`
 
-##### <a name="pm_process_idle_timeout"></a>`pm_process_idle_timeout`
+##### <a name="-php--fpm--pool--pm_process_idle_timeout"></a>`pm_process_idle_timeout`
 
 Data type: `Php::Duration`
 
@@ -2868,23 +2890,23 @@ Data type: `Php::Duration`
 
 Default value: `'10s'`
 
-##### <a name="pm_status_path"></a>`pm_status_path`
+##### <a name="-php--fpm--pool--pm_status_path"></a>`pm_status_path`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="ping_path"></a>`ping_path`
+##### <a name="-php--fpm--pool--ping_path"></a>`ping_path`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="ping_response"></a>`ping_response`
+##### <a name="-php--fpm--pool--ping_response"></a>`ping_response`
 
 Data type: `String[1]`
 
@@ -2892,15 +2914,15 @@ Data type: `String[1]`
 
 Default value: `'pong'`
 
-##### <a name="access_log"></a>`access_log`
+##### <a name="-php--fpm--pool--access_log"></a>`access_log`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="access_log_format"></a>`access_log_format`
+##### <a name="-php--fpm--pool--access_log_format"></a>`access_log_format`
 
 Data type: `String[1]`
 
@@ -2908,7 +2930,7 @@ Data type: `String[1]`
 
 Default value: `'"%R - %u %t \"%m %r\" %s"'`
 
-##### <a name="request_terminate_timeout"></a>`request_terminate_timeout`
+##### <a name="-php--fpm--pool--request_terminate_timeout"></a>`request_terminate_timeout`
 
 Data type: `Php::Duration`
 
@@ -2916,7 +2938,7 @@ Data type: `Php::Duration`
 
 Default value: `0`
 
-##### <a name="request_slowlog_timeout"></a>`request_slowlog_timeout`
+##### <a name="-php--fpm--pool--request_slowlog_timeout"></a>`request_slowlog_timeout`
 
 Data type: `Php::Duration`
 
@@ -2924,7 +2946,7 @@ Data type: `Php::Duration`
 
 Default value: `0`
 
-##### <a name="security_limit_extensions"></a>`security_limit_extensions`
+##### <a name="-php--fpm--pool--security_limit_extensions"></a>`security_limit_extensions`
 
 Data type: `Array[String[1]]`
 
@@ -2932,7 +2954,7 @@ Data type: `Array[String[1]]`
 
 Default value: `[]`
 
-##### <a name="slowlog"></a>`slowlog`
+##### <a name="-php--fpm--pool--slowlog"></a>`slowlog`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -2940,7 +2962,7 @@ Data type: `Stdlib::Absolutepath`
 
 Default value: `"/var/log/php-fpm/${name}-slow.log"`
 
-##### <a name="template"></a>`template`
+##### <a name="-php--fpm--pool--template"></a>`template`
 
 Data type: `String[1]`
 
@@ -2948,39 +2970,39 @@ Data type: `String[1]`
 
 Default value: `'php/fpm/pool.conf.erb'`
 
-##### <a name="rlimit_files"></a>`rlimit_files`
+##### <a name="-php--fpm--pool--rlimit_files"></a>`rlimit_files`
 
 Data type: `Optional[Integer]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="rlimit_core"></a>`rlimit_core`
+##### <a name="-php--fpm--pool--rlimit_core"></a>`rlimit_core`
 
 Data type: `Optional[Integer]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="chroot"></a>`chroot`
-
-Data type: `Optional[Stdlib::Absolutepath]`
-
-
-
-Default value: ``undef``
-
-##### <a name="chdir"></a>`chdir`
+##### <a name="-php--fpm--pool--chroot"></a>`chroot`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="catch_workers_output"></a>`catch_workers_output`
+##### <a name="-php--fpm--pool--chdir"></a>`chdir`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+
+
+Default value: `undef`
+
+##### <a name="-php--fpm--pool--catch_workers_output"></a>`catch_workers_output`
 
 Data type: `Enum['yes', 'no']`
 
@@ -2988,15 +3010,15 @@ Data type: `Enum['yes', 'no']`
 
 Default value: `'no'`
 
-##### <a name="include"></a>`include`
+##### <a name="-php--fpm--pool--include"></a>`include`
 
 Data type: `Optional[String[1]]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="env"></a>`env`
+##### <a name="-php--fpm--pool--env"></a>`env`
 
 Data type: `Array[String[1]]`
 
@@ -3004,7 +3026,7 @@ Data type: `Array[String[1]]`
 
 Default value: `[]`
 
-##### <a name="env_value"></a>`env_value`
+##### <a name="-php--fpm--pool--env_value"></a>`env_value`
 
 Data type: `Hash`
 
@@ -3012,23 +3034,15 @@ Data type: `Hash`
 
 Default value: `{}`
 
-##### <a name="clear_env"></a>`clear_env`
+##### <a name="-php--fpm--pool--clear_env"></a>`clear_env`
 
 Data type: `Boolean`
 
 
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="options"></a>`options`
-
-Data type: `Hash`
-
-
-
-Default value: `{}`
-
-##### <a name="php_value"></a>`php_value`
+##### <a name="-php--fpm--pool--options"></a>`options`
 
 Data type: `Hash`
 
@@ -3036,7 +3050,7 @@ Data type: `Hash`
 
 Default value: `{}`
 
-##### <a name="php_flag"></a>`php_flag`
+##### <a name="-php--fpm--pool--php_value"></a>`php_value`
 
 Data type: `Hash`
 
@@ -3044,7 +3058,7 @@ Data type: `Hash`
 
 Default value: `{}`
 
-##### <a name="php_admin_value"></a>`php_admin_value`
+##### <a name="-php--fpm--pool--php_flag"></a>`php_flag`
 
 Data type: `Hash`
 
@@ -3052,7 +3066,7 @@ Data type: `Hash`
 
 Default value: `{}`
 
-##### <a name="php_admin_flag"></a>`php_admin_flag`
+##### <a name="-php--fpm--pool--php_admin_value"></a>`php_admin_value`
 
 Data type: `Hash`
 
@@ -3060,7 +3074,15 @@ Data type: `Hash`
 
 Default value: `{}`
 
-##### <a name="php_directives"></a>`php_directives`
+##### <a name="-php--fpm--pool--php_admin_flag"></a>`php_admin_flag`
+
+Data type: `Hash`
+
+
+
+Default value: `{}`
+
+##### <a name="-php--fpm--pool--php_directives"></a>`php_directives`
 
 Data type: `Array[String[1]]`
 
@@ -3068,7 +3090,7 @@ Data type: `Array[String[1]]`
 
 Default value: `[]`
 
-##### <a name="root_group"></a>`root_group`
+##### <a name="-php--fpm--pool--root_group"></a>`root_group`
 
 Data type: `String[1]`
 
@@ -3076,13 +3098,13 @@ Data type: `String[1]`
 
 Default value: `$php::params::root_group`
 
-##### <a name="base_dir"></a>`base_dir`
+##### <a name="-php--fpm--pool--base_dir"></a>`base_dir`
 
 Data type: `Optional[Stdlib::Absolutepath]`
 
 
 
-Default value: ``undef``
+Default value: `undef`
 
 ## Functions
 
@@ -3186,27 +3208,19 @@ Returns: `Any`
 
 ## Data types
 
-### <a name="phpcomposerchannel"></a>`Php::ComposerChannel`
+### <a name="Php--ComposerChannel"></a>`Php::ComposerChannel`
 
 The Php::ComposerChannel data type.
 
-Alias of
+Alias of `Enum['stable', 'preview', 'snapshot', '1', '2']`
 
-```puppet
-Enum['stable', 'preview', 'snapshot', '1', '2']
-```
-
-### <a name="phpduration"></a>`Php::Duration`
+### <a name="Php--Duration"></a>`Php::Duration`
 
 A duration in seconds are with an unit
 
-Alias of
+Alias of `Variant[Integer[0], Pattern[/^\d+[smhd]?$/]]`
 
-```puppet
-Variant[Integer[0], Pattern[/^\d+[smhd]?$/]]
-```
-
-### <a name="phpinstalloptions"></a>`Php::InstallOptions`
+### <a name="Php--InstallOptions"></a>`Php::InstallOptions`
 
 The Php::InstallOptions data type.
 
@@ -3221,23 +3235,15 @@ Optional[Array[
   ]]
 ```
 
-### <a name="phpprovider"></a>`Php::Provider`
+### <a name="Php--Provider"></a>`Php::Provider`
 
 The Php::Provider data type.
 
-Alias of
+Alias of `Enum['none', 'pecl', 'pear', 'dpkg', 'apt', 'yum', 'rpm', 'dnf', 'up2date', 'zypper', 'rug', 'freebsd', 'pkgng', 'ports', 'portupgrade']`
 
-```puppet
-Enum['none', 'pecl', 'pear', 'dpkg', 'apt', 'yum', 'rpm', 'dnf', 'up2date', 'zypper', 'rug', 'freebsd', 'pkgng', 'ports', 'portupgrade']
-```
-
-### <a name="phpsapi"></a>`Php::Sapi`
+### <a name="Php--Sapi"></a>`Php::Sapi`
 
 The Php::Sapi data type.
 
-Alias of
-
-```puppet
-Enum['ALL', 'cli', 'fpm', 'apache2']
-```
+Alias of `Enum['ALL', 'cli', 'fpm', 'apache2']`
 

@@ -21,6 +21,8 @@ describe 'php', type: :class do
                           end
                         when 'Ubuntu'
                           case facts[:os]['release']['major']
+                          when '22.04'
+                            'php8.1-cli'
                           when '20.04'
                             'php7.4-cli'
                           when '18.04'
@@ -41,6 +43,8 @@ describe 'php', type: :class do
                           end
                         when 'Ubuntu'
                           case facts[:os]['release']['major']
+                          when '22.04'
+                            'php8.1-fpm'
                           when '20.04'
                             'php7.4-fpm'
                           when '18.04'
@@ -61,6 +65,8 @@ describe 'php', type: :class do
                           end
                         when 'Ubuntu'
                           case facts[:os]['release']['major']
+                          when '22.04'
+                            'php8.1-dev'
                           when '20.04'
                             'php7.4-dev'
                           when '18.04'
@@ -181,6 +187,8 @@ describe 'php', type: :class do
                       end
                     when 'Ubuntu'
                       case facts[:os]['release']['major']
+                      when '22.04'
+                        '/etc/php/8.1/fpm/pool.d/www.conf'
                       when '20.04'
                         '/etc/php/7.4/fpm/pool.d/www.conf'
                       when '18.04'
@@ -222,6 +230,8 @@ describe 'php', type: :class do
                       end
                     when 'Ubuntu'
                       case facts[:os]['release']['major']
+                      when '22.04'
+                        '/etc/php/8.1/fpm/pool.d/www.conf'
                       when '20.04'
                         '/etc/php/7.4/fpm/pool.d/www.conf'
                       when '18.04'
@@ -262,6 +272,8 @@ describe 'php', type: :class do
                       end
                     when 'Ubuntu'
                       case facts[:os]['release']['major']
+                      when '22.04'
+                        '/etc/php/8.1/fpm/pool.d/www.conf'
                       when '20.04'
                         '/etc/php/7.4/fpm/pool.d/www.conf'
                       when '18.04'
@@ -293,6 +305,34 @@ describe 'php', type: :class do
         let(:params) { { composer: false } }
 
         it { is_expected.not_to contain_class('php::composer') }
+      end
+
+      if facts[:osfamily] == 'RedHat' || facts[:osfamily] == 'CentOS' || facts[:osfamily] == 'Debian'
+        describe 'when called with flavor zend' do
+          zendphp_cli_package = case facts[:os]['name']
+                                when 'Debian', 'Ubuntu'
+                                  'php8.1-zend-cli'
+                                when 'RedHat', 'CentOS'
+                                  'php81zend-php-cli'
+                                end
+          zendphp_fpm_package = case facts[:os]['name']
+                                when 'Debian', 'Ubuntu'
+                                  'php8.1-zend-fpm'
+                                when 'RedHat', 'CentOS'
+                                  'php81zend-php-fpm'
+                                end
+
+          let(:pre_condition) do
+            "class {'php::globals':
+                      php_version => '8.1',
+                      flavor      => 'zend'
+            }"
+          end
+
+          it { is_expected.to contain_class('zend_common::repo') }
+          it { is_expected.to contain_package(zendphp_cli_package).with_ensure('present') }
+          it { is_expected.to contain_package(zendphp_fpm_package).with_ensure('present') }
+        end
       end
 
       if facts[:osfamily] == 'RedHat' || facts[:osfamily] == 'CentOS'

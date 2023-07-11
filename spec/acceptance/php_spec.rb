@@ -11,16 +11,18 @@ describe 'php with default settings' do
       apply_manifest(pp, catch_changes: true)
     end
 
-    case default[:platform]
-    when %r{ubuntu-20.04}, %r{debian-11}
-      packagename = 'php7.4-fpm'
-    when %r{ubuntu-18.04}
-      packagename = 'php7.2-fpm'
-    when %r{el}
-      packagename = 'php-fpm'
-    when %r{debian-10}
-      packagename = 'php7.3-fpm'
-    end
+    packagename = case default[:platform]
+                  when %r{ubuntu-20.04}, %r{debian-11}
+                    'php7.4-fpm'
+                  when %r{ubuntu-22.04}
+                    'php8.1-fpm'
+                  when %r{ubuntu-18.04}
+                    'php7.2-fpm'
+                  when %r{debian-10}
+                    'php7.3-fpm'
+                  else
+                    'php-fpm'
+                  end
     describe package(packagename) do
       it { is_expected.to be_installed }
     end
@@ -33,18 +35,20 @@ describe 'php with default settings' do
 
   context 'default parameters with extensions' do
     case default[:platform]
-    when %r{ubuntu-20.04}, %r{ubuntu-18.04}
+    when %r{ubuntu-22.04}, %r{ubuntu-20.04}, %r{ubuntu-18.04}
       it 'works with defaults' do
         case default[:platform]
+        when %r{ubuntu-22.04}
+          simplexmlpackagename = 'php8.1-xml'
         when %r{ubuntu-20.04}
           simplexmlpackagename = 'php7.4-xml'
         when %r{ubuntu-18.04}
           simplexmlpackagename = 'php7.2-xml'
         end
         pp = <<-EOS
-        class{'php':
+        class{ 'php':
           extensions => {
-            'mysql'    => {},
+            'intl'     => {},
             'gd'       => {},
             'net-url'  => {
               package_prefix => 'php-',
@@ -62,9 +66,9 @@ describe 'php with default settings' do
     else
       it 'works with defaults' do
         pp = <<-EOS
-        class{'php':
+        class{ 'php':
           extensions => {
-            'mysql'    => {},
+            'intl'     => {},
             'gd'       => {}
           }
         }
@@ -75,16 +79,18 @@ describe 'php with default settings' do
       end
     end
 
-    case default[:platform]
-    when %r{ubuntu-20.04}, %r{debian-11}
-      packagename = 'php7.4-fpm'
-    when %r{ubuntu-18.04}
-      packagename = 'php7.2-fpm'
-    when %r{el}
-      packagename = 'php-fpm'
-    when %r{debian-10}
-      packagename = 'php7.3-fpm'
-    end
+    packagename = case default[:platform]
+                  when %r{ubuntu-20.04}, %r{debian-11}
+                    'php7.4-fpm'
+                  when %r{ubuntu-22.04}
+                    'php8.1-fpm'
+                  when %r{ubuntu-18.04}
+                    'php7.2-fpm'
+                  when %r{debian-10}
+                    'php7.3-fpm'
+                  else
+                    'php-fpm'
+                  end
     describe package(packagename) do
       it { is_expected.to be_installed }
     end

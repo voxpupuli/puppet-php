@@ -299,6 +299,58 @@ We prefer using php-fpm. You can find an example Apache vhost in
 `manifests/apache_vhost.pp` that shows you how to use `mod_proxy_fcgi` to
 connect to php-fpm.
 
+### ZendPHP support
+
+> Be sure to require the `zend/zend_common` puppet module
+> to ensure the correct package repository is being used.
+
+To use ZendPHP, configure the global zend parameters.
+
+```puppet
+class { 'php::globals':
+  php_version => '7.4',
+  flavor      => 'zend',
+  zend_creds  => {
+    'username' => '<USERNAME>',
+    'password' => '<PASSWORD>',
+  },
+}->
+class { 'php':
+  fpm        => true,
+  fpm_pools  => {
+    www      => {
+      listen => "127.0.0.1:9000",
+    },
+  }
+}
+```
+
+#### ZendPHP soft dependencies on RedHat/CentOS/Rocky
+
+Due to the nature of ZendPHP delivering patched, LTS versions of PHP and its extensions,
+RedHat systems sometimes depend on `epel` and the `powertools` repo.
+
+If you're trying to use ZendPHP and running into issues of missing dependencies,
+first try installing epel. If the dependencies still can't be found, try
+enabling `powertools`.
+
+```puppet
+if $facts['os']['family'] == 'RedHat' {
+  package { 'epel-release': }
+
+  if Float($php_version) < 7.4 {
+    # Depends on puppet/yum
+    class { 'yum':
+      managed_repos => ['powertools'],
+      repos => {
+        'powertools' => {
+          enabled => true,
+        },
+      },
+    }
+  }
+}
+```
 
 ### RedHat/CentOS SCL Users
 If you plan to use the SCL repositories with this module you must do the following adjustments:
