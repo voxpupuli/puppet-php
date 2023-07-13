@@ -253,6 +253,14 @@ describe 'php', type: :class do
         it { is_expected.to contain_file(dstfile).with_content(%r{group = nginx}) }
       end
 
+      describe 'when called with fpm_log_dir_mode parameter' do
+        let(:params) { { fpm_log_dir_mode: '0770' } }
+
+        dstfile = '/var/log/php-fpm/'
+
+        it { is_expected.to contain_file(dstfile).with_mode('0770') }
+      end
+
       describe 'when configured with a pool with apparmor_hat parameter' do
         let(:params) { { fpm_pools: { 'www' => { 'apparmor_hat' => 'www' } } } }
 
