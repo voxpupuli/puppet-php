@@ -4,6 +4,30 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v9.0.0](https://github.com/voxpupuli/puppet-php/tree/v9.0.0) (2023-08-08)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v8.2.0...v9.0.0)
+
+**Breaking changes:**
+
+- Drop Puppet 6 support [\#683](https://github.com/voxpupuli/puppet-php/pull/683) ([bastelfreak](https://github.com/bastelfreak))
+
+**Implemented enhancements:**
+
+- Add Puppet 8 support [\#692](https://github.com/voxpupuli/puppet-php/pull/692) ([bastelfreak](https://github.com/bastelfreak))
+- puppetlabs/stdlib: Allow 9.x [\#691](https://github.com/voxpupuli/puppet-php/pull/691) ([bastelfreak](https://github.com/bastelfreak))
+- Add class parameter `fpm_log_dir_mode` to customize the file permission of log directory [\#675](https://github.com/voxpupuli/puppet-php/pull/675) ([Q-Storm](https://github.com/Q-Storm))
+- Add ZendPHP support [\#671](https://github.com/voxpupuli/puppet-php/pull/671) ([jbh](https://github.com/jbh))
+
+**Closed issues:**
+
+- Use Stable composer install instead of latest [\#583](https://github.com/voxpupuli/puppet-php/issues/583)
+
+**Merged pull requests:**
+
+- puppetlabs/inifile: Allow 6.x [\#693](https://github.com/voxpupuli/puppet-php/pull/693) ([smortex](https://github.com/smortex))
+- Add option to disable management of rundir [\#674](https://github.com/voxpupuli/puppet-php/pull/674) ([tmanninger](https://github.com/tmanninger))
+
 ## [v8.2.0](https://github.com/voxpupuli/puppet-php/tree/v8.2.0) (2023-01-27)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v8.1.1...v8.2.0)
