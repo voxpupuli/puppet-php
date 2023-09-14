@@ -1,9 +1,4 @@
 [![Puppet Forge](http://img.shields.io/puppetforge/v/puppet/php.svg)](https://forge.puppetlabs.com/puppet/php)
-[![Build Status](https://travis-ci.org/voxpupuli/puppet-php.svg?branch=master)](https://travis-ci.org/voxpupuli/puppet-php)
-
-## Current Status
-As the original creators of `puppet-php` are no longer maintaining the module, it has been handed over into the care of Vox Pupuli.
-Please be sure to update all your links to the new location.
 
 # voxpupuli/php Puppet Module
 
@@ -52,7 +47,7 @@ class { '::php':
 ```
 
 There are more configuration options available. Please refer to the
-auto-generated documentation at http://php.puppet.mayflower.de/.
+auto-generated documentation at [REFERENCE.md](REFERENCE.md).
 
 ### Defining `php.ini` settings
 
@@ -110,9 +105,8 @@ activated for all activated SAPIs.
   }
 ```
 
-See [the documentation](http://php.puppet.mayflower.de/php/extension.html)
-of the `php::extension` resource for all available parameters and default
-values.
+See [the documentation](REFERENCE.md#php--extension) of the `php::extension`
+resource for all available parameters and default values.
 
 ### Defining php-fpm pools
 
@@ -126,8 +120,8 @@ by default. Specify additional pools like so:
   }
 ```
 
-For an overview of all possible parameters for `php::fpm::pool` resources
-please see [its documention](http://php.puppet.mayflower.de/php/fpm/pool.html).
+For an overview of all possible parameters for `php::fpm::pool` resources please
+see [its documentation](REFERENCE.md#php--fpm--pool).
 
 ### Overriding php-fpm user
 
@@ -143,7 +137,7 @@ By default, php-fpm is set up to run as Apache. If you need to customize that us
 ### PHP with one FPM pool per user
 
 This will create one vhost. $users is an array of people having php files at
-$fqdn/$user. This codesnipped uses voxpupuli/php and voxpupuli/nginx to create
+$fqdn/$user. This code uses voxpupuli/php and voxpupuli/nginx to create
 the vhost and one php fpm pool per user. This was tested on Archlinux with
 nginx 1.13 and PHP 7.2.3.
 
@@ -195,12 +189,12 @@ $users.each |$user| {
 ```
 
 ### Alternative examples using Hiera
+
 Alternative to the Puppet DSL code examples above, you may optionally define your PHP configuration using Hiera.
 
 Below are all the examples you see above, but defined in YAML format for use with Hiera.
 
 ```yaml
-
 ---
 php::ensure: latest
 php::manage_repos: true
@@ -240,7 +234,7 @@ php::fpm::pools:
 
 ## Notes
 
-### Inheriting configuration across mutliple Hiera sources
+### Inheriting configuration across multiple Hiera sources
 
 Configuration from Hiera such as `php::fpm::pools` is automatically
 lookup up using the "first" merge method. This means that the first
@@ -255,22 +249,8 @@ lookup_options:
     merge: hash
 ```
 
-[`lookup_options`]: https://puppet.com/docs/puppet/6.4/hiera_merging.html#concept-2997
-[`hash` or `deep` behaviors]: https://puppet.com/docs/puppet/6.4/hiera_merging.html#merge-behaviors
-
-### Debian squeeze & Ubuntu precise come with PHP 5.3
-
-On Debian-based systems, we use `php5enmod` to enable extension-specific
-configuration. This script is only present in `php5` packages beginning with
-version 5.4. Furthermore, PHP 5.3 is not supported by upstream anymore.
-
-We strongly suggest you use a recent PHP version, even if you're using an
-older though still supported distribution release. Our default is to have
-`php::manage_repos` enabled to add apt sources for
-[Dotdeb](http://www.dotdeb.org/) on Debian and
-[ppa:ondrej/php5](https://launchpad.net/~ondrej/+archive/ubuntu/php5/) on
-Ubuntu with packages for the current stable PHP version closely tracking
-upstream.
+[`lookup_options`]: https://puppet.com/docs/puppet/latest/hiera_merging.html#setting_lookup_options_to_refine_the_result_of_a_lookup
+[`hash` or `deep` behaviors]: https://puppet.com/docs/puppet/latest/hiera_merging.html#merge_behaviors
 
 ### Ubuntu systems and Ondřej's PPA
 
@@ -353,11 +333,14 @@ if $facts['os']['family'] == 'RedHat' {
 ```
 
 ### RedHat/CentOS SCL Users
+
 If you plan to use the SCL repositories with this module you must do the following adjustments:
 
 #### General config
-This ensures that the module will create configurations in the directory ``/etc/opt/rh/<php_version>/` (also in php.d/
-for extensions). Anyway you have to manage the SCL repo's by your own.
+
+This ensures that the module will create configurations in the directory
+`/etc/opt/rh/<php_version>/` (also in php.d/ for extensions). Anyway you have to
+manage the SCL repo's by your own.
 
 ```puppet
 class { '::php::globals':
@@ -370,6 +353,7 @@ class { '::php::globals':
 ```
 
 #### Extensions
+
 Extensions in SCL are being installed with packages that cover 1 or more .so files. This is kinda incompatible with
 this module, since this module specifies an extension by name and derives the name of the package and the config (.ini)
 from it. To manage extensions of SCL packages you must use the following parameters:
@@ -386,10 +370,11 @@ class { '::php':
 ```
 
 By this you tell the module to configure bz2 and calender while ensuring only the package `common`. Additionally to the
-installation of 'common' the inifiles 'calender.ini' and 'bz2.ini' will be created by the scheme
+installation of 'common' the ini files 'calender.ini' and 'bz2.ini' will be created by the scheme
 `<config_file_prefix><extension_title>`.
 
 A list of commonly used modules:
+
 ```puppet
     {
       extensions => {
@@ -477,7 +462,7 @@ and thus likely incomplete.
 To run the tests install the ruby dependencies with `bundler` and execute
 `rake`:
 
-```
+```bash
 bundle install --path vendor/bundle
 bundle exec rake
 ```
