@@ -4,6 +4,23 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v10.0.0](https://github.com/voxpupuli/puppet-php/tree/v10.0.0) (2023-09-22)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v9.0.0...v10.0.0)
+
+**Breaking changes:**
+
+- switch to stdlib namespaced functions, require stdlib 9.x [\#699](https://github.com/voxpupuli/puppet-php/pull/699) ([tuxmea](https://github.com/tuxmea))
+
+**Closed issues:**
+
+- \(Old?\) Documentation is not available [\#577](https://github.com/voxpupuli/puppet-php/issues/577)
+
+**Merged pull requests:**
+
+- README: fix links, fix typos, remove outdated info [\#698](https://github.com/voxpupuli/puppet-php/pull/698) ([kenyon](https://github.com/kenyon))
+- remove YARD docs [\#697](https://github.com/voxpupuli/puppet-php/pull/697) ([kenyon](https://github.com/kenyon))
+
 ## [v9.0.0](https://github.com/voxpupuli/puppet-php/tree/v9.0.0) (2023-08-08)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v8.2.0...v9.0.0)
