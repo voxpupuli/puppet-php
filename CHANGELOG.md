@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v10.0.1](https://github.com/voxpupuli/puppet-php/tree/v10.0.1) (2023-10-28)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v10.0.0...v10.0.1)
+
+**Implemented enhancements:**
+
+- metadata.json: allow puppet/zypprepo 5.x [\#702](https://github.com/voxpupuli/puppet-php/pull/702) ([kenyon](https://github.com/kenyon))
+
+**Closed issues:**
+
+- Dependency conflict between puppet-php and puppet-zypprepo [\#701](https://github.com/voxpupuli/puppet-php/issues/701)
+
 ## [v10.0.0](https://github.com/voxpupuli/puppet-php/tree/v10.0.0) (2023-09-22)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v9.0.0...v10.0.0)
