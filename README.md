@@ -16,14 +16,14 @@ This originally was a fork of [jippi/puppet-php](https://github.com/jippi/puppet
 Quickest way to get started is simply `include`'ing the _`php` class_.
 
 ```puppet
-include '::php'
+include 'php'
 ```
 
 Or, you can override defaults and specify additional custom
-configurations by declaring `class { '::php': }` with parameters:
+configurations by declaring `class { 'php': }` with parameters:
 
 ```puppet
-class { '::php':
+class { 'php':
   ensure       => latest,
   manage_repos => true,
   fpm          => true,
@@ -37,11 +37,11 @@ class { '::php':
 Optionally the PHP version or configuration root directory can be changed also:
 
 ```puppet
-class { '::php::globals':
+class { 'php::globals':
   php_version => '7.0',
   config_root => '/etc/php/7.0',
 }->
-class { '::php':
+class { 'php':
   manage_repos => true
 }
 ```
@@ -63,7 +63,7 @@ In the following example the PHP options and timezone will be set in
 all PHP configurations, i.e. the PHP cli application and all php-fpm pools.
 
 ```puppet
-  class { '::php':
+  class { 'php':
     settings   => {
       'PHP/max_execution_time'  => '90',
       'PHP/max_input_time'      => '300',
@@ -82,7 +82,7 @@ as parameter `extensions` on the main `php` class. They are
 activated for all activated SAPIs.
 
 ```puppet
-  class { '::php':
+  class { 'php':
     extensions => {
       bcmath    => { },
       imagick   => {
@@ -128,7 +128,7 @@ see [its documentation](REFERENCE.md#php--fpm--pool).
 By default, php-fpm is set up to run as Apache. If you need to customize that user, you can do that like so:
 
 ```puppet
-  class { '::php':
+  class { 'php':
     fpm_user  => 'nginx',
     fpm_group => 'nginx',
   }
@@ -343,11 +343,11 @@ This ensures that the module will create configurations in the directory
 manage the SCL repo's by your own.
 
 ```puppet
-class { '::php::globals':
+class { 'php::globals':
   php_version => 'rh-php71',
   rhscl_mode  => 'rhscl',
 }
--> class { '::php':
+-> class { 'php':
   manage_repos => false
 }
 ```
@@ -359,7 +359,7 @@ this module, since this module specifies an extension by name and derives the na
 from it. To manage extensions of SCL packages you must use the following parameters:
 
 ```puppet
-class { '::php':
+class { 'php':
   ...
   extensions  => {
     'soap' => {

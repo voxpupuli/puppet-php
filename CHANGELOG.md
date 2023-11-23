@@ -188,7 +188,7 @@ These should not affect the functionality of the module.
 - Fpm config results in "expects a Hash value, got Tuple" [\#536](https://github.com/voxpupuli/puppet-php/issues/536)
 - composer created as folder not binary file [\#535](https://github.com/voxpupuli/puppet-php/issues/535)
 - Forge Release [\#528](https://github.com/voxpupuli/puppet-php/issues/528)
-- Invalid tag '::php::config' on node ... [\#177](https://github.com/voxpupuli/puppet-php/issues/177)
+- Invalid tag 'php::config' on node ... [\#177](https://github.com/voxpupuli/puppet-php/issues/177)
 
 **Merged pull requests:**
 
@@ -210,7 +210,7 @@ These should not affect the functionality of the module.
 
 - Remove hard dependency from apt-transport-https [\#454](https://github.com/voxpupuli/puppet-php/issues/454)
 - use php::global::php\_version for php::repo::\* version [\#222](https://github.com/voxpupuli/puppet-php/issues/222)
-- refactor ::php::repo::debian to use the version variable [\#219](https://github.com/voxpupuli/puppet-php/issues/219)
+- refactor php::repo::debian to use the version variable [\#219](https://github.com/voxpupuli/puppet-php/issues/219)
 - push back hard dependency on hiera [\#215](https://github.com/voxpupuli/puppet-php/issues/215)
 - Support PHP 7.0 on FreeBSD [\#207](https://github.com/voxpupuli/puppet-php/issues/207)
 - set default version for debian buster and add support for buster [\#530](https://github.com/voxpupuli/puppet-php/pull/530) ([lelutin](https://github.com/lelutin))

@@ -381,7 +381,7 @@ describe 'php', type: :class do
             scl_php_version = 'php56'
             rhscl_mode = 'remi'
             let(:pre_condition) do
-              "class {'::php::globals':
+              "class {'php::globals':
                         php_version => '#{scl_php_version}',
                         rhscl_mode => '#{rhscl_mode}'
               }"
@@ -404,7 +404,7 @@ describe 'php', type: :class do
             scl_php_version = 'rh-php56'
             rhscl_mode = 'rhscl'
             let(:pre_condition) do
-              "class {'::php::globals':
+              "class {'php::globals':
                         php_version => '#{scl_php_version}',
                         rhscl_mode => '#{rhscl_mode}'
               }"
