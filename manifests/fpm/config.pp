@@ -141,7 +141,7 @@ class php::fpm::config (
   }
 
   if $inifile != $php::params::config_root_inifile {
-    ::php::config { 'fpm':
+    php::config { 'fpm':
       file   => $inifile,
       config => $settings,
     }
