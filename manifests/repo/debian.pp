@@ -38,7 +38,7 @@ class php::repo::debian (
   }
   include 'apt'
 
-  if ($dotdeb and $facts['os']['release']['major'] in ['6', '7', '8']) {
+  if ($dotdeb and versioncmp($facts['os']['release']['major'], '9') < 1) {
     apt::source { 'source_php_dotdeb':
       location => $location,
       repos    => $repos,
@@ -50,7 +50,7 @@ class php::repo::debian (
     }
   }
 
-  if ($sury and $facts['os']['release']['major'] in ['9', '10', '11']) {
+  if ($sury and versioncmp($facts['os']['release']['major'], '9') >= 0) {
     apt::source { 'source_php_sury':
       location => 'https://packages.sury.org/php/',
       repos    => 'main',
