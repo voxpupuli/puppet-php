@@ -35,6 +35,7 @@ class php::globals (
       'Debian' => $facts['os']['release']['major'] ? {
         '10'    => '7.3',
         '11'    => '7.4',
+        '12'    => '8.2',
         default => fail("Unsupported Debian release: ${fact('os.release.major')}"),
       },
       'Ubuntu' => $facts['os']['release']['major'] ? {
@@ -84,6 +85,9 @@ class php::globals (
           }
         }
       } else {
+        if $flavor == 'zend' and versioncmp($facts['os']['release']['major'], '11') > 0 {
+          fail("Zend PHP is unsupported on this Debian release: ${fact('os.release.major')}")
+        }
         case $globals_php_version {
           /^5\.6/,
           /^7\.[0-9]/,

@@ -92,7 +92,7 @@ class php::fpm::config (
   Optional[Php::Duration] $systemd_interval                             = undef,
   String $log_owner                                                     = $php::params::fpm_user,
   String $log_group                                                     = $php::params::fpm_group,
-  Pattern[/^\d+$/] $log_dir_mode                                        = '0770',
+  Stdlib::Filemode $log_dir_mode                                        = $php::params::fpm_log_dir_mode,
   String[1] $root_group                                                 = $php::params::root_group,
   String $syslog_facility                                               = 'daemon',
   String $syslog_ident                                                  = 'php-fpm',
@@ -141,7 +141,7 @@ class php::fpm::config (
   }
 
   if $inifile != $php::params::config_root_inifile {
-    ::php::config { 'fpm':
+    php::config { 'fpm':
       file   => $inifile,
       config => $settings,
     }

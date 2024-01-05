@@ -208,6 +208,7 @@ The following parameters are available in the `php` class:
 * [`fpm_package`](#-php--fpm_package)
 * [`fpm_user`](#-php--fpm_user)
 * [`fpm_group`](#-php--fpm_group)
+* [`fpm_log_dir_mode`](#-php--fpm_log_dir_mode)
 * [`embedded`](#-php--embedded)
 * [`dev`](#-php--dev)
 * [`composer`](#-php--composer)
@@ -334,6 +335,14 @@ Data type: `String[1]`
 
 
 Default value: `$php::params::fpm_group`
+
+##### <a name="-php--fpm_log_dir_mode"></a>`fpm_log_dir_mode`
+
+Data type: `Stdlib::Filemode`
+
+
+
+Default value: `$php::params::fpm_log_dir_mode`
 
 ##### <a name="-php--embedded"></a>`embedded`
 
@@ -1339,11 +1348,11 @@ Default value: `$php::params::fpm_group`
 
 ##### <a name="-php--fpm--config--log_dir_mode"></a>`log_dir_mode`
 
-Data type: `Pattern[/^\d+$/]`
+Data type: `Stdlib::Filemode`
 
 
 
-Default value: `'0770'`
+Default value: `$php::params::fpm_log_dir_mode`
 
 ##### <a name="-php--fpm--config--root_group"></a>`root_group`
 

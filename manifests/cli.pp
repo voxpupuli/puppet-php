@@ -36,7 +36,7 @@ class php::cli (
 
   if $inifile != $php::params::config_root_inifile {
     # only create a cli specific inifile if the filenames are different
-    ::php::config { 'cli':
+    php::config { 'cli':
       file   => $inifile,
       config => $real_settings,
     }

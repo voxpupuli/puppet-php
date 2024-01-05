@@ -41,10 +41,10 @@ module Puppet::Parser::Functions
                  prefix && !i.start_with?(prefix) ? prefix + i : i
                end
              else
-               enumerable.map do |k, v|
+               enumerable.to_h do |k, v|
                  k = k.to_s
                  [prefix && !k.start_with?(prefix) ? prefix + k : k, v]
-               end.to_h
+               end
              end
 
     return result

@@ -12,6 +12,8 @@ describe 'php', type: :class do
       php_cli_package = case facts[:os]['name']
                         when 'Debian'
                           case facts[:os]['release']['major']
+                          when '12'
+                            'php8.2-cli'
                           when '11'
                             'php7.4-cli'
                           when '10'
@@ -34,6 +36,8 @@ describe 'php', type: :class do
       php_fpm_package = case facts[:os]['name']
                         when 'Debian'
                           case facts[:os]['release']['major']
+                          when '12'
+                            'php8.2-fpm'
                           when '11'
                             'php7.4-fpm'
                           when '10'
@@ -56,6 +60,8 @@ describe 'php', type: :class do
       php_dev_package = case facts[:os]['name']
                         when 'Debian'
                           case facts[:os]['release']['major']
+                          when '12'
+                            'php8.2-dev'
                           when '11'
                             'php7.4-dev'
                           when '10'
@@ -178,6 +184,8 @@ describe 'php', type: :class do
                     case facts[:os]['name']
                     when 'Debian'
                       case facts[:os]['release']['major']
+                      when '12'
+                        '/etc/php/8.2/fpm/pool.d/www.conf'
                       when '11'
                         '/etc/php/7.4/fpm/pool.d/www.conf'
                       when '10'
@@ -221,6 +229,8 @@ describe 'php', type: :class do
                     case facts[:os]['name']
                     when 'Debian'
                       case facts[:os]['release']['major']
+                      when '12'
+                        '/etc/php/8.2/fpm/pool.d/www.conf'
                       when '11'
                         '/etc/php/7.4/fpm/pool.d/www.conf'
                       when '10'
@@ -253,6 +263,14 @@ describe 'php', type: :class do
         it { is_expected.to contain_file(dstfile).with_content(%r{group = nginx}) }
       end
 
+      describe 'when called with fpm_log_dir_mode parameter' do
+        let(:params) { { fpm_log_dir_mode: '0770' } }
+
+        dstfile = '/var/log/php-fpm/'
+
+        it { is_expected.to contain_file(dstfile).with_mode('0770') }
+      end
+
       describe 'when configured with a pool with apparmor_hat parameter' do
         let(:params) { { fpm_pools: { 'www' => { 'apparmor_hat' => 'www' } } } }
 
@@ -263,6 +281,8 @@ describe 'php', type: :class do
                     case facts[:os]['name']
                     when 'Debian'
                       case facts[:os]['release']['major']
+                      when '12'
+                        '/etc/php/8.2/fpm/pool.d/www.conf'
                       when '11'
                         '/etc/php/7.4/fpm/pool.d/www.conf'
                       when '10'
@@ -307,7 +327,7 @@ describe 'php', type: :class do
         it { is_expected.not_to contain_class('php::composer') }
       end
 
-      if facts[:osfamily] == 'RedHat' || facts[:osfamily] == 'CentOS' || facts[:osfamily] == 'Debian'
+      if facts[:osfamily] == 'RedHat' || facts[:osfamily] == 'CentOS' || facts[:os]['name'] == 'Ubuntu' || (facts[:os]['name'] == 'Debian' && facts[:os]['release']['major'].to_i < 12)
         describe 'when called with flavor zend' do
           zendphp_cli_package = case facts[:os]['name']
                                 when 'Debian', 'Ubuntu'
@@ -373,7 +393,7 @@ describe 'php', type: :class do
             scl_php_version = 'php56'
             rhscl_mode = 'remi'
             let(:pre_condition) do
-              "class {'::php::globals':
+              "class {'php::globals':
                         php_version => '#{scl_php_version}',
                         rhscl_mode => '#{rhscl_mode}'
               }"
@@ -396,7 +416,7 @@ describe 'php', type: :class do
             scl_php_version = 'rh-php56'
             rhscl_mode = 'rhscl'
             let(:pre_condition) do
-              "class {'::php::globals':
+              "class {'php::globals':
                         php_version => '#{scl_php_version}',
                         rhscl_mode => '#{rhscl_mode}'
               }"

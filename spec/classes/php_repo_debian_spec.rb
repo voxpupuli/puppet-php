@@ -23,11 +23,10 @@ describe 'php::repo::debian', type: :class do
         if facts[:os]['name'] == 'Debian'
           it { is_expected.to compile.with_all_deps }
 
-          case facts[:os]['release']['major']
-          when '6', '7', '8'
+          if facts[:os]['release']['major'].to_i < 9
             it { is_expected.to contain_apt__source('source_php_dotdeb') }
             it { is_expected.not_to contain_apt__source('source_php_sury') }
-          when '9', '10', '11'
+          elsif facts[:os]['release']['major'].to_i >= 9
             it { is_expected.not_to contain_apt__source('source_php_dotdeb') }
             it { is_expected.to contain_apt__source('source_php_sury') }
           end
