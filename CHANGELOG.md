@@ -4,7 +4,24 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
-## [v10.1.0](https://github.com/voxpupuli/puppet-php/tree/v10.1.0) (2023-11-22)
+## [v10.2.0](https://github.com/voxpupuli/puppet-php/tree/v10.2.0) (2024-06-04)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v10.1.0...v10.2.0)
+
+**Implemented enhancements:**
+
+- Add support for Debian 12 \(bookworm\) [\#687](https://github.com/voxpupuli/puppet-php/pull/687) ([jcharaoui](https://github.com/jcharaoui))
+
+**Fixed bugs:**
+
+- fix remi-php56 repo gpgkey file [\#689](https://github.com/voxpupuli/puppet-php/pull/689) ([luoymu](https://github.com/luoymu))
+
+**Merged pull requests:**
+
+- disable Arch Linux testing because it is breaking the CI constantly [\#709](https://github.com/voxpupuli/puppet-php/pull/709) ([rwaffen](https://github.com/rwaffen))
+- Remove legacy top-scope syntax [\#706](https://github.com/voxpupuli/puppet-php/pull/706) ([smortex](https://github.com/smortex))
+
+## [v10.1.0](https://github.com/voxpupuli/puppet-php/tree/v10.1.0) (2023-11-28)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v10.0.0...v10.1.0)
 
