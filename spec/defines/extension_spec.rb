@@ -10,7 +10,7 @@ describe 'php::extension' do
       end
       let(:pre_condition) { 'include php' }
 
-      unless facts[:osfamily] == 'Suse' || facts[:osfamily] == 'FreeBSD' # FIXME: something is wrong on these
+      unless facts[:os]['family'] == 'Suse' || facts[:os]['family'] == 'FreeBSD' # FIXME: something is wrong on these
         etcdir =  case facts[:os]['name']
                   when 'Debian'
                     case facts[:os]['release']['major']

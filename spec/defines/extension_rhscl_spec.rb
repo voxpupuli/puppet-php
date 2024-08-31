@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe 'php::extension' do
   on_supported_os.each do |os, facts|
-    next unless facts[:osfamily] == 'RedHat' || facts[:osfamily] == 'CentOS'
+    next unless facts[:os]['family'] == 'RedHat' || facts[:os]['family'] == 'CentOS'
 
     context "on #{os}" do
       let :facts do
