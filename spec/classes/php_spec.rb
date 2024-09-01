@@ -86,12 +86,12 @@ describe 'php', type: :class do
       end
 
       describe 'when called with no parameters' do
-        case facts[:osfamily]
+        case facts[:os]['family']
         when 'Suse', 'RedHat', 'CentOS'
           it { is_expected.to contain_class('php::global') }
         end
 
-        case facts[:osfamily]
+        case facts[:os]['family']
         when 'Debian'
           it { is_expected.not_to contain_class('php::global') }
           it { is_expected.to contain_class('php::fpm') }
@@ -125,7 +125,7 @@ describe 'php', type: :class do
 
         it { is_expected.to contain_php__extension('xml').with_ensure('absent') }
 
-        case facts[:osfamily]
+        case facts[:os]['family']
         when 'Debian'
           it { is_expected.to contain_package(php_cli_package).with_ensure('absent') }
           it { is_expected.to contain_package(php_fpm_package).with_ensure('absent') }
@@ -143,17 +143,17 @@ describe 'php', type: :class do
         package_prefix = 'myphp-'
         let(:params) { { package_prefix: package_prefix } }
 
-        case facts[:osfamily]
+        case facts[:os]['family']
         when 'Suse', 'RedHat', 'CentOS'
           it { is_expected.to contain_class('php::global') }
         end
 
-        case facts[:osfamily]
+        case facts[:os]['family']
         when 'Debian', 'RedHat', 'CentOS'
           it { is_expected.to contain_package("#{package_prefix}cli").with_ensure('present') }
         end
 
-        case facts[:osfamily]
+        case facts[:os]['family']
         when 'Debian'
           it { is_expected.not_to contain_class('php::global') }
           it { is_expected.to contain_class('php::fpm') }
@@ -179,7 +179,7 @@ describe 'php', type: :class do
         it { is_expected.to contain_class('php::fpm').with(user: 'nginx') }
         it { is_expected.to contain_php__fpm__pool('www').with(user: 'nginx') }
 
-        dstfile = case facts[:osfamily]
+        dstfile = case facts[:os]['family']
                   when 'Debian'
                     case facts[:os]['name']
                     when 'Debian'
@@ -224,7 +224,7 @@ describe 'php', type: :class do
         it { is_expected.to contain_class('php::fpm').with(group: 'nginx') }
         it { is_expected.to contain_php__fpm__pool('www').with(group: 'nginx') }
 
-        dstfile = case facts[:osfamily]
+        dstfile = case facts[:os]['family']
                   when 'Debian'
                     case facts[:os]['name']
                     when 'Debian'
@@ -276,7 +276,7 @@ describe 'php', type: :class do
 
         it { is_expected.to contain_php__fpm__pool('www').with(apparmor_hat: 'www') }
 
-        dstfile = case facts[:osfamily]
+        dstfile = case facts[:os]['family']
                   when 'Debian'
                     case facts[:os]['name']
                     when 'Debian'
@@ -327,7 +327,7 @@ describe 'php', type: :class do
         it { is_expected.not_to contain_class('php::composer') }
       end
 
-      if facts[:osfamily] == 'RedHat' || facts[:osfamily] == 'CentOS' || facts[:os]['name'] == 'Ubuntu' || (facts[:os]['name'] == 'Debian' && facts[:os]['release']['major'].to_i < 12)
+      if facts[:os]['family'] == 'RedHat' || facts[:os]['family'] == 'CentOS' || facts[:os]['name'] == 'Ubuntu' || (facts[:os]['name'] == 'Debian' && facts[:os]['release']['major'].to_i < 12)
         describe 'when called with flavor zend' do
           zendphp_cli_package = case facts[:os]['name']
                                 when 'Debian', 'Ubuntu'
@@ -355,7 +355,7 @@ describe 'php', type: :class do
         end
       end
 
-      if facts[:osfamily] == 'RedHat' || facts[:osfamily] == 'CentOS'
+      if facts[:os]['family'] == 'RedHat' || facts[:os]['family'] == 'CentOS'
         describe 'when called with valid settings parameter types' do
           let(:params) do
             {

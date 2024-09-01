@@ -27,9 +27,9 @@ describe 'php::fpm::service', type: :class do
       end
 
       describe 'when called with no parameters' do
-        case facts[:osfamily]
+        case facts[:os]['family']
         when 'Debian'
-          case facts[:operatingsystemrelease]
+          case facts[:os]['release']['major']
           when '18.04'
             it { is_expected.to contain_service('php7.2-fpm').with_ensure('running') }
           when '22.04'
