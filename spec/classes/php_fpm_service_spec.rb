@@ -39,7 +39,9 @@ describe 'php::fpm::service', type: :class do
           when '20.04', '11'
             it { is_expected.to contain_service('php7.4-fpm').with_ensure('running') }
           end
-        when 'Suse', 'FreeBSD'
+        when 'FreeBSD'
+          it { is_expected.to contain_service('php_fpm').with_ensure('running') }
+        when 'Suse'
           it { is_expected.to contain_service('php-fpm').with_ensure('running') }
         end
       end

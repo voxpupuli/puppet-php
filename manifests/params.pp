@@ -217,7 +217,7 @@ class php::params inherits php::globals {
       $fpm_inifile             = "${config_root}/php-fpm.ini"
       $fpm_package_suffix      = undef
       $fpm_pool_dir            = "${config_root}/php-fpm.d"
-      $fpm_service_name        = 'php-fpm'
+      $fpm_service_name        = 'php_fpm'
       $fpm_user                = 'www'
       $fpm_group               = 'www'
       $embedded_package_suffix = 'embed'
