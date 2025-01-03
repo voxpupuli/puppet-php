@@ -39,7 +39,7 @@ describe 'php::fpm', type: :class do
           it { is_expected.not_to contain_package('php56-') }
           it { is_expected.not_to contain_package('php5-fpm') }
           it { is_expected.not_to contain_package('php-fpm') }
-          it { is_expected.to contain_service('php-fpm').with_ensure('running') }
+          it { is_expected.to contain_service('php_fpm').with_ensure('running') }
         else
           it { is_expected.to contain_package('php-fpm').with_ensure('present') }
           it { is_expected.to contain_service('php-fpm').with_ensure('running') }
