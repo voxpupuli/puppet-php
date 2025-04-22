@@ -1,6 +1,6 @@
 {
   "name": "puppet-php",
-  "version": "10.2.1-rc0",
+  "version": "11.0.0",
   "author": "Vox Pupuli",
   "summary": "Generic PHP module that supports many platforms",
   "license": "MIT",

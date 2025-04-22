@@ -4,7 +4,33 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
-## [v10.2.0](https://github.com/voxpupuli/puppet-php/tree/v10.2.0) (2024-06-04)
+## [v11.0.0](https://github.com/voxpupuli/puppet-php/tree/v11.0.0) (2025-04-22)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v10.2.0...v11.0.0)
+
+**Breaking changes:**
+
+- Drop Ubuntu 18.04 [\#724](https://github.com/voxpupuli/puppet-php/pull/724) ([zilchms](https://github.com/zilchms))
+
+**Implemented enhancements:**
+
+- metadata.json: Add OpenVox [\#735](https://github.com/voxpupuli/puppet-php/pull/735) ([jstraw](https://github.com/jstraw))
+- Add support for Ubuntu 24.04 [\#727](https://github.com/voxpupuli/puppet-php/pull/727) ([andrekeller](https://github.com/andrekeller))
+- Replace legacy facts [\#723](https://github.com/voxpupuli/puppet-php/pull/723) ([zilchms](https://github.com/zilchms))
+
+**Closed issues:**
+
+- Ubuntu 24.04 not supported [\#728](https://github.com/voxpupuli/puppet-php/issues/728)
+- Add support for Debian 12 \(Bookworm\) [\#690](https://github.com/voxpupuli/puppet-php/issues/690)
+- Snapshot composer is installed instead of stable composer [\#575](https://github.com/voxpupuli/puppet-php/issues/575)
+
+**Merged pull requests:**
+
+- allow puppetlabs/apt 10 [\#730](https://github.com/voxpupuli/puppet-php/pull/730) ([rrotter](https://github.com/rrotter))
+- adopt new service name on FreeBSD [\#729](https://github.com/voxpupuli/puppet-php/pull/729) ([fraenki](https://github.com/fraenki))
+- Download stable version of composer as opposed to snapshot [\#576](https://github.com/voxpupuli/puppet-php/pull/576) ([plexium](https://github.com/plexium))
+
+## [v10.2.0](https://github.com/voxpupuli/puppet-php/tree/v10.2.0) (2024-06-10)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v10.1.0...v10.2.0)
 
