@@ -1,1 +1,1 @@
-type Php::EnvString = Pattern[/\$\{[\w]+\}/]
+type Php::EnvString = Pattern[/\A\$\{\w+\}\z/]
