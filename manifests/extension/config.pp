@@ -74,9 +74,9 @@ define php::extension::config (
 
   # Ensure "<extension>." prefix is present in setting keys if requested
   $full_settings = $settings_prefix ? {
-    true   => ensure_prefix($settings, "${so_name}."),
+    true   => php::ensure_prefix($settings, "${so_name}."),
     false  => $settings,
-    String => ensure_prefix($settings, "${settings_prefix}."),
+    String => php::ensure_prefix($settings, "${settings_prefix}."),
   }
 
   if $provider != 'pear' {
