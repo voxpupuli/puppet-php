@@ -37,9 +37,21 @@ class php::composer::auto_update (
   Optional[String[1]] $proxy_server = undef,
 ) {
   assert_private()
-
-  if $proxy_type and $proxy_server {
-    $env = ['HOME=/root', "${proxy_type}_proxy=${proxy_server}"]
+  if $proxy_server {
+    if $proxy_server =~ Stdlib::HTTPUrl {
+      $_proxy_server = $proxy_server
+    } else {
+      if $proxy_type {
+        $_proxy_server = "${proxy_type}://${proxy_server}"
+      } else {
+        fail('proxy_type must be defined if proxy_server is not full URL (https://example.com)')
+      }
+    }
+    $env = [
+      'HOME=/root',
+      "http_proxy=${_proxy_server}",
+      "https_proxy=${_proxy_server}",
+    ]
   } else {
     $env = ['HOME=/root']
   }
