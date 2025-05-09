@@ -41,7 +41,7 @@
 
 ### Functions
 
-* [`ensure_prefix`](#ensure_prefix): This function ensures a prefix for all elements in an array or the keys in a hash.  *Examples:*    ensure_prefix({'a' => 1, 'b' => 2, 'p.c' =
+* [`php::ensure_prefix`](#php--ensure_prefix): Ensures a prefix for all elements in an array or the keys in a hash.
 * [`to_hash_settings`](#to_hash_settings): This function converts a +{key => value}+ hash into a nested hash and can add an id to the outer key. The optional id string as second parame
 
 ### Data types
@@ -3117,49 +3117,82 @@ Default value: `undef`
 
 ## Functions
 
-### <a name="ensure_prefix"></a>`ensure_prefix`
+### <a name="php--ensure_prefix"></a>`php::ensure_prefix`
 
-Type: Ruby 3.x API
-
-This function ensures a prefix for all elements in an array or the keys in a hash.
-
-*Examples:*
-
-  ensure_prefix({'a' => 1, 'b' => 2, 'p.c' => 3}, 'p.')
-
-Will return:
-  {
-    'p.a' => 1,
-    'p.b' => 2,
-    'p.c' => 3,
-  }
-
-  ensure_prefix(['a', 'p.b', 'c'], 'p.')
-
-Will return:
-  ['p.a', 'p.b', 'p.c']
-
-#### `ensure_prefix()`
+Type: Ruby 4.x API
 
 This function ensures a prefix for all elements in an array or the keys in a hash.
+If called with an empty, or `nil` prefix, will return the original data.
 
-*Examples:*
+#### Examples
 
-  ensure_prefix({'a' => 1, 'b' => 2, 'p.c' => 3}, 'p.')
+##### Calling the function with an Array
 
-Will return:
-  {
-    'p.a' => 1,
-    'p.b' => 2,
-    'p.c' => 3,
-  }
+```puppet
+php::ensure_prefix(['a', 'p.b', 'c'], 'p.')
+# Will return: ['p.a', 'p.b', 'p.c']
+```
 
-  ensure_prefix(['a', 'p.b', 'c'], 'p.')
+##### Calling the function with a Hash
 
-Will return:
-  ['p.a', 'p.b', 'p.c']
+```puppet
+php::ensure_prefix({'a' => 1, 'b' => 2, 'p.c' => 3}, 'p.')
+# Will return: {'p.a' => 1, 'p.b' => 2, 'p.c' => 3}
+```
 
-Returns: `Any`
+#### `php::ensure_prefix(Variant[Array, Hash] $enumerable, Variant[Undef, String[0,0]] $prefix)`
+
+The php::ensure_prefix function.
+
+Returns: `Variant[Array[String], Hash[String, Any]]` Will return the original enumerable unmodified.
+
+##### `enumerable`
+
+Data type: `Variant[Array, Hash]`
+
+An Array or Hash
+
+##### `prefix`
+
+Data type: `Variant[Undef, String[0,0]]`
+
+An empty prefix
+
+#### `php::ensure_prefix(Array $array, String[1] $prefix)`
+
+The php::ensure_prefix function.
+
+Returns: `Array[String]` The `array` with each element prefixed with `prefix`.
+
+##### `array`
+
+Data type: `Array`
+
+The input Array.
+
+##### `prefix`
+
+Data type: `String[1]`
+
+A string that you want prefixed to all elements in the array if not already present.
+
+#### `php::ensure_prefix(Hash $hash, String[1] $prefix)`
+
+The php::ensure_prefix function.
+
+Returns: `Hash[String, Any]` The `hash` with each key prefixed with `prefix`.
+
+##### `hash`
+
+Data type: `Hash`
+
+The input Hash.
+
+##### `prefix`
+
+Data type: `String[1]`
+
+A string that you want prefixed to all keys in the hash if not already present.
 
 ### <a name="to_hash_settings"></a>`to_hash_settings`
 
