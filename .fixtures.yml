@@ -1,12 +1,11 @@
+---
 fixtures:
   repositories:
-    stdlib: "https://github.com/puppetlabs/puppetlabs-stdlib.git"
-    apt: "https://github.com/puppetlabs/puppetlabs-apt.git"
-    translate: "https://github.com/puppetlabs/puppetlabs-translate.git"
-    zypprepo: "https://github.com/deadpoint/puppet-zypprepo.git"
-    inifile: "https://github.com/puppetlabs/puppetlabs-inifile.git"
-    archive: "https://github.com/voxpupuli/puppet-archive.git"
-    yumrepo_core:
-      repo: https://github.com/puppetlabs/puppetlabs-yumrepo_core.git
-      puppet_version: ">= 6.0.0"
-    zend_common: "https://github.com/zendtech/puppet-zend-common.git"
+    apt: https://github.com/puppetlabs/puppetlabs-apt.git
+    archive: https://github.com/voxpupuli/puppet-archive.git
+    inifile: https://github.com/puppetlabs/puppetlabs-inifile.git
+    stdlib: https://github.com/puppetlabs/puppetlabs-stdlib.git
+    translate: https://github.com/puppetlabs/puppetlabs-translate.git
+    yumrepo_core: https://github.com/puppetlabs/puppetlabs-yumrepo_core.git
+    zend_common: https://github.com/zendtech/puppet-zend-common.git
+    zypprepo: https://github.com/deadpoint/puppet-zypprepo.git
