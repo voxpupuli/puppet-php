@@ -5,7 +5,6 @@ fixtures:
     archive: https://github.com/voxpupuli/puppet-archive.git
     inifile: https://github.com/puppetlabs/puppetlabs-inifile.git
     stdlib: https://github.com/puppetlabs/puppetlabs-stdlib.git
-    translate: https://github.com/puppetlabs/puppetlabs-translate.git
     yumrepo_core: https://github.com/puppetlabs/puppetlabs-yumrepo_core.git
     zend_common: https://github.com/zendtech/puppet-zend-common.git
     zypprepo: https://github.com/deadpoint/puppet-zypprepo.git
