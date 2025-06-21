@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+MY_PATH = 'spec/fixtures/unit/provider/package/pear/'
 require 'spec_helper'
 
 describe Puppet::Type.type(:package).provider(:pear) do
@@ -22,7 +23,7 @@ describe Puppet::Type.type(:package).provider(:pear) do
     it 'returns an array of installed packages' do
       allow(described_class).to receive(:pear).
         with('list', '-a').
-        and_return File.read(my_fixture('list_a'))
+        and_return File.read(File.join(MY_PATH, 'list_a'))
 
       expect(described_class.instances.map(&:properties)).to eq [
         { name: 'Archive_Tar',      vendor: 'pear.php.net', ensure: '1.4.0',  provider: :pear },
@@ -94,7 +95,7 @@ describe Puppet::Type.type(:package).provider(:pear) do
     it 'queries information about one package' do
       allow(described_class).to receive(:pear).
         with('list', '-a').
-        and_return File.read(my_fixture('list_a'))
+        and_return File.read(File.join(MY_PATH, 'list_a'))
 
       resource[:name] = 'pear'
       expect(provider.query).to eq(
@@ -107,7 +108,7 @@ describe Puppet::Type.type(:package).provider(:pear) do
     it 'fetches the latest version available' do
       allow(described_class).to receive(:pear).
         with('remote-info', 'Benchmark').
-        and_return File.read(my_fixture('remote-info_benchmark'))
+        and_return File.read(File.join(MY_PATH, 'remote-info_benchmark'))
 
       resource[:name] = 'Benchmark'
       expect(provider.latest).to eq '1.2.9'
