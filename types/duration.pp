@@ -3,4 +3,3 @@ type Php::Duration = Variant[
   Integer[0],
   Pattern[/^\d+[smhd]?$/]
 ]
-
