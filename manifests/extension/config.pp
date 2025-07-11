@@ -94,15 +94,16 @@ define php::extension::config (
   }
 
   $config_root_ini = pick_default($php::config_root_ini, $php::params::config_root_ini)
+  $apache_ini     = pick_default($php::apache_ini, $php::params::apache_ini)
   if $real_ensure != 'absent' {
     php::config { $title:
       file   => "${config_root_ini}/${ini_prefix}${ini_name}.ini",
       config => $final_settings,
     }
-    $_apache_ini = pick_default($php::apache_ini, $php::params::apache_ini)
-    if $php::apache_config and $facts['os']['family'] == 'Debian' {
+
+    if $php::apache_config and ($apache_ini != $config_root_ini) {
       php::config { "${title}_apache":
-        file   => "${_apache_ini}/${ini_prefix}${ini_name}.ini",
+        file   => "${apache_ini}/${ini_prefix}${ini_name}.ini",
         config => $final_settings,
       }
     }
