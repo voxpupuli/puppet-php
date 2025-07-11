@@ -99,6 +99,13 @@ define php::extension::config (
       file   => "${config_root_ini}/${ini_prefix}${ini_name}.ini",
       config => $final_settings,
     }
+    $_apache_ini = pick_default($php::apache_ini, $php::params::apache_ini)
+    if $php::apache_config and $facts['os']['family'] == 'Debian' {
+      php::config { "${title}_apache":
+        file   => "${_apache_ini}/${ini_prefix}${ini_name}.ini",
+        config => $final_settings,
+      }
+    }
 
     # Ubuntu/Debian systems use the mods-available folder. We need to enable
     # settings files ourselves with php5enmod command.
