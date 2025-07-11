@@ -163,6 +163,7 @@ class php (
   Optional[String[1]] $package_prefix             = $php::params::package_prefix,
   Stdlib::Absolutepath $config_root_ini           = $php::params::config_root_ini,
   Stdlib::Absolutepath $config_root_inifile       = $php::params::config_root_inifile,
+  Stdlib::Absolutepath $apache_ini                = $php::params::apache_ini,
   Optional[Stdlib::Absolutepath] $ext_tool_enable = $php::params::ext_tool_enable,
   Optional[Stdlib::Absolutepath] $ext_tool_query  = $php::params::ext_tool_query,
   Boolean $ext_tool_enabled                       = $php::params::ext_tool_enabled,

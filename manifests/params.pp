@@ -48,6 +48,7 @@ class php::params inherits php::globals {
       $fpm_service_name        = $php::globals::fpm_service_name
       $fpm_user                = 'www-data'
       $fpm_group               = 'www-data'
+      $apache_ini              = "${config_root}/apache2/conf.d"
       $apache_inifile          = "${config_root}/apache2/php.ini"
       $embedded_package_suffix = 'embed'
       $embedded_inifile        = "${config_root}/embed/php.ini"
