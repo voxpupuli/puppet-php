@@ -86,6 +86,11 @@
 #   The path to the global php.ini file. This defaults to a sensible default
 #   depending on your operating system.
 #
+# [*apache_ini*]
+#   This is the path to the config .ini files of the extensions specific to Apache.
+#   This should only be applicable on Debian/Ubuntu systems, and defaults to
+#   "${config_root_ini}/apache2/conf.d".
+#
 # [*ext_tool_enable*]
 #   Absolute path to php tool for enabling extensions in debian/ubuntu systems.
 #   This defaults to '/usr/sbin/php5enmod'.
