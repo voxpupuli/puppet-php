@@ -1,7 +1,9 @@
 ---
 fixtures:
   repositories:
-    apt: https://github.com/puppetlabs/puppetlabs-apt.git
+    apt:
+      repo: https://github.com/puppetlabs/puppetlabs-apt.git
+      tag: v10.0.1
     archive: https://github.com/voxpupuli/puppet-archive.git
     inifile: https://github.com/puppetlabs/puppetlabs-inifile.git
     stdlib: https://github.com/puppetlabs/puppetlabs-stdlib.git
