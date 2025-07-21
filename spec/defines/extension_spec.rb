@@ -17,26 +17,26 @@ describe 'php::extension' do
                               when '13'
                                 ['/etc/php/8.4/mods-available', '/etc/php/8.4/apache2']
                               when '12'
-                                ['/etc/php/8.2/mods-available', '/etc/php/8.2/apache2']
+                                ['/etc/php/8.2/mods-available', '/etc/php/8.2/apache2/conf.d']
                               when '11'
-                                ['/etc/php/7.4/mods-available', '/etc/php/7.4/apache2']
+                                ['/etc/php/7.4/mods-available', '/etc/php/7.4/apache2/conf.d']
                               when '10'
-                                ['/etc/php/7.3/mods-available', '/etc/php/7.3/apache2']
+                                ['/etc/php/7.3/mods-available', '/etc/php/7.3/apache2/conf.d']
                               else
-                                ['/etc/php5/mods-available', '/etc/php5/apache2']
+                                ['/etc/php5/mods-available', '/etc/php5/apache2/conf.d']
                               end
                             when 'Ubuntu'
                               case facts[:os]['release']['major']
                               when '24.04'
-                                ['/etc/php/8.3/mods-available', '/etc/php/8.3/apache2']
+                                ['/etc/php/8.3/mods-available', '/etc/php/8.3/apache2/conf.d']
                               when '22.04'
-                                ['/etc/php/8.1/mods-available', '/etc/php/8.1/apache2']
+                                ['/etc/php/8.1/mods-available', '/etc/php/8.1/apache2/conf.d']
                               when '20.04'
-                                ['/etc/php/7.4/mods-available', '/etc/php/7.4/apache2']
+                                ['/etc/php/7.4/mods-available', '/etc/php/7.4/apache2/conf.d']
                               when '18.04'
-                                ['/etc/php/7.2/mods-available', '/etc/php/7.2/apache2']
+                                ['/etc/php/7.2/mods-available', '/etc/php/7.2/apache2/conf.d']
                               else
-                                ['/etc/php5/mods-available', '/etc/php5/apache2']
+                                ['/etc/php5/mods-available', '/etc/php5/apache2/conf.d']
                               end
                             when 'Archlinux'
                               ['/etc/php/conf.d', '/etc/php/conf.d']
