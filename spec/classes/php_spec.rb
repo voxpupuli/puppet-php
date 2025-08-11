@@ -12,6 +12,8 @@ describe 'php', type: :class do
       php_cli_package = case facts[:os]['name']
                         when 'Debian'
                           case facts[:os]['release']['major']
+                          when '13'
+                            'php8.4-cli'
                           when '12'
                             'php8.2-cli'
                           when '11'
@@ -38,6 +40,8 @@ describe 'php', type: :class do
       php_fpm_package = case facts[:os]['name']
                         when 'Debian'
                           case facts[:os]['release']['major']
+                          when '13'
+                            'php8.4-fpm'
                           when '12'
                             'php8.2-fpm'
                           when '11'
@@ -64,6 +68,8 @@ describe 'php', type: :class do
       php_dev_package = case facts[:os]['name']
                         when 'Debian'
                           case facts[:os]['release']['major']
+                          when '13'
+                            'php8.4-dev'
                           when '12'
                             'php8.2-dev'
                           when '11'
@@ -190,6 +196,8 @@ describe 'php', type: :class do
                     case facts[:os]['name']
                     when 'Debian'
                       case facts[:os]['release']['major']
+                      when '13'
+                        '/etc/php/8.4/fpm/pool.d/www.conf'
                       when '12'
                         '/etc/php/8.2/fpm/pool.d/www.conf'
                       when '11'
@@ -237,6 +245,8 @@ describe 'php', type: :class do
                     case facts[:os]['name']
                     when 'Debian'
                       case facts[:os]['release']['major']
+                      when '13'
+                        '/etc/php/8.4/fpm/pool.d/www.conf'
                       when '12'
                         '/etc/php/8.2/fpm/pool.d/www.conf'
                       when '11'
@@ -291,6 +301,8 @@ describe 'php', type: :class do
                     case facts[:os]['name']
                     when 'Debian'
                       case facts[:os]['release']['major']
+                      when '13'
+                        '/etc/php/8.4/fpm/pool.d/www.conf'
                       when '12'
                         '/etc/php/8.2/fpm/pool.d/www.conf'
                       when '11'

@@ -36,6 +36,7 @@ class php::globals (
         '10'    => '7.3',
         '11'    => '7.4',
         '12'    => '8.2',
+        '13'    => '8.4',
         default => fail("Unsupported Debian release: ${fact('os.release.major')}"),
       },
       'Ubuntu' => $facts['os']['release']['major'] ? {
