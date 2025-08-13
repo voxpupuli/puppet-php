@@ -14,6 +14,8 @@ describe 'php::extension' do
         etcdir =  case facts[:os]['name']
                   when 'Debian'
                     case facts[:os]['release']['major']
+                    when '13'
+                      '/etc/php/8.4/mods-available'
                     when '12'
                       '/etc/php/8.2/mods-available'
                     when '11'

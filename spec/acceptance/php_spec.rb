@@ -24,6 +24,8 @@ describe 'php with default settings' do
                     'php7.3-fpm'
                   when %r{debian-12}
                     'php8.2-fpm'
+                  when %r{debian-13}
+                    'php8.4-fpm'
                   else
                     'php-fpm'
                   end
@@ -98,6 +100,8 @@ describe 'php with default settings' do
                     'php7.3-fpm'
                   when %r{debian-12}
                     'php8.2-fpm'
+                  when %r{debian-13}
+                    'php8.4-fpm'
                   else
                     'php-fpm'
                   end
