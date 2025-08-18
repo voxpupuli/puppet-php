@@ -1,35 +1,6 @@
 # PHP params class
 #
 class php::params inherits php::globals {
-  $ensure              = 'present'
-  $fpm_service_enable  = true
-  $fpm_service_ensure  = 'running'
-  $composer_source     = 'https://getcomposer.org/composer-stable.phar'
-  $composer_path       = '/usr/local/bin/composer'
-  $composer_max_age    = 30
-  $pear_ensure         = 'present'
-  $pear_package_suffix = 'pear'
-  $phpunit_source      = 'https://phar.phpunit.de/phpunit.phar'
-  $phpunit_path        = '/usr/local/bin/phpunit'
-  $phpunit_max_age     = 30
-  $pool_purge          = false
-  $fpm_log_dir_mode    = '0770'
-
-  $fpm_pools = {
-    'www' => {
-      'catch_workers_output'      => 'no',
-      'listen'                    => '127.0.0.1:9000',
-      'listen_backlog'            => -1,
-      'pm'                        => 'dynamic',
-      'pm_max_children'           => 50,
-      'pm_max_requests'           => 0,
-      'pm_max_spare_servers'      => 35,
-      'pm_min_spare_servers'      => 5,
-      'pm_start_servers'          => 5,
-      'request_terminate_timeout' => 0,
-    },
-  }
-
   case $facts['os']['family'] {
     'Debian': {
       $config_root             = $php::globals::globals_config_root

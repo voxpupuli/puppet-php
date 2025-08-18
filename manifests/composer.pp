@@ -27,13 +27,13 @@
 #   UNIX group of the root user
 #
 class php::composer (
-  String $source                       = $php::params::composer_source,
-  Stdlib::Absolutepath $path           = $php::params::composer_path,
+  String $source                       = 'https://getcomposer.org/composer-stable.phar',
+  Stdlib::Absolutepath $path           = '/usr/local/bin/composer',
   Optional[String[1]] $proxy_type      = undef,
   Optional[String[1]] $proxy_server    = undef,
   Php::ComposerChannel $channel        = 'stable',
   Boolean $auto_update                 = true,
-  Integer $max_age                     = $php::params::composer_max_age,
+  Integer $max_age                     = 30,
   Variant[Integer, String] $root_group = $php::params::root_group,
 ) inherits php::params {
   assert_private()
