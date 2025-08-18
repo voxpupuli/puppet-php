@@ -238,7 +238,7 @@ Data type: `String`
 
 
 
-Default value: `$php::params::ensure`
+Default value: `'present'`
 
 ##### <a name="-php--manage_repos"></a>`manage_repos`
 
@@ -262,7 +262,7 @@ Data type: `Boolean`
 
 
 
-Default value: `$php::params::fpm_service_enable`
+Default value: `true`
 
 ##### <a name="-php--fpm_service_ensure"></a>`fpm_service_ensure`
 
@@ -270,7 +270,7 @@ Data type: `Enum['running', 'stopped']`
 
 
 
-Default value: `$php::params::fpm_service_ensure`
+Default value: `'running'`
 
 ##### <a name="-php--fpm_service_name"></a>`fpm_service_name`
 
@@ -294,7 +294,24 @@ Data type: `Hash`
 
 
 
-Default value: `$php::params::fpm_pools`
+Default value:
+
+```puppet
+{
+    'www' => {
+      'catch_workers_output'      => 'no',
+      'listen'                    => '127.0.0.1:9000',
+      'listen_backlog'            => -1,
+      'pm'                        => 'dynamic',
+      'pm_max_children'           => 50,
+      'pm_max_requests'           => 0,
+      'pm_max_spare_servers'      => 35,
+      'pm_min_spare_servers'      => 5,
+      'pm_start_servers'          => 5,
+      'request_terminate_timeout' => 0,
+    },
+  }
+```
 
 ##### <a name="-php--fpm_global_pool_settings"></a>`fpm_global_pool_settings`
 
@@ -342,7 +359,7 @@ Data type: `Stdlib::Filemode`
 
 
 
-Default value: `$php::params::fpm_log_dir_mode`
+Default value: `'0770'`
 
 ##### <a name="-php--embedded"></a>`embedded`
 
@@ -382,7 +399,7 @@ Data type: `String`
 
 
 
-Default value: `$php::params::pear_ensure`
+Default value: `'present'`
 
 ##### <a name="-php--phpunit"></a>`phpunit`
 
@@ -510,7 +527,7 @@ Data type: `Boolean`
 
 
 
-Default value: `$php::params::pool_purge`
+Default value: `false`
 
 ##### <a name="-php--reload_fpm_on_config_changes"></a>`reload_fpm_on_config_changes`
 
@@ -639,7 +656,7 @@ Data type: `String`
 
 
 
-Default value: `$php::params::composer_source`
+Default value: `'https://getcomposer.org/composer-stable.phar'`
 
 ##### <a name="-php--composer--path"></a>`path`
 
@@ -647,7 +664,7 @@ Data type: `Stdlib::Absolutepath`
 
 
 
-Default value: `$php::params::composer_path`
+Default value: `'/usr/local/bin/composer'`
 
 ##### <a name="-php--composer--proxy_type"></a>`proxy_type`
 
@@ -687,7 +704,7 @@ Data type: `Integer`
 
 
 
-Default value: `$php::params::composer_max_age`
+Default value: `30`
 
 ##### <a name="-php--composer--root_group"></a>`root_group`
 
@@ -1352,7 +1369,7 @@ Data type: `Stdlib::Filemode`
 
 
 
-Default value: `$php::params::fpm_log_dir_mode`
+Default value: `'0770'`
 
 ##### <a name="-php--fpm--config--root_group"></a>`root_group`
 
@@ -1637,7 +1654,7 @@ Data type: `String`
 
 
 
-Default value: `$php::pear_ensure`
+Default value: `'present'`
 
 ##### <a name="-php--pear--package"></a>`package`
 
@@ -1689,7 +1706,7 @@ Data type: `String`
 
 
 
-Default value: `$php::params::phpunit_source`
+Default value: `'https://phar.phpunit.de/phpunit.phar'`
 
 ##### <a name="-php--phpunit--path"></a>`path`
 
@@ -1697,7 +1714,7 @@ Data type: `Stdlib::Absolutepath`
 
 
 
-Default value: `$php::params::phpunit_path`
+Default value: `'/usr/local/bin/phpunit'`
 
 ##### <a name="-php--phpunit--root_group"></a>`root_group`
 
@@ -1721,7 +1738,7 @@ Data type: `Integer`
 
 
 
-Default value: `$php::params::phpunit_max_age`
+Default value: `30`
 
 ### <a name="php--phpunit--auto_update"></a>`php::phpunit::auto_update`
 
