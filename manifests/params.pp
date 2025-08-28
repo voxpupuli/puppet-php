@@ -19,6 +19,7 @@ class php::params inherits php::globals {
       $fpm_service_name        = $php::globals::fpm_service_name
       $fpm_user                = 'www-data'
       $fpm_group               = 'www-data'
+      $apache_ini              = "${config_root}/apache2/conf.d"
       $apache_inifile          = "${config_root}/apache2/php.ini"
       $embedded_package_suffix = 'embed'
       $embedded_inifile        = "${config_root}/embed/php.ini"
@@ -76,6 +77,7 @@ class php::params inherits php::globals {
       $fpm_service_name        = 'php-fpm'
       $fpm_user                = 'wwwrun'
       $fpm_group               = 'www'
+      $apache_ini              = undef
       $embedded_package_suffix = 'embed'
       $embedded_inifile        = "${config_root}/embed/php.ini"
       $package_prefix          = $php::globals::package_prefix
@@ -147,6 +149,7 @@ class php::params inherits php::globals {
         }
       }
 
+      $apache_ini              = $config_root_ini
       $apache_inifile          = $config_root_inifile
       $embedded_inifile        = $config_root_inifile
       $common_package_names    = []
@@ -191,6 +194,7 @@ class php::params inherits php::globals {
       $fpm_service_name        = 'php_fpm'
       $fpm_user                = 'www'
       $fpm_group               = 'www'
+      $apache_ini              = undef
       $embedded_package_suffix = 'embed'
       $embedded_inifile        = "${config_root}/php-embed.ini"
       $package_prefix          = $php::globals::package_prefix
@@ -218,6 +222,7 @@ class php::params inherits php::globals {
       $fpm_service_name        = 'php-fpm'
       $fpm_user                = 'http'
       $fpm_group               = 'http'
+      $apache_ini              = $config_root_ini
       $apache_inifile          = '/etc/php/php.ini'
       $embedded_package_suffix = 'embedded'
       $embedded_inifile        = '/etc/php/php.ini'

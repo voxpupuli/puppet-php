@@ -11,38 +11,38 @@ describe 'php::extension' do
       let(:pre_condition) { 'include php' }
 
       unless facts[:os]['family'] == 'Suse' || facts[:os]['family'] == 'FreeBSD' # FIXME: something is wrong on these
-        etcdir =  case facts[:os]['name']
-                  when 'Debian'
-                    case facts[:os]['release']['major']
-                    when '13'
-                      '/etc/php/8.4/mods-available'
-                    when '12'
-                      '/etc/php/8.2/mods-available'
-                    when '11'
-                      '/etc/php/7.4/mods-available'
-                    when '10'
-                      '/etc/php/7.3/mods-available'
-                    else
-                      '/etc/php5/mods-available'
-                    end
-                  when 'Ubuntu'
-                    case facts[:os]['release']['major']
-                    when '24.04'
-                      '/etc/php/8.3/mods-available'
-                    when '22.04'
-                      '/etc/php/8.1/mods-available'
-                    when '20.04'
-                      '/etc/php/7.4/mods-available'
-                    when '18.04'
-                      '/etc/php/7.2/mods-available'
-                    else
-                      '/etc/php5/mods-available'
-                    end
-                  when 'Archlinux'
-                    '/etc/php/conf.d'
-                  else
-                    '/etc/php.d'
-                  end
+        etcdir, apachedir = case facts[:os]['name']
+                            when 'Debian'
+                              case facts[:os]['release']['major']
+                              when '13'
+                                ['/etc/php/8.4/mods-available', '/etc/php/8.4/apache2']
+                              when '12'
+                                ['/etc/php/8.2/mods-available', '/etc/php/8.2/apache2/conf.d']
+                              when '11'
+                                ['/etc/php/7.4/mods-available', '/etc/php/7.4/apache2/conf.d']
+                              when '10'
+                                ['/etc/php/7.3/mods-available', '/etc/php/7.3/apache2/conf.d']
+                              else
+                                ['/etc/php5/mods-available', '/etc/php5/apache2/conf.d']
+                              end
+                            when 'Ubuntu'
+                              case facts[:os]['release']['major']
+                              when '24.04'
+                                ['/etc/php/8.3/mods-available', '/etc/php/8.3/apache2/conf.d']
+                              when '22.04'
+                                ['/etc/php/8.1/mods-available', '/etc/php/8.1/apache2/conf.d']
+                              when '20.04'
+                                ['/etc/php/7.4/mods-available', '/etc/php/7.4/apache2/conf.d']
+                              when '18.04'
+                                ['/etc/php/7.2/mods-available', '/etc/php/7.2/apache2/conf.d']
+                              else
+                                ['/etc/php5/mods-available', '/etc/php5/apache2/conf.d']
+                              end
+                            when 'Archlinux'
+                              ['/etc/php/conf.d', '/etc/php/conf.d']
+                            else
+                              ['/etc/php.d', '/etc/php.d']
+                            end
 
         context 'installation from repository' do
           let(:title) { 'json' }
@@ -217,6 +217,119 @@ describe 'php::extension' do
               end
 
               it { is_expected.to contain_exec('ext_tool_enable_xdebug') }
+            end
+
+            context 'when php::apache_config is true' do
+              let(:pre_condition) do
+                <<-PUPPET
+                  class { 'php':
+                    apache_config => true,
+                    config_root_ini => '#{etcdir}',
+                    apache_ini => '#{apachedir}',
+                  }
+                PUPPET
+              end
+
+              context 'creates apache config file when apache_ini differs from config_root_ini' do
+                let(:title) { 'json' }
+                let(:params) do
+                  {
+                    settings: {
+                      'test' => 'foo'
+                    }
+                  }
+                end
+
+                it 'creates main config file' do
+                  is_expected.to contain_php__config('json').with(
+                    file: "#{etcdir}/json.ini",
+                    config: {
+                      'extension' => 'json.so',
+                      'test' => 'foo'
+                    }
+                  )
+                end
+
+                it 'creates apache config file' do
+                  is_expected.to contain_php__config('json_apache').with(
+                    file: "#{apachedir}/json.ini",
+                    config: {
+                      'extension' => 'json.so',
+                      'test' => 'foo'
+                    }
+                  )
+                end
+              end
+
+              context 'with zend extension and custom settings' do
+                let(:title) { 'xdebug' }
+                let(:params) do
+                  {
+                    zend: true,
+                    settings: {
+                      'remote_enable' => 'on',
+                      'remote_host' => 'localhost'
+                    }
+                  }
+                end
+
+                it 'creates main zend config file' do
+                  is_expected.to contain_php__config('xdebug').with(
+                    file: "#{etcdir}/xdebug.ini",
+                    config: {
+                      'zend_extension' => 'xdebug.so',
+                      'remote_enable' => 'on',
+                      'remote_host' => 'localhost'
+                    }
+                  )
+                end
+
+                it 'creates apache zend config file' do
+                  is_expected.to contain_php__config('xdebug_apache').with(
+                    file: "#{apachedir}/xdebug.ini",
+                    config: {
+                      'zend_extension' => 'xdebug.so',
+                      'remote_enable' => 'on',
+                      'remote_host' => 'localhost'
+                    }
+                  )
+                end
+              end
+
+              context 'when apache_ini is same as config_root_ini' do
+                let(:pre_condition) do
+                  <<-PUPPET
+                    class { 'php':
+                      apache_config => true,
+                      config_root_ini => '#{etcdir}',
+                      apache_ini => '#{etcdir}',
+                    }
+                  PUPPET
+                end
+
+                let(:title) { 'json' }
+                let(:params) do
+                  {
+                    settings: {
+                      'test' => 'foo'
+                    }
+                  }
+                end
+
+                it 'creates only main config file' do
+                  is_expected.to contain_php__config('json').with(
+                    file: "#{etcdir}/json.ini",
+                    config: {
+                      'extension' => 'json.so',
+                      'test' => 'foo'
+                    }
+                  )
+                end
+
+                it 'does not create apache config file' do
+                  is_expected.not_to contain_php__config('json_apache')
+                end
+              end
             end
           end
         end

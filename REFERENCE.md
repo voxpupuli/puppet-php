@@ -144,6 +144,12 @@ enabled components.
   The path to the global php.ini file. This defaults to a sensible default
   depending on your operating system.
 
+[*apache_ini*]
+  This is the path to the config .ini files of the extensions specific to Apache.
+  This should only be applicable on Debian/Ubuntu systems, and defaults to
+  "${config_root_ini}/apache2/conf.d". On other operating systems, this
+  defaults to the same value as $config_root_ini.
+
 [*ext_tool_enable*]
   Absolute path to php tool for enabling extensions in debian/ubuntu systems.
   This defaults to '/usr/sbin/php5enmod'.
@@ -224,6 +230,7 @@ The following parameters are available in the `php` class:
 * [`package_prefix`](#-php--package_prefix)
 * [`config_root_ini`](#-php--config_root_ini)
 * [`config_root_inifile`](#-php--config_root_inifile)
+* [`apache_ini`](#-php--apache_ini)
 * [`ext_tool_enable`](#-php--ext_tool_enable)
 * [`ext_tool_query`](#-php--ext_tool_query)
 * [`ext_tool_enabled`](#-php--ext_tool_enabled)
@@ -480,6 +487,14 @@ Data type: `Stdlib::Absolutepath`
 
 
 Default value: `$php::params::config_root_inifile`
+
+##### <a name="-php--apache_ini"></a>`apache_ini`
+
+Data type: `Optional[Stdlib::Absolutepath]`
+
+
+
+Default value: `$php::params::apache_ini`
 
 ##### <a name="-php--ext_tool_enable"></a>`ext_tool_enable`
 
