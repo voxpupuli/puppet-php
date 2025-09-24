@@ -257,9 +257,11 @@ class php (
     contain php::apache_config
   }
 
-  create_resources('php::extension', $real_extensions, {
+  create_resources('php::extension', $real_extensions,
+    {
       require => Class['php::cli'],
-  })
+    },
+  )
 
   # On FreeBSD purge the system-wide extensions.ini. It is going
   # to be replaced with per-module configuration files.
