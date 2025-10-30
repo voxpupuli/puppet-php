@@ -11,87 +11,42 @@ describe 'php', type: :class do
 
       php_cli_package = case facts[:os]['name']
                         when 'Debian'
-                          case facts[:os]['release']['major']
-                          when '13'
-                            'php8.4-cli'
-                          when '12'
-                            'php8.2-cli'
-                          when '11'
-                            'php7.4-cli'
-                          when '10'
-                            'php7.3-cli'
-                          else
-                            'php5-cli'
-                          end
+                          {
+                            '13' => 'php8.4-cli',
+                            '12' => 'php8.2-cli',
+                            '11' => 'php7.4-cli',
+                          }[facts[:os]['release']['major']]
                         when 'Ubuntu'
-                          case facts[:os]['release']['major']
-                          when '24.04'
-                            'php8.3-cli'
-                          when '22.04'
-                            'php8.1-cli'
-                          when '20.04'
-                            'php7.4-cli'
-                          when '18.04'
-                            'php7.2-cli'
-                          else
-                            'php5-cli'
-                          end
+                          {
+                            '24.04' => 'php8.3-cli',
+                            '22.04' => 'php8.1-cli',
+                          }[facts[:os]['release']['major']]
                         end
       php_fpm_package = case facts[:os]['name']
                         when 'Debian'
-                          case facts[:os]['release']['major']
-                          when '13'
-                            'php8.4-fpm'
-                          when '12'
-                            'php8.2-fpm'
-                          when '11'
-                            'php7.4-fpm'
-                          when '10'
-                            'php7.3-fpm'
-                          else
-                            'php5-fpm'
-                          end
+                          {
+                            '13' => 'php8.4-fpm',
+                            '12' => 'php8.2-fpm',
+                            '11' => 'php7.4-fpm',
+                          }[facts[:os]['release']['major']]
                         when 'Ubuntu'
-                          case facts[:os]['release']['major']
-                          when '24.04'
-                            'php8.3-fpm'
-                          when '22.04'
-                            'php8.1-fpm'
-                          when '20.04'
-                            'php7.4-fpm'
-                          when '18.04'
-                            'php7.2-fpm'
-                          else
-                            'php5-fpm'
-                          end
+                          {
+                            '24.04' => 'php8.3-fpm',
+                            '22.04' => 'php8.1-fpm',
+                          }[facts[:os]['release']['major']]
                         end
       php_dev_package = case facts[:os]['name']
                         when 'Debian'
-                          case facts[:os]['release']['major']
-                          when '13'
-                            'php8.4-dev'
-                          when '12'
-                            'php8.2-dev'
-                          when '11'
-                            'php7.4-dev'
-                          when '10'
-                            'php7.3-dev'
-                          else
-                            'php5-dev'
-                          end
+                          {
+                            '13' => 'php8.4-dev',
+                            '12' => 'php8.2-dev',
+                            '11' => 'php7.4-dev',
+                          }[facts[:os]['release']['major']]
                         when 'Ubuntu'
-                          case facts[:os]['release']['major']
-                          when '24.04'
-                            'php8.3-dev'
-                          when '22.04'
-                            'php8.1-dev'
-                          when '20.04'
-                            'php7.4-dev'
-                          when '18.04'
-                            'php7.2-dev'
-                          else
-                            'php5-dev'
-                          end
+                          {
+                            '24.04' => 'php8.3-dev',
+                            '22.04' => 'php8.1-dev',
+                          }[facts[:os]['release']['major']]
                         end
       describe 'works without params' do
         it { is_expected.to compile.with_all_deps }
@@ -195,31 +150,16 @@ describe 'php', type: :class do
                   when 'Debian'
                     case facts[:os]['name']
                     when 'Debian'
-                      case facts[:os]['release']['major']
-                      when '13'
-                        '/etc/php/8.4/fpm/pool.d/www.conf'
-                      when '12'
-                        '/etc/php/8.2/fpm/pool.d/www.conf'
-                      when '11'
-                        '/etc/php/7.4/fpm/pool.d/www.conf'
-                      when '10'
-                        '/etc/php/7.3/fpm/pool.d/www.conf'
-                      else
-                        '/etc/php5/fpm/pool.d/www.conf'
-                      end
+                      {
+                        '13' => '/etc/php/8.4/fpm/pool.d/www.conf',
+                        '12' => '/etc/php/8.2/fpm/pool.d/www.conf',
+                        '11' => '/etc/php/7.4/fpm/pool.d/www.conf',
+                      }[facts[:os]['release']['major']]
                     when 'Ubuntu'
-                      case facts[:os]['release']['major']
-                      when '24.04'
-                        '/etc/php/8.3/fpm/pool.d/www.conf'
-                      when '22.04'
-                        '/etc/php/8.1/fpm/pool.d/www.conf'
-                      when '20.04'
-                        '/etc/php/7.4/fpm/pool.d/www.conf'
-                      when '18.04'
-                        '/etc/php/7.2/fpm/pool.d/www.conf'
-                      else
-                        '/etc/php5/fpm/pool.d/www.conf'
-                      end
+                      {
+                        '24.04' => '/etc/php/8.3/fpm/pool.d/www.conf',
+                        '22.04' => '/etc/php/8.1/fpm/pool.d/www.conf',
+                      }[facts[:os]['release']['major']]
                     end
                   when 'Archlinux'
                     '/etc/php/php-fpm.d/www.conf'
@@ -244,31 +184,16 @@ describe 'php', type: :class do
                   when 'Debian'
                     case facts[:os]['name']
                     when 'Debian'
-                      case facts[:os]['release']['major']
-                      when '13'
-                        '/etc/php/8.4/fpm/pool.d/www.conf'
-                      when '12'
-                        '/etc/php/8.2/fpm/pool.d/www.conf'
-                      when '11'
-                        '/etc/php/7.4/fpm/pool.d/www.conf'
-                      when '10'
-                        '/etc/php/7.3/fpm/pool.d/www.conf'
-                      else
-                        '/etc/php5/fpm/pool.d/www.conf'
-                      end
+                      {
+                        '13' => '/etc/php/8.4/fpm/pool.d/www.conf',
+                        '12' => '/etc/php/8.2/fpm/pool.d/www.conf',
+                        '11' => '/etc/php/7.4/fpm/pool.d/www.conf',
+                      }[facts[:os]['release']['major']]
                     when 'Ubuntu'
-                      case facts[:os]['release']['major']
-                      when '24.04'
-                        '/etc/php/8.3/fpm/pool.d/www.conf'
-                      when '22.04'
-                        '/etc/php/8.1/fpm/pool.d/www.conf'
-                      when '20.04'
-                        '/etc/php/7.4/fpm/pool.d/www.conf'
-                      when '18.04'
-                        '/etc/php/7.2/fpm/pool.d/www.conf'
-                      else
-                        '/etc/php5/fpm/pool.d/www.conf'
-                      end
+                      {
+                        '24.04' => '/etc/php/8.3/fpm/pool.d/www.conf',
+                        '22.04' => '/etc/php/8.1/fpm/pool.d/www.conf',
+                      }[facts[:os]['release']['major']]
                     end
                   when 'Archlinux'
                     '/etc/php/php-fpm.d/www.conf'
@@ -300,31 +225,16 @@ describe 'php', type: :class do
                   when 'Debian'
                     case facts[:os]['name']
                     when 'Debian'
-                      case facts[:os]['release']['major']
-                      when '13'
-                        '/etc/php/8.4/fpm/pool.d/www.conf'
-                      when '12'
-                        '/etc/php/8.2/fpm/pool.d/www.conf'
-                      when '11'
-                        '/etc/php/7.4/fpm/pool.d/www.conf'
-                      when '10'
-                        '/etc/php/7.3/fpm/pool.d/www.conf'
-                      else
-                        '/etc/php5/fpm/pool.d/www.conf'
-                      end
+                      {
+                        '13' => '/etc/php/8.4/fpm/pool.d/www.conf',
+                        '12' => '/etc/php/8.2/fpm/pool.d/www.conf',
+                        '11' => '/etc/php/7.4/fpm/pool.d/www.conf',
+                      }[facts[:os]['release']['major']]
                     when 'Ubuntu'
-                      case facts[:os]['release']['major']
-                      when '24.04'
-                        '/etc/php/8.3/fpm/pool.d/www.conf'
-                      when '22.04'
-                        '/etc/php/8.1/fpm/pool.d/www.conf'
-                      when '20.04'
-                        '/etc/php/7.4/fpm/pool.d/www.conf'
-                      when '18.04'
-                        '/etc/php/7.2/fpm/pool.d/www.conf'
-                      else
-                        '/etc/php5/fpm/pool.d/www.conf'
-                      end
+                      {
+                        '24.04' => '/etc/php/8.3/fpm/pool.d/www.conf',
+                        '22.04' => '/etc/php/8.1/fpm/pool.d/www.conf',
+                      }[facts[:os]['release']['major']]
                     end
                   when 'Archlinux'
                     '/etc/php/php-fpm.d/www.conf'
