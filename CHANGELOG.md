@@ -4,6 +4,35 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v12.0.0](https://github.com/voxpupuli/puppet-php/tree/v12.0.0) (2025-10-30)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v11.0.0...v12.0.0)
+
+**Breaking changes:**
+
+- Drop support for EOL Ubuntu 20.04, Debian 10, EL 7, FreeBSD 11, SLES 11 [\#756](https://github.com/voxpupuli/puppet-php/pull/756) ([kenyon](https://github.com/kenyon))
+- Drop puppet, update openvox minimum version to 8.19 [\#746](https://github.com/voxpupuli/puppet-php/pull/746) ([TheMeier](https://github.com/TheMeier))
+- Drop support for Puppet 7 and OpenVox 7 [\#745](https://github.com/voxpupuli/puppet-php/pull/745) ([kenyon](https://github.com/kenyon))
+
+**Implemented enhancements:**
+
+- Add support for EL 8-10, FreeBSD 13, SLES 15 [\#755](https://github.com/voxpupuli/puppet-php/pull/755) ([kenyon](https://github.com/kenyon))
+- Allow puppetlabs/apt 11.x [\#754](https://github.com/voxpupuli/puppet-php/pull/754) ([kenyon](https://github.com/kenyon))
+- Add support for Debian 13 [\#747](https://github.com/voxpupuli/puppet-php/pull/747) ([smortex](https://github.com/smortex))
+- Allow puppet/archive 8.x [\#744](https://github.com/voxpupuli/puppet-php/pull/744) ([TheMeier](https://github.com/TheMeier))
+- add: support for apache-specific extension config on Debian [\#743](https://github.com/voxpupuli/puppet-php/pull/743) ([griggi-ws](https://github.com/griggi-ws))
+
+**Closed issues:**
+
+- puppet-php dependencies blocking upgrade of puppet-archive and puppetlabs-apt [\#753](https://github.com/voxpupuli/puppet-php/issues/753)
+- Support for auto-update via proxy http [\#731](https://github.com/voxpupuli/puppet-php/issues/731)
+- Wrong version of php installed on CentOS [\#368](https://github.com/voxpupuli/puppet-php/issues/368)
+
+**Merged pull requests:**
+
+- Replace `ensure_prefix` function with modern implementation [\#738](https://github.com/voxpupuli/puppet-php/pull/738) ([alexjfisher](https://github.com/alexjfisher))
+- fix: set proxy environment variables correctly [\#733](https://github.com/voxpupuli/puppet-php/pull/733) ([teluq-pbrideau](https://github.com/teluq-pbrideau))
+
 ## [v11.0.0](https://github.com/voxpupuli/puppet-php/tree/v11.0.0) (2025-04-22)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v10.2.0...v11.0.0)
@@ -355,7 +384,7 @@ These should not affect the functionality of the module.
 
 - php.ini not updated [\#422](https://github.com/voxpupuli/puppet-php/issues/422)
 - Error: Could not upgrade module 'puppet-php' \(v4.0.0 -\> v5.0.0\) [\#378](https://github.com/voxpupuli/puppet-php/issues/378)
-- Fix paths for phpunit on FreeBSD [\#291](https://github.com/voxpupuli/puppet-php/pull/291) ([bitnexus](https://github.com/bitnexus))
+- Fix paths for phpunit on FreeBSD [\#291](https://github.com/voxpupuli/puppet-php/pull/291) ([bitnexus-me](https://github.com/bitnexus-me))
 
 **Closed issues:**
 
@@ -367,7 +396,7 @@ These should not affect the functionality of the module.
 
 **Merged pull requests:**
 
-- Update README.md with working RHSCL example. [\#463](https://github.com/voxpupuli/puppet-php/pull/463) ([Tamerz](https://github.com/Tamerz))
+- Update README.md with working RHSCL example. [\#463](https://github.com/voxpupuli/puppet-php/pull/463) ([tamerz](https://github.com/tamerz))
 - enable ubuntu 18.04 acceptance tests [\#462](https://github.com/voxpupuli/puppet-php/pull/462) ([bastelfreak](https://github.com/bastelfreak))
 - drop EOL OSs; fix puppet version range [\#453](https://github.com/voxpupuli/puppet-php/pull/453) ([bastelfreak](https://github.com/bastelfreak))
 - Rely on beaker-hostgenerator for docker nodesets [\#452](https://github.com/voxpupuli/puppet-php/pull/452) ([ekohl](https://github.com/ekohl))
