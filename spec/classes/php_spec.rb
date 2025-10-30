@@ -351,18 +351,19 @@ describe 'php', type: :class do
         it { is_expected.not_to contain_class('php::composer') }
       end
 
-      if facts[:os]['family'] == 'RedHat' || facts[:os]['family'] == 'CentOS' || facts[:os]['name'] == 'Ubuntu' || (facts[:os]['name'] == 'Debian' && facts[:os]['release']['major'].to_i < 12)
+      # https://portal.perforce.com/s/article/Zend-Support-Lifecycle
+      if (facts[:os]['family'] == 'RedHat' && facts[:os]['release']['major'].to_i < 10) || facts[:os]['name'] == 'Ubuntu' || (facts[:os]['name'] == 'Debian' && facts[:os]['release']['major'].to_i < 12)
         describe 'when called with flavor zend' do
           zendphp_cli_package = case facts[:os]['name']
                                 when 'Debian', 'Ubuntu'
                                   'php8.1-zend-cli'
-                                when 'RedHat', 'CentOS'
+                                when 'RedHat', 'CentOS', 'AlmaLinux', 'OracleLinux', 'Rocky'
                                   'php81zend-php-cli'
                                 end
           zendphp_fpm_package = case facts[:os]['name']
                                 when 'Debian', 'Ubuntu'
                                   'php8.1-zend-fpm'
-                                when 'RedHat', 'CentOS'
+                                when 'RedHat', 'CentOS', 'AlmaLinux', 'OracleLinux', 'Rocky'
                                   'php81zend-php-fpm'
                                 end
 
@@ -379,7 +380,7 @@ describe 'php', type: :class do
         end
       end
 
-      if facts[:os]['family'] == 'RedHat' || facts[:os]['family'] == 'CentOS'
+      if facts[:os]['family'] == 'RedHat'
         describe 'when called with valid settings parameter types' do
           let(:params) do
             {
