@@ -380,7 +380,7 @@ describe 'php', type: :class do
         end
       end
 
-      if facts[:os]['family'] == 'RedHat' || facts[:os]['family'] == 'CentOS'
+      if facts[:os]['family'] == 'RedHat'
         describe 'when called with valid settings parameter types' do
           let(:params) do
             {
