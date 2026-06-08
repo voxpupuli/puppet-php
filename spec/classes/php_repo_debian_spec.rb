@@ -26,9 +26,11 @@ describe 'php::repo::debian', type: :class do
           if facts[:os]['release']['major'].to_i < 9
             it { is_expected.to contain_apt__source('source_php_dotdeb') }
             it { is_expected.not_to contain_apt__source('source_php_sury') }
+            it { is_expected.not_to contain_apt__keyring('packages-sury-org.gpg') }
           elsif facts[:os]['release']['major'].to_i >= 9
             it { is_expected.not_to contain_apt__source('source_php_dotdeb') }
             it { is_expected.to contain_apt__source('source_php_sury') }
+            it { is_expected.to contain_apt__keyring('packages-sury-org.gpg') }
           end
         else
           it { is_expected.to compile.and_raise_error(%r{class php::repo::debian does not work on OS}) }
