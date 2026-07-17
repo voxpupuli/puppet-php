@@ -27,7 +27,7 @@
 * [`php::repo::debian`](#php--repo--debian): Configure debian apt repo  === Parameters  [*location*]   Location of the apt repository  [*repos*]   Apt repository names  [*include_src*]  
 * [`php::repo::redhat`](#php--repo--redhat)
 * [`php::repo::suse`](#php--repo--suse): Configure suse repo  === Parameters  [*reponame*]   Name of the Zypper repository  [*baseurl*]   Base URL of the Zypper repository
-* [`php::repo::ubuntu`](#php--repo--ubuntu): Configure ubuntu ppa  === Parameters  [*version*]   PHP version to manage (e.g. 5.6)
+* [`php::repo::ubuntu`](#php--repo--ubuntu): Configure ubuntu apt repo (packages.sury.org)  === Parameters  [*location*]   Location of the apt repository  [*repos*]   Apt repository name
 
 ### Defined types
 
@@ -1834,6 +1834,7 @@ The following parameters are available in the `php::repo::debian` class:
 * [`key`](#-php--repo--debian--key)
 * [`dotdeb`](#-php--repo--debian--dotdeb)
 * [`sury`](#-php--repo--debian--sury)
+* [`key_source`](#-php--repo--debian--key_source)
 
 ##### <a name="-php--repo--debian--location"></a>`location`
 
@@ -1890,6 +1891,14 @@ Data type: `Boolean`
 
 Default value: `true`
 
+##### <a name="-php--repo--debian--key_source"></a>`key_source`
+
+Data type: `String[1]`
+
+
+
+Default value: `'https://packages.sury.org/php/apt.gpg'`
+
 ### <a name="php--repo--redhat"></a>`php::repo::redhat`
 
 The php::repo::redhat class.
@@ -1945,26 +1954,75 @@ Default value: `'http://download.opensuse.org/repositories/home:/mayflower:/php5
 
 ### <a name="php--repo--ubuntu"></a>`php::repo::ubuntu`
 
-Configure ubuntu ppa
+Configure ubuntu apt repo (packages.sury.org)
 
 === Parameters
 
+[*location*]
+  Location of the apt repository
+
+[*repos*]
+  Apt repository names
+
+[*include_src*]
+  Add source repository
+
+[*key_source*]
+  URL of the GPG key file
+
 [*version*]
-  PHP version to manage (e.g. 5.6)
+  Removed. PHP version selection via PPA is no longer supported.
+  All PHP versions are available from a single repository.
 
 #### Parameters
 
 The following parameters are available in the `php::repo::ubuntu` class:
 
+* [`location`](#-php--repo--ubuntu--location)
+* [`repos`](#-php--repo--ubuntu--repos)
+* [`include_src`](#-php--repo--ubuntu--include_src)
+* [`key_source`](#-php--repo--ubuntu--key_source)
 * [`version`](#-php--repo--ubuntu--version)
+
+##### <a name="-php--repo--ubuntu--location"></a>`location`
+
+Data type: `String[1]`
+
+
+
+Default value: `'https://packages.sury.org/php/'`
+
+##### <a name="-php--repo--ubuntu--repos"></a>`repos`
+
+Data type: `String[1]`
+
+
+
+Default value: `'main'`
+
+##### <a name="-php--repo--ubuntu--include_src"></a>`include_src`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
+##### <a name="-php--repo--ubuntu--key_source"></a>`key_source`
+
+Data type: `String[1]`
+
+
+
+Default value: `'https://packages.sury.org/php/apt.gpg'`
 
 ##### <a name="-php--repo--ubuntu--version"></a>`version`
 
-Data type: `Pattern[/^\d\.\d/]`
+Data type: `Optional[String]`
 
 
 
-Default value: `'5.6'`
+Default value: `undef`
 
 ## Defined types
 
