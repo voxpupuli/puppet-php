@@ -18,6 +18,8 @@ describe 'php with default settings' do
                     'php8.1-fpm'
                   when %r{ubuntu-24.04}
                     'php8.3-fpm'
+                  when %r{ubuntu-26.04}
+                    'php8.5-fpm'
                   when %r{ubuntu-18.04}
                     'php7.2-fpm'
                   when %r{debian-10}
@@ -41,9 +43,11 @@ describe 'php with default settings' do
 
   context 'default parameters with extensions' do
     case default[:platform]
-    when %r{ubuntu-24.04}, %r{ubuntu-22.04}, %r{ubuntu-20.04}, %r{ubuntu-18.04}
+    when %r{ubuntu-26.04}, %r{ubuntu-24.04}, %r{ubuntu-22.04}, %r{ubuntu-20.04}, %r{ubuntu-18.04}
       it 'works with defaults' do
         case default[:platform]
+        when %r{ubuntu-26.04}
+          simplexmlpackagename = 'php8.5-xml'
         when %r{ubuntu-24.04}
           simplexmlpackagename = 'php8.3-xml'
         when %r{ubuntu-22.04}
@@ -94,6 +98,8 @@ describe 'php with default settings' do
                     'php8.1-fpm'
                   when %r{ubuntu-24.04}
                     'php8.3-fpm'
+                  when %r{ubuntu-26.04}
+                    'php8.5-fpm'
                   when %r{ubuntu-18.04}
                     'php7.2-fpm'
                   when %r{debian-10}
