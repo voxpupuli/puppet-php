@@ -18,6 +18,7 @@ describe 'php', type: :class do
                           }[facts[:os]['release']['major']]
                         when 'Ubuntu'
                           {
+                            '26.04' => 'php8.5-cli',
                             '24.04' => 'php8.3-cli',
                             '22.04' => 'php8.1-cli',
                           }[facts[:os]['release']['major']]
@@ -31,6 +32,7 @@ describe 'php', type: :class do
                           }[facts[:os]['release']['major']]
                         when 'Ubuntu'
                           {
+                            '26.04' => 'php8.5-fpm',
                             '24.04' => 'php8.3-fpm',
                             '22.04' => 'php8.1-fpm',
                           }[facts[:os]['release']['major']]
@@ -44,6 +46,7 @@ describe 'php', type: :class do
                           }[facts[:os]['release']['major']]
                         when 'Ubuntu'
                           {
+                            '26.04' => 'php8.5-dev',
                             '24.04' => 'php8.3-dev',
                             '22.04' => 'php8.1-dev',
                           }[facts[:os]['release']['major']]
@@ -157,6 +160,7 @@ describe 'php', type: :class do
                       }[facts[:os]['release']['major']]
                     when 'Ubuntu'
                       {
+                        '26.04' => '/etc/php/8.5/fpm/pool.d/www.conf',
                         '24.04' => '/etc/php/8.3/fpm/pool.d/www.conf',
                         '22.04' => '/etc/php/8.1/fpm/pool.d/www.conf',
                       }[facts[:os]['release']['major']]
@@ -191,6 +195,7 @@ describe 'php', type: :class do
                       }[facts[:os]['release']['major']]
                     when 'Ubuntu'
                       {
+                        '26.04' => '/etc/php/8.5/fpm/pool.d/www.conf',
                         '24.04' => '/etc/php/8.3/fpm/pool.d/www.conf',
                         '22.04' => '/etc/php/8.1/fpm/pool.d/www.conf',
                       }[facts[:os]['release']['major']]
@@ -232,6 +237,7 @@ describe 'php', type: :class do
                       }[facts[:os]['release']['major']]
                     when 'Ubuntu'
                       {
+                        '26.04' => '/etc/php/8.5/fpm/pool.d/www.conf',
                         '24.04' => '/etc/php/8.3/fpm/pool.d/www.conf',
                         '22.04' => '/etc/php/8.1/fpm/pool.d/www.conf',
                       }[facts[:os]['release']['major']]
