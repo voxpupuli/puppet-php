@@ -30,6 +30,7 @@ class php::repo::debian (
   },
   Boolean $dotdeb         = true,
   Boolean $sury           = true,
+  String[1] $key_source   = 'https://packages.sury.org/php/apt.gpg',
 ) {
   assert_private()
 
@@ -51,6 +52,10 @@ class php::repo::debian (
   }
 
   if ($sury and versioncmp($facts['os']['release']['major'], '9') >= 0) {
+    apt::keyring { 'packages-sury-org.gpg':
+      source => $key_source,
+    }
+
     apt::source { 'source_php_sury':
       location => 'https://packages.sury.org/php/',
       repos    => 'main',
@@ -58,10 +63,8 @@ class php::repo::debian (
         'src' => $include_src,
         'deb' => true,
       },
-      key      => {
-        name   => 'php-sury.gpg',
-        source => 'https://packages.sury.org/php/apt.gpg',
-      },
+      keyring  => '/etc/apt/keyrings/packages-sury-org.gpg',
+      require  => Apt::Keyring['packages-sury-org.gpg'],
     }
   }
 }
