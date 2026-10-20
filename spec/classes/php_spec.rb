@@ -268,7 +268,7 @@ describe 'php', type: :class do
       end
 
       # https://portal.perforce.com/s/article/Zend-Support-Lifecycle
-      if (facts[:os]['family'] == 'RedHat' && facts[:os]['release']['major'].to_i < 10) || facts[:os]['name'] == 'Ubuntu' || (facts[:os]['name'] == 'Debian' && facts[:os]['release']['major'].to_i < 12)
+      if (facts[:os]['family'] == 'RedHat' && facts[:os]['release']['major'].to_i < 10) || (facts[:os]['name'] == 'Ubuntu' && facts[:os]['release']['major'].to_i < 26) || (facts[:os]['name'] == 'Debian' && facts[:os]['release']['major'].to_i < 12)
         describe 'when called with flavor zend' do
           zendphp_cli_package = case facts[:os]['name']
                                 when 'Debian', 'Ubuntu'
