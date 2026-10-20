@@ -6,7 +6,7 @@
 
 ### Classes
 
-* [`php`](#php): Base class with global configuration parameters that pulls in all enabled components.  === Parameters  [*ensure*]   Specify which version of 
+* [`php`](#php): Base class with global configuration parameters that pulls in all enabled components.  === Parameters  [*ensure*]   Specify which version of
 * [`php::apache_config`](#php--apache_config): Install and configure php apache settings  === Parameters  [*inifile*]   The path to the ini php-apache ini file  [*settings*]   Hash with ne
 * [`php::cli`](#php--cli): Install and configure php CLI  === Parameters  [*inifile*]   The path to the ini php5-cli ini file  [*settings*]   Hash with nested hash of k
 * [`php::composer`](#php--composer): Install composer package manager  === Parameters  [*source*]   Holds URL to the Composer source file  [*path*]   Holds path to the Composer e
@@ -15,16 +15,16 @@
 * [`php::embedded`](#php--embedded): Install and configure php embedded SAPI  === Parameters  [*inifile*]   The path to the ini php5-embeded ini file  [*settings*]   Hash with ne
 * [`php::fpm`](#php--fpm): Install and configure mod_php for fpm  === Parameters  [*user*]   The user that php-fpm should run as  [*group*]   The group that php-fpm sho
 * [`php::fpm::config`](#php--fpm--config): Configure php-fpm service  === Parameters  [*config_file*]   The path to the fpm config file  [*user*]   The user that runs php-fpm  [*group*
-* [`php::fpm::service`](#php--fpm--service): Manage fpm service  === Parameters  [*service_name*]   name of the php-fpm service  [*ensure*]   'ensure' value for the service  [*enable*]  
+* [`php::fpm::service`](#php--fpm--service): Manage fpm service  === Parameters  [*service_name*]   name of the php-fpm service  [*ensure*]   'ensure' value for the service  [*enable*]
 * [`php::global`](#php--global)
 * [`php::globals`](#php--globals)
-* [`php::packages`](#php--packages): Install common PHP packages  === Parameters  [*ensure*]   Specify which version of PHP packages to install  [*names*]   List of the names of 
+* [`php::packages`](#php--packages): Install common PHP packages  === Parameters  [*ensure*]   Specify which version of PHP packages to install  [*names*]   List of the names of
 * [`php::params`](#php--params): PHP params class
-* [`php::pear`](#php--pear): Install PEAR package manager  === Parameters  [*ensure*]   The package ensure of PHP pear to install and run pear auto_discover  [*package*] 
+* [`php::pear`](#php--pear): Install PEAR package manager  === Parameters  [*ensure*]   The package ensure of PHP pear to install and run pear auto_discover  [*package*]
 * [`php::phpunit`](#php--phpunit): Install phpunit, PHP testing framework  === Parameters  [*source*]   Holds URL to the phpunit source file  [*path*]   Holds path to the phpun
 * [`php::phpunit::auto_update`](#php--phpunit--auto_update): Install phpunit package manager  === Parameters  [*max_age*]   Defines number of days after which phpunit should be updated  [*source*]   Hol
 * [`php::repo`](#php--repo): Configure package repository
-* [`php::repo::debian`](#php--repo--debian): Configure debian apt repo  === Parameters  [*location*]   Location of the apt repository  [*repos*]   Apt repository names  [*include_src*]  
+* [`php::repo::debian`](#php--repo--debian): Configure debian apt repo  === Parameters  [*location*]   Location of the apt repository  [*repos*]   Apt repository names  [*include_src*]
 * [`php::repo::redhat`](#php--repo--redhat)
 * [`php::repo::suse`](#php--repo--suse): Configure suse repo  === Parameters  [*reponame*]   Name of the Zypper repository  [*baseurl*]   Base URL of the Zypper repository
 * [`php::repo::ubuntu`](#php--repo--ubuntu): Configure ubuntu ppa  === Parameters  [*version*]   PHP version to manage (e.g. 5.6)
@@ -33,8 +33,8 @@
 
 * [`php::apache_vhost`](#php--apache_vhost): Configures an apache vhost for php  === Parameters  [*vhost*]   The vhost address  [*docroot*]   The vhost docroot  [*port*]   The vhost port
 * [`php::config`](#php--config): Configure php.ini settings for a PHP SAPI  === Parameters  [*file*]   The path to ini file  [*config*]   Nested hash of key => value to apply
-* [`php::config::setting`](#php--config--setting): Configure php.ini settings  === Parameters  [*key*]   The key of the value, like `ini_setting`  [*file*]   The path to ini file  [*value*]   
-* [`php::extension`](#php--extension): Install a PHP extension package  === Parameters  [*ensure*]   The ensure of the package to install   Could be "present", "absent", "latest", 
+* [`php::config::setting`](#php--config--setting): Configure php.ini settings  === Parameters  [*key*]   The key of the value, like `ini_setting`  [*file*]   The path to ini file  [*value*]
+* [`php::extension`](#php--extension): Install a PHP extension package  === Parameters  [*ensure*]   The ensure of the package to install   Could be "present", "absent", "latest",
 * [`php::extension::config`](#php--extension--config): Configure a PHP extension package  === Parameters  [*ensure*]   The ensure of the package to install   Could be "latest", "installed" or a pi
 * [`php::extension::install`](#php--extension--install): Install a PHP extension package  === Parameters  [*ensure*]   The ensure of the package to install   Could be "latest", "installed" or a pinn
 * [`php::fpm::pool`](#php--fpm--pool): Configure fpm pools  === Parameters  See the official php-fpm documentation for parameters that are not documented here: http://php.net/manua
@@ -3320,4 +3320,3 @@ Alias of `Enum['none', 'pecl', 'pear', 'dpkg', 'apt', 'yum', 'rpm', 'dnf', 'up2d
 The Php::Sapi data type.
 
 Alias of `Enum['ALL', 'cli', 'fpm', 'apache2']`
-

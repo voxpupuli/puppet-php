@@ -18,6 +18,7 @@ describe 'php', type: :class do
                           }[facts[:os]['release']['major']]
                         when 'Ubuntu'
                           {
+                            '26.04' => 'php8.5-cli',
                             '24.04' => 'php8.3-cli',
                             '22.04' => 'php8.1-cli',
                           }[facts[:os]['release']['major']]
@@ -31,6 +32,7 @@ describe 'php', type: :class do
                           }[facts[:os]['release']['major']]
                         when 'Ubuntu'
                           {
+                            '26.04' => 'php8.5-fpm',
                             '24.04' => 'php8.3-fpm',
                             '22.04' => 'php8.1-fpm',
                           }[facts[:os]['release']['major']]
@@ -44,6 +46,7 @@ describe 'php', type: :class do
                           }[facts[:os]['release']['major']]
                         when 'Ubuntu'
                           {
+                            '26.04' => 'php8.5-dev',
                             '24.04' => 'php8.3-dev',
                             '22.04' => 'php8.1-dev',
                           }[facts[:os]['release']['major']]
@@ -157,6 +160,7 @@ describe 'php', type: :class do
                       }[facts[:os]['release']['major']]
                     when 'Ubuntu'
                       {
+                        '26.04' => '/etc/php/8.5/fpm/pool.d/www.conf',
                         '24.04' => '/etc/php/8.3/fpm/pool.d/www.conf',
                         '22.04' => '/etc/php/8.1/fpm/pool.d/www.conf',
                       }[facts[:os]['release']['major']]
@@ -191,6 +195,7 @@ describe 'php', type: :class do
                       }[facts[:os]['release']['major']]
                     when 'Ubuntu'
                       {
+                        '26.04' => '/etc/php/8.5/fpm/pool.d/www.conf',
                         '24.04' => '/etc/php/8.3/fpm/pool.d/www.conf',
                         '22.04' => '/etc/php/8.1/fpm/pool.d/www.conf',
                       }[facts[:os]['release']['major']]
@@ -232,6 +237,7 @@ describe 'php', type: :class do
                       }[facts[:os]['release']['major']]
                     when 'Ubuntu'
                       {
+                        '26.04' => '/etc/php/8.5/fpm/pool.d/www.conf',
                         '24.04' => '/etc/php/8.3/fpm/pool.d/www.conf',
                         '22.04' => '/etc/php/8.1/fpm/pool.d/www.conf',
                       }[facts[:os]['release']['major']]
@@ -262,7 +268,7 @@ describe 'php', type: :class do
       end
 
       # https://portal.perforce.com/s/article/Zend-Support-Lifecycle
-      if (facts[:os]['family'] == 'RedHat' && facts[:os]['release']['major'].to_i < 10) || facts[:os]['name'] == 'Ubuntu' || (facts[:os]['name'] == 'Debian' && facts[:os]['release']['major'].to_i < 12)
+      if (facts[:os]['family'] == 'RedHat' && facts[:os]['release']['major'].to_i < 10) || (facts[:os]['name'] == 'Ubuntu' && facts[:os]['release']['major'].to_i < 26) || (facts[:os]['name'] == 'Debian' && facts[:os]['release']['major'].to_i < 12)
         describe 'when called with flavor zend' do
           zendphp_cli_package = case facts[:os]['name']
                                 when 'Debian', 'Ubuntu'
