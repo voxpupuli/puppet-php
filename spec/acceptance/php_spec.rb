@@ -62,7 +62,7 @@ describe 'php with default settings' do
           extensions => {
             'intl'     => {},
             'gd'       => {},
-            'net-url'  => {
+            'net-url2'  => {
               package_prefix => 'php-',
             },
             'simplexml'  => {
