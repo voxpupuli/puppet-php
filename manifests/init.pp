@@ -203,6 +203,11 @@ class php (
 
   if $manage_repos {
     contain php::repo
+    if $facts['os']['family'] == 'Debian' {
+      Class['php::repo'] -> Class['apt::update'] -> Class['php::packages']
+    } else {
+      Class['php::repo'] -> Class['php::packages']
+    }
   }
 
   class { 'php::packages': }
