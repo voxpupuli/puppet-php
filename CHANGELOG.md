@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v13.0.0](https://github.com/voxpupuli/puppet-php/tree/v13.0.0) (2026-10-21)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v12.0.0...v13.0.0)
+
+**Breaking changes:**
+
+- Use packages.sury.org as the new APT source [\#765](https://github.com/voxpupuli/puppet-php/pull/765) ([mpdude](https://github.com/mpdude))
+
+**Implemented enhancements:**
+
+- Add Ubuntu 26.04 support [\#772](https://github.com/voxpupuli/puppet-php/pull/772) ([lbetz](https://github.com/lbetz))
+- Update requirements to allow OpenVox 9 [\#771](https://github.com/voxpupuli/puppet-php/pull/771) ([sebastianrakel](https://github.com/sebastianrakel))
+- Replace deprecated calls with `Facter::Core::Execution` [\#767](https://github.com/voxpupuli/puppet-php/pull/767) ([corporate-gadfly](https://github.com/corporate-gadfly))
+
+**Fixed bugs:**
+
+- Stop the phpversion fact raising without php [\#768](https://github.com/voxpupuli/puppet-php/pull/768) ([tobixen](https://github.com/tobixen))
+- Use modern APT keyrings on Debian family [\#764](https://github.com/voxpupuli/puppet-php/pull/764) ([smortex](https://github.com/smortex))
+
 ## [v12.0.0](https://github.com/voxpupuli/puppet-php/tree/v12.0.0) (2025-10-30)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-php/compare/v11.0.0...v12.0.0)
